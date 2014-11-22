@@ -40,22 +40,22 @@ header-img: "img/post-bg-06.jpg"
 <a href="https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_linux_x86.zip&can=2&q=">Aparapi_2013_01_23_linux_x86.zip</a><br />
 <a href ="https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_windows_x86.zip&can=2&q=">Aparapi_2013_01_23_windows_x86.zip</a><br />
 
-<p>I unzipped the download into a folder on my machine, and it created a folder called "Aparapi_2012_01_23_MacOSX_zip". 
+<p>I unzipped the download into a folder on my machine, and it created a folder called "Aparapi_2012_01_23_MacOSX_zip". <br /><br />
 <b>Executions:</b>
 <blockquote>cd Aparapi_2012_01_23_MacOSX_zip/samples/squares/ <br />
 sh squares.sh</blockquote>
 <b>Output Sample:</b>
 <blockquote>Execution mode=GPU
-     0        0
-     1        1
-     2        4
-     3        9
-     4       16
-     5       25
-     6       36
-     7       49
-     8       64
-     9       81
+     0        0 <br />
+     1        1<br />
+     2        4<br />
+     3        9<br />
+     4       16<br />
+     5       25<br />
+     6       36<br />
+     7       49<br />
+     8       64<br />
+     9       81<br />
     10      100
 </blockquote>
 </p>
