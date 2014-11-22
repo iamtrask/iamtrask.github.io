@@ -1,12 +1,12 @@
 # Site settings
-title: Clean Blog
-email: your-email@yourdomain.com
+title: iamtrask
+email: liamtrask@gmail.com
 description: "Write your site description here. It will be used as your sites meta description as well!"
 baseurl: ""
 url: "http://iamtrask.github.io"
-twitter_username: SBootstrap
-github_username:  davidtmiller
-facebook_username:  IronSummitMedia
+twitter_username: iamtrask
+github_username:  iamtrask
+facebook_username:  u8mybrownies
 
 # Build settings
 markdown: kramdown
