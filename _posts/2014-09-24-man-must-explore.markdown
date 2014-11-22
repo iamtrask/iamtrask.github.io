@@ -65,10 +65,22 @@ sh squares.sh</blockquote>
 
 <p> So, everything so far has simply been a tutorial on "proper tool selection" for the task. The real challenge is in getting these tools to talk to each other. The first integration step we need to do is to import the aparapi jar into the iscala notebook. This can be done using the following command.</p>
 <blockquote>mvn install:install-file -Dfile=aparapi.jar -DgroupId=com.amd.aparapi -DartifactId=aparapi -Dversion=1.0 -Dpackaging=jar</blockquote>
+
+<p> One more detail, when you're starting ipython notebook, start it with this command (with your aparapi zip directory path instead of mine). I'll go into this in a minute</p>
+<blockquote>SPARK_DAEMON_JAVA_OPTS=-Xmx8128m SPARK_WORKER_MEMORY=-Xmx2048m SPARK_DAEMON_MEMORY=-Xmx2048m SPARK_REPL_OPTS=-XX:MaxPermSize=2048m SBT_OPTS=-Xmx8128m SPARK_JAVA_OPTS="-Djava.library.path=/Users/... ..../Aparapi_2012_01_23_MacOSX_zip -Xms512m -Xmx8128m" ipython notebook --profile scala	</blockquote>
+
 <p>When I deploy the aparapi jar locally, I can then import aparapi like so...</p>
 <a href="#">
     <img class="img-responsive" src="{{ site.baseurl }}/img/ipythonDep.png" alt="">
 </a>
-<span class="caption text-muted">One of the gems of the 21st century... GPU, iPython Notebooks, and Apache Spark meeting for the very first time.... a moment in history.</span>
+<span class="caption text-muted"> GPU, iPython Notebooks, and Apache Spark meeting for the very first time ever.... a moment in history.</span>
 
-<p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
+<p> Assuming no errors in the "upload" command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I'm using the demo scala notebook from the sparknotebook github. Furthermore, my ~/.ipython/profile_scala/ipython_config.py  looks like this at the bottom...</p>
+
+<blockquote>c = get_config()
+
+c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_2012_01_23_MacOSX_zip","-XX:MaxPermSize=2048m","-Xmx8g", "-jar",
+                          "/Users/myname/.ipython/profile_scala/lib/IScala.jar","/Users/... .../Aparapi_2012_01_23_MacOSX_zip/aparapi.jar",
+                          "--profile",
+                          "{connection_file}",
+                          "--parent"]</blockquote>
