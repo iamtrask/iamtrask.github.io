@@ -9,7 +9,7 @@ header-img: "img/post-bg-06.jpg"
 
 <p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. This blog post is about how to maximize this tradeoff in a machine learning context.</p>
 
-<blockquote>Make it work... then make it fast... then make it beautiful</blockquote>
+<blockquote>Make it work... then make it fast... then make it beautiful -- Matthew Russell</blockquote>
 
 <p>Speed has traditionally been accomplished by either scaling up to many machines (cluster computing) or threading up on one machine (GPU computing). </p>
 
