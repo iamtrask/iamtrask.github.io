@@ -7,21 +7,25 @@ author:     "iamtrask"
 header-img: "img/post-bg-06.jpg"
 ---
 
-<p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. This blog post is about how to maximize this tradeoff in a machine learning context. We will use an iPython notebook to run Spark on a single-node-cluster of gpus. The goal of this blog post is to create a local dev environment for ad-hoc gpu-cluster computing using Apache Spark, iPython Notebook (scala version), and the GPU in your Macbook Pro's display.</p>
+<p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. The goal of this blog post is to create a local dev environment for ad-hoc gpu-cluster computing using Apache Spark, iPython Notebook (scala version), and the GPU in your Macbook Pro's display.</p>
 
 <blockquote>Make it work... then make it fast... then make it beautiful -- Matthew Russell</blockquote>
 
 <h2 class="section-heading">Part 1: Spark-Notebook</h2>
 
 Apache Spark can be controlled by notebooks from several languages. I'm going with Scala for several reasons. First, it allows me to have access to the full Spark API (Graphx support is a dealbreaker for me). Secondly, the only GPU library that allowed me to compile for the GPU without writing C code myself is in Java (which I can call from scala). Even with these limitations, there were still several to choose from. The options were:
-<a href="http://zeppelin-project.org/">Zeppelin</a> -> buggy API after I imported classes
-<a href="https://github.com/andypetrella/spark-notebook">Spark-Notebook</a> -> headache to import dependencies
-<a href="https://github.com/hohonuuli/sparknotebook">Sparknotebook</a> -> Winner!!! Killer app.
 
+<a href="http://zeppelin-project.org/">Zeppelin</a> -> buggy API after I imported classes <br />
+<a href="https://github.com/andypetrella/spark-notebook">Spark-Notebook</a> -> headache to import dependencies <br />
+<a href="https://github.com/hohonuuli/sparknotebook">Sparknotebook</a> -> Winner!!! Killer app. <br />
 
+After cloning the Sparknotebook repo and following its instructions (downloading the IScala.jar...etc), with a single command I could open the notebook on top of a standalone spark cluster... easy peasy... 
 
+Please go like the REPO... I'd like to see it get some love....
 
+<h2 class="section-heading">Part 2: GPU on the JVM</h2>
 
+The inspiration for this came from a rather impressive library called ScalaNLP (http://www.scalanlp.org/). They claimed to have a parser that could parse half a million words per minute on one core!
 
 <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
 
