@@ -13,7 +13,7 @@ header-img: "img/post-bg-06.jpg"
 
 Speed has traditionally been accomplished by either scaling up to many machines (cluster computing) or threading up on one machine (GPU computing). 
 <br />
-Quality (in my opinion) is most catalyzed through excelent tooling allowing visibility into code both at devtime and runtime. When dealing with large amounts of code, this is catalyzed through IDEs. When dealing with small amounts of code (such as a machine learning prototype), I find that iPython notebooks are exceptional tools for rapidly playing with ideas.
+Quality, in my opinion, is most catalyzed through excelent tooling allowing visibility into code both at devtime and runtime. When dealing with large amounts of code, this is catalyzed through IDEs. When dealing with small amounts of code (such as a machine learning prototype), I find that iPython notebooks are exceptional tools for rapidly playing with ideas.
 <br />
 Dev time is most catalyzed by <a href="http://en.wikipedia.org/wiki/DeLorean_time_machine#Flux_capacitor">flux-capacitors</a>. </p>
 
