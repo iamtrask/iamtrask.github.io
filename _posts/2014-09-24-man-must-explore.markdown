@@ -108,3 +108,11 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
 
 <p>This means that the compiled code is already on our classpath... and we can call it from a spark method like so...</p>
 
+<a href="#">
+    <img class="img-responsive" src="{{ site.baseurl }}/img/gpuInSpark.png" alt="">
+</a>
+<span class="caption text-muted">Running the kernel in the ipython notebook via spark</span>
+<a href="#">
+    <img class="img-responsive" src="{{ site.baseurl }}/img/gpuOutputInTerminal.png" alt="">
+</a>
+<span class="caption text-muted">The logging of the GPU program... showing that it is indeed being run on the GPU (didn't fallback to JTP)</span>
