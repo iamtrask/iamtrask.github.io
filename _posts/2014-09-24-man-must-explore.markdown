@@ -84,3 +84,4 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
                           "--profile", <br />
                           "{connection_file}", <br />
                           "--parent"]</blockquote>
+<p>This gets the aparapi jar on our spark cluster classpath.</p>
