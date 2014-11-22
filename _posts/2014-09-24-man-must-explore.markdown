@@ -1,23 +1,25 @@
 ---
 layout:     post
-title:      "Man must explore, and this is exploration at its greatest"
-subtitle:   "Problems look mighty small from 150 miles up"
-date:       2014-09-24 12:00:00
-author:     "Start Bootstrap"
+title:      "Tutorial = Apache Spark + GPU + iPython Notebook + Any Macbook Pro"
+subtitle:   "A tutorial on ad-hoc, distributed GPU development on any Macbook Pro"
+date:       2014-11-22 12:00:00
+author:     "iamtrask"
 header-img: "img/post-bg-06.jpg"
 ---
 
-<p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
+<p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. This blog post is about how to maximize this tradeoff in a machine learning context.
 
-<p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
+<h2 class="section-heading">The Playing Field</h2>
 
-<p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
+Speed has traditionally been accomplished by either scaling up to many machines (cluster computing) or threading up on one machine (GPU computing). 
+<br />
+Quality (in my opinion) is most catalyzed through excelent tooling allowing visibility into code both at devtime and runtime. When dealing with large amounts of code, this is catalyzed through IDEs. When dealing with small amounts of code (such as a machine learning prototype), I find that iPython notebooks are exceptional tools for rapidly playing with ideas.
+<br />
+Dev time is most catalyzed by <a href="http://en.wikipedia.org/wiki/DeLorean_time_machine#Flux_capacitor">flux-capacitors</a>. </p>
 
-<p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
 
-<p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
 
-<h2 class="section-heading">The Final Frontier</h2>
+
 
 <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
 
