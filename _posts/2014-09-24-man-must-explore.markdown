@@ -1,21 +1,23 @@
 ---
 layout:     post
-title:      "Spark-GPU Cluster in a Notebook"
+title:      "Spark-GPU Development in my browser on the JVM"
 subtitle:   "A tutorial on ad-hoc, distributed GPU development on any Macbook Pro"
 date:       2014-11-22 12:00:00
 author:     "iamtrask"
 header-img: "img/post-bg-06.jpg"
 ---
 
-<p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. This blog post is about how to maximize this tradeoff in a machine learning context.</p>
+<p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. This blog post is about how to maximize this tradeoff in a machine learning context. We will use an iPython notebook to run Spark on a single-node-cluster of gpus. The goal of this blog post is to create a local dev environment for ad-hoc gpu-cluster computing using Apache Spark, iPython Notebook (scala version), and the GPU in your Macbook Pro's display.</p>
 
 <blockquote>Make it work... then make it fast... then make it beautiful -- Matthew Russell</blockquote>
 
-<p>Speed has traditionally been accomplished by either scaling up to many machines (cluster computing) or threading up on one machine (GPU computing). </p>
+<h2 class="section-heading">Part 1: Spark-Notebook</h2>
 
-<p>Quality, in my opinion, is most catalyzed through excelent tooling allowing visibility into code both at devtime and runtime. When dealing with large amounts of code, this is catalyzed through IDEs. When dealing with small amounts of code (such as a machine learning prototype), I find that iPython notebooks are exceptional tools for rapidly playing with ideas.
-<br />
-Dev time is most catalyzed by <a href="http://en.wikipedia.org/wiki/DeLorean_time_machine#Flux_capacitor">flux-capacitors</a>. </p>
+Apache Spark can be controlled by notebooks from several languages. I'm going with Scala for several reasons. First, it allows me to have access to the full Spark API (Graphx support is a dealbreaker for me). Secondly, the only GPU library that allowed me to compile for the GPU without writing C code myself is in Java (which I can call from scala). Even with these limitations, there were still several to choose from. The options were:
+<a href="http://zeppelin-project.org/">Zeppelin</a> -> buggy API after I imported classes
+<a href="https://github.com/andypetrella/spark-notebook">Spark-Notebook</a> -> headache to import dependencies
+<a href="https://github.com/hohonuuli/sparknotebook">Sparknotebook</a> -> Winner!!! Killer app.
+
 
 
 
