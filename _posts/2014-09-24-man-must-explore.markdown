@@ -11,21 +11,28 @@ header-img: "img/post-bg-06.jpg"
 
 <blockquote>Make it work... then make it fast... then make it beautiful -- Matthew Russell</blockquote>
 
+<p>In the spirit of my mentor, we will start by getting each part "working" individually. Fortunately, the second part (speed) sortof falls out of the first (GPU clusters are like that). Then, we'll integrate these parts into something beautiful... a scalable, ad-hoc environment.</p>
+
 <h2 class="section-heading">Part 1: Spark-Notebook</h2>
 
-Apache Spark can be controlled by notebooks from several languages. I'm going with Scala for several reasons. First, it allows me to have access to the full Spark API (Graphx support is a dealbreaker for me). Secondly, the only GPU library that allowed me to compile for the GPU without writing C code myself is in Java (which I can call from scala). Even with these limitations, there were still several to choose from. The options were:
+<p>Apache Spark can be controlled by notebooks from several languages. I'm going with Scala for several reasons. First, it allows me to have access to the full Spark API (Graphx support is a dealbreaker for me). Secondly, the only GPU library that allowed me to compile for the GPU without writing C code myself is in Java (which I can call from scala). Even with these limitations, there were still several to choose from. The options were:</p>
 
+<p>
 <a href="http://zeppelin-project.org/">Zeppelin</a> -> buggy API after I imported classes <br />
 <a href="https://github.com/andypetrella/spark-notebook">Spark-Notebook</a> -> headache to import dependencies <br />
-<a href="https://github.com/hohonuuli/sparknotebook">Sparknotebook</a> -> Winner!!! Killer app. <br />
+<a href="https://github.com/hohonuuli/sparknotebook">Sparknotebook</a> -> Winner!!! Killer app. <br /></p>
 
-After cloning the Sparknotebook repo and following its instructions (downloading the IScala.jar...etc), with a single command I could open the notebook on top of a standalone spark cluster... easy peasy... 
+<p>After cloning the Sparknotebook repo and following its instructions (downloading the IScala.jar...etc), with a single command I could open the notebook on top of a standalone spark cluster... easy peasy... </p>
 
-Please go like the REPO... I'd like to see it get some love....
+<p>Please go like the REPO... I'd like to see it get some love....</p>
 
 <h2 class="section-heading">Part 2: GPU on the JVM</h2>
 
-The inspiration for this came from a rather impressive library called ScalaNLP (http://www.scalanlp.org/). They claimed to have a parser that could parse half a million words per minute on one core!
+<p>The inspiration for this came from a rather impressive library called <a href="http://www.scalanlp.org/">ScalaNLP</a>. They claimed to have a parser that could parse half a million words per minute on one machine! Given that I work in R&D at a "Big-Data NLP" firm, this peaked my interest. Scalanlp on a 100 node cluster seems.... rather disgustingly awesome.</p>
+
+<p>ScalaNLP Leverages the java opencl library, <a href='https://code.google.com/p/javacl/'>JavaCL</a>. This library (and others like it) is available both on the JVM and elsewhere. The decision to use OpenCL (as opposed to CUDA) also means that the code runs on non-NVIDIA graphics cards. This means that I could use any Macbook Pro as a dev environment for GPU testing, as they are all OpenCL compliant (to my knowledge.. https://developer.apple.com/opencl/).  I like that.... i like that a lot. </p>
+
+<p>However, what I don't like is writing C code. It slows me down and isn't portable. I need my code to be both enterprise-ready and, "we don't want to buy GPUs" ready. This is where <a href="https://code.google.com/p/aparapi/">Aparapi</a> comes in. It compiles Java code down to the GPU, and runs it in a Java Thread Pool if a GPU isn't available. Also, it's made by AMD... which means you can trust it. Those guys are total bosses.</p>
 
 <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
 
