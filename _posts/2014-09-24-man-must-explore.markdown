@@ -45,7 +45,7 @@ header-img: "img/post-bg-06.jpg"
 <blockquote>cd Aparapi_2012_01_23_MacOSX_zip/samples/squares/ <br />
 sh squares.sh</blockquote>
 <b>Output Sample:</b>
-<blockquote>Execution mode=GPU
+<blockquote>Execution mode=GPU<br />
      0        0 <br />
      1        1<br />
      2        4<br />
