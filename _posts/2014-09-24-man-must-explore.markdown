@@ -93,3 +93,15 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
     <img class="img-responsive" src="{{ site.baseurl }}/img/exampleKernel.png" alt="">
 </a>
 <span class="caption text-muted">Building a kernel and running it... notice the output at the bottom...</span>
+<p> Notice that i tried to set the kernel to run on the GPU, but because the GPU wasn't available, it switched the version and ran it on the CPU. You might be thinking, "Wait!!! This blog is a hoax!!!". I got a bit discouraged at this point as well, however, debugging later found out that we cannot compile Scala to GPU code. This is acceptable for prototyping kernels and chaining them together. This will even run in the spark context... so to develop and test your kenels (using the Java Thread Pool fallback), feel free to do it this way. </p>
+
+<h2 class="section-heading">Part 5: Executing GPU Kernel on Spark Cluster</h2>
+
+<p>Now the moment we've all been waiting for.... earlier when you installed the aparapi jar into maven, you were actually installing the compiled jar including the "Square" sample code. If we crack open the "squares.sh" script we ran earlier, we'll see that it is calling a program in that jar</p>
+
+<b>squares.sh</b>
+<blockquote>java \ <br />
+ -Djava.library.path=../.. \ <br />
+ -Dcom.amd.aparapi.executionMode=%1 \ <br />
+ -classpath ../../aparapi.jar:squares.jar \ <br />
+ com.amd.aparapi.sample.squares.Main</blockquote>
