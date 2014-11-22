@@ -61,14 +61,14 @@ sh squares.sh</blockquote>
 
 <p> Wallah! Apparently this java code can run on my Macbook's GPU. Feel free to try a few of the other sample programs... the mandlebrot one is super cool!</p>
 
-<h2 class="section-heading">Part 3: Integrating</h2>
+<h2 class="section-heading">Part 3: Integrating Spark and Aparapi in the Notebook</h2>
 
 <p> So, everything so far has simply been a tutorial on "proper tool selection" for the task. The real challenge is in getting these tools to talk to each other. The first integration step we need to do is to import the aparapi jar into the iscala notebook. This can be done using the following command.</p>
 <blockquote>mvn install:install-file -Dfile=aparapi.jar -DgroupId=com.amd.aparapi -DartifactId=aparapi -Dversion=1.0 -Dpackaging=jar</blockquote>
-
+<p>When I deploy the aparapi jar locally, I can then import aparapi like so...</p>
 <a href="#">
     <img class="img-responsive" src="{{ site.baseurl }}/img/ipythonDep.png" alt="">
 </a>
-<span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
+<span class="caption text-muted">One of the gems of the 21st century... GPU, iPython Notebooks, and Apache Spark meeting for the very first time.... a moment in history.</span>
 
 <p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
