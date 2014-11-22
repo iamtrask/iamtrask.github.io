@@ -8,9 +8,9 @@ header-img: "img/post-bg-06.jpg"
 ---
 
 <p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. This blog post is about how to maximize this tradeoff in a machine learning context.</p>
-<p>
-<span class="caption text-muted">"Make it work... then make it fast... then make it Beautiful - Matthew Russell"</span>
-</p>
+
+<blockquote>Make it work... then make it fast... then make it beautiful</blockquote>
+
 <p>Speed has traditionally been accomplished by either scaling up to many machines (cluster computing) or threading up on one machine (GPU computing). </p>
 
 <p>Quality, in my opinion, is most catalyzed through excelent tooling allowing visibility into code both at devtime and runtime. When dealing with large amounts of code, this is catalyzed through IDEs. When dealing with small amounts of code (such as a machine learning prototype), I find that iPython notebooks are exceptional tools for rapidly playing with ideas.
