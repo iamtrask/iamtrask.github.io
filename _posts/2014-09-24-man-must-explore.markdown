@@ -67,7 +67,7 @@ sh squares.sh</blockquote>
 <blockquote>mvn install:install-file -Dfile=aparapi.jar -DgroupId=com.amd.aparapi -DartifactId=aparapi -Dversion=1.0 -Dpackaging=jar</blockquote>
 
 <a href="#">
-    <img class="img-responsive" src="{{ site.baseurl }}/img/post-sample-image.jpg" alt="">
+    <img class="img-responsive" src="{{ site.baseurl }}/img/ipythonDep.png" alt="">
 </a>
 <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
 
