@@ -105,3 +105,4 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
  -Dcom.amd.aparapi.executionMode=%1 \ <br />
  -classpath ../../aparapi.jar:squares.jar \ <br />
  com.amd.aparapi.sample.squares.Main</blockquote>
+
