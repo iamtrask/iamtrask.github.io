@@ -7,7 +7,7 @@ author:     "iamtrask"
 header-img: "img/post-bg-06.jpg"
 ---
 
-<p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. The goal of this blog post is to create a local dev environment for ad-hoc gpu-cluster computing using Apache Spark, iPython Notebook (scala version), and the GPU in your Macbook Pro's display.</p>
+<p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. The goal of this blog post is to create a local dev environment for ad-hoc gpu-cluster computing using Apache Spark, iPython Notebook (scala version), and the stock GPU powering your Macbook Pro's display.</p>
 
 <blockquote>Make it work... then make it fast... then make it beautiful -- Matthew Russell</blockquote>
 
