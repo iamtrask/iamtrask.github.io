@@ -106,3 +106,5 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
  -classpath ../../aparapi.jar:squares.jar \ <br />
  com.amd.aparapi.sample.squares.Main</blockquote>
 
+<p>This means that the compiled code is already on our classpath... and we can call it from a spark method like so...</p>
+
