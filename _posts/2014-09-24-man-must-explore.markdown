@@ -57,27 +57,18 @@ sh squares.sh</blockquote>
      8       64<br />
      9       81<br />
     10      100
-</blockquote>
-</p>
-<p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+</blockquote></p>
 
-<p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+<p> Wallah! Apparently this java code can run on my Macbook's GPU. Feel free to try a few of the other sample programs... the mandlebrot one is super cool!</p>
 
-<blockquote>The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
+<h2 class="section-heading">Part 3: Integrating</h2>
 
-<p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
-
-<h2 class="section-heading">Reaching for the Stars</h2>
-
-<p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
+<p> So, everything so far has simply been a tutorial on "proper tool selection" for the task. The real challenge is in getting these tools to talk to each other. The first integration step we need to do is to import the aparapi jar into the iscala notebook. This can be done using the following command.</p>
+<blockquote>mvn install:install-file -Dfile=aparapi.jar -DgroupId=com.amd.aparapi -DartifactId=aparapi -Dversion=1.0 -Dpackaging=jar</blockquote>
 
 <a href="#">
     <img class="img-responsive" src="{{ site.baseurl }}/img/post-sample-image.jpg" alt="">
 </a>
 <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
-
-<p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
-
-<p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
 
 <p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
