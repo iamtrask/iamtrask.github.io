@@ -30,10 +30,35 @@ header-img: "img/post-bg-06.jpg"
 
 <p>The inspiration for this came from a rather impressive library called <a href="http://www.scalanlp.org/">ScalaNLP</a>. They claimed to have a parser that could parse half a million words per minute on one machine! Given that I work in R&D at a "Big-Data NLP" firm, this peaked my interest. Scalanlp on a 100 node cluster seems.... rather disgustingly awesome.</p>
 
-<p>ScalaNLP Leverages the java opencl library, <a href='https://code.google.com/p/javacl/'>JavaCL</a>. This library (and others like it) is available both on the JVM and elsewhere. The decision to use OpenCL (as opposed to CUDA) also means that the code runs on non-NVIDIA graphics cards. This means that I could use any Macbook Pro as a dev environment for GPU testing, as they are all OpenCL compliant (to my knowledge.. https://developer.apple.com/opencl/).  I like that.... i like that a lot. </p>
+<p>ScalaNLP Leverages the java opencl library, <a href='https://code.google.com/p/javacl/'>JavaCL</a>. The decision to use OpenCL, as opposed to CUDA, means that the code runs on non-NVIDIA graphics cards. All Apple's can use OpenCL. Therefore, I can prototype on my Macbook's GPU. I like that.... i like that a lot. </p>
 
-<p>However, what I don't like is writing C code. It slows me down and isn't portable. I need my code to be both enterprise-ready and, "we don't want to buy GPUs" ready. This is where <a href="https://code.google.com/p/aparapi/">Aparapi</a> comes in. It compiles Java code down to the GPU, and runs it in a Java Thread Pool if a GPU isn't available. Also, it's made by AMD... which means you can trust it. Those guys are total bosses.</p>
+<p>However, what I don't like is writing C code. It slows me down and isn't portable. I need my code to be both enterprise-ready and, "we don't want to buy GPUs" ready. This is where <a href="https://code.google.com/p/aparapi/">Aparapi</a> comes in. It compiles Java code down to OpenCL, and runs it in a Java Thread Pool if a GPU isn't available. Also, it's made by AMD... which means you can trust it. Those guys are total bosses. <a href="http://www.amd.com/en-us/press-releases/Pages/amd-fx-8370-2014sep02.aspx">AMD Claims New World Record</a></p>
 
+<p>I downloaded the AparaPi Mac OS Zip... although all these are available.</p>
+
+<a href ="https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2012_01_23_MacOSX_zip&can=2&q=">Aparapi_2012_01_23_MacOSX_zip</a><br />
+<a href="https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_linux_x86.zip&can=2&q=">Aparapi_2013_01_23_linux_x86.zip</a><br />
+<a href ="https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_windows_x86.zip&can=2&q=">Aparapi_2013_01_23_windows_x86.zip</a><br />
+
+<p>I unzipped the download into a folder on my machine, and it created a folder called "Aparapi_2012_01_23_MacOSX_zip". 
+<b>Executions:</b>
+<blockquote>cd Aparapi_2012_01_23_MacOSX_zip/samples/squares/ <br />
+sh squares.sh</blockquote>
+<b>Output Sample:</b>
+<blockquote>Execution mode=GPU
+     0        0
+     1        1
+     2        4
+     3        9
+     4       16
+     5       25
+     6       36
+     7       49
+     8       64
+     9       81
+    10      100
+</blockquote>
+</p>
 <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
 
 <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
