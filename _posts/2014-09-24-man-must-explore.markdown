@@ -66,16 +66,7 @@ sh squares.sh</blockquote>
 <p> So, everything so far has simply been a tutorial on "proper tool selection" for the task. The real challenge is in getting these tools to talk to each other. The first integration step we need to do is to import the aparapi jar into the iscala notebook. This can be done using the following command.</p>
 <blockquote>mvn install:install-file -Dfile=aparapi.jar -DgroupId=com.amd.aparapi -DartifactId=aparapi -Dversion=1.0 -Dpackaging=jar</blockquote>
 
-<p> One more detail, when you're starting ipython notebook, start it with this command (with your aparapi zip directory path instead of mine). I'll go into this in a minute</p>
-<blockquote>SPARK_DAEMON_JAVA_OPTS=-Xmx8128m SPARK_WORKER_MEMORY=-Xmx2048m SPARK_DAEMON_MEMORY=-Xmx2048m SPARK_REPL_OPTS=-XX:MaxPermSize=2048m SBT_OPTS=-Xmx8128m SPARK_JAVA_OPTS="-Djava.library.path=/Users/... ..../Aparapi_2012_01_23_MacOSX_zip -Xms512m -Xmx8128m" ipython notebook --profile scala	</blockquote>
-
-<p>When I deploy the aparapi jar locally, I can then import aparapi like so...</p>
-<a href="#">
-    <img class="img-responsive" src="{{ site.baseurl }}/img/ipythonDep.png" alt="">
-</a>
-<span class="caption text-muted"> GPU, iPython Notebooks, and Apache Spark meeting for the very first time ever.... a moment in history.</span>
-
-<p> Assuming no errors in the "upload" command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I'm using the demo scala notebook from the sparknotebook github. Furthermore, my ~/.ipython/profile_scala/ipython_config.py  looks like this at the bottom...</p>
+<p>Furthermore, my ~/.ipython/profile_scala/ipython_config.py  looks like this at the bottom...</p>
 
 <blockquote>c = get_config() <br /><br />
 
@@ -85,3 +76,20 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
                           "{connection_file}", <br />
                           "--parent"]</blockquote>
 <p>This gets the aparapi jar on our spark cluster classpath.</p>
+
+<p> One more detail, when you're starting ipython notebook, start it with this command (with your aparapi zip directory path instead of mine). I'll go into this in a minute</p>
+<blockquote>SPARK_DAEMON_JAVA_OPTS=-Xmx8128m SPARK_WORKER_MEMORY=-Xmx2048m SPARK_DAEMON_MEMORY=-Xmx2048m SPARK_REPL_OPTS=-XX:MaxPermSize=2048m SBT_OPTS=-Xmx8128m SPARK_JAVA_OPTS="-Djava.library.path=/Users/... ..../Aparapi_2012_01_23_MacOSX_zip -Xms512m -Xmx8128m" ipython notebook --profile scala	</blockquote>
+
+<p>When I deploy the aparapi jar locally, I can then import aparapi like so...</p>
+<a href="#">
+    <img class="img-responsive" src="{{ site.baseurl }}/img/ipythonDep.png" alt="">
+</a>
+<span class="caption text-muted"> GPU, iPython Notebooks, and Apache Spark meeting for the very first time ever.... a moment in history.</span>
+
+<p> Assuming no errors in the "upload" command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I'm using the demo scala notebook from the sparknotebook github. I recommend this to make sure that the notebook is working before you start.</p> 
+
+<h2 class="section-heading">Part 4: Example Kernel Built in the Notebook (using Scala only)</h2>
+<a href="#">
+    <img class="img-responsive" src="{{ site.baseurl }}/img/exampleKernel.png" alt="">
+</a>
+<span class="caption text-muted">Building a kernel and running it... notice the output at the bottom...</span>
