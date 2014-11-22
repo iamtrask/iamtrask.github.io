@@ -77,10 +77,10 @@ sh squares.sh</blockquote>
 
 <p> Assuming no errors in the "upload" command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I'm using the demo scala notebook from the sparknotebook github. Furthermore, my ~/.ipython/profile_scala/ipython_config.py  looks like this at the bottom...</p>
 
-<blockquote>c = get_config()
+<blockquote>c = get_config() <br /><br />
 
-c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_2012_01_23_MacOSX_zip","-XX:MaxPermSize=2048m","-Xmx8g", "-jar",
-                          "/Users/myname/.ipython/profile_scala/lib/IScala.jar","/Users/... .../Aparapi_2012_01_23_MacOSX_zip/aparapi.jar",
-                          "--profile",
-                          "{connection_file}",
+c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_2012_01_23_MacOSX_zip","-XX:MaxPermSize=2048m","-Xmx8g", <br /> "-jar",
+                          "/Users/myname/.ipython/profile_scala/lib/IScala.jar","/Users/... .../Aparapi_2012_01_23_MacOSX_zip/aparapi.jar", <br />
+                          "--profile", <br />
+                          "{connection_file}", <br />
                           "--parent"]</blockquote>
