@@ -89,4 +89,7 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
 <p> Assuming no errors in the "upload" command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I'm using the demo scala notebook from the sparknotebook github. I recommend this to make sure that the notebook is working before you start.</p> 
 
 <h2 class="section-heading">Part 4: Example Kernel Built in the Notebook (using Scala only)</h2>
-
+<a href="#">
+    <img class="img-responsive" src="{{ site.baseurl }}/img/exampleKernel.png" alt="">
+</a>
+<span class="caption text-muted">Building a kernel and running it... notice the output at the bottom...</span>
