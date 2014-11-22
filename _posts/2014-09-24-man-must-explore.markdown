@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Tutorial = Apache Spark + GPU + iPython Notebook + Any Macbook Pro"
+title:      "Spark-GPU Development in a Notebook"
 subtitle:   "A tutorial on ad-hoc, distributed GPU development on any Macbook Pro"
 date:       2014-11-22 12:00:00
 author:     "iamtrask"
