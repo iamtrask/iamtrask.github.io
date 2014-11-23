@@ -29,9 +29,7 @@ header-img: "img/typewriter.jpg"
 
 <img class="img-responsive" src="{{ site.baseurl }}/img/fasterThanNumpyCode.png" alt="">
 
-<b>voidptr.h</b>
-
-
+<a href="https://github.com/klb3713/sentence2vec/blob/master/voidptr.h"><b>voidptr.h</b></a>
 
 <p>Next, you'll also see six function types and their implementations. There is a whole suite of these funky-named fortran functions in the <a href="http://docs.scipy.org/doc/scipy-0.12.0/reference/generated/scipy.linalg.blas.html">Scipy Blas/Fortran Documentation</a> I also write a simple dot-product function leveraging the dsdot (double dot product... as opposed to float) called pubDotty.</p> 
 
