@@ -7,7 +7,7 @@ author:     "iamtrask"
 header-img: "img/typewriter.jpg"
 ---
 
-<p><b>Summary:</b>a demo on how to use fortran/blas libraries under the hood of your python program's vector operations to squeeze out extra speed over Numpy.</p>
+<p><b>Summary:</b> a demo on how to use fortran/blas libraries under the hood of your python program's vector operations to squeeze out extra speed over Numpy.</p>
 
 <p>Yesterday, I posted a on how to use Apache Spark with GPUs from a notebook. To my joy, it reached the first page of Hacker News (while serving the Scala community!!!). Using Spark from one of the iPython notebooks has become a real passion of mine... and whereas yesterday focused on Scala/JVM/GPU operations, today I want to offer a bit up to the scientific Python community. These discoveries are from studying a wonderful codebase by Radim Rehurek called <a href="https://github.com/piskvorky">Gensim</a>... specifically the word2vec implementation. </p>
 
