@@ -7,7 +7,11 @@ author:     "iamtrask"
 header-img: "img/typewriter.jpg"
 ---
 
-I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry potter books and ran some cosine similarities on words i thought might be interesting. (using the open source <a href="http://radimrehurek.com/gensim/">Gensim</a> library I love) My favorite is the word "password" below... which revealed a list of passwords to the Gryffendor Common Room. Enjoy!
+Word2vec is a very cool algorithm that uses neural networks to map words to feature vectors. Those vectors then have interesting properties. Sometimes one could do "word math" as it were. Take the vector for King, subtract Man, add Woman... and the closes vector to the output would be Queen... thus King - Man + Woman = Queen. 
+
+You can also use these vectors to cluster words into groups... find words that are most similar in an unsupervised fashion.
+
+I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry potter books and ran some cosine similarities on words i thought might be interesting. (using the open source <a href="http://radimrehurek.com/gensim/">Gensim</a> library I love) My favorite is the word "password" below... which revealed a list of passwords to the Gryffendor Common Room. 
 
 
 
