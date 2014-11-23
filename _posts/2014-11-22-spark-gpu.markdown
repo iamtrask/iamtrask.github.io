@@ -81,17 +81,17 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
 <blockquote>SPARK_DAEMON_JAVA_OPTS=-Xmx8128m SPARK_WORKER_MEMORY=-Xmx2048m SPARK_DAEMON_MEMORY=-Xmx2048m SPARK_REPL_OPTS=-XX:MaxPermSize=2048m SBT_OPTS=-Xmx8128m SPARK_JAVA_OPTS="-Djava.library.path=/Users/... ..../Aparapi_2012_01_23_MacOSX_zip -Xms512m -Xmx8128m" ipython notebook --profile scala	</blockquote>
 
 <p>When I deploy the aparapi jar locally, I can then import aparapi like so...</p>
-<a href="#">
-    <img class="img-responsive" src="{{ site.baseurl }}/img/ipythonDep.png" alt="">
-</a>
+
+<img class="img-responsive" src="{{ site.baseurl }}/img/ipythonDep.png" alt="">
+
 <span class="caption text-muted"> GPU, iPython Notebooks, and Apache Spark meeting for the very first time ever.... a moment in history.</span>
 
 <p> Assuming no errors in the "upload" command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I'm using the demo scala notebook from the sparknotebook github. I recommend this to make sure that the notebook is working before you start.</p> 
 
 <h2 class="section-heading">Part 4: Example Kernel Built in the Notebook (using Scala only)</h2>
-<a href="#">
-    <img class="img-responsive" src="{{ site.baseurl }}/img/exampleKernel.png" alt="">
-</a>
+
+<img class="img-responsive" src="{{ site.baseurl }}/img/exampleKernel.png" alt="">
+
 <span class="caption text-muted">Building a kernel and running it... notice the output at the bottom...</span>
 <p> Notice that i tried to set the kernel to run on the GPU, but because the GPU wasn't available, it switched the version and ran it on the CPU. You might be thinking, "Wait!!! This blog is a hoax!!!". I got a bit discouraged at this point as well, however, debugging later found out that we cannot compile Scala to GPU code. This is acceptable for prototyping kernels and chaining them together. This will even run in the spark context... so to develop and test your kenels (using the Java Thread Pool fallback), feel free to do it this way. </p>
 
@@ -108,11 +108,10 @@ c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_
 
 <p>This means that the compiled code is already on our classpath... and we can call it from a spark method like so...</p>
 
-<a href="#">
-    <img class="img-responsive" src="{{ site.baseurl }}/img/gpuInSpark.png" alt="">
-</a>
+<img class="img-responsive" src="{{ site.baseurl }}/img/gpuInSpark.png" alt="">
+
 <span class="caption text-muted">Running the kernel in the ipython notebook via spark</span>
-<a href="#">
-    <img class="img-responsive" src="{{ site.baseurl }}/img/gpuOutputInTerminal.png" alt="">
-</a>
+
+<img class="img-responsive" src="{{ site.baseurl }}/img/gpuOutputInTerminal.png" alt="">
+
 <span class="caption text-muted">The logging of the GPU program... showing that it is indeed being run on the GPU (didn't fallback to JTP)</span>
