@@ -15,7 +15,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 
 
 
-(the top word of each list is the focus words)
+(the top word of each list is the focus word)
 
 (64 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<expecto</b> <br />
