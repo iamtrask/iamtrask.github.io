@@ -30,27 +30,8 @@ header-img: "img/typewriter.jpg"
 <img class="img-responsive" src="{{ site.baseurl }}/img/fasterThanNumpyCode.png" alt="">
 
 <b>voidptr.h</b>
-<blockquote>
 
-#include <Python.h>
-<br />
-#if PY_VERSION_HEX >= 0x03020000<br />
-<br />
-/*<br />
-** compatibility with python >= 3.2, which doesn't have CObject anymore<br />
-*/<br />
-static void * PyCObject_AsVoidPtr(PyObject *obj)<br />
-{<br />
-    void *ret = PyCapsule_GetPointer(obj, NULL);<br />
-    if (ret == NULL) {<br />
-        PyErr_Clear();<br />
-    }<br />
-    return ret;<br />
-}<br />
-<br />
-#endif<br />
 
-</blockquote>
 
 <p>Next, you'll also see six function types and their implementations. There is a whole suite of these funky-named fortran functions in the <a href="http://docs.scipy.org/doc/scipy-0.12.0/reference/generated/scipy.linalg.blas.html">Scipy Blas/Fortran Documentation</a> I also write a simple dot-product function leveraging the dsdot (double dot product... as opposed to float) called pubDotty.</p> 
 
