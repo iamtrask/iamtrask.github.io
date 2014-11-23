@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Tutorial: when Numpy isn't fast enough..."
-subtitle:   "A tutorial on ad-hoc, distributed GPU development on any Macbook Pro"
+subtitle:   "A tutorial on using fortran/blas under the hood of your python program"
 date:       2014-11-23 12:00:00
 author:     "iamtrask"
 header-img: "img/post-bg-06.jpg"
