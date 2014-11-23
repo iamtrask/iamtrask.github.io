@@ -4,7 +4,7 @@ title:      "Tutorial: when Numpy isn't fast enough..."
 subtitle:   "A tutorial on using fortran/blas under the hood of your python program"
 date:       2014-11-23 12:00:00
 author:     "iamtrask"
-header-img: "img/post-bg-06.jpg"
+header-img: "img/typewriter.jpg"
 ---
 
 <p><b>Summary:</b>a demo on how to use fortran/blas libraries under the hood of your python program's vector operations to squeeze out extra speed over Numpy.</p>
