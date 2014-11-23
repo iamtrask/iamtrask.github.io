@@ -13,7 +13,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 
 (the top word of each list is the focus words)
 
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<expecto</b> <br />
 0.8790060473734644:<patronum <br />
 0.755879251292692:<pettigrews <br />
@@ -37,7 +37,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.39103755743544927:<bristling <br />
  
  
-(256 dimensions : 10 epochs)
+(256 dimensions : 10 epochs)<br />
 <b>1.0:<lumos</b> <br />
 0.42209239730743003:<imperio <br />
 0.40507159450163904:<ignited <br />
@@ -50,7 +50,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.3503601500539219:<dissendium <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0:<weasley</b> <br />
 0.7899136471577068:<cole <br />
 0.7580984973288645:<weasleys <br />
@@ -74,7 +74,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.4366713328133361:<weasleys <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<potter</b> <br />
 0.7040619432963181:<severus <br />
 0.6994994807105462:<thank <br />
@@ -98,7 +98,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.34103571192794435:<pining <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<gryffindor</b> <br />
 0.74139062089133:<team <br />
 0.734880573018089:<tower <br />
@@ -122,7 +122,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.3404098626732141:<penalty <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>0.9999999999999999:<ravenclaw</b> <br />
 0.781214400477696:<hufflepuff <br />
 0.7512446691492253:<slytherin <br />
@@ -146,7 +146,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.35602194786273583:<loses <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0:<hufflepuff</b> <br />
 0.7921196174194491:<fifth <br />
 0.7848088164254446:<seventh <br />
@@ -170,7 +170,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.39244432848771427:<match <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<slytherin</b> <br />
 0.7512446691492253:<ravenclaw <br />
 0.7452088578170768:<hufflepuff <br />
@@ -194,7 +194,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.37815919943099136:<fen <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 1.0:<hermione <br />
 <b>0.6373033872867323:<she</b> <br />
 0.5360344746735539:<neville <br />
@@ -218,7 +218,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.34365264010683094:<lavender <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0:<dumbledore</b> <br />
 0.7867909396010355:<snape <br />
 0.652590036205367:<slughorn <br />
@@ -241,7 +241,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.35980117000272555:<riddle <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<spell</b> <br />
 0.5705834288105536:<jinx <br />
 0.5528068188658538:<clear <br />
@@ -265,7 +265,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.29811271395978733:<hit <br />
  
  
-(64 dimensions : 1 epoch)
+(64 dimensions : 1 epoch)<br />
 <b>1.0:<chamber</b> <br />
 0.7516236239509654:<staffroom <br />
 0.7097278407351896:<basilisk <br />
@@ -289,7 +289,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.32405200326296857:<runin <br />
  
  
-(128 dimensions : 1 epoch)
+(128 dimensions : 1 epoch)<br />
 <b>1.0:<black</b> <br />
 0.7090495706356712:<thick <br />
 0.6825056469408932:<silver <br />
@@ -313,7 +313,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.37307859100552243:<leathery <br />
  
  
-(128 dimensions : 1 epoch)
+(128 dimensions : 1 epoch)<br />
 <b>1.0:<requirement</b> <br />
 0.6805251004125765:<common <br />
 0.58822928078406:<detail <br />
@@ -337,7 +337,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.3205128295096265:<reliving <br />
  
  
-(128 dimensions : 1 epoch)
+(128 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<voldemort</b> <br />
 0.6883758949036237:<voldemorts <br />
 0.6882314118148244:<bellatrix <br />
@@ -361,7 +361,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.35450715479438577:<prostrate <br />
  
  
-(128 dimensions : 1 epoch)
+(128 dimensions : 1 epoch)<br />
 <b>1.0:<snape</b> <br />
 0.7867909396010355:<dumbledore <br />
 0.7602249542226724:<slughorn <br />
@@ -385,7 +385,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.3385766904895776:<bbbut <br />
  
  
-(128 dimensions : 1 epoch)
+(128 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<password</b> <br />
 0.6759946677363984:<lady <br />
 0.6260981919566827:<north <br />
@@ -409,7 +409,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.3172485840936194:<festive <br />
  
  
-(128 dimensions : 1 epoch)
+(128 dimensions : 1 epoch)<br />
 <b>1.0:<chocolate</b> <br />
 0.7724365211403441:<frog <br />
 0.7337068328667901:<mug <br />
@@ -433,7 +433,7 @@ I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry 
 0.4170767831464866:<pasties <br />
  
  
-(128 dimensions : 1 epoch)
+(128 dimensions : 1 epoch)<br />
 <b>1.0:<phoenix</b> <br />
 0.6477570284902336:<wizengamot <br />
 0.611456341909926:<order <br />
