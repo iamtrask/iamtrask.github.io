@@ -13,9 +13,7 @@ You can also use these vectors to cluster words into groups... find words that a
 
 I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry potter books and ran some cosine similarities on words i thought might be interesting. (using the open source <a href="http://radimrehurek.com/gensim/">Gensim</a> library I love) My favorite is the word "password" below... which revealed a list of passwords to the Gryffendor Common Room. 
 
-
-
-(the top word of each list is the focus word)
+The top word of each list is the focus word... and then a list of the most similar words thereafter.
 
 (64 dimensions : 1 epoch)<br />
 <b>1.0000000000000002:<expecto</b> <br />
