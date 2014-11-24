@@ -24,8 +24,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.664763725362591:<buckbeaks <br />
 0.6386204400460198:<lupins <br />
 0.6368874336372525:<forcing <br />
+<br />
 (256 dimensions : 10 epochs)<br />
-1.0000000000000002:<expecto <br />
+<b>1.0000000000000002:<expecto</b> <br />
 0.881676712172453:<patronum <br />
 0.66633365764735:<expec <br />
 0.5100899639798923:<patrono <br />
@@ -61,8 +62,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.5623844627363042:<mrs <br />
 0.547272989628803:<crouch <br />
 0.5346744691953205:<brightly <br />
+<br />
 (256 dimensions : 10 epochs)<br />
-1.0:<weasley <br />
+<b>1.0:<weasley</b> <br />
 0.5571492216402788:<mrs <br />
 0.525661506461713:<mr <br />
 0.5122609732187181:<redheads <br />
@@ -85,8 +87,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.6284403688596681:<yes <br />
 0.624241093676769:<kindly <br />
 0.6217287188964961:<will <br />
+<br />
 (256 dimensions : 10 epochs)<br />
-0.9999999999999999:<potter <br />
+<b>0.9999999999999999:<potter </b><br />
 0.3901893042844876:<humble <br />
 0.38913611920424174:<rotter <br />
 0.36768347738598195:<heed <br />
@@ -109,8 +112,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.6540640450146518:<spinnet <br />
 0.64507063817762:<bell <br />
 0.6289645923037345:<goal <br />
+<br />
 (256 dimensions : 10 epochs)<br />
-1.0:<gryffindor <br />
+<b>1.0:<gryffindor</b> <br />
 0.4581853977277023:<hufflepuff <br />
 0.4420478362268596:<tower <br />
 0.44149319299048684:<points <br />
@@ -133,8 +137,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.7018928824840882:<gryffindor <br />
 0.697691445889272:<team <br />
 0.6839508546137936:<wednesday <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0:<ravenclaw <br />
+<b>1.0:<ravenclaw</b> <br />
 0.5732267167869871:<hufflepuff <br />
 0.43935832571981465:<slytherin <br />
 0.43555165040705907:<rowena <br />
@@ -157,8 +162,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.7329618627066322:<slytherins <br />
 0.7241609971259948:<thursday <br />
 0.7202963910695652:<gryffindors <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0:<hufflepuff <br />
+<b>1.0:<hufflepuff</b> <br />
 0.5732267167869871:<ravenclaw <br />
 0.560598634502152:<slytherin <br />
 0.4581853977277023:<gryffindor <br />
@@ -181,8 +187,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.6922161358648197:<goal <br />
 0.6914818449404438:<montague <br />
 0.6612854741883617:<pucey <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0:<slytherin <br />
+<b>1.0:<slytherin</b> <br />
 0.560598634502152:<hufflepuff <br />
 0.44370546214405354:<slytherins <br />
 0.4410251892894441:<gryffindor <br />
@@ -205,8 +212,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.49574563180394704:<harry <br />
 0.451967913703171:<romilda <br />
 0.446476077232399:<her <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0000000000000002:<hermione <br />
+<b>1.0000000000000002:</b><hermione <br />
 0.5042554769286905:<ron <br />
 0.4808255935304602:<she <br />
 0.3717110232643911:<ginny <br />
@@ -228,8 +236,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.5929735071374835:<scrimgeour <br />
 0.5840436894354705:<sirius <br />
 0.5553253520856778:<dumbledores <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0:<dumbledore <br />
+<b>1.0:<dumbledore</b> <br />
 0.49688884807669753:<snape <br />
 0.43320641875023586:<fudge <br />
 0.42104734145946027:<voldemort <br />
@@ -252,8 +261,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.5210853653286843:<sectumsempra <br />
 0.5204984581955842:<dolohov <br />
 0.5172019428367624:<made <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-0.9999999999999999:<spell <br />
+<b>0.9999999999999999:<spell</b> <br />
 0.45622019920423756:<spells <br />
 0.38503414331623603:<charm <br />
 0.3744579769148505:<retaliate <br />
@@ -276,8 +286,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.623691053534629:<stage <br />
 0.6189105698380645:<sealed <br />
 0.6165084868604697:<hilt <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0:<chamber <br />
+<b>1.0:<chamber</b> <br />
 0.527350716695893:<secrets <br />
 0.45803538999265264:<forsaken <br />
 0.4509279299021009:<fanciful <br />
@@ -300,8 +311,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.6520876963925315:<glass <br />
 0.6499197812776186:<bright <br />
 0.6376775975420493:<hair <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0000000000000002:<black <br />
+<b>1.0000000000000002:<black</b> <br />
 0.4187862746289444:<ravaged <br />
 0.41376806599272925:<bald <br />
 0.3964342510912526:<silky <br />
@@ -324,8 +336,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.5554348127278043:<marquee <br />
 0.5519591805530948:<middle <br />
 0.5455370331332081:<slightest <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-0.9999999999999998:<requirement <br />
+<b>0.9999999999999998:<requirement</b> <br />
 0.4016798211784335:<unknowable <br />
 0.3867069097055046:<jampacked <br />
 0.37050061385790234:<room <br />
@@ -348,8 +361,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.601800677476979:<prophecy <br />
 0.5979378004431092:<connection <br />
 0.5976976164728673:<ariana <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0:<voldemort <br />
+<b>1.0:<voldemort</b> <br />
 0.5231034885732724:<lord <br />
 0.4949022273659753:<voldemorts <br />
 0.42104734145946027:<dumbledore <br />
@@ -372,8 +386,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.5626612723245389:<narcissa <br />
 0.5592886705523973:<horace <br />
 0.5535260402939475:<dumbledores <br />
+<br />
 (256 dimensions : 10 epochs)<br />
-1.0:<snape <br />
+<b>1.0:<snape </b><br />
 0.49688884807669753:<dumbledore <br />
 0.39141319194131824:<snapes <br />
 0.3788874389546836:<severus <br />
@@ -396,8 +411,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.5984440756682315:<waking <br />
 0.5788408987574969:<cave <br />
 0.5730507346420423:<heading <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-1.0:<password <br />
+<b>1.0:<password</b> <br />
 0.47446983465719267:<fritters <br />
 0.4712847308362276:<lady <br />
 0.4654321201001382:<banana <br />
@@ -420,8 +436,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.7029104114344779:<swig <br />
 0.6955470835808224:<drops <br />
 0.6901040539654248:<blew <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-0.9999999999999999:<chocolate <br />
+<b>0.9999999999999999:<chocolate </b><br />
 0.5475055711590749:<frog <br />
 0.5431921714687046:<frogs <br />
 0.47751803650826924:<cards <br />
@@ -444,8 +461,9 @@ The top word of each list is the focus word... and then a list of the most simil
 0.5577200810058244:<mysteries <br />
 0.5560769924913356:<ministers <br />
 0.5528013856762239:<quibbler <br />
+<br />
 (256 dimensions : 10 epochs) <br />
-0.9999999999999998:<phoenix <br />
+<b>0.9999999999999998:<phoenix</b> <br />
 0.44566492530943996:<feather <br />
 0.4307836965454031:<order <br />
 0.41943464449038814:<maple <br />
