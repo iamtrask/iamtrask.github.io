@@ -31,8 +31,8 @@ The formal models have enough machines to fit both all node values and all edge 
 <p>
 (brief)Reference List <br />
 <br />
-[1] J. Dean, G. Corrado, R. Monga, K. Chen, M. Devin, Q. Le, M. Mao, M. Ranzato, A. Senior, P. Tucker, K. Yang and A. Ng, "Large Scale Distributed Deep Networks", NIPS, 2012.
-[2] Q. Le, M. Ranzato, R. Monga, M. Devin, K. Chen, G. Corrado, J. Dean and A. Ng, "Building high-level features using large-scale unsupervised learning", ICML, 2012.
-[3] K.P. Unnikrishnan, and K.P. Venugopal, “Alopex: A Correlation-Based Learning Algorithm for Feed-Forward and Recurrent Neural Networks”
-[4] Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. Efficient Estimation of Word Representations in Vector Space. In Proceedings of Workshop at ICLR, 2013.
+[1] J. Dean, G. Corrado, R. Monga, K. Chen, M. Devin, Q. Le, M. Mao, M. Ranzato, A. Senior, P. Tucker, K. Yang and A. Ng, "Large Scale Distributed Deep Networks", NIPS, 2012. <br />
+[2] Q. Le, M. Ranzato, R. Monga, M. Devin, K. Chen, G. Corrado, J. Dean and A. Ng, "Building high-level features using large-scale unsupervised learning", ICML, 2012.<br />
+[3] K.P. Unnikrishnan, and K.P. Venugopal, “Alopex: A Correlation-Based Learning Algorithm for Feed-Forward and Recurrent Neural Networks”<br />
+[4] Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. Efficient Estimation of Word Representations in Vector Space. In Proceedings of Workshop at ICLR, 2013.<br />
 </p>
