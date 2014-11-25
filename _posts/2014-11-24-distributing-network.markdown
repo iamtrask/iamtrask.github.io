@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Distributing a Fully Connected Neural Network Across a Cluster"
-subtitle:   "My senior paper, what I believe to be a novel (untested) appraoch."
+subtitle:   "My senior paper, what I believe to be a novel (untested) approach."
 date:       2014-11-24 12:00:00
 author:     "iamtrask"
 header-img: "img/measuring.jpeg"
