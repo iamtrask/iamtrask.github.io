@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 14 Jul 2015 15:57:17 +0200</pubDate>
-    <lastBuildDate>Tue, 14 Jul 2015 15:57:17 +0200</lastBuildDate>
+    <pubDate>Tue, 14 Jul 2015 17:38:35 +0200</pubDate>
+    <lastBuildDate>Tue, 14 Jul 2015 17:38:35 +0200</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -597,7 +597,7 @@ If you&#39;re serious about neural networks, I have one recommendation. &lt;b&gt
 
 
 &lt;p&gt;&lt;h3&gt;Future Work&lt;/h3&gt;
-This toy example still needs quite a few bells and whistels to really approach the state-of-the-art architectures. Here&#39;s a few things you can look into if you want to further improve your network. (Perhaps I will in a followup post)&lt;/p&gt;
+This toy example still needs quite a few bells and whistles to really approach the state-of-the-art architectures. Here&#39;s a few things you can look into if you want to further improve your network. (Perhaps I will in a followup post.)&lt;/p&gt;
 
 &lt;p style=&quot;padding-left:20px&quot;&gt;
 • Alpha &lt;br /&gt;
