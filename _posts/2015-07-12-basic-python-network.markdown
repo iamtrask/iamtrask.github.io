@@ -593,7 +593,7 @@ If you're serious about neural networks, I have one recommendation. <b>Try to re
 
 
 <p><h3>Future Work</h3>
-This toy example still needs quite a few bells and whistles to really approach the state-of-the-art architectures. Here's a few things you can look into if you want to further improve your network. (Perhaps I will in a followup post)</p>
+This toy example still needs quite a few bells and whistles to really approach the state-of-the-art architectures. Here's a few things you can look into if you want to further improve your network. (Perhaps I will in a followup post.)</p>
 
 <p style="padding-left:20px">
 • Alpha <br />
