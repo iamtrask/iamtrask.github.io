@@ -8,6 +8,9 @@ header-img: "img/post-bg-02.jpg"
 ---
 
 <p><b>Summary:</b> I learn best with toy code that I can play with. This tutorial teaches backpropagation via a very simple toy example, a short python implementation.</p>
+
+<p><b>Edit:</b> Some folks have asked about a followup article, and I'm planning to write one. I'll tweet it out when it's complete at <a href="https://twitter.com/iamtrask">@iamtrask</a> if you'd care to read it.
+</p>
 <h3>Just Give Me The Code:</h3>
 <pre class="brush: python">
 X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
