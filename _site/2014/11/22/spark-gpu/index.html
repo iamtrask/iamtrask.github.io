@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>Tutorial: Spark-GPU Cluster Dev in a Notebook - i am trask</title>
+
+    <link rel="canonical" href="http://iamtrask.github.io/2014/11/22/spark-gpu/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">i am trask</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">about</a>
+                </li>
+                
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<header class="intro-header" style="background-image: url('/img/post-bg-06.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Tutorial: Spark-GPU Cluster Dev in a Notebook</h1>
+                    
+                    <h2 class="subheading">A tutorial on ad-hoc, distributed GPU development on any Macbook Pro</h2>
+                    
+                    <span class="meta">Posted by iamtrask on November 22, 2014</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p>Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. The goal of this blog post is to create a local dev environment for ad-hoc gpu-cluster computing using Apache Spark, iPython Notebook (scala version), and the stock GPU powering your Macbook Pro's display.</p>
+
+<blockquote>Make it work... then make it fast... then make it beautiful -- Matthew Russell</blockquote>
+
+<p>In the spirit of my mentor, we will start by getting each part "working" individually. Fortunately, the second part (speed) sortof falls out of the first (GPU clusters are like that). Then, we'll integrate these parts into something beautiful... a scalable, ad-hoc environment.</p>
+
+<h2 class="section-heading">Part 1: Spark-Notebook</h2>
+
+<p>Apache Spark can be controlled by notebooks from several languages. I'm going with Scala for several reasons. First, it allows me to have access to the full Spark API (Graphx support is a dealbreaker for me). Secondly, the only GPU library that allowed me to compile for the GPU without writing C code myself is in Java (which I can call from scala). Even with these limitations, there were still several to choose from. The options were:</p>
+
+<p>
+<a href="http://zeppelin-project.org/">Zeppelin</a> -&gt; buggy API after I imported classes <br />
+<a href="https://github.com/andypetrella/spark-notebook">Spark-Notebook</a> -&gt; headache to import dependencies <br />
+<a href="https://github.com/hohonuuli/sparknotebook">Sparknotebook</a> -&gt; Winner!!! Killer app. <br /></p>
+
+<p>After cloning the Sparknotebook repo and following its instructions (downloading the IScala.jar...etc), with a single command I could open the notebook on top of a standalone spark cluster... easy peasy... </p>
+
+<p>Please go like the REPO... I'd like to see it get some love....</p>
+
+<h2 class="section-heading">Part 2: GPU on the JVM</h2>
+
+<p>The inspiration for this came from a rather impressive library called <a href="http://www.scalanlp.org/">ScalaNLP</a>. They claimed to have a parser that could parse half a million words per minute on one machine! Given that I work in R&amp;D at a "Big-Data NLP" firm, this peaked my interest. Scalanlp on a 100 node cluster seems.... rather disgustingly awesome.</p>
+
+<p>ScalaNLP Leverages the java opencl library, <a href="https://code.google.com/p/javacl/">JavaCL</a>. The decision to use OpenCL, as opposed to CUDA, means that the code runs on non-NVIDIA graphics cards. All Apple's can use OpenCL. Therefore, I can prototype on my Macbook's GPU. I like that.... i like that a lot. </p>
+
+<p>However, what I don't like is writing C code. It slows me down and isn't portable. I need my code to be both enterprise-ready and, "we don't want to buy GPUs" ready. This is where <a href="https://code.google.com/p/aparapi/">Aparapi</a> comes in. It compiles Java code down to OpenCL, and runs it in a Java Thread Pool if a GPU isn't available. Also, it's made by AMD... which means you can trust it. Those guys are total bosses. <a href="http://www.amd.com/en-us/press-releases/Pages/amd-fx-8370-2014sep02.aspx">AMD Claims New World Record</a></p>
+
+<p>I downloaded the AparaPi Mac OS Zip... although all these are available.</p>
+
+<p><a href="https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2012_01_23_MacOSX_zip&amp;can=2&amp;q=">Aparapi_2012_01_23_MacOSX_zip</a><br />
+<a href="https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_linux_x86.zip&amp;can=2&amp;q=">Aparapi_2013_01_23_linux_x86.zip</a><br />
+<a href="https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_windows_x86.zip&amp;can=2&amp;q=">Aparapi_2013_01_23_windows_x86.zip</a><br /></p>
+
+<p>I unzipped the download into a folder on my machine, and it created a folder called "Aparapi_2012_01_23_MacOSX_zip". <br /><br />
+<b>Executions:</b>
+<blockquote>cd Aparapi_2012_01_23_MacOSX_zip/samples/squares/ <br />
+sh squares.sh</blockquote>
+<b>Output Sample:</b>
+<blockquote>Execution mode=GPU<br />
+     0        0 <br />
+     1        1<br />
+     2        4<br />
+     3        9<br />
+     4       16<br />
+     5       25<br />
+     6       36<br />
+     7       49<br />
+     8       64<br />
+     9       81<br />
+    10      100
+</blockquote></p>
+
+<p> Wallah! Apparently this java code can run on my Macbook's GPU. Feel free to try a few of the other sample programs... the mandlebrot one is super cool!</p>
+
+<h2 class="section-heading">Part 3: Integrating Spark and Aparapi in the Notebook</h2>
+
+<p> So, everything so far has simply been a tutorial on "proper tool selection" for the task. The real challenge is in getting these tools to talk to each other. The first integration step we need to do is to import the aparapi jar into the iscala notebook. This can be done using the following command.</p>
+<blockquote>mvn install:install-file -Dfile=aparapi.jar -DgroupId=com.amd.aparapi -DartifactId=aparapi -Dversion=1.0 -Dpackaging=jar</blockquote>
+
+<p>Furthermore, my ~/.ipython/profile_scala/ipython_config.py  looks like this at the bottom...</p>
+
+<blockquote>c = get_config() <br /><br />
+
+c.KernelManager.kernel_cmd = ["java","-Djava.library.path=/Users/.. .../Aparapi_2012_01_23_MacOSX_zip","-XX:MaxPermSize=2048m","-Xmx8g", <br /> "-jar",
+                          "/Users/myname/.ipython/profile_scala/lib/IScala.jar","/Users/... .../Aparapi_2012_01_23_MacOSX_zip/aparapi.jar", <br />
+                          "--profile", <br />
+                          "{connection_file}", <br />
+                          "--parent"]</blockquote>
+<p>This gets the aparapi jar on our spark cluster classpath.</p>
+
+<p> One more detail, when you're starting ipython notebook, start it with this command (with your aparapi zip directory path instead of mine). I'll go into this in a minute</p>
+<blockquote>SPARK_DAEMON_JAVA_OPTS=-Xmx8128m SPARK_WORKER_MEMORY=-Xmx2048m SPARK_DAEMON_MEMORY=-Xmx2048m SPARK_REPL_OPTS=-XX:MaxPermSize=2048m SBT_OPTS=-Xmx8128m SPARK_JAVA_OPTS="-Djava.library.path=/Users/... ..../Aparapi_2012_01_23_MacOSX_zip -Xms512m -Xmx8128m" ipython notebook --profile scala	</blockquote>
+
+<p>When I deploy the aparapi jar locally, I can then import aparapi like so...</p>
+
+<p><img class="img-responsive" src="/img/ipythonDep.png" alt="" /></p>
+
+<p><span class="caption text-muted"> GPU, iPython Notebooks, and Apache Spark meeting for the very first time ever…. a moment in history.</span></p>
+
+<p> Assuming no errors in the "upload" command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I'm using the demo scala notebook from the sparknotebook github. I recommend this to make sure that the notebook is working before you start.</p>
+
+<h2 class="section-heading">Part 4: Example Kernel Built in the Notebook (using Scala only)</h2>
+
+<p><img class="img-responsive" src="/img/exampleKernel.png" alt="" /></p>
+
+<p><span class="caption text-muted">Building a kernel and running it… notice the output at the bottom…</span></p>
+<p> Notice that i tried to set the kernel to run on the GPU, but because the GPU wasn't available, it switched the version and ran it on the CPU. You might be thinking, "Wait!!! This blog is a hoax!!!". I got a bit discouraged at this point as well, however, debugging later found out that we cannot compile Scala to GPU code. This is acceptable for prototyping kernels and chaining them together. This will even run in the spark context... so to develop and test your kenels (using the Java Thread Pool fallback), feel free to do it this way. </p>
+
+<h2 class="section-heading">Part 5: Executing GPU Kernel on Spark Cluster</h2>
+
+<p>Now the moment we've all been waiting for.... earlier when you installed the aparapi jar into maven, you were actually installing the compiled jar including the "Square" sample code. If we crack open the "squares.sh" script we ran earlier, we'll see that it is calling a program in that jar</p>
+
+<p><b>squares.sh</b></p>
+<blockquote>java \ <br />
+ -Djava.library.path=../.. \ <br />
+ -Dcom.amd.aparapi.executionMode=%1 \ <br />
+ -classpath ../../aparapi.jar:squares.jar \ <br />
+ com.amd.aparapi.sample.squares.Main</blockquote>
+
+<p>This means that the compiled code is already on our classpath... and we can call it from a spark method like so...</p>
+
+<p><img class="img-responsive" src="/img/gpuInSpark.png" alt="" /></p>
+
+<p><span class="caption text-muted">Running the kernel in the ipython notebook via spark</span></p>
+
+<p><img class="img-responsive" src="/img/gpuOutputInTerminal.png" alt="" /></p>
+
+<p><span class="caption text-muted">The logging of the GPU program… showing that it is indeed being run on the GPU (didn’t fallback to JTP)</span></p>
+
+
+                <hr>
+
+                <ul class="pager">
+                     
+                    
+                    <li class="next">
+                        <a href="//2014/11/23/cython-blas-fortran/" data-toggle="tooltip" data-placement="top" title="Tutorial: when Numpy isn't fast enough...">Next Post &rarr;</a>
+                    </li>
+                     
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/u8mybrownies">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; i am trask 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

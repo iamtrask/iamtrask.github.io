@@ -1,0 +1,1292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>i am trask</title>
+    <description>Write your site description here. It will be used as your sites meta description as well!</description>
+    <link>http://iamtrask.github.io/</link>
+    <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Tue, 14 Jul 2015 15:36:04 +0200</pubDate>
+    <lastBuildDate>Tue, 14 Jul 2015 15:36:04 +0200</lastBuildDate>
+    <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>A Neural Network in 11 lines of Python</title>
+        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; I learn best with toy code that I can play with. This tutorial teaches backpropagation via a very simple toy example, a short python implementation.&lt;/p&gt;
+&lt;h3&gt;Just Give Me The Code:&lt;/h3&gt;
+&lt;pre class=&quot;brush: python&quot;&gt;
+X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
+y = np.array([[0,1,1,0]]).T
+syn0 = 2*np.random.random((3,4)) - 1
+syn1 = 2*np.random.random((4,1)) - 1
+for j in xrange(60000):
+    l1 = 1/(1+np.exp(-(np.dot(X,syn0))))
+    l2 = 1/(1+np.exp(-(np.dot(l1,syn1))))
+    l2_delta = (y - l2)*(l2*(1-l2))
+    l1_delta = l2_delta.dot(syn1.T) * (l1 * (1-l1))
+    syn1 += l1.T.dot(l2_delta)
+    syn0 += X.T.dot(l1_delta)
+&lt;/pre&gt;
+
+&lt;p&gt;However, this is a bit terse…. let’s break it apart into a few simple parts.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: A Tiny Toy Network&lt;/h2&gt;
+
+&lt;p&gt;A neural network trained with backpropagation is attempting to use input to predict output.&lt;/p&gt;
+&lt;center&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-5rcs{font-weight:bold;font-size:20px;}
+.tg .tg-4kyz{font-size:20px;text-align:center;}
+&lt;/style&gt;
+&lt;table class=&quot;tg&quot;&gt;
+  &lt;tr&gt;
+    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;3&quot;&gt;Inputs&lt;/th&gt;
+    &lt;th class=&quot;tg-5rcs&quot;&gt;Output&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Consider trying to predict the output column given the three input columns. We could solve this problem by simply &lt;b&gt;measuring statistics&lt;/b&gt; between the input values and the output values. If we did so, we would see that the leftmost input column is &lt;i&gt;perfectly correlated&lt;/i&gt; with the output. Backpropagation, in its simplest form, measures statistics like this to make a model. Let&#39;s jump right in and use it to do this.&lt;/p&gt;
+&lt;h3&gt;2 Layer Neural Network:&lt;/h3&gt;
+&lt;pre class=&quot;brush: python&quot;&gt;
+import numpy as np
+
+# sigmoid function
+def nonlin(x,deriv=False):
+    if(deriv==True):
+        return x*(1-x)
+    return 1/(1+np.exp(-x))
+    
+# input dataset
+X = np.array([  [0,0,1],
+                [0,1,1],
+                [1,0,1],
+                [1,1,1] ])
+    
+# output dataset            
+y = np.array([[0,0,1,1]]).T
+
+# seed random numbers to make calculation
+# deterministic (just a good practice)
+np.random.seed(1)
+
+# initialize weights randomly with mean 0
+syn0 = 2*np.random.random((3,1)) - 1
+
+for iter in xrange(10000):
+
+    # forward propagation
+    l0 = X
+    l1 = nonlin(np.dot(l0,syn0))
+
+    # how much did we miss?
+    l1_error = y - l1
+
+    # multiply how much we missed by the 
+    # slope of the sigmoid at the values in l1
+    l1_delta = l1_error * nonlin(l1,True)
+
+    # update weights
+    syn0 += np.dot(l0.T,l1_delta)
+
+print &quot;Output After Training:&quot;
+print l1
+
+&lt;/pre&gt;
+&lt;pre&gt;
+Output After Training:
+[[ 0.00966449]
+ [ 0.00786506]
+ [ 0.99358898]
+ [ 0.99211957]]
+&lt;/pre&gt;
+&lt;center&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-5rcs{font-weight:bold;font-size:20px; text-align:center; padding-left:20px; padding-right: 20px;}
+.tg .tg-4kyx{font-size:20px;text-align:center;font-weight:italic; padding-left:20px; padding-right: 20px;}
+.tg .tg-4kyz{font-size:20px;text-align:left; padding-left: 20px;}
+&lt;/style&gt;
+&lt;table class=&quot;tg&quot;&gt;
+  &lt;tr&gt;
+    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;1&quot;&gt;Variable&lt;/th&gt;
+    &lt;th class=&quot;tg-5rcs&quot;&gt;Definition&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;X&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Input dataset matrix where each row is a training example&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;y&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Output dataset matrix where each row is a training example&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;First Layer of the Network, specified by the input data&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Second Layer of the Network, otherwise known as the hidden layer&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;syn0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;First layer of weights, Synapse 0, connecting l0 to l1.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;*&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Elementwise multiplication, so two vectors of equal size are multiplying corresponding values 1-to-1 to generate a final vector of identical size.&lt;/td&gt;
+  &lt;/tr&gt;
+  
+    &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;-&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Elementwise subtraction, so two vectors of equal size are subtracting corresponding values 1-to-1 to generate a final vector of identical size.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;x.dot(y)&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;If x and y are vectors, this is a dot product. If both are matrices, it&#39;s a matrix-matrix multiplication. If only one is a matrix, then it&#39;s vector matrix multiplication.&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see in the &quot;Output After Training&quot;, it works!!! Before I describe processes, I recommend playing around with the code to get an intuitive feel for how it works. You should be able to run it &quot;as is&quot; in an &lt;a href=&quot;http://ipython.org/notebook.html&quot;&gt;ipython notebook&lt;/a&gt; (or a script if you must, but I HIGHLY recommend the notebook). Here are some good places to look in the code: &lt;br /&gt;
+&lt;div style=&quot;padding-left:20px&quot;&gt;
+• Compare l1 after the first iteration and after the last iteration. &lt;br /&gt;
+• Check out the &quot;nonlin&quot; function. This is what gives us a probability as output.&lt;br /&gt;
+• Check out how l1_error changes as you iterate. &lt;br /&gt;
+• Take apart line 36. Most of the secret sauce is here. &lt;br /&gt;
+• Check out line 39. Everything in the network prepares for this operation. &lt;br /&gt;
+&lt;br /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+Let&#39;s walk through the code line by line.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Recommendation:&lt;/b&gt; open this blog in two screens so you can see the code while you read it. That&#39;s kinda what I did while I wrote it. :)&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 01:&lt;/b&gt;
+This imports numpy, which is a linear algebra library. This is our only dependency.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 04:&lt;/b&gt;
+This is our &quot;nonlinearity&quot;. While it can be several kinds of functions, this nonlinearity maps a function called a &quot;sigmoid&quot;. A &lt;a href=&quot;https://en.wikipedia.org/wiki/Sigmoid_function&quot;&gt;sigmoid function&lt;/a&gt; maps any value to a value between 0 and 1. We use it to convert numbers to probabilities. It also has several other desirable properties for training neural networks.
+&lt;/p&gt;
+
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sigmoid.png&quot; alt=&quot;&quot; /&gt;
+
+&lt;p&gt;&lt;b&gt;Line 05:&lt;/b&gt;
+Notice that this function can also generate the derivative of a sigmoid (when deriv=True). One of the desirable properties of a sigmoid function is that its output can be used to create its derivative. If the sigmoid&#39;s output is a variable &quot;out&quot;, then the derivative is simply out * (1-out). This is very efficient. &lt;br /&gt;&lt;br /&gt;
+
+If you&#39;re unfamililar with derivatives, just think about it as the slope of the sigmoid function at a given point (as you can see above, different points have different slopes). For more on derivatives, check out this &lt;a href=&quot;https://www.khanacademy.org/math/differential-calculus/taking-derivatives/derivative_intro/v/calculus-derivatives-1&quot;&gt; derivatives tutorial&lt;/a&gt; from Khan Academy.
+
+&lt;p&gt;&lt;b&gt;Line 10:&lt;/b&gt;
+This initializes our input dataset as a numpy matrix. Each row is a single &quot;training example&quot;. Each column corresponds to one of our input nodes. Thus, we have 3 input nodes to the network and 4 training examples.  
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 16:&lt;/b&gt;
+This initializes our output dataset. In this case, I generated the dataset horizontally (with a single row and 4 columns) for space. &quot;.T&quot; is the transpose function. After the transpose, this y matrix has 4 rows with one column. Just like our input, each row is a training example, and each column (only one) is an output node. So, our network has 3 inputs and 1 output.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 20:&lt;/b&gt;
+It&#39;s good practice to seed your random numbers. Your numbers will still be randomly distributed, but they&#39;ll be randomly distributed in &lt;b&gt;exactly the same way&lt;/b&gt; each time you train. This makes it easier to see how your changes affect the network.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 23:&lt;/b&gt;
+This is our weight matrix for this neural network. It&#39;s called &quot;syn0&quot; to imply &quot;synapse zero&quot;. Since we only have 2 layers (input and output), we only need one matrix of weights to connect them. It&#39;s dimentionality is (3,1) because we have 3 inputs and 1 output. Another way of looking at it is that l0 is of size 3 and l1 is of size 1. Thus, we want to connect every node in l0 to every node in l1, which requires a matrix of dimensionality (3,1). :)
+&lt;br /&gt;&lt;br /&gt;
+Also notice that it is initialized randomly with a mean of zero. There is quite a bit of theory that goes into weight initialization. For now, just take it as a best practice that it&#39;s a good idea to have a mean of zero in weight initialization.
+&lt;br /&gt;&lt;br /&gt;
+Another note is that the &quot;neural network&quot; is really just this matrix. We have &quot;layers&quot; l0 and l1 but they are transient values based on the dataset. We don&#39;t save them. All of the learning is stored in the syn0 matrix.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 25:&lt;/b&gt;
+This begins our actual network training code. This for loop &quot;iterates&quot; multiple times over the training code to optimize our network to the dataset.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 28:&lt;/b&gt;
+Since our first layer, l0, is simply our data. We explicitly describe it as such at this point. Remember that X contains 4 training examples (rows). We&#39;re going to process all of them at the same time in this implementation. This is known as &quot;full batch&quot; training. Thus, we have 4 different l0 rows, but you can think of it as a single training example if you want. It makes no difference at this point. (We could load in 1000 or 10,000 if we wanted to without changing any of the code).
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 29:&lt;/b&gt;
+This is our prediction step. Basically, we first let the network &quot;try&quot; to predict the output given the input. We will then study how it performs so that we can adjust it to do a bit better for each iteration. &lt;br /&gt;&lt;br /&gt;
+
+This line contains 2 steps. The first matrix multiplies l0 by syn0. Consider the dimensions of each:&lt;br /&gt;&lt;br /&gt;
+(4 x 3) dot (3 x 1) = (4 x 1) &lt;br /&gt;&lt;br /&gt;
+Matrix multiplication is ordered, such the dimensions in the middle of the equation must be the same. The final matrix generated is thus the number of rows of the first matrix and the number of columns of the second matrix.&lt;br /&gt;&lt;br /&gt;
+Since we loaded in 4 training examples, we ended up with 4 guesses for the correct answer, a (4 x 1) matrix. Each output corresponds with the network&#39;s guess for a given input. Perhaps it becomes intuitive why we could have &quot;loaded in&quot; an arbitrary number of training examples. The matrix multiplication would still work out. :)
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 32:&lt;/b&gt;
+So, given that l1 had a &quot;guess&quot; for each input. We can now compare how well it did by subtracting the true answer (y) from the guess (l1). l1_error is just a vector of positive and negative numbers reflecting how much the network missed.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 36:&lt;/b&gt;
+Now we&#39;re getting to the good stuff! This is the secret sauce! There&#39;s a lot going on in this line, so let&#39;s further break it into two parts. 
+&lt;h4&gt;First Part: The Derivative&lt;/h4&gt;
+&lt;pre class=&quot;brush:python&quot;&gt;
+nonlin(l1,True)
+&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+If l1 represents these three dots, the code above generates the slopes of the lines below. Notice that very high values such as x=2.0 (green dot) and very low values such as x=-1.0 (purple dot) have rather shallow slopes. The highest slope you can have is at x=0 (blue dot). This plays an important role. Also notice that all derivatives are between 0 and 1.
+&lt;/p&gt;
+
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sigmoid-deriv.png&quot; alt=&quot;&quot; /&gt;
+
+&lt;h4&gt;Entire Statement: The Error Weighted Derivative&lt;/h4&gt;
+&lt;pre class=&quot;brush:python&quot;&gt;
+l1_delta = l1_error * nonlin(l1,True)
+&lt;/pre&gt;
+&lt;p&gt;There are more &quot;mathematically precise&quot; ways than &quot;The Error Weighted Derivative&quot; but I think that this captures the intuition. l1_error is a (4,1) matrix. nonlin(l1,True) returns a (4,1) matrix. What we&#39;re doing is multiplying them &lt;a href=&quot;http://nl.mathworks.com/help/matlab/ref/times.html&quot;&gt;&quot;elementwise&quot;&lt;/a&gt;. This returns a (4,1) matrix &lt;b&gt;l1_delta&lt;/b&gt; with the multiplied values. &lt;br /&gt;&lt;br /&gt;
+
+When we multiply the &quot;slopes&quot; by the error, we are &lt;b&gt;reducing the error of high confidence predictions&lt;/b&gt;. Look at the sigmoid picture again! If the slope was really shallow (close to 0), then the network either had a very high value, or a very low value. This means that the network was quite confident one way or the other. However, if the network guessed something close to (x=0, y=0.5) then it isn&#39;t very confident. We update these &quot;wishy-washy&quot; predictions most heavily, and we tend to leave the confident ones alone by multiplying them by a number close to 0.
+
+&lt;p&gt;&lt;b&gt;Line 36:&lt;/b&gt;
+We are now ready to update our network! Let&#39;s take a look at a single training example.
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/toy_network_deriv.png&quot; alt=&quot;&quot; /&gt;
+In this training example, we&#39;re all setup to update our weights. Let&#39;s update the far left weight (9.5).&lt;br /&gt;&lt;br /&gt;
+&lt;b&gt;weight_update = input_value * l1_delta&lt;/b&gt;
+&lt;br /&gt;&lt;br /&gt;
+For the far left weight, this would multiply 1.0 * the l1_delta. Presumably, this would increment 9.5 ever so slightly. Why only a small ammount? Well, the prediction was already very confident, and the prediction was largely correct. A small error and a small slope means a VERY small update. Consider all the weights. It would ever so slightly increase all three.
+&lt;/p&gt;
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/toy_network_batch.png&quot; alt=&quot;&quot; /&gt;
+&lt;p&gt;
+However, because we&#39;re using a &quot;full batch&quot; configuration, we&#39;re doing the above step on all four training examples. So, it looks a lot more like the image above. So, what does line 36 do? It computes the weight updates for each weight for each training example, sums them, and updates the weights, all in a simple line. Play around with the matrix multiplication and you&#39;ll see it do this! 
+&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Takeaways:&lt;/h3&gt;
+So, now that we&#39;ve looked at how the network updates, let&#39;s look back at our training data and reflect. When both an input and a output are 1, we increase the weight between them. When an input is 1 and an output is 0, we decrease the weight between them. &lt;/p&gt;
+
+&lt;center&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-5rcs{font-weight:bold;font-size:20px;}
+.tg .tg-4kyz{font-size:20px;text-align:center;}
+&lt;/style&gt;
+&lt;table class=&quot;tg&quot;&gt;
+  &lt;tr&gt;
+    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;3&quot;&gt;Inputs&lt;/th&gt;
+    &lt;th class=&quot;tg-5rcs&quot;&gt;Output&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+&lt;p&gt;
+Thus, in our four training examples below, the weight from the first input to the output would &lt;b&gt;consistently increment or remain unchanged&lt;/b&gt;, whereas the other two weights would find themselves &lt;b&gt;both increasing and decreasing across training examples&lt;/b&gt; (cancelling out progress). This phenomenon is what causes our network to learn based on correlations between the input and output.
+&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: A Slightly Harder Problem&lt;/h2&gt;
+&lt;br /&gt;
+&lt;center&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-5rcs{font-weight:bold;font-size:20px;}
+.tg .tg-4kyz{font-size:20px;text-align:center}
+&lt;/style&gt;
+&lt;table class=&quot;tg&quot;&gt;
+  &lt;tr&gt;
+    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;3&quot;&gt;Inputs&lt;/th&gt;
+    &lt;th class=&quot;tg-5rcs&quot;&gt;Output&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+
+
+&lt;p&gt;Consider trying to predict the output column given the two input columns. A key takeway should be that neither columns have any correlation to the output. Each column has a 50% chance of predicting a 1 and a 50% chance of predicting a 0. &lt;/p&gt;
+
+&lt;p&gt;
+So, what&#39;s the pattern? It appears to be completely unrelated to column three, which is always 1. However, columns 1 and 2 give more clarity. If either column 1 or 2 are a 1 (but not both!) then the output is a 1. This is our pattern. 
+&lt;/p&gt;
+&lt;p&gt;
+This is considered a &quot;nonlinear&quot; pattern because there isn&#39;t a direct one-to-one relationship between the input and output. Instead, there is a &lt;b&gt;one-to-one relationship between a combination of inputs&lt;/b&gt;, namely columns 1 and 2.
+&lt;/p&gt;
+
+
+
+&lt;div id=&quot;pic1&quot; style=&quot;float:left;width:50%&quot;&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/rcnn.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;&lt;/div&gt;
+&lt;div id=&quot;pic2&quot; style=&quot;float:right;width:50%;&quot;&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/margritti-this-is-not-a-pipe.jpg&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;&lt;/div&gt;
+
+&lt;p&gt;Believe it or not, image recognition is a similar problem. If one had 100 identically sized images of pipes and bicycles, no individual pixel position would directly correlate with the presence of a bicycle or pipe. The pixels might as well be random from a purely statistical point of view. However, certain &lt;b&gt;combinations of pixels&lt;/b&gt; are not random, namely the combination that forms the image of a bicycle or a person.&lt;/p&gt;
+
+&lt;h3&gt;Our Strategy&lt;/h3&gt;
+
+&lt;p&gt; In order to first combine pixels into something that can then have a one-to-one relationship with the output, we need to add another layer. Our first layer will combine the inputs, and our second layer will then map them to the output using the output of the first layer as input. Before we jump into an implementation though, take a look at this table.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-5rcs{font-weight:bold;font-size:20px;}
+.tg .tg-4kyz{font-size:20px;text-align:center}
+&lt;/style&gt;
+&lt;table class=&quot;tg&quot;&gt;
+  &lt;tr&gt;
+    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;3&quot;&gt;Inputs (l0)&lt;/th&gt;
+    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;4&quot;&gt;Hidden Weights (l1)&lt;/th&gt;
+    &lt;th class=&quot;tg-5rcs&quot;&gt;Output (l2)&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.5&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.6&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.7&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.3&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.3&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.9&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.3&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0.8&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+
+&lt;p&gt;
+If we randomly initialize our weights, we will get hidden state values for layer 1. Notice anything? &lt;b&gt;The second column (second hidden node), has a slight correlation with the output already!&lt;/b&gt; It&#39;s not perfect, but it&#39;s there. Believe it or not, this is a huge part of how neural networks train. (Arguably, it&#39;s the only way that neural networks train.) What the training below is going to do is amplify that correlation. It&#39;s both going to update syn1 to map it to the output, and update syn0 to be better at producing it from the input!
+&lt;/p&gt;
+
+&lt;p&gt;
+Note: The field of adding more layers to model more combinations of relationships such as this is known as &lt;a href=&quot;https://en.wikipedia.org/wiki/Deep_learning&quot;&gt;&quot;deep learning&quot;&lt;/a&gt; because of the increasingly deep layers being modeled.&lt;/p&gt;
+
+&lt;h3&gt;3 Layer Neural Network:&lt;/h3&gt;
+&lt;pre class=&quot;brush: python&quot;&gt;
+import numpy as np
+
+def nonlin(x,deriv=False):
+	if(deriv==True):
+	    return x*(1-x)
+
+	return 1/(1+np.exp(-x))
+    
+X = np.array([[0,0,1],
+            [0,1,1],
+            [1,0,1],
+            [1,1,1]])
+                
+y = np.array([[0],
+			[1],
+			[1],
+			[0]])
+
+np.random.seed(1)
+
+# randomly initialize our weights with mean 0
+syn0 = 2*np.random.random((3,4)) - 1
+syn1 = 2*np.random.random((4,1)) - 1
+
+for j in xrange(60000):
+
+	# Feed forward through layers 0, 1, and 2
+    l0 = X
+    l1 = nonlin(np.dot(l0,syn0))
+    l2 = nonlin(np.dot(l1,syn1))
+
+    # how much did we miss the target value?
+    l2_error = y - l2
+    
+    if (j% 10000) == 0:
+        print &quot;Error:&quot; + str(np.mean(np.abs(l2_error)))
+        
+    # in what direction is the target value?
+    # were we really sure? if so, don&#39;t change too much.
+    l2_delta = l2_error*nonlin(l2,deriv=True)
+
+    # how much did each l1 value contribute to the l2 error (according to the weights)?
+    l1_error = l2_delta.dot(syn1.T)
+    
+    # in what direction is the target l1?
+    # were we really sure? if so, don&#39;t change too much.
+    l1_delta = l1_error * nonlin(l1,deriv=True)
+
+    syn1 += l1.T.dot(l2_delta)
+    syn0 += l0.T.dot(l1_delta)
+
+&lt;/pre&gt;
+&lt;!-- &lt;h3&gt;Runtime Output:&lt;/h3&gt; --&gt;
+&lt;pre&gt;
+Error:0.496410031903
+Error:0.00858452565325
+Error:0.00578945986251
+Error:0.00462917677677
+Error:0.00395876528027
+Error:0.00351012256786
+&lt;/pre&gt;
+&lt;center&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-5rcs{font-weight:bold;font-size:20px; text-align:center; padding-left:20px; padding-right: 20px;}
+.tg .tg-4kyx{font-size:20px;text-align:center;font-weight:italic; padding-left:20px; padding-right: 20px;}
+.tg .tg-4kyz{font-size:20px;text-align:left; padding-left: 20px;}
+&lt;/style&gt;
+&lt;table class=&quot;tg&quot;&gt;
+  &lt;tr&gt;
+    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;1&quot;&gt;Variable&lt;/th&gt;
+    &lt;th class=&quot;tg-5rcs&quot;&gt;Definition&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;X&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Input dataset matrix where each row is a training example&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;y&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Output dataset matrix where each row is a training example&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;First Layer of the Network, specified by the input data&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Second Layer of the Network, otherwise known as the hidden layer&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l2&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Final Layer of the Network, which is our hypothesys, and should approximate the correct answer as we train.&lt;/td&gt;
+  &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;syn0&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;First layer of weights, Synapse 0, connecting l0 to l1.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;syn1&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Second layer of weights, Synapse 1 connecting l1 to l2.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l2_error&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;This is the amount that the neural network &quot;missed&quot;.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l2_delta&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;This is the error of the network scaled by the confidence. It&#39;s almost identical to the error except that very confident errors are muted.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l1_error&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Weighting l2_delta by the weights in syn1, we can calculate the error in the middle/hidden layer.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;tg-4kyx&quot;&gt;l1_delta&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;This is the l1 error of the network scaled by the confidence. Again, it&#39;s almost identical to the l1_error except that confident errors are muted.&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+&lt;p&gt;&lt;b&gt;Recommendation:&lt;/b&gt; open this blog in two screens so you can see the code while you read it. That&#39;s kinda what I did while I wrote it. :)&lt;/p&gt;
+
+&lt;p&gt;
+Everything should look very familiar! It&#39;s really just 2 of the previous implementation stacked on top of each other. The output of the first layer (l1) is the input to the second layer. The only new thing happening here is on line 43.
+&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Line 43:&lt;/b&gt; uses the &quot;confidence weighted error&quot; from l2 to establish an error for l1. To do this, it simply sends the error across the weights from l2 to l1. This gives what you could call a &quot;contribution weighted error&quot; because we learn how much each node value in l1 &quot;contributed&quot; to the error in l2. This step is called &quot;backpropagating&quot; and is the namesake of the algorithm. We then update syn0 using the same steps we did in the 2 layer implementation.
+&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Conclusion and Future Work&lt;/h2&gt;
+&lt;br /&gt;
+
+&lt;p&gt;&lt;h3&gt;My Recommendation: Memorize&lt;/h3&gt;
+
+If you&#39;re serious about neural networks, I have one recommendation. &lt;b&gt;Try to rebuild this network from memory.&lt;/b&gt; I know that might sound a bit crazy, but it seriously helps. If you want to be able to create arbitrary architectures based on new academic papers or read and understand sample code for these different architectures, I think that it&#39;s a killer exercise. I think it&#39;s useful even if you&#39;re using frameworks like &lt;a href=&quot;http://torch.ch/&quot;&gt;Torch&lt;/a&gt;, &lt;a href=&quot;http://caffe.berkeleyvision.org/&quot;&gt;Caffe&lt;/a&gt;, or &lt;a href=&quot;http://deeplearning.net/software/theano/&quot;&gt;Theano&lt;/a&gt;. I worked with neural networks for a couple years before performing this exercise, and it was the best investment of time I&#39;ve made in the field (and it didn&#39;t take long). 
+&lt;/p&gt;
+
+
+&lt;p&gt;&lt;h3&gt;Future Work&lt;/h3&gt;
+This toy example still needs quite a few bells and whistels to really approach the state-of-the-art architectures. Here&#39;s a few things you can look into if you want to further improve your network. (Perhaps I will in a followup post)&lt;/p&gt;
+
+&lt;p style=&quot;padding-left:20px&quot;&gt;
+• Alpha &lt;br /&gt;
+• &lt;a href=&quot;http://stackoverflow.com/questions/2480650/role-of-bias-in-neural-networks&quot;&gt;Bias Units&lt;/a&gt;&lt;br /&gt;
+• &lt;a href=&quot;https://class.coursera.org/ml-003/lecture/106&quot;&gt;Mini-Batches&lt;/a&gt;&lt;br /&gt;
+• Delta Trimming &lt;br /&gt;
+• &lt;a href=&quot;https://www.youtube.com/watch?v=XqRUHEeiyCs&quot;&gt;Parameterized Layer Sizes&lt;/a&gt;&lt;br /&gt;
+• &lt;a href=&quot;https://class.coursera.org/ml-003/lecture/63&quot;&gt;Regularization&lt;/a&gt;&lt;br /&gt;
+• &lt;a href=&quot;http://videolectures.net/nips2012_hinton_networks/&quot;&gt;Dropout&lt;/a&gt;&lt;br /&gt;
+• &lt;a href=&quot;https://www.youtube.com/watch?v=XqRUHEeiyCs&quot;&gt;Momentum&lt;/a&gt;&lt;br /&gt;
+• &lt;a href=&quot;http://arxiv.org/abs/1502.03167&quot;&gt;Batch Normalization&lt;/a&gt; &lt;br /&gt;
+• GPU Compatability&lt;br /&gt;
+• Other Awesomeness You Implement&lt;br /&gt;
+&lt;/p&gt;
+
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shThemeDefault.css&quot; /&gt;
+&lt;script src=&quot;/js/shCore.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shLegacy.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shBrushPython.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	// SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.config.toolbar = true;
+    SyntaxHighlighter.all();
+&lt;/script&gt;
+&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 12 Jul 2015 14:00:00 +0200</pubDate>
+        <link>http://iamtrask.github.io/2015/07/12/basic-python-network/</link>
+        <guid isPermaLink="true">http://iamtrask.github.io/2015/07/12/basic-python-network/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Distributing a Fully Connected Neural Network Across a Cluster</title>
+        <description>&lt;p&gt;&lt;a href=&quot;http://prezi.com/hdctecihctdr/?utm_campaign=share&amp;amp;utm_medium=copy&amp;amp;rc=ex0share&quot;&gt;Slides Showing the Process Graphically&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Introduction:&lt;/b&gt; Recent work in unsupervised feature learning and deep learning has shown that training larger simple models on more data can often outperform more complicated models over smaller amounts of data [1]. Artificial neural networks have a special need in this area due to their significant computational cost, especially if they are fully connected (which has been shown to be useful in many problems) [4]. Some approaches duplicate the entire network on several machines, speeding convergence by sharing relative information [1][3]. However, work on distributing (instead of duplicating) data has been relatively sparse. This is in part due to the globally iterative nature of neural networks, which makes them inefficient on more popular distributing algorithms such as (Hadoop) MapReduce. This paper seeks to design and test a novel approach to distributing artificial neural networks. This paper&#39;s approach is to ship only even layers of nodes instead of all edges across the cluster, reducing network overhead by an order of magnitude due to the fact that fully connected artificial networks have an order of magnitude fewer nodes than edges between them.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Neural Network Topology:&lt;/b&gt; A fully connected n-layer neural network is formed as a n-partite graph, where each layer of nodes has an edge connecting to every node in the following layer. Furthermore, each layer can only be fully computed after its preceding layer has been fully computed. This is the iterating scope of an n-layer neural network. Thus, by making the computation more efficient between two layers, we can generalize to as many layers as are inside the network. This paper will be focusing on increasing the efficiency of computation from one layer to the next. This first and second layer will be referred to as layer P and layer Q respectively.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The Naive Approach:&lt;/b&gt;As we scale the communication in a neural network, we eventually reach a point where no single layer can fit inside the memory of one machine. Furthermore, it is advantageous to distribute the computation of a neural network across many processors. It follows that distributing a neural network across enough machines such that all data can be stored in RAM and processors can work together is a desirable approach.&lt;/p&gt;
+
+&lt;p&gt;A naive approach partitions P and Q such that we have a group of machines holding P and a group of machines holding Q. This brings us to our bottleneck. For the iteration required to progress the data from one layer to another, each node must send a message to every other node in the next layer. If layers P and Q are on separate machines, this constitutes length(P) * length(Q) network overhead. This can be generalized to be an N^2 operation for layers that are of similar size.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The State of the Art Approach:&lt;/b&gt; A slight improvement to this approach brings us to the state-of-the-art model, where each machine contains several layers, in our case half of layer P and half of layer Q [1]. This changes our network IO complexity to be (where M is the number of machines) length(P)*length(Q)*(1-M)/M. Intuitively, if we only have 1 machine, there is no network overhead. If we have 2, then half of our nodes in the next layer are local, and half are on the other machine. However, as the number of machines approaches infinity, our complexity still approaches N^2.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The Novel Approach:&lt;/b&gt; If you look closely at the former models, they are similar in that they partition only nodes across the cluster, and communicate only edge values over the network. Instead of partitioning nodes across the cluster, this paper proposes to partition some nodes and all edges statically. No edges will be communicated over the network, only half of the nodes. 
+The formal models have enough machines to fit both all node values and all edge values in memory. This model assumes the same machines and partitions P,Q, and the edges between them (E) in an ordered fashion across the cluster, such that P is co-located with every edge leaving it. &lt;/p&gt;
+
+&lt;p&gt;It then follows that every edge value may be computed without requiring any network IO. The only network IO that would be required would be sending each edge value to its respective node in Q. This would constitute the same network complexity as the state of the art approach. However, Q is taking its input edge values and adding them together. This is an associative join. Furthermore, the sum of two edge values is just a number. This means that the “size” (measured by the amount of memory required to store or transfer over the network) of the sum of all the edges going into Q stays constant throughout the computation. This associative property and natural compression combines to create an unexploited advantage in the state of the art model.&lt;/p&gt;
+
+&lt;p&gt;Since each edge value can be computed without network IO, a “pre sum” can also be calculated. This takes each edge that is headed to the same Q node, and sums their values. Each node then has two values: it’s local edge sum for every node in Q, and a subset of the nodes Q.&lt;/p&gt;
+
+&lt;p&gt;Assume that the machines are laid out as a ring topology. For each subset of nodes Q on a single machine, that machine then adds its local edge sum for that node to the node’s value. It then sends these node values to the next in the ring, and receives a set of nodes from the previous. This iteration continues until each machine has added its local edge sum to every node in the network. &lt;/p&gt;
+
+&lt;p&gt;At this point, distributed across the cluster, every node equals the sum of all its edges, and the network has iterated. Since only the second layer of nodes was communicated over the network M times (each node travelling to each machine), the network IO was length(Q)*M. Since each machine is independently communicating to only two other machines, there is no need for a network switch. They can simply be daisy chained to their own network cards. This simulates having the speed of M networks working in parallel, dropping our network complexity back down to the length(Q), which is an order of magnitude more efficient than length(P)*length(Q). &lt;/p&gt;
+
+&lt;p&gt;
+(brief)Reference List &lt;br /&gt;
+&lt;br /&gt;
+[1] J. Dean, G. Corrado, R. Monga, K. Chen, M. Devin, Q. Le, M. Mao, M. Ranzato, A. Senior, P. Tucker, K. Yang and A. Ng, &quot;Large Scale Distributed Deep Networks&quot;, NIPS, 2012. &lt;br /&gt;
+[2] Q. Le, M. Ranzato, R. Monga, M. Devin, K. Chen, G. Corrado, J. Dean and A. Ng, &quot;Building high-level features using large-scale unsupervised learning&quot;, ICML, 2012.&lt;br /&gt;
+[3] K.P. Unnikrishnan, and K.P. Venugopal, “Alopex: A Correlation-Based Learning Algorithm for Feed-Forward and Recurrent Neural Networks”&lt;br /&gt;
+[4] Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. Efficient Estimation of Word Representations in Vector Space. In Proceedings of Workshop at ICLR, 2013.&lt;br /&gt;
+&lt;/p&gt;
+</description>
+        <pubDate>Mon, 24 Nov 2014 13:00:00 +0100</pubDate>
+        <link>http://iamtrask.github.io/2014/11/24/distributing-network/</link>
+        <guid isPermaLink="true">http://iamtrask.github.io/2014/11/24/distributing-network/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Word2Vec Analysis of Harry Potter</title>
+        <description>&lt;p&gt;Word2vec is a very cool algorithm that uses neural networks to map words to feature vectors. Those vectors then have interesting properties. You can use these vectors to cluster words into groups… find words that are most similar in an unsupervised fashion.&lt;/p&gt;
+
+&lt;p&gt;I ran &lt;a href=&quot;https://code.google.com/p/word2vec/&quot;&gt;word2vec&lt;/a&gt; on the 7 harry potter books and ran some cosine similarities on words i thought might be interesting. (using the open source &lt;a href=&quot;http://radimrehurek.com/gensim/&quot;&gt;Gensim&lt;/a&gt; library I love) My favorite is the word “password” below… which revealed a list of passwords to the Gryffendor Common Room.&lt;/p&gt;
+
+&lt;p&gt;The top word of each list is the focus word… and then a list of the most similar words thereafter.&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;expecto&lt;/b&gt; &lt;br /&gt;
+0.8790060473734644:&amp;lt;patronum &lt;br /&gt;
+0.755879251292692:&amp;lt;pettigrews &lt;br /&gt;
+0.6931649914220047:&amp;lt;scabbers &lt;br /&gt;
+0.6921019768155199:&amp;lt;pettigrew &lt;br /&gt;
+0.6854965539870754:&amp;lt;lumos &lt;br /&gt;
+0.6800035990521911:&amp;lt;groped &lt;br /&gt;
+0.664763725362591:&amp;lt;buckbeaks &lt;br /&gt;
+0.6386204400460198:&amp;lt;lupins &lt;br /&gt;
+0.6368874336372525:&amp;lt;forcing &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs)&lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;expecto&lt;/b&gt; &lt;br /&gt;
+0.881676712172453:&amp;lt;patronum &lt;br /&gt;
+0.66633365764735:&amp;lt;expec &lt;br /&gt;
+0.5100899639798923:&amp;lt;patrono &lt;br /&gt;
+0.4183506799917183:&amp;lt;poppy &lt;br /&gt;
+0.4151233329572086:&amp;lt;wailed &lt;br /&gt;
+0.4093665595659816:&amp;lt;nicknamed &lt;br /&gt;
+0.3973543132151556:&amp;lt;riddikulus &lt;br /&gt;
+0.3944545196592748:&amp;lt;fistbeating &lt;br /&gt;
+0.39103755743544927:&amp;lt;bristling &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(256 dimensions : 10 epochs)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;lumos&lt;/b&gt; &lt;br /&gt;
+0.42209239730743003:&amp;lt;imperio &lt;br /&gt;
+0.40507159450163904:&amp;lt;ignited &lt;br /&gt;
+0.3758083182732268:&amp;lt;tergeo &lt;br /&gt;
+0.3744004687853999:&amp;lt;episkey &lt;br /&gt;
+0.3658264199741773:&amp;lt;portus &lt;br /&gt;
+0.35926607923955595:&amp;lt;uhoh &lt;br /&gt;
+0.3574845249683229:&amp;lt;serpensortia &lt;br /&gt;
+0.35644744188201566:&amp;lt;wandtip &lt;br /&gt;
+0.3503601500539219:&amp;lt;dissendium &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;weasley&lt;/b&gt; &lt;br /&gt;
+0.7899136471577068:&amp;lt;cole &lt;br /&gt;
+0.7580984973288645:&amp;lt;weasleys &lt;br /&gt;
+0.704308962845765:&amp;lt;cattermole &lt;br /&gt;
+0.696147590313737:&amp;lt;figg &lt;br /&gt;
+0.6615516871288135:&amp;lt;bill &lt;br /&gt;
+0.5775892972766857:&amp;lt;mr &lt;br /&gt;
+0.5623844627363042:&amp;lt;mrs &lt;br /&gt;
+0.547272989628803:&amp;lt;crouch &lt;br /&gt;
+0.5346744691953205:&amp;lt;brightly &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;weasley&lt;/b&gt; &lt;br /&gt;
+0.5571492216402788:&amp;lt;mrs &lt;br /&gt;
+0.525661506461713:&amp;lt;mr &lt;br /&gt;
+0.5122609732187181:&amp;lt;redheads &lt;br /&gt;
+0.47470149235833253:&amp;lt;greatauntie &lt;br /&gt;
+0.4636894081306857:&amp;lt;basil &lt;br /&gt;
+0.4615857402277965:&amp;lt;wwhats &lt;br /&gt;
+0.44954942844918266:&amp;lt;whew &lt;br /&gt;
+0.44593325992665894:&amp;lt;pranksters &lt;br /&gt;
+0.4366713328133361:&amp;lt;weasleys &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;potter&lt;/b&gt; &lt;br /&gt;
+0.7040619432963181:&amp;lt;severus &lt;br /&gt;
+0.6994994807105462:&amp;lt;thank &lt;br /&gt;
+0.6875348923351211:&amp;lt;sir &lt;br /&gt;
+0.6822709821434811:&amp;lt;please &lt;br /&gt;
+0.632136736822497:&amp;lt;may &lt;br /&gt;
+0.6291806648311767:&amp;lt;cannot &lt;br /&gt;
+0.6284403688596681:&amp;lt;yes &lt;br /&gt;
+0.624241093676769:&amp;lt;kindly &lt;br /&gt;
+0.6217287188964961:&amp;lt;will &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs)&lt;br /&gt;
+&lt;b&gt;0.9999999999999999:&amp;lt;potter &lt;/b&gt;&lt;br /&gt;
+0.3901893042844876:&amp;lt;humble &lt;br /&gt;
+0.38913611920424174:&amp;lt;rotter &lt;br /&gt;
+0.36768347738598195:&amp;lt;heed &lt;br /&gt;
+0.3666138243923663:&amp;lt;heroworshipped &lt;br /&gt;
+0.3587120147197108:&amp;lt;woooooooo &lt;br /&gt;
+0.34933445012876724:&amp;lt;characters &lt;br /&gt;
+0.3440882110680894:&amp;lt;dunderbore &lt;br /&gt;
+0.344022635479845:&amp;lt;questionall &lt;br /&gt;
+0.34103571192794435:&amp;lt;pining &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;gryffindor&lt;/b&gt; &lt;br /&gt;
+0.74139062089133:&amp;lt;team &lt;br /&gt;
+0.734880573018089:&amp;lt;tower &lt;br /&gt;
+0.7231970430099021:&amp;lt;slytherin &lt;br /&gt;
+0.7021615040969098:&amp;lt;common &lt;br /&gt;
+0.7018928824840882:&amp;lt;ravenclaw &lt;br /&gt;
+0.6585783668158374:&amp;lt;points &lt;br /&gt;
+0.6540640450146518:&amp;lt;spinnet &lt;br /&gt;
+0.64507063817762:&amp;lt;bell &lt;br /&gt;
+0.6289645923037345:&amp;lt;goal &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;gryffindor&lt;/b&gt; &lt;br /&gt;
+0.4581853977277023:&amp;lt;hufflepuff &lt;br /&gt;
+0.4420478362268596:&amp;lt;tower &lt;br /&gt;
+0.44149319299048684:&amp;lt;points &lt;br /&gt;
+0.4410251892894441:&amp;lt;slytherin &lt;br /&gt;
+0.4188516239321704:&amp;lt;ravenclaw &lt;br /&gt;
+0.3600329597460896:&amp;lt;gryffindors &lt;br /&gt;
+0.35418207017889025:&amp;lt;team &lt;br /&gt;
+0.34891474092816965:&amp;lt;wellearned &lt;br /&gt;
+0.3404098626732141:&amp;lt;penalty &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;0.9999999999999999:&amp;lt;ravenclaw&lt;/b&gt; &lt;br /&gt;
+0.781214400477696:&amp;lt;hufflepuff &lt;br /&gt;
+0.7512446691492253:&amp;lt;slytherin &lt;br /&gt;
+0.7254427881734692:&amp;lt;captain &lt;br /&gt;
+0.7208340720937167:&amp;lt;oclock &lt;br /&gt;
+0.7147691706800555:&amp;lt;lee &lt;br /&gt;
+0.7147331227062966:&amp;lt;montague &lt;br /&gt;
+0.7018928824840882:&amp;lt;gryffindor &lt;br /&gt;
+0.697691445889272:&amp;lt;team &lt;br /&gt;
+0.6839508546137936:&amp;lt;wednesday &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;ravenclaw&lt;/b&gt; &lt;br /&gt;
+0.5732267167869871:&amp;lt;hufflepuff &lt;br /&gt;
+0.43935832571981465:&amp;lt;slytherin &lt;br /&gt;
+0.43555165040705907:&amp;lt;rowena &lt;br /&gt;
+0.4188516239321704:&amp;lt;gryffindor &lt;br /&gt;
+0.407678924818592:&amp;lt;turpin &lt;br /&gt;
+0.38709404961590305:&amp;lt;helga &lt;br /&gt;
+0.3708434204576607:&amp;lt;seeker &lt;br /&gt;
+0.35874384841804063:&amp;lt;huffepuff &lt;br /&gt;
+0.35602194786273583:&amp;lt;loses &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;hufflepuff&lt;/b&gt; &lt;br /&gt;
+0.7921196174194491:&amp;lt;fifth &lt;br /&gt;
+0.7848088164254446:&amp;lt;seventh &lt;br /&gt;
+0.781214400477696:&amp;lt;ravenclaw &lt;br /&gt;
+0.7780135594276192:&amp;lt;fourth &lt;br /&gt;
+0.7568581966579454:&amp;lt;hufflepuffs &lt;br /&gt;
+0.7452088578170768:&amp;lt;slytherin &lt;br /&gt;
+0.7329618627066322:&amp;lt;slytherins &lt;br /&gt;
+0.7241609971259948:&amp;lt;thursday &lt;br /&gt;
+0.7202963910695652:&amp;lt;gryffindors &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;hufflepuff&lt;/b&gt; &lt;br /&gt;
+0.5732267167869871:&amp;lt;ravenclaw &lt;br /&gt;
+0.560598634502152:&amp;lt;slytherin &lt;br /&gt;
+0.4581853977277023:&amp;lt;gryffindor &lt;br /&gt;
+0.41404169865069024:&amp;lt;points &lt;br /&gt;
+0.41335251749481483:&amp;lt;helga &lt;br /&gt;
+0.40705600406104697:&amp;lt;pushover &lt;br /&gt;
+0.3964490683438199:&amp;lt;applauding &lt;br /&gt;
+0.39567843096475613:&amp;lt;loses &lt;br /&gt;
+0.39244432848771427:&amp;lt;match &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;slytherin&lt;/b&gt; &lt;br /&gt;
+0.7512446691492253:&amp;lt;ravenclaw &lt;br /&gt;
+0.7452088578170768:&amp;lt;hufflepuff &lt;br /&gt;
+0.7238327202395243:&amp;lt;team &lt;br /&gt;
+0.7231970430099021:&amp;lt;gryffindor &lt;br /&gt;
+0.7165509326427633:&amp;lt;captain &lt;br /&gt;
+0.7030698136643037:&amp;lt;bell &lt;br /&gt;
+0.6922161358648197:&amp;lt;goal &lt;br /&gt;
+0.6914818449404438:&amp;lt;montague &lt;br /&gt;
+0.6612854741883617:&amp;lt;pucey &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;slytherin&lt;/b&gt; &lt;br /&gt;
+0.560598634502152:&amp;lt;hufflepuff &lt;br /&gt;
+0.44370546214405354:&amp;lt;slytherins &lt;br /&gt;
+0.4410251892894441:&amp;lt;gryffindor &lt;br /&gt;
+0.43935832571981465:&amp;lt;ravenclaw &lt;br /&gt;
+0.4111100118874837:&amp;lt;team &lt;br /&gt;
+0.3960522941982452:&amp;lt;captain &lt;br /&gt;
+0.3834171440911241:&amp;lt;gains &lt;br /&gt;
+0.3816636526374869:&amp;lt;pushover &lt;br /&gt;
+0.37815919943099136:&amp;lt;fen &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+1.0:&amp;lt;hermione &lt;br /&gt;
+&lt;b&gt;0.6373033872867323:&amp;lt;she&lt;/b&gt; &lt;br /&gt;
+0.5360344746735539:&amp;lt;neville &lt;br /&gt;
+0.5274756001139249:&amp;lt;he &lt;br /&gt;
+0.5214301504925287:&amp;lt;ginny &lt;br /&gt;
+0.5109574888160943:&amp;lt;ron &lt;br /&gt;
+0.4999163834053927:&amp;lt;luna &lt;br /&gt;
+0.49574563180394704:&amp;lt;harry &lt;br /&gt;
+0.451967913703171:&amp;lt;romilda &lt;br /&gt;
+0.446476077232399:&amp;lt;her &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&lt;/b&gt;&amp;lt;hermione &lt;br /&gt;
+0.5042554769286905:&amp;lt;ron &lt;br /&gt;
+0.4808255935304602:&amp;lt;she &lt;br /&gt;
+0.3717110232643911:&amp;lt;ginny &lt;br /&gt;
+0.35913453543144513:&amp;lt;acidly &lt;br /&gt;
+0.35306516236363134:&amp;lt;ermyknee &lt;br /&gt;
+0.3515929674760651:&amp;lt;encouragingly &lt;br /&gt;
+0.35124423149024275:&amp;lt;uhoh &lt;br /&gt;
+0.3455436053959502:&amp;lt;grabbing &lt;br /&gt;
+0.34365264010683094:&amp;lt;lavender &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;dumbledore&lt;/b&gt; &lt;br /&gt;
+0.7867909396010355:&amp;lt;snape &lt;br /&gt;
+0.652590036205367:&amp;lt;slughorn &lt;br /&gt;
+0.6378681113816113:&amp;lt;voldemort &lt;br /&gt;
+0.6120050198022656:&amp;lt;aberforth &lt;br /&gt;
+0.6019010767912868:&amp;lt;he &lt;br /&gt;
+0.5929735071374835:&amp;lt;scrimgeour &lt;br /&gt;
+0.5840436894354705:&amp;lt;sirius &lt;br /&gt;
+0.5553253520856778:&amp;lt;dumbledores &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;dumbledore&lt;/b&gt; &lt;br /&gt;
+0.49688884807669753:&amp;lt;snape &lt;br /&gt;
+0.43320641875023586:&amp;lt;fudge &lt;br /&gt;
+0.42104734145946027:&amp;lt;voldemort &lt;br /&gt;
+0.409769764165034:&amp;lt;corpses &lt;br /&gt;
+0.40586327560858065:&amp;lt;lupin &lt;br /&gt;
+0.3992514094799346:&amp;lt;dumbledores &lt;br /&gt;
+0.3984795966379898:&amp;lt;headmaster &lt;br /&gt;
+0.36481567503440565:&amp;lt;devastating &lt;br /&gt;
+0.35980117000272555:&amp;lt;riddle &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;spell&lt;/b&gt; &lt;br /&gt;
+0.5705834288105536:&amp;lt;jinx &lt;br /&gt;
+0.5528068188658538:&amp;lt;clear &lt;br /&gt;
+0.5308173140619804:&amp;lt;however &lt;br /&gt;
+0.5256446406146716:&amp;lt;crumplehorned &lt;br /&gt;
+0.5217704552103746:&amp;lt;hit &lt;br /&gt;
+0.5214290685798957:&amp;lt;latter &lt;br /&gt;
+0.5210853653286843:&amp;lt;sectumsempra &lt;br /&gt;
+0.5204984581955842:&amp;lt;dolohov &lt;br /&gt;
+0.5172019428367624:&amp;lt;made &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;0.9999999999999999:&amp;lt;spell&lt;/b&gt; &lt;br /&gt;
+0.45622019920423756:&amp;lt;spells &lt;br /&gt;
+0.38503414331623603:&amp;lt;charm &lt;br /&gt;
+0.3744579769148505:&amp;lt;retaliate &lt;br /&gt;
+0.3365386087137521:&amp;lt;stunning &lt;br /&gt;
+0.31299212123460146:&amp;lt;fourpoint &lt;br /&gt;
+0.3047318421865308:&amp;lt;defensive &lt;br /&gt;
+0.3018663449722407:&amp;lt;jinx &lt;br /&gt;
+0.2986278064898596:&amp;lt;practicing &lt;br /&gt;
+0.29811271395978733:&amp;lt;hit &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;chamber&lt;/b&gt; &lt;br /&gt;
+0.7516236239509654:&amp;lt;staffroom &lt;br /&gt;
+0.7097278407351896:&amp;lt;basilisk &lt;br /&gt;
+0.6396829682468098:&amp;lt;secrets &lt;br /&gt;
+0.6303229904669257:&amp;lt;messages &lt;br /&gt;
+0.6292212718692173:&amp;lt;pages &lt;br /&gt;
+0.6255458905896577:&amp;lt;gargoyle &lt;br /&gt;
+0.623691053534629:&amp;lt;stage &lt;br /&gt;
+0.6189105698380645:&amp;lt;sealed &lt;br /&gt;
+0.6165084868604697:&amp;lt;hilt &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;chamber&lt;/b&gt; &lt;br /&gt;
+0.527350716695893:&amp;lt;secrets &lt;br /&gt;
+0.45803538999265264:&amp;lt;forsaken &lt;br /&gt;
+0.4509279299021009:&amp;lt;fanciful &lt;br /&gt;
+0.3937455721042796:&amp;lt;unseal &lt;br /&gt;
+0.3737416685904814:&amp;lt;roosters &lt;br /&gt;
+0.35312885285278145:&amp;lt;drawingroom &lt;br /&gt;
+0.3358263562408226:&amp;lt;unleash &lt;br /&gt;
+0.32925459347667607:&amp;lt;daubed &lt;br /&gt;
+0.32405200326296857:&amp;lt;runin &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;black&lt;/b&gt; &lt;br /&gt;
+0.7090495706356712:&amp;lt;thick &lt;br /&gt;
+0.6825056469408932:&amp;lt;silver &lt;br /&gt;
+0.6687549059638025:&amp;lt;white &lt;br /&gt;
+0.6671827818068091:&amp;lt;thin &lt;br /&gt;
+0.6595272052625423:&amp;lt;green &lt;br /&gt;
+0.6559287359085553:&amp;lt;tiny &lt;br /&gt;
+0.6520876963925315:&amp;lt;glass &lt;br /&gt;
+0.6499197812776186:&amp;lt;bright &lt;br /&gt;
+0.6376775975420493:&amp;lt;hair &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;black&lt;/b&gt; &lt;br /&gt;
+0.4187862746289444:&amp;lt;ravaged &lt;br /&gt;
+0.41376806599272925:&amp;lt;bald &lt;br /&gt;
+0.3964342510912526:&amp;lt;silky &lt;br /&gt;
+0.39399279699897416:&amp;lt;stripes &lt;br /&gt;
+0.3782092012451359:&amp;lt;broadshouldered &lt;br /&gt;
+0.3779053329184092:&amp;lt;graying &lt;br /&gt;
+0.37579439331917774:&amp;lt;paleeyed &lt;br /&gt;
+0.3734468240600482:&amp;lt;atop &lt;br /&gt;
+0.37307859100552243:&amp;lt;leathery &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;requirement&lt;/b&gt; &lt;br /&gt;
+0.6805251004125765:&amp;lt;common &lt;br /&gt;
+0.58822928078406:&amp;lt;detail &lt;br /&gt;
+0.5869718509295418:&amp;lt;gaunts &lt;br /&gt;
+0.5677933609626798:&amp;lt;portrait &lt;br /&gt;
+0.5612000668830176:&amp;lt;rest &lt;br /&gt;
+0.5611572795099765:&amp;lt;space &lt;br /&gt;
+0.5554348127278043:&amp;lt;marquee &lt;br /&gt;
+0.5519591805530948:&amp;lt;middle &lt;br /&gt;
+0.5455370331332081:&amp;lt;slightest &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;0.9999999999999998:&amp;lt;requirement&lt;/b&gt; &lt;br /&gt;
+0.4016798211784335:&amp;lt;unknowable &lt;br /&gt;
+0.3867069097055046:&amp;lt;jampacked &lt;br /&gt;
+0.37050061385790234:&amp;lt;room &lt;br /&gt;
+0.3616482568609007:&amp;lt;partlife &lt;br /&gt;
+0.3557306897710399:&amp;lt;assaulted &lt;br /&gt;
+0.35489547684406436:&amp;lt;compression &lt;br /&gt;
+0.33972003944909956:&amp;lt;common &lt;br /&gt;
+0.32747964915808203:&amp;lt;upholstery &lt;br /&gt;
+0.3205128295096265:&amp;lt;reliving &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;voldemort&lt;/b&gt; &lt;br /&gt;
+0.6883758949036237:&amp;lt;voldemorts &lt;br /&gt;
+0.6882314118148244:&amp;lt;bellatrix &lt;br /&gt;
+0.6687046547843726:&amp;lt;sirius &lt;br /&gt;
+0.6456113933094144:&amp;lt;dumbledores &lt;br /&gt;
+0.6378681113816113:&amp;lt;dumbledore &lt;br /&gt;
+0.6198750862701423:&amp;lt;lord &lt;br /&gt;
+0.601800677476979:&amp;lt;prophecy &lt;br /&gt;
+0.5979378004431092:&amp;lt;connection &lt;br /&gt;
+0.5976976164728673:&amp;lt;ariana &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;voldemort&lt;/b&gt; &lt;br /&gt;
+0.5231034885732724:&amp;lt;lord &lt;br /&gt;
+0.4949022273659753:&amp;lt;voldemorts &lt;br /&gt;
+0.42104734145946027:&amp;lt;dumbledore &lt;br /&gt;
+0.40269571073980126:&amp;lt;kill &lt;br /&gt;
+0.39346439983965364:&amp;lt;inindeed &lt;br /&gt;
+0.3625195714553203:&amp;lt;snape &lt;br /&gt;
+0.36251702487473614:&amp;lt;elm &lt;br /&gt;
+0.35635136288239055:&amp;lt;merciful &lt;br /&gt;
+0.35450715479438577:&amp;lt;prostrate &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;snape&lt;/b&gt; &lt;br /&gt;
+0.7867909396010355:&amp;lt;dumbledore &lt;br /&gt;
+0.7602249542226724:&amp;lt;slughorn &lt;br /&gt;
+0.6055605238284325:&amp;lt;bellatrix &lt;br /&gt;
+0.6030688726296658:&amp;lt;mcgonagall &lt;br /&gt;
+0.5929395283735124:&amp;lt;phineas &lt;br /&gt;
+0.5913798507548866:&amp;lt;umbridge &lt;br /&gt;
+0.5626612723245389:&amp;lt;narcissa &lt;br /&gt;
+0.5592886705523973:&amp;lt;horace &lt;br /&gt;
+0.5535260402939475:&amp;lt;dumbledores &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;snape &lt;/b&gt;&lt;br /&gt;
+0.49688884807669753:&amp;lt;dumbledore &lt;br /&gt;
+0.39141319194131824:&amp;lt;snapes &lt;br /&gt;
+0.3788874389546836:&amp;lt;severus &lt;br /&gt;
+0.3625195714553203:&amp;lt;voldemort &lt;br /&gt;
+0.3602838216909781:&amp;lt;malfoy &lt;br /&gt;
+0.3495411504557353:&amp;lt;mcgonagall &lt;br /&gt;
+0.3432543679925834:&amp;lt;heroworshipped &lt;br /&gt;
+0.3407031113901212:&amp;lt;silkily &lt;br /&gt;
+0.3385766904895776:&amp;lt;bbbut &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0000000000000002:&amp;lt;password&lt;/b&gt; &lt;br /&gt;
+0.6759946677363984:&amp;lt;lady &lt;br /&gt;
+0.6260981919566827:&amp;lt;north &lt;br /&gt;
+0.6258023922269232:&amp;lt;tower &lt;br /&gt;
+0.6253624288287926:&amp;lt;owlery &lt;br /&gt;
+0.6189141007115594:&amp;lt;fat &lt;br /&gt;
+0.6020323426260975:&amp;lt;afterward &lt;br /&gt;
+0.5984440756682315:&amp;lt;waking &lt;br /&gt;
+0.5788408987574969:&amp;lt;cave &lt;br /&gt;
+0.5730507346420423:&amp;lt;heading &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;password&lt;/b&gt; &lt;br /&gt;
+0.47446983465719267:&amp;lt;fritters &lt;br /&gt;
+0.4712847308362276:&amp;lt;lady &lt;br /&gt;
+0.4654321201001382:&amp;lt;banana &lt;br /&gt;
+0.4440026686633822:&amp;lt;flibbertigibbet &lt;br /&gt;
+0.37558294153078775:&amp;lt;ladys &lt;br /&gt;
+0.3705196683435887:&amp;lt;abstinence &lt;br /&gt;
+0.36897045258759176:&amp;lt;fat &lt;br /&gt;
+0.3470203296601344:&amp;lt;portrait &lt;br /&gt;
+0.3172485840936194:&amp;lt;festive &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;chocolate&lt;/b&gt; &lt;br /&gt;
+0.7724365211403441:&amp;lt;frog &lt;br /&gt;
+0.7337068328667901:&amp;lt;mug &lt;br /&gt;
+0.7211389912598347:&amp;lt;squeak &lt;br /&gt;
+0.7203372114689538:&amp;lt;mouthful &lt;br /&gt;
+0.7123522162102919:&amp;lt;meat &lt;br /&gt;
+0.7110375068682293:&amp;lt;male &lt;br /&gt;
+0.7029104114344779:&amp;lt;swig &lt;br /&gt;
+0.6955470835808224:&amp;lt;drops &lt;br /&gt;
+0.6901040539654248:&amp;lt;blew &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;0.9999999999999999:&amp;lt;chocolate &lt;/b&gt;&lt;br /&gt;
+0.5475055711590749:&amp;lt;frog &lt;br /&gt;
+0.5431921714687046:&amp;lt;frogs &lt;br /&gt;
+0.47751803650826924:&amp;lt;cards &lt;br /&gt;
+0.45420825957039807:&amp;lt;cakes &lt;br /&gt;
+0.43692834317867524:&amp;lt;marmalade &lt;br /&gt;
+0.4356386019624927:&amp;lt;tarts &lt;br /&gt;
+0.43098893267906485:&amp;lt;abbot &lt;br /&gt;
+0.41999201661912083:&amp;lt;chopped &lt;br /&gt;
+0.4170767831464866:&amp;lt;pasties &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
+&lt;b&gt;1.0:&amp;lt;phoenix&lt;/b&gt; &lt;br /&gt;
+0.6477570284902336:&amp;lt;wizengamot &lt;br /&gt;
+0.611456341909926:&amp;lt;order &lt;br /&gt;
+0.601307062292621:&amp;lt;recent &lt;br /&gt;
+0.5894212574676222:&amp;lt;warlock &lt;br /&gt;
+0.5777717037132631:&amp;lt;educational &lt;br /&gt;
+0.5672181094594285:&amp;lt;charges &lt;br /&gt;
+0.5577200810058244:&amp;lt;mysteries &lt;br /&gt;
+0.5560769924913356:&amp;lt;ministers &lt;br /&gt;
+0.5528013856762239:&amp;lt;quibbler &lt;br /&gt;
+&lt;br /&gt;
+(256 dimensions : 10 epochs) &lt;br /&gt;
+&lt;b&gt;0.9999999999999998:&amp;lt;phoenix&lt;/b&gt; &lt;br /&gt;
+0.44566492530943996:&amp;lt;feather &lt;br /&gt;
+0.4307836965454031:&amp;lt;order &lt;br /&gt;
+0.41943464449038814:&amp;lt;maple &lt;br /&gt;
+0.34291846139813786:&amp;lt;fawkes &lt;br /&gt;
+0.33463728125471814:&amp;lt;cuttlebone &lt;br /&gt;
+0.3323033150650069:&amp;lt;headquarters &lt;br /&gt;
+0.33116604341560135:&amp;lt;brethren &lt;br /&gt;
+0.31389382936668453:&amp;lt;tto &lt;br /&gt;
+0.305949945529935:&amp;lt;cores &lt;br /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 23 Nov 2014 13:00:00 +0100</pubDate>
+        <link>http://iamtrask.github.io/2014/11/23/harry-potter/</link>
+        <guid isPermaLink="true">http://iamtrask.github.io/2014/11/23/harry-potter/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Tutorial: when Numpy isn&#39;t fast enough...</title>
+        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; a demo on how to use fortran/blas libraries under the hood of your python program&#39;s vector operations to squeeze out extra speed over Numpy.&lt;/p&gt;
+
+&lt;p&gt;Yesterday, I posted a on how to use Apache Spark with GPUs from a notebook. To my joy, it reached the first page of Hacker News (while serving the Scala community!!!). Using Spark from one of the iPython notebooks has become a real passion of mine... and whereas yesterday I focused on Scala/JVM/GPU operations, today I want to offer a bit up to the scientific Python community. These discoveries are from studying a wonderful codebase by Radim Rehurek called &lt;a href=&quot;https://github.com/piskvorky&quot;&gt;Gensim&lt;/a&gt;... specifically the word2vec implementation. &lt;/p&gt;
+
+&lt;p&gt;You might be wondering why I would cover CPU based speedups following GPU based... and the truth is that sometimes lighter weight optimiations are a better fit... especially when dealing with smaller batches of vectors at a time or when GPUs simply aren&#39;t available.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: iPython-Notebook Cython Magic&lt;/h2&gt;
+
+&lt;p&gt;Install &lt;a href=&quot;http://stackoverflow.com/questions/2213551/installing-scipy-with-pip&quot;&gt;Numpy,Scipy&lt;/a&gt;,&lt;a href=&quot;http://brewformulas.org/Gfortran&quot;&gt;GFortran&lt;/a&gt;,&lt;a href=&quot;http://docs.cython.org/src/quickstart/install.html&quot;&gt;Cython&lt;/a&gt;, and &lt;a href=&quot;http://scikit-learn.org/stable/install.html&quot;&gt;scikit-learn&lt;/a&gt; packages. I &lt;i&gt;HIGHLY&lt;/i&gt; recommend sticking to easy_install, brew (apt-get), and pip. In my experience, macports has some real trouble with these packages. Also, of course, you need to have ipython notebook installed for these examples to work, but technically it can work for normal cython too.&lt;/p&gt;
+
+&lt;p&gt;With Cython you&#39;ll get the &quot;Cython&quot; magic as well. The following command should work in your notebook.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/sampleCython.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Notice that you load the cython magic using &quot;%load_ext cythonmagic&quot; and then compile cython using &quot;%%cython&quot; at the top of the cell containing cython code. You can then call your cython functions (or classes... etc) from python. It&#39;s a neat system. :) &lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Scipy Fortran-Blas in Cython&lt;/h2&gt;
+
+&lt;p&gt;Below you&#39;ll see the core code that we need to get our superfast blas operations. After the first few imports, you&#39;ll see a &quot;cdef extern from&quot; import from a file called voidptr.h. This file allows us to cast a numpy array to its pointer without copying any data.... a key part of the code. The contents of that file are also below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/fasterThanNumpyCode.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/klb3713/sentence2vec/blob/master/voidptr.h&quot;&gt;&lt;b&gt; voidptr.h code on Github&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, you&#39;ll also see six function types and their implementations. There is a whole suite of these funky-named fortran functions in the &lt;a href=&quot;http://docs.scipy.org/doc/scipy-0.12.0/reference/generated/scipy.linalg.blas.html&quot;&gt;Scipy Blas/Fortran Documentation&lt;/a&gt; I also write a simple dot-product function leveraging the dsdot (double dot product... as opposed to float) called pubDotty.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/fasterThanNumpyDemo.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this example, I create two numpy vectors of length 32. (one full of ones and another full of threes). I then benchmark and show how the cython/fortran version is &lt;b&gt;5.8x faster&lt;/b&gt;. It should be noted that this is still passing in a python object... this efficiency gain increases when everything stays in cython for several progressive operations.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 23 Nov 2014 13:00:00 +0100</pubDate>
+        <link>http://iamtrask.github.io/2014/11/23/cython-blas-fortran/</link>
+        <guid isPermaLink="true">http://iamtrask.github.io/2014/11/23/cython-blas-fortran/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Tutorial: Spark-GPU Cluster Dev in a Notebook</title>
+        <description>&lt;p&gt;Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. The goal of this blog post is to create a local dev environment for ad-hoc gpu-cluster computing using Apache Spark, iPython Notebook (scala version), and the stock GPU powering your Macbook Pro&#39;s display.&lt;/p&gt;
+
+&lt;blockquote&gt;Make it work... then make it fast... then make it beautiful -- Matthew Russell&lt;/blockquote&gt;
+
+&lt;p&gt;In the spirit of my mentor, we will start by getting each part &quot;working&quot; individually. Fortunately, the second part (speed) sortof falls out of the first (GPU clusters are like that). Then, we&#39;ll integrate these parts into something beautiful... a scalable, ad-hoc environment.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Spark-Notebook&lt;/h2&gt;
+
+&lt;p&gt;Apache Spark can be controlled by notebooks from several languages. I&#39;m going with Scala for several reasons. First, it allows me to have access to the full Spark API (Graphx support is a dealbreaker for me). Secondly, the only GPU library that allowed me to compile for the GPU without writing C code myself is in Java (which I can call from scala). Even with these limitations, there were still several to choose from. The options were:&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;http://zeppelin-project.org/&quot;&gt;Zeppelin&lt;/a&gt; -&amp;gt; buggy API after I imported classes &lt;br /&gt;
+&lt;a href=&quot;https://github.com/andypetrella/spark-notebook&quot;&gt;Spark-Notebook&lt;/a&gt; -&amp;gt; headache to import dependencies &lt;br /&gt;
+&lt;a href=&quot;https://github.com/hohonuuli/sparknotebook&quot;&gt;Sparknotebook&lt;/a&gt; -&amp;gt; Winner!!! Killer app. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;After cloning the Sparknotebook repo and following its instructions (downloading the IScala.jar...etc), with a single command I could open the notebook on top of a standalone spark cluster... easy peasy... &lt;/p&gt;
+
+&lt;p&gt;Please go like the REPO... I&#39;d like to see it get some love....&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: GPU on the JVM&lt;/h2&gt;
+
+&lt;p&gt;The inspiration for this came from a rather impressive library called &lt;a href=&quot;http://www.scalanlp.org/&quot;&gt;ScalaNLP&lt;/a&gt;. They claimed to have a parser that could parse half a million words per minute on one machine! Given that I work in R&amp;amp;D at a &quot;Big-Data NLP&quot; firm, this peaked my interest. Scalanlp on a 100 node cluster seems.... rather disgustingly awesome.&lt;/p&gt;
+
+&lt;p&gt;ScalaNLP Leverages the java opencl library, &lt;a href=&quot;https://code.google.com/p/javacl/&quot;&gt;JavaCL&lt;/a&gt;. The decision to use OpenCL, as opposed to CUDA, means that the code runs on non-NVIDIA graphics cards. All Apple&#39;s can use OpenCL. Therefore, I can prototype on my Macbook&#39;s GPU. I like that.... i like that a lot. &lt;/p&gt;
+
+&lt;p&gt;However, what I don&#39;t like is writing C code. It slows me down and isn&#39;t portable. I need my code to be both enterprise-ready and, &quot;we don&#39;t want to buy GPUs&quot; ready. This is where &lt;a href=&quot;https://code.google.com/p/aparapi/&quot;&gt;Aparapi&lt;/a&gt; comes in. It compiles Java code down to OpenCL, and runs it in a Java Thread Pool if a GPU isn&#39;t available. Also, it&#39;s made by AMD... which means you can trust it. Those guys are total bosses. &lt;a href=&quot;http://www.amd.com/en-us/press-releases/Pages/amd-fx-8370-2014sep02.aspx&quot;&gt;AMD Claims New World Record&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I downloaded the AparaPi Mac OS Zip... although all these are available.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2012_01_23_MacOSX_zip&amp;amp;can=2&amp;amp;q=&quot;&gt;Aparapi_2012_01_23_MacOSX_zip&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_linux_x86.zip&amp;amp;can=2&amp;amp;q=&quot;&gt;Aparapi_2013_01_23_linux_x86.zip&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_windows_x86.zip&amp;amp;can=2&amp;amp;q=&quot;&gt;Aparapi_2013_01_23_windows_x86.zip&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;I unzipped the download into a folder on my machine, and it created a folder called &quot;Aparapi_2012_01_23_MacOSX_zip&quot;. &lt;br /&gt;&lt;br /&gt;
+&lt;b&gt;Executions:&lt;/b&gt;
+&lt;blockquote&gt;cd Aparapi_2012_01_23_MacOSX_zip/samples/squares/ &lt;br /&gt;
+sh squares.sh&lt;/blockquote&gt;
+&lt;b&gt;Output Sample:&lt;/b&gt;
+&lt;blockquote&gt;Execution mode=GPU&lt;br /&gt;
+     0        0 &lt;br /&gt;
+     1        1&lt;br /&gt;
+     2        4&lt;br /&gt;
+     3        9&lt;br /&gt;
+     4       16&lt;br /&gt;
+     5       25&lt;br /&gt;
+     6       36&lt;br /&gt;
+     7       49&lt;br /&gt;
+     8       64&lt;br /&gt;
+     9       81&lt;br /&gt;
+    10      100
+&lt;/blockquote&gt;&lt;/p&gt;
+
+&lt;p&gt; Wallah! Apparently this java code can run on my Macbook&#39;s GPU. Feel free to try a few of the other sample programs... the mandlebrot one is super cool!&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Integrating Spark and Aparapi in the Notebook&lt;/h2&gt;
+
+&lt;p&gt; So, everything so far has simply been a tutorial on &quot;proper tool selection&quot; for the task. The real challenge is in getting these tools to talk to each other. The first integration step we need to do is to import the aparapi jar into the iscala notebook. This can be done using the following command.&lt;/p&gt;
+&lt;blockquote&gt;mvn install:install-file -Dfile=aparapi.jar -DgroupId=com.amd.aparapi -DartifactId=aparapi -Dversion=1.0 -Dpackaging=jar&lt;/blockquote&gt;
+
+&lt;p&gt;Furthermore, my ~/.ipython/profile_scala/ipython_config.py  looks like this at the bottom...&lt;/p&gt;
+
+&lt;blockquote&gt;c = get_config() &lt;br /&gt;&lt;br /&gt;
+
+c.KernelManager.kernel_cmd = [&quot;java&quot;,&quot;-Djava.library.path=/Users/.. .../Aparapi_2012_01_23_MacOSX_zip&quot;,&quot;-XX:MaxPermSize=2048m&quot;,&quot;-Xmx8g&quot;, &lt;br /&gt; &quot;-jar&quot;,
+                          &quot;/Users/myname/.ipython/profile_scala/lib/IScala.jar&quot;,&quot;/Users/... .../Aparapi_2012_01_23_MacOSX_zip/aparapi.jar&quot;, &lt;br /&gt;
+                          &quot;--profile&quot;, &lt;br /&gt;
+                          &quot;{connection_file}&quot;, &lt;br /&gt;
+                          &quot;--parent&quot;]&lt;/blockquote&gt;
+&lt;p&gt;This gets the aparapi jar on our spark cluster classpath.&lt;/p&gt;
+
+&lt;p&gt; One more detail, when you&#39;re starting ipython notebook, start it with this command (with your aparapi zip directory path instead of mine). I&#39;ll go into this in a minute&lt;/p&gt;
+&lt;blockquote&gt;SPARK_DAEMON_JAVA_OPTS=-Xmx8128m SPARK_WORKER_MEMORY=-Xmx2048m SPARK_DAEMON_MEMORY=-Xmx2048m SPARK_REPL_OPTS=-XX:MaxPermSize=2048m SBT_OPTS=-Xmx8128m SPARK_JAVA_OPTS=&quot;-Djava.library.path=/Users/... ..../Aparapi_2012_01_23_MacOSX_zip -Xms512m -Xmx8128m&quot; ipython notebook --profile scala	&lt;/blockquote&gt;
+
+&lt;p&gt;When I deploy the aparapi jar locally, I can then import aparapi like so...&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/ipythonDep.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt; GPU, iPython Notebooks, and Apache Spark meeting for the very first time ever…. a moment in history.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt; Assuming no errors in the &quot;upload&quot; command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I&#39;m using the demo scala notebook from the sparknotebook github. I recommend this to make sure that the notebook is working before you start.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 4: Example Kernel Built in the Notebook (using Scala only)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/exampleKernel.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt;Building a kernel and running it… notice the output at the bottom…&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt; Notice that i tried to set the kernel to run on the GPU, but because the GPU wasn&#39;t available, it switched the version and ran it on the CPU. You might be thinking, &quot;Wait!!! This blog is a hoax!!!&quot;. I got a bit discouraged at this point as well, however, debugging later found out that we cannot compile Scala to GPU code. This is acceptable for prototyping kernels and chaining them together. This will even run in the spark context... so to develop and test your kenels (using the Java Thread Pool fallback), feel free to do it this way. &lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 5: Executing GPU Kernel on Spark Cluster&lt;/h2&gt;
+
+&lt;p&gt;Now the moment we&#39;ve all been waiting for.... earlier when you installed the aparapi jar into maven, you were actually installing the compiled jar including the &quot;Square&quot; sample code. If we crack open the &quot;squares.sh&quot; script we ran earlier, we&#39;ll see that it is calling a program in that jar&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;squares.sh&lt;/b&gt;&lt;/p&gt;
+&lt;blockquote&gt;java \ &lt;br /&gt;
+ -Djava.library.path=../.. \ &lt;br /&gt;
+ -Dcom.amd.aparapi.executionMode=%1 \ &lt;br /&gt;
+ -classpath ../../aparapi.jar:squares.jar \ &lt;br /&gt;
+ com.amd.aparapi.sample.squares.Main&lt;/blockquote&gt;
+
+&lt;p&gt;This means that the compiled code is already on our classpath... and we can call it from a spark method like so...&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/gpuInSpark.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt;Running the kernel in the ipython notebook via spark&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/gpuOutputInTerminal.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt;The logging of the GPU program… showing that it is indeed being run on the GPU (didn’t fallback to JTP)&lt;/span&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 22 Nov 2014 13:00:00 +0100</pubDate>
+        <link>http://iamtrask.github.io/2014/11/22/spark-gpu/</link>
+        <guid isPermaLink="true">http://iamtrask.github.io/2014/11/22/spark-gpu/</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

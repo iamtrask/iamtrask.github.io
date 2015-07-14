@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>Tutorial: when Numpy isn't fast enough... - i am trask</title>
+
+    <link rel="canonical" href="http://iamtrask.github.io/2014/11/23/cython-blas-fortran/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">i am trask</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">about</a>
+                </li>
+                
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<header class="intro-header" style="background-image: url('/img/typewriter.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Tutorial: when Numpy isn't fast enough...</h1>
+                    
+                    <h2 class="subheading">A tutorial on using fortran/blas under the hood of your python program for a 6x speed pickup.</h2>
+                    
+                    <span class="meta">Posted by iamtrask on November 23, 2014</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><b>Summary:</b> a demo on how to use fortran/blas libraries under the hood of your python program's vector operations to squeeze out extra speed over Numpy.</p>
+
+<p>Yesterday, I posted a on how to use Apache Spark with GPUs from a notebook. To my joy, it reached the first page of Hacker News (while serving the Scala community!!!). Using Spark from one of the iPython notebooks has become a real passion of mine... and whereas yesterday I focused on Scala/JVM/GPU operations, today I want to offer a bit up to the scientific Python community. These discoveries are from studying a wonderful codebase by Radim Rehurek called <a href="https://github.com/piskvorky">Gensim</a>... specifically the word2vec implementation. </p>
+
+<p>You might be wondering why I would cover CPU based speedups following GPU based... and the truth is that sometimes lighter weight optimiations are a better fit... especially when dealing with smaller batches of vectors at a time or when GPUs simply aren't available.</p>
+
+<h2 class="section-heading">Part 1: iPython-Notebook Cython Magic</h2>
+
+<p>Install <a href="http://stackoverflow.com/questions/2213551/installing-scipy-with-pip">Numpy,Scipy</a>,<a href="http://brewformulas.org/Gfortran">GFortran</a>,<a href="http://docs.cython.org/src/quickstart/install.html">Cython</a>, and <a href="http://scikit-learn.org/stable/install.html">scikit-learn</a> packages. I <i>HIGHLY</i> recommend sticking to easy_install, brew (apt-get), and pip. In my experience, macports has some real trouble with these packages. Also, of course, you need to have ipython notebook installed for these examples to work, but technically it can work for normal cython too.</p>
+
+<p>With Cython you'll get the "Cython" magic as well. The following command should work in your notebook.</p>
+
+<p><img class="img-responsive" src="/img/sampleCython.png" alt="" /></p>
+
+<p>Notice that you load the cython magic using "%load_ext cythonmagic" and then compile cython using "%%cython" at the top of the cell containing cython code. You can then call your cython functions (or classes... etc) from python. It's a neat system. :) </p>
+
+<h2 class="section-heading">Part 2: Scipy Fortran-Blas in Cython</h2>
+
+<p>Below you'll see the core code that we need to get our superfast blas operations. After the first few imports, you'll see a "cdef extern from" import from a file called voidptr.h. This file allows us to cast a numpy array to its pointer without copying any data.... a key part of the code. The contents of that file are also below.</p>
+
+<p><img class="img-responsive" src="/img/fasterThanNumpyCode.png" alt="" /></p>
+
+<p><a href="https://github.com/klb3713/sentence2vec/blob/master/voidptr.h"><b> voidptr.h code on Github</b></a></p>
+
+<p>Next, you'll also see six function types and their implementations. There is a whole suite of these funky-named fortran functions in the <a href="http://docs.scipy.org/doc/scipy-0.12.0/reference/generated/scipy.linalg.blas.html">Scipy Blas/Fortran Documentation</a> I also write a simple dot-product function leveraging the dsdot (double dot product... as opposed to float) called pubDotty.</p>
+
+<p><img class="img-responsive" src="/img/fasterThanNumpyDemo.png" alt="" /></p>
+
+<p>In this example, I create two numpy vectors of length 32. (one full of ones and another full of threes). I then benchmark and show how the cython/fortran version is <b>5.8x faster</b>. It should be noted that this is still passing in a python object... this efficiency gain increases when everything stays in cython for several progressive operations.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="//2014/11/22/spark-gpu/" data-toggle="tooltip" data-placement="top" title="Tutorial: Spark-GPU Cluster Dev in a Notebook">&larr; Previous Post</a> 
+                    </li>
+                     
+                    
+                    <li class="next">
+                        <a href="//2014/11/23/harry-potter/" data-toggle="tooltip" data-placement="top" title="Word2Vec Analysis of Harry Potter">Next Post &rarr;</a>
+                    </li>
+                     
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/u8mybrownies">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; i am trask 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

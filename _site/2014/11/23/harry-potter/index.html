@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>Word2Vec Analysis of Harry Potter - i am trask</title>
+
+    <link rel="canonical" href="http://iamtrask.github.io/2014/11/23/harry-potter/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">i am trask</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">about</a>
+                </li>
+                
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<header class="intro-header" style="background-image: url('/img/typewriter.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Word2Vec Analysis of Harry Potter</h1>
+                    
+                    <h2 class="subheading">Some fun cosine similarities of words and characters in the 7 Harry Potter Books.</h2>
+                    
+                    <span class="meta">Posted by iamtrask on November 23, 2014</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p>Word2vec is a very cool algorithm that uses neural networks to map words to feature vectors. Those vectors then have interesting properties. You can use these vectors to cluster words into groups… find words that are most similar in an unsupervised fashion.</p>
+
+<p>I ran <a href="https://code.google.com/p/word2vec/">word2vec</a> on the 7 harry potter books and ran some cosine similarities on words i thought might be interesting. (using the open source <a href="http://radimrehurek.com/gensim/">Gensim</a> library I love) My favorite is the word “password” below… which revealed a list of passwords to the Gryffendor Common Room.</p>
+
+<p>The top word of each list is the focus word… and then a list of the most similar words thereafter.</p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0000000000000002:&lt;expecto</b> <br />
+0.8790060473734644:&lt;patronum <br />
+0.755879251292692:&lt;pettigrews <br />
+0.6931649914220047:&lt;scabbers <br />
+0.6921019768155199:&lt;pettigrew <br />
+0.6854965539870754:&lt;lumos <br />
+0.6800035990521911:&lt;groped <br />
+0.664763725362591:&lt;buckbeaks <br />
+0.6386204400460198:&lt;lupins <br />
+0.6368874336372525:&lt;forcing <br />
+<br />
+(256 dimensions : 10 epochs)<br />
+<b>1.0000000000000002:&lt;expecto</b> <br />
+0.881676712172453:&lt;patronum <br />
+0.66633365764735:&lt;expec <br />
+0.5100899639798923:&lt;patrono <br />
+0.4183506799917183:&lt;poppy <br />
+0.4151233329572086:&lt;wailed <br />
+0.4093665595659816:&lt;nicknamed <br />
+0.3973543132151556:&lt;riddikulus <br />
+0.3944545196592748:&lt;fistbeating <br />
+0.39103755743544927:&lt;bristling <br /></p>
+
+<p>(256 dimensions : 10 epochs)<br />
+<b>1.0:&lt;lumos</b> <br />
+0.42209239730743003:&lt;imperio <br />
+0.40507159450163904:&lt;ignited <br />
+0.3758083182732268:&lt;tergeo <br />
+0.3744004687853999:&lt;episkey <br />
+0.3658264199741773:&lt;portus <br />
+0.35926607923955595:&lt;uhoh <br />
+0.3574845249683229:&lt;serpensortia <br />
+0.35644744188201566:&lt;wandtip <br />
+0.3503601500539219:&lt;dissendium <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0:&lt;weasley</b> <br />
+0.7899136471577068:&lt;cole <br />
+0.7580984973288645:&lt;weasleys <br />
+0.704308962845765:&lt;cattermole <br />
+0.696147590313737:&lt;figg <br />
+0.6615516871288135:&lt;bill <br />
+0.5775892972766857:&lt;mr <br />
+0.5623844627363042:&lt;mrs <br />
+0.547272989628803:&lt;crouch <br />
+0.5346744691953205:&lt;brightly <br />
+<br />
+(256 dimensions : 10 epochs)<br />
+<b>1.0:&lt;weasley</b> <br />
+0.5571492216402788:&lt;mrs <br />
+0.525661506461713:&lt;mr <br />
+0.5122609732187181:&lt;redheads <br />
+0.47470149235833253:&lt;greatauntie <br />
+0.4636894081306857:&lt;basil <br />
+0.4615857402277965:&lt;wwhats <br />
+0.44954942844918266:&lt;whew <br />
+0.44593325992665894:&lt;pranksters <br />
+0.4366713328133361:&lt;weasleys <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0000000000000002:&lt;potter</b> <br />
+0.7040619432963181:&lt;severus <br />
+0.6994994807105462:&lt;thank <br />
+0.6875348923351211:&lt;sir <br />
+0.6822709821434811:&lt;please <br />
+0.632136736822497:&lt;may <br />
+0.6291806648311767:&lt;cannot <br />
+0.6284403688596681:&lt;yes <br />
+0.624241093676769:&lt;kindly <br />
+0.6217287188964961:&lt;will <br />
+<br />
+(256 dimensions : 10 epochs)<br />
+<b>0.9999999999999999:&lt;potter </b><br />
+0.3901893042844876:&lt;humble <br />
+0.38913611920424174:&lt;rotter <br />
+0.36768347738598195:&lt;heed <br />
+0.3666138243923663:&lt;heroworshipped <br />
+0.3587120147197108:&lt;woooooooo <br />
+0.34933445012876724:&lt;characters <br />
+0.3440882110680894:&lt;dunderbore <br />
+0.344022635479845:&lt;questionall <br />
+0.34103571192794435:&lt;pining <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0000000000000002:&lt;gryffindor</b> <br />
+0.74139062089133:&lt;team <br />
+0.734880573018089:&lt;tower <br />
+0.7231970430099021:&lt;slytherin <br />
+0.7021615040969098:&lt;common <br />
+0.7018928824840882:&lt;ravenclaw <br />
+0.6585783668158374:&lt;points <br />
+0.6540640450146518:&lt;spinnet <br />
+0.64507063817762:&lt;bell <br />
+0.6289645923037345:&lt;goal <br />
+<br />
+(256 dimensions : 10 epochs)<br />
+<b>1.0:&lt;gryffindor</b> <br />
+0.4581853977277023:&lt;hufflepuff <br />
+0.4420478362268596:&lt;tower <br />
+0.44149319299048684:&lt;points <br />
+0.4410251892894441:&lt;slytherin <br />
+0.4188516239321704:&lt;ravenclaw <br />
+0.3600329597460896:&lt;gryffindors <br />
+0.35418207017889025:&lt;team <br />
+0.34891474092816965:&lt;wellearned <br />
+0.3404098626732141:&lt;penalty <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>0.9999999999999999:&lt;ravenclaw</b> <br />
+0.781214400477696:&lt;hufflepuff <br />
+0.7512446691492253:&lt;slytherin <br />
+0.7254427881734692:&lt;captain <br />
+0.7208340720937167:&lt;oclock <br />
+0.7147691706800555:&lt;lee <br />
+0.7147331227062966:&lt;montague <br />
+0.7018928824840882:&lt;gryffindor <br />
+0.697691445889272:&lt;team <br />
+0.6839508546137936:&lt;wednesday <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0:&lt;ravenclaw</b> <br />
+0.5732267167869871:&lt;hufflepuff <br />
+0.43935832571981465:&lt;slytherin <br />
+0.43555165040705907:&lt;rowena <br />
+0.4188516239321704:&lt;gryffindor <br />
+0.407678924818592:&lt;turpin <br />
+0.38709404961590305:&lt;helga <br />
+0.3708434204576607:&lt;seeker <br />
+0.35874384841804063:&lt;huffepuff <br />
+0.35602194786273583:&lt;loses <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0:&lt;hufflepuff</b> <br />
+0.7921196174194491:&lt;fifth <br />
+0.7848088164254446:&lt;seventh <br />
+0.781214400477696:&lt;ravenclaw <br />
+0.7780135594276192:&lt;fourth <br />
+0.7568581966579454:&lt;hufflepuffs <br />
+0.7452088578170768:&lt;slytherin <br />
+0.7329618627066322:&lt;slytherins <br />
+0.7241609971259948:&lt;thursday <br />
+0.7202963910695652:&lt;gryffindors <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0:&lt;hufflepuff</b> <br />
+0.5732267167869871:&lt;ravenclaw <br />
+0.560598634502152:&lt;slytherin <br />
+0.4581853977277023:&lt;gryffindor <br />
+0.41404169865069024:&lt;points <br />
+0.41335251749481483:&lt;helga <br />
+0.40705600406104697:&lt;pushover <br />
+0.3964490683438199:&lt;applauding <br />
+0.39567843096475613:&lt;loses <br />
+0.39244432848771427:&lt;match <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0000000000000002:&lt;slytherin</b> <br />
+0.7512446691492253:&lt;ravenclaw <br />
+0.7452088578170768:&lt;hufflepuff <br />
+0.7238327202395243:&lt;team <br />
+0.7231970430099021:&lt;gryffindor <br />
+0.7165509326427633:&lt;captain <br />
+0.7030698136643037:&lt;bell <br />
+0.6922161358648197:&lt;goal <br />
+0.6914818449404438:&lt;montague <br />
+0.6612854741883617:&lt;pucey <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0:&lt;slytherin</b> <br />
+0.560598634502152:&lt;hufflepuff <br />
+0.44370546214405354:&lt;slytherins <br />
+0.4410251892894441:&lt;gryffindor <br />
+0.43935832571981465:&lt;ravenclaw <br />
+0.4111100118874837:&lt;team <br />
+0.3960522941982452:&lt;captain <br />
+0.3834171440911241:&lt;gains <br />
+0.3816636526374869:&lt;pushover <br />
+0.37815919943099136:&lt;fen <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+1.0:&lt;hermione <br />
+<b>0.6373033872867323:&lt;she</b> <br />
+0.5360344746735539:&lt;neville <br />
+0.5274756001139249:&lt;he <br />
+0.5214301504925287:&lt;ginny <br />
+0.5109574888160943:&lt;ron <br />
+0.4999163834053927:&lt;luna <br />
+0.49574563180394704:&lt;harry <br />
+0.451967913703171:&lt;romilda <br />
+0.446476077232399:&lt;her <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0000000000000002:</b>&lt;hermione <br />
+0.5042554769286905:&lt;ron <br />
+0.4808255935304602:&lt;she <br />
+0.3717110232643911:&lt;ginny <br />
+0.35913453543144513:&lt;acidly <br />
+0.35306516236363134:&lt;ermyknee <br />
+0.3515929674760651:&lt;encouragingly <br />
+0.35124423149024275:&lt;uhoh <br />
+0.3455436053959502:&lt;grabbing <br />
+0.34365264010683094:&lt;lavender <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0:&lt;dumbledore</b> <br />
+0.7867909396010355:&lt;snape <br />
+0.652590036205367:&lt;slughorn <br />
+0.6378681113816113:&lt;voldemort <br />
+0.6120050198022656:&lt;aberforth <br />
+0.6019010767912868:&lt;he <br />
+0.5929735071374835:&lt;scrimgeour <br />
+0.5840436894354705:&lt;sirius <br />
+0.5553253520856778:&lt;dumbledores <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0:&lt;dumbledore</b> <br />
+0.49688884807669753:&lt;snape <br />
+0.43320641875023586:&lt;fudge <br />
+0.42104734145946027:&lt;voldemort <br />
+0.409769764165034:&lt;corpses <br />
+0.40586327560858065:&lt;lupin <br />
+0.3992514094799346:&lt;dumbledores <br />
+0.3984795966379898:&lt;headmaster <br />
+0.36481567503440565:&lt;devastating <br />
+0.35980117000272555:&lt;riddle <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0000000000000002:&lt;spell</b> <br />
+0.5705834288105536:&lt;jinx <br />
+0.5528068188658538:&lt;clear <br />
+0.5308173140619804:&lt;however <br />
+0.5256446406146716:&lt;crumplehorned <br />
+0.5217704552103746:&lt;hit <br />
+0.5214290685798957:&lt;latter <br />
+0.5210853653286843:&lt;sectumsempra <br />
+0.5204984581955842:&lt;dolohov <br />
+0.5172019428367624:&lt;made <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>0.9999999999999999:&lt;spell</b> <br />
+0.45622019920423756:&lt;spells <br />
+0.38503414331623603:&lt;charm <br />
+0.3744579769148505:&lt;retaliate <br />
+0.3365386087137521:&lt;stunning <br />
+0.31299212123460146:&lt;fourpoint <br />
+0.3047318421865308:&lt;defensive <br />
+0.3018663449722407:&lt;jinx <br />
+0.2986278064898596:&lt;practicing <br />
+0.29811271395978733:&lt;hit <br /></p>
+
+<p>(64 dimensions : 1 epoch)<br />
+<b>1.0:&lt;chamber</b> <br />
+0.7516236239509654:&lt;staffroom <br />
+0.7097278407351896:&lt;basilisk <br />
+0.6396829682468098:&lt;secrets <br />
+0.6303229904669257:&lt;messages <br />
+0.6292212718692173:&lt;pages <br />
+0.6255458905896577:&lt;gargoyle <br />
+0.623691053534629:&lt;stage <br />
+0.6189105698380645:&lt;sealed <br />
+0.6165084868604697:&lt;hilt <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0:&lt;chamber</b> <br />
+0.527350716695893:&lt;secrets <br />
+0.45803538999265264:&lt;forsaken <br />
+0.4509279299021009:&lt;fanciful <br />
+0.3937455721042796:&lt;unseal <br />
+0.3737416685904814:&lt;roosters <br />
+0.35312885285278145:&lt;drawingroom <br />
+0.3358263562408226:&lt;unleash <br />
+0.32925459347667607:&lt;daubed <br />
+0.32405200326296857:&lt;runin <br /></p>
+
+<p>(128 dimensions : 1 epoch)<br />
+<b>1.0:&lt;black</b> <br />
+0.7090495706356712:&lt;thick <br />
+0.6825056469408932:&lt;silver <br />
+0.6687549059638025:&lt;white <br />
+0.6671827818068091:&lt;thin <br />
+0.6595272052625423:&lt;green <br />
+0.6559287359085553:&lt;tiny <br />
+0.6520876963925315:&lt;glass <br />
+0.6499197812776186:&lt;bright <br />
+0.6376775975420493:&lt;hair <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0000000000000002:&lt;black</b> <br />
+0.4187862746289444:&lt;ravaged <br />
+0.41376806599272925:&lt;bald <br />
+0.3964342510912526:&lt;silky <br />
+0.39399279699897416:&lt;stripes <br />
+0.3782092012451359:&lt;broadshouldered <br />
+0.3779053329184092:&lt;graying <br />
+0.37579439331917774:&lt;paleeyed <br />
+0.3734468240600482:&lt;atop <br />
+0.37307859100552243:&lt;leathery <br /></p>
+
+<p>(128 dimensions : 1 epoch)<br />
+<b>1.0:&lt;requirement</b> <br />
+0.6805251004125765:&lt;common <br />
+0.58822928078406:&lt;detail <br />
+0.5869718509295418:&lt;gaunts <br />
+0.5677933609626798:&lt;portrait <br />
+0.5612000668830176:&lt;rest <br />
+0.5611572795099765:&lt;space <br />
+0.5554348127278043:&lt;marquee <br />
+0.5519591805530948:&lt;middle <br />
+0.5455370331332081:&lt;slightest <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>0.9999999999999998:&lt;requirement</b> <br />
+0.4016798211784335:&lt;unknowable <br />
+0.3867069097055046:&lt;jampacked <br />
+0.37050061385790234:&lt;room <br />
+0.3616482568609007:&lt;partlife <br />
+0.3557306897710399:&lt;assaulted <br />
+0.35489547684406436:&lt;compression <br />
+0.33972003944909956:&lt;common <br />
+0.32747964915808203:&lt;upholstery <br />
+0.3205128295096265:&lt;reliving <br /></p>
+
+<p>(128 dimensions : 1 epoch)<br />
+<b>1.0000000000000002:&lt;voldemort</b> <br />
+0.6883758949036237:&lt;voldemorts <br />
+0.6882314118148244:&lt;bellatrix <br />
+0.6687046547843726:&lt;sirius <br />
+0.6456113933094144:&lt;dumbledores <br />
+0.6378681113816113:&lt;dumbledore <br />
+0.6198750862701423:&lt;lord <br />
+0.601800677476979:&lt;prophecy <br />
+0.5979378004431092:&lt;connection <br />
+0.5976976164728673:&lt;ariana <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0:&lt;voldemort</b> <br />
+0.5231034885732724:&lt;lord <br />
+0.4949022273659753:&lt;voldemorts <br />
+0.42104734145946027:&lt;dumbledore <br />
+0.40269571073980126:&lt;kill <br />
+0.39346439983965364:&lt;inindeed <br />
+0.3625195714553203:&lt;snape <br />
+0.36251702487473614:&lt;elm <br />
+0.35635136288239055:&lt;merciful <br />
+0.35450715479438577:&lt;prostrate <br /></p>
+
+<p>(128 dimensions : 1 epoch)<br />
+<b>1.0:&lt;snape</b> <br />
+0.7867909396010355:&lt;dumbledore <br />
+0.7602249542226724:&lt;slughorn <br />
+0.6055605238284325:&lt;bellatrix <br />
+0.6030688726296658:&lt;mcgonagall <br />
+0.5929395283735124:&lt;phineas <br />
+0.5913798507548866:&lt;umbridge <br />
+0.5626612723245389:&lt;narcissa <br />
+0.5592886705523973:&lt;horace <br />
+0.5535260402939475:&lt;dumbledores <br />
+<br />
+(256 dimensions : 10 epochs)<br />
+<b>1.0:&lt;snape </b><br />
+0.49688884807669753:&lt;dumbledore <br />
+0.39141319194131824:&lt;snapes <br />
+0.3788874389546836:&lt;severus <br />
+0.3625195714553203:&lt;voldemort <br />
+0.3602838216909781:&lt;malfoy <br />
+0.3495411504557353:&lt;mcgonagall <br />
+0.3432543679925834:&lt;heroworshipped <br />
+0.3407031113901212:&lt;silkily <br />
+0.3385766904895776:&lt;bbbut <br /></p>
+
+<p>(128 dimensions : 1 epoch)<br />
+<b>1.0000000000000002:&lt;password</b> <br />
+0.6759946677363984:&lt;lady <br />
+0.6260981919566827:&lt;north <br />
+0.6258023922269232:&lt;tower <br />
+0.6253624288287926:&lt;owlery <br />
+0.6189141007115594:&lt;fat <br />
+0.6020323426260975:&lt;afterward <br />
+0.5984440756682315:&lt;waking <br />
+0.5788408987574969:&lt;cave <br />
+0.5730507346420423:&lt;heading <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>1.0:&lt;password</b> <br />
+0.47446983465719267:&lt;fritters <br />
+0.4712847308362276:&lt;lady <br />
+0.4654321201001382:&lt;banana <br />
+0.4440026686633822:&lt;flibbertigibbet <br />
+0.37558294153078775:&lt;ladys <br />
+0.3705196683435887:&lt;abstinence <br />
+0.36897045258759176:&lt;fat <br />
+0.3470203296601344:&lt;portrait <br />
+0.3172485840936194:&lt;festive <br /></p>
+
+<p>(128 dimensions : 1 epoch)<br />
+<b>1.0:&lt;chocolate</b> <br />
+0.7724365211403441:&lt;frog <br />
+0.7337068328667901:&lt;mug <br />
+0.7211389912598347:&lt;squeak <br />
+0.7203372114689538:&lt;mouthful <br />
+0.7123522162102919:&lt;meat <br />
+0.7110375068682293:&lt;male <br />
+0.7029104114344779:&lt;swig <br />
+0.6955470835808224:&lt;drops <br />
+0.6901040539654248:&lt;blew <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>0.9999999999999999:&lt;chocolate </b><br />
+0.5475055711590749:&lt;frog <br />
+0.5431921714687046:&lt;frogs <br />
+0.47751803650826924:&lt;cards <br />
+0.45420825957039807:&lt;cakes <br />
+0.43692834317867524:&lt;marmalade <br />
+0.4356386019624927:&lt;tarts <br />
+0.43098893267906485:&lt;abbot <br />
+0.41999201661912083:&lt;chopped <br />
+0.4170767831464866:&lt;pasties <br /></p>
+
+<p>(128 dimensions : 1 epoch)<br />
+<b>1.0:&lt;phoenix</b> <br />
+0.6477570284902336:&lt;wizengamot <br />
+0.611456341909926:&lt;order <br />
+0.601307062292621:&lt;recent <br />
+0.5894212574676222:&lt;warlock <br />
+0.5777717037132631:&lt;educational <br />
+0.5672181094594285:&lt;charges <br />
+0.5577200810058244:&lt;mysteries <br />
+0.5560769924913356:&lt;ministers <br />
+0.5528013856762239:&lt;quibbler <br />
+<br />
+(256 dimensions : 10 epochs) <br />
+<b>0.9999999999999998:&lt;phoenix</b> <br />
+0.44566492530943996:&lt;feather <br />
+0.4307836965454031:&lt;order <br />
+0.41943464449038814:&lt;maple <br />
+0.34291846139813786:&lt;fawkes <br />
+0.33463728125471814:&lt;cuttlebone <br />
+0.3323033150650069:&lt;headquarters <br />
+0.33116604341560135:&lt;brethren <br />
+0.31389382936668453:&lt;tto <br />
+0.305949945529935:&lt;cores <br /></p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="//2014/11/23/cython-blas-fortran/" data-toggle="tooltip" data-placement="top" title="Tutorial: when Numpy isn't fast enough...">&larr; Previous Post</a> 
+                    </li>
+                     
+                    
+                    <li class="next">
+                        <a href="//2014/11/24/distributing-network/" data-toggle="tooltip" data-placement="top" title="Distributing a Fully Connected Neural Network Across a Cluster">Next Post &rarr;</a>
+                    </li>
+                     
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/u8mybrownies">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; i am trask 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>
