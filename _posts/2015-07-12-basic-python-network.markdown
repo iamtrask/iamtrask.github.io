@@ -237,7 +237,7 @@ Since our first layer, l0, is simply our data. We explicitly describe it as such
 <p><b>Line 29:</b>
 This is our prediction step. Basically, we first let the network "try" to predict the output given the input. We will then study how it performs so that we can adjust it to do a bit better for each iteration. <br /><br />
 
-This line contains 2 steps. The first matrix multiplies l0 by syn0. Consider the dimensions of each:<br /><br />
+This line contains 2 steps. The first matrix multiplies l0 by syn0. The second passes our output through the sigmoid function. Consider the dimensions of each:<br /><br />
 (4 x 3) dot (3 x 1) = (4 x 1) <br /><br />
 Matrix multiplication is ordered, such the dimensions in the middle of the equation must be the same. The final matrix generated is thus the number of rows of the first matrix and the number of columns of the second matrix.<br /><br />
 Since we loaded in 4 training examples, we ended up with 4 guesses for the correct answer, a (4 x 1) matrix. Each output corresponds with the network's guess for a given input. Perhaps it becomes intuitive why we could have "loaded in" an arbitrary number of training examples. The matrix multiplication would still work out. :)
