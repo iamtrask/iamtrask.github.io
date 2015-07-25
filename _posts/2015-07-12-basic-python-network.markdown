@@ -269,7 +269,7 @@ l1_delta = l1_error * nonlin(l1,True)
 
 When we multiply the "slopes" by the error, we are <b>reducing the error of high confidence predictions</b>. Look at the sigmoid picture again! If the slope was really shallow (close to 0), then the network either had a very high value, or a very low value. This means that the network was quite confident one way or the other. However, if the network guessed something close to (x=0, y=0.5) then it isn't very confident. We update these "wishy-washy" predictions most heavily, and we tend to leave the confident ones alone by multiplying them by a number close to 0.
 
-<p><b>Line 36:</b>
+<p><b>Line 39:</b>
 We are now ready to update our network! Let's take a look at a single training example.
 <img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/toy_network_deriv.png" alt="">
 In this training example, we're all setup to update our weights. Let's update the far left weight (9.5).<br /><br />
@@ -279,7 +279,7 @@ For the far left weight, this would multiply 1.0 * the l1_delta. Presumably, thi
 </p>
 <img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/toy_network_batch.png" alt="">
 <p>
-However, because we're using a "full batch" configuration, we're doing the above step on all four training examples. So, it looks a lot more like the image above. So, what does line 36 do? It computes the weight updates for each weight for each training example, sums them, and updates the weights, all in a simple line. Play around with the matrix multiplication and you'll see it do this! 
+However, because we're using a "full batch" configuration, we're doing the above step on all four training examples. So, it looks a lot more like the image above. So, what does line 39 do? It computes the weight updates for each weight for each training example, sums them, and updates the weights, all in a simple line. Play around with the matrix multiplication and you'll see it do this! 
 </p>
 
 <p><h3>Takeaways:</h3>
@@ -550,7 +550,7 @@ Error:0.00351012256786
   </tr>
   <tr>
     <td class="tg-4kyx">l2</td>
-    <td class="tg-4kyz">Final Layer of the Network, which is our hypothesys, and should approximate the correct answer as we train.</td>
+    <td class="tg-4kyz">Final Layer of the Network, which is our hypothesis, and should approximate the correct answer as we train.</td>
   </tr>
     <tr>
     <td class="tg-4kyx">syn0</td>
