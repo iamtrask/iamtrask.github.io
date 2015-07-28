@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 27 Jul 2015 20:36:37 -0500</pubDate>
-    <lastBuildDate>Mon, 27 Jul 2015 20:36:37 -0500</lastBuildDate>
+    <pubDate>Mon, 27 Jul 2015 20:38:05 -0500</pubDate>
+    <lastBuildDate>Mon, 27 Jul 2015 20:38:05 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -1241,7 +1241,7 @@ Since our first layer, l0, is simply our data. We explicitly describe it as such
 &lt;p&gt;&lt;b&gt;Line 29:&lt;/b&gt;
 This is our prediction step. Basically, we first let the network &quot;try&quot; to predict the output given the input. We will then study how it performs so that we can adjust it to do a bit better for each iteration. &lt;br /&gt;&lt;br /&gt;
 
-This line contains 2 steps. The first matrix multiplies l0 by syn0. Consider the dimensions of each:&lt;br /&gt;&lt;br /&gt;
+This line contains 2 steps. The first matrix multiplies l0 by syn0. The second passes our output through the sigmoid function. Consider the dimensions of each:&lt;br /&gt;&lt;br /&gt;
 (4 x 3) dot (3 x 1) = (4 x 1) &lt;br /&gt;&lt;br /&gt;
 Matrix multiplication is ordered, such the dimensions in the middle of the equation must be the same. The final matrix generated is thus the number of rows of the first matrix and the number of columns of the second matrix.&lt;br /&gt;&lt;br /&gt;
 Since we loaded in 4 training examples, we ended up with 4 guesses for the correct answer, a (4 x 1) matrix. Each output corresponds with the network&#39;s guess for a given input. Perhaps it becomes intuitive why we could have &quot;loaded in&quot; an arbitrary number of training examples. The matrix multiplication would still work out. :)
@@ -1273,7 +1273,7 @@ l1_delta = l1_error * nonlin(l1,True)
 
 When we multiply the &quot;slopes&quot; by the error, we are &lt;b&gt;reducing the error of high confidence predictions&lt;/b&gt;. Look at the sigmoid picture again! If the slope was really shallow (close to 0), then the network either had a very high value, or a very low value. This means that the network was quite confident one way or the other. However, if the network guessed something close to (x=0, y=0.5) then it isn&#39;t very confident. We update these &quot;wishy-washy&quot; predictions most heavily, and we tend to leave the confident ones alone by multiplying them by a number close to 0.
 
-&lt;p&gt;&lt;b&gt;Line 36:&lt;/b&gt;
+&lt;p&gt;&lt;b&gt;Line 39:&lt;/b&gt;
 We are now ready to update our network! Let&#39;s take a look at a single training example.
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/toy_network_deriv.png&quot; alt=&quot;&quot; /&gt;
 In this training example, we&#39;re all setup to update our weights. Let&#39;s update the far left weight (9.5).&lt;br /&gt;&lt;br /&gt;
@@ -1283,7 +1283,7 @@ For the far left weight, this would multiply 1.0 * the l1_delta. Presumably, thi
 &lt;/p&gt;
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/toy_network_batch.png&quot; alt=&quot;&quot; /&gt;
 &lt;p&gt;
-However, because we&#39;re using a &quot;full batch&quot; configuration, we&#39;re doing the above step on all four training examples. So, it looks a lot more like the image above. So, what does line 36 do? It computes the weight updates for each weight for each training example, sums them, and updates the weights, all in a simple line. Play around with the matrix multiplication and you&#39;ll see it do this! 
+However, because we&#39;re using a &quot;full batch&quot; configuration, we&#39;re doing the above step on all four training examples. So, it looks a lot more like the image above. So, what does line 39 do? It computes the weight updates for each weight for each training example, sums them, and updates the weights, all in a simple line. Play around with the matrix multiplication and you&#39;ll see it do this! 
 &lt;/p&gt;
 
 &lt;p&gt;&lt;h3&gt;Takeaways:&lt;/h3&gt;
@@ -1563,7 +1563,7 @@ Error:0.00351012256786
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class=&quot;tg-4kyx&quot;&gt;l2&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Final Layer of the Network, which is our hypothesys, and should approximate the correct answer as we train.&lt;/td&gt;
+    &lt;td class=&quot;tg-4kyz&quot;&gt;Final Layer of the Network, which is our hypothesis, and should approximate the correct answer as we train.&lt;/td&gt;
   &lt;/tr&gt;
     &lt;tr&gt;
     &lt;td class=&quot;tg-4kyx&quot;&gt;syn0&lt;/td&gt;

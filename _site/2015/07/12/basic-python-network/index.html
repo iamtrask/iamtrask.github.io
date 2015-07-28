@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="/css/syntax.css">
 
     <!-- Custom Fonts -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -370,7 +370,7 @@ Since our first layer, l0, is simply our data. We explicitly describe it as such
 <p><b>Line 29:</b>
 This is our prediction step. Basically, we first let the network "try" to predict the output given the input. We will then study how it performs so that we can adjust it to do a bit better for each iteration. <br /><br />
 
-This line contains 2 steps. The first matrix multiplies l0 by syn0. Consider the dimensions of each:<br /><br />
+This line contains 2 steps. The first matrix multiplies l0 by syn0. The second passes our output through the sigmoid function. Consider the dimensions of each:<br /><br />
 (4 x 3) dot (3 x 1) = (4 x 1) <br /><br />
 Matrix multiplication is ordered, such the dimensions in the middle of the equation must be the same. The final matrix generated is thus the number of rows of the first matrix and the number of columns of the second matrix.<br /><br />
 Since we loaded in 4 training examples, we ended up with 4 guesses for the correct answer, a (4 x 1) matrix. Each output corresponds with the network's guess for a given input. Perhaps it becomes intuitive why we could have "loaded in" an arbitrary number of training examples. The matrix multiplication would still work out. :)
@@ -402,7 +402,7 @@ l1_delta = l1_error * nonlin(l1,True)
 
 When we multiply the "slopes" by the error, we are <b>reducing the error of high confidence predictions</b>. Look at the sigmoid picture again! If the slope was really shallow (close to 0), then the network either had a very high value, or a very low value. This means that the network was quite confident one way or the other. However, if the network guessed something close to (x=0, y=0.5) then it isn't very confident. We update these "wishy-washy" predictions most heavily, and we tend to leave the confident ones alone by multiplying them by a number close to 0.
 
-<p><b>Line 36:</b>
+<p><b>Line 39:</b>
 We are now ready to update our network! Let's take a look at a single training example.
 <img class="img-responsive" width="100%" src="/img/toy_network_deriv.png" alt="" />
 In this training example, we're all setup to update our weights. Let's update the far left weight (9.5).<br /><br />
@@ -412,7 +412,7 @@ For the far left weight, this would multiply 1.0 * the l1_delta. Presumably, thi
 </p>
 <img class="img-responsive" width="100%" src="/img/toy_network_batch.png" alt="" />
 <p>
-However, because we're using a "full batch" configuration, we're doing the above step on all four training examples. So, it looks a lot more like the image above. So, what does line 36 do? It computes the weight updates for each weight for each training example, sums them, and updates the weights, all in a simple line. Play around with the matrix multiplication and you'll see it do this! 
+However, because we're using a "full batch" configuration, we're doing the above step on all four training examples. So, it looks a lot more like the image above. So, what does line 39 do? It computes the weight updates for each weight for each training example, sums them, and updates the weights, all in a simple line. Play around with the matrix multiplication and you'll see it do this! 
 </p>
 
 <p><h3>Takeaways:</h3>
@@ -692,7 +692,7 @@ Error:0.00351012256786
   </tr>
   <tr>
     <td class="tg-4kyx">l2</td>
-    <td class="tg-4kyz">Final Layer of the Network, which is our hypothesys, and should approximate the correct answer as we train.</td>
+    <td class="tg-4kyz">Final Layer of the Network, which is our hypothesis, and should approximate the correct answer as we train.</td>
   </tr>
     <tr>
     <td class="tg-4kyx">syn0</td>
@@ -875,19 +875,7 @@ formInputs[i].value = '';
     </div>
 </article>
 
-<hr>
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Footer Add -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="8398577820"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<hr>
 
 
     <!-- Footer -->
