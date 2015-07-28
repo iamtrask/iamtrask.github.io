@@ -1,8 +1,8 @@
 ---
 layout:     post
 title:      "A Neural Network in 13 lines of Python (Part 2)"
-subtitle:   "The simple intuitions of Stochastic Gradient Descent"
-date:       2015-07-24 12:00:00
+subtitle:   "Improving our neural network by optimizing Stochastic Gradient Descent"
+date:       2015-07-27 12:00:00
 author:     "iamtrask"
 header-img: "img/post-bg-02.jpg"
 ---
