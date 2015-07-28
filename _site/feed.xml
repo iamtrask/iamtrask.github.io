@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 28 Jul 2015 07:55:52 -0500</pubDate>
-    <lastBuildDate>Tue, 28 Jul 2015 07:55:52 -0500</lastBuildDate>
+    <pubDate>Tue, 28 Jul 2015 07:57:39 -0500</pubDate>
+    <lastBuildDate>Tue, 28 Jul 2015 07:57:39 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -993,23 +993,6 @@ formInputs[i].value = &#39;&#39;;
         <pubDate>Mon, 27 Jul 2015 07:00:00 -0500</pubDate>
         <link>http://iamtrask.github.io/2015/07/27/python-network-sgd/</link>
         <guid isPermaLink="true">http://iamtrask.github.io/2015/07/27/python-network-sgd/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Python Network Part2</title>
-        <description>&lt;div class=&quot;container&quot;&gt;
-	&lt;div class=&quot;row&quot;&gt;
-		&lt;div class=&quot;col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1&quot;&gt;
-			&lt;script&gt;
-window.location.replace(&quot;http://iamtrask.github.io/2015/07/27/python-network-sgd/&quot;);
-&lt;/script&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Mon, 27 Jul 2015 00:00:00 -0500</pubDate>
-        <link>http://iamtrask.github.io/2015/07/27/python-network-part2/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2015/07/27/python-network-part2/</guid>
         
         
       </item>
