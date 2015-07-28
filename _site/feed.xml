@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 27 Jul 2015 20:38:05 -0500</pubDate>
-    <lastBuildDate>Mon, 27 Jul 2015 20:38:05 -0500</lastBuildDate>
+    <pubDate>Mon, 27 Jul 2015 20:40:13 -0500</pubDate>
+    <lastBuildDate>Mon, 27 Jul 2015 20:40:13 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -885,7 +885,6 @@ If you&#39;re serious about neural networks, I have one recommendation. &lt;b&gt
 This toy example still needs quite a few bells and whistles to really approach the state-of-the-art architectures. Here&#39;s a few things you can look into if you want to further improve your network. (Perhaps I will in a followup post.)&lt;/p&gt;
 
 &lt;p style=&quot;padding-left:20px&quot;&gt;
-• Alpha &lt;br /&gt;
 • &lt;a href=&quot;http://stackoverflow.com/questions/2480650/role-of-bias-in-neural-networks&quot;&gt;Bias Units&lt;/a&gt;&lt;br /&gt;
 • &lt;a href=&quot;https://class.coursera.org/ml-003/lecture/106&quot;&gt;Mini-Batches&lt;/a&gt;&lt;br /&gt;
 • Delta Trimming &lt;br /&gt;

@@ -890,7 +890,6 @@ If you're serious about neural networks, I have one recommendation. <b>Try to re
 This toy example still needs quite a few bells and whistles to really approach the state-of-the-art architectures. Here's a few things you can look into if you want to further improve your network. (Perhaps I will in a followup post.)</p>
 
 <p style="padding-left:20px">
-• Alpha <br />
 • <a href="http://stackoverflow.com/questions/2480650/role-of-bias-in-neural-networks">Bias Units</a><br />
 • <a href="https://class.coursera.org/ml-003/lecture/106">Mini-Batches</a><br />
 • Delta Trimming <br />
