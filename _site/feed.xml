@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 28 Jul 2015 07:57:39 -0500</pubDate>
-    <lastBuildDate>Tue, 28 Jul 2015 07:57:39 -0500</lastBuildDate>
+    <pubDate>Tue, 28 Jul 2015 07:58:29 -0500</pubDate>
+    <lastBuildDate>Tue, 28 Jul 2015 07:58:29 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -991,8 +991,8 @@ formInputs[i].value = &#39;&#39;;
 &lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 27 Jul 2015 07:00:00 -0500</pubDate>
-        <link>http://iamtrask.github.io/2015/07/27/python-network-sgd/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2015/07/27/python-network-sgd/</guid>
+        <link>http://iamtrask.github.io/2015/07/27/python-network-part2/</link>
+        <guid isPermaLink="true">http://iamtrask.github.io/2015/07/27/python-network-part2/</guid>
         
         
       </item>
