@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
 
-    <title>A Neural Network in 11 lines of Python - i am trask</title>
+    <title>A Neural Network in 11 lines of Python (Part 1) - i am trask</title>
 
     <link rel="canonical" href="http://iamtrask.github.io/2015/07/12/basic-python-network/">
 
@@ -84,6 +84,10 @@
                     
                 </li>
                 
+                <li>
+                    
+                </li>
+                
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -108,7 +112,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>A Neural Network in 11 lines of Python</h1>
+                    <h1>A Neural Network in 11 lines of Python (Part 1)</h1>
                     
                     <h2 class="subheading">A bare bones neural network implementation to describe the inner workings of backpropagation.</h2>
                     
@@ -126,6 +130,9 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
 				<p><b>Summary:</b> I learn best with toy code that I can play with. This tutorial teaches backpropagation via a very simple toy example, a short python implementation.</p>
+
+<p><b>Edit:</b> Some folks have asked about a followup article, and I'm planning to write one. I'll tweet it out when it's complete at <a href="https://twitter.com/iamtrask">@iamtrask</a>. Feel free to follow if you'd be interested in reading it and thanks for all the feedback!
+</p>
 <h3>Just Give Me The Code:</h3>
 <pre class="brush: python">
 X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
@@ -142,6 +149,17 @@ for j in xrange(60000):
 </pre>
 
 <p>However, this is a bit terse…. let’s break it apart into a few simple parts.</p>
+
+<hr />
+
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- Part 1 -->
+<p><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;text-align:center" data-ad-client="ca-pub-6751104560361558" data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+<hr />
 
 <h2 class="section-heading">Part 1: A Tiny Toy Network</h2>
 
@@ -334,7 +352,7 @@ It's good practice to seed your random numbers. Your numbers will still be rando
 </p>
 
 <p><b>Line 23:</b>
-This is our weight matrix for this neural network. It's called "syn0" to imply "synapse zero". Since we only have 2 layers (input and output), we only need one matrix of weights to connect them. It's dimentionality is (3,1) because we have 3 inputs and 1 output. Another way of looking at it is that l0 is of size 3 and l1 is of size 1. Thus, we want to connect every node in l0 to every node in l1, which requires a matrix of dimensionality (3,1). :)
+This is our weight matrix for this neural network. It's called "syn0" to imply "synapse zero". Since we only have 2 layers (input and output), we only need one matrix of weights to connect them. Its dimension is (3,1) because we have 3 inputs and 1 output. Another way of looking at it is that l0 is of size 3 and l1 is of size 1. Thus, we want to connect every node in l0 to every node in l1, which requires a matrix of dimensionality (3,1). :)
 <br /><br />
 Also notice that it is initialized randomly with a mean of zero. There is quite a bit of theory that goes into weight initialization. For now, just take it as a best practice that it's a good idea to have a mean of zero in weight initialization.
 <br /><br />
@@ -442,6 +460,15 @@ So, now that we've looked at how the network updates, let's look back at our tra
 <p>
 Thus, in our four training examples below, the weight from the first input to the output would <b>consistently increment or remain unchanged</b>, whereas the other two weights would find themselves <b>both increasing and decreasing across training examples</b> (cancelling out progress). This phenomenon is what causes our network to learn based on correlations between the input and output.
 </p>
+
+<hr />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 2 -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;text-align:center" data-ad-client="ca-pub-6751104560361558" data-ad-slot="3842123822"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
 
 <h2 class="section-heading">Part 2: A Slightly Harder Problem</h2>
 <br />
@@ -701,6 +728,15 @@ Everything should look very familiar! It's really just 2 of the previous impleme
 <p><b>Line 43:</b> uses the "confidence weighted error" from l2 to establish an error for l1. To do this, it simply sends the error across the weights from l2 to l1. This gives what you could call a "contribution weighted error" because we learn how much each node value in l1 "contributed" to the error in l2. This step is called "backpropagating" and is the namesake of the algorithm. We then update syn0 using the same steps we did in the 2 layer implementation.
 </p>
 
+<hr />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 3 -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;text-align:center" data-ad-client="ca-pub-6751104560361558" data-ad-slot="5318857026"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
+
 <h2 class="section-heading">Part 3: Conclusion and Future Work</h2>
 <br />
 
@@ -727,6 +763,85 @@ This toy example still needs quite a few bells and whistles to really approach t
 • Other Awesomeness You Implement<br />
 </p>
 
+<hr />
+
+<h2 class="section-heading">Want to Work in Machine Learning?</h2>
+
+
+<p>
+One of the best things you can do to learn Machine Learning is to have a job where you're <b>practicing Machine Learning professionally</b>. I'd encourage you to check out the <a href="https://www.linkedin.com/vsearch/j?page_num=1&amp;locationType=Y&amp;f_C=74158&amp;trk=jobs_biz_prem_all_header">positions at Digital Reasoning</a> in your job hunt. If you have questions about any of the positions or about life at Digital Reasoning, feel free to send me a message on <a href="https://www.linkedin.com/profile/view?id=226572677&amp;trk=nav_responsive_tab_profile">my LinkedIn</a>. I'm happy to hear about where you want to go in life, and help you evaluate whether Digital Reasoning could be a good fit.
+</p>
+
+<p>If none of the positions above feel like a good fit. Continue your search! Machine Learning expertise is one of the <b>most valuable skills in the job market today</b>, and there are many firms looking for practitioners. Perhaps some of these services below will help you in your hunt.
+
+<style type="text/css">#indJobContent{padding-bottom: 5px;}#indJobContent .company_location{font-size: 11px;overflow: hidden;display:block;}#indJobContent.wide .job{display:block;float:left;margin-right: 5px;width: 135px;overflow: hidden}#indeed_widget_wrapper{position: relative;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 13px;font-weight: normal;line-height: 18px;padding: 10px;height: auto;overflow: hidden;}#indeed_widget_header{font-size:18px; padding-bottom: 5px; }#indeed_search_wrapper{clear: both;font-size: 12px;margin-top: 5px;padding-top: 5px;}#indeed_search_wrapper label{font-size: 12px;line-height: inherit;text-align: left; margin-right: 5px;}#indeed_search_wrapper input[type='text']{width: 100px; font-size: 11px; }#indeed_search_wrapper #qc{float:left;}#indeed_search_wrapper #lc{float:right;}#indeed_search_wrapper.stacked #qc, #indeed_search_wrapper.stacked #lc{float: none; clear: both;}#indeed_search_wrapper.stacked input[type='text']{width: 150px;}#indeed_search_wrapper.stacked label{display: block;padding-bottom: 5px;}#indeed_search_footer{width:295px; padding-top: 5px; clear: both;}#indeed_link{position: absolute;bottom: 1px;right: 5px;clear: both;font-size: 11px; }#indeed_link a{text-decoration: none;}#results .job{padding: 1px 0px;}#pagination { clear: both; }</style><style type="text/css">
+#indeed_widget_wrapper{ width: 50%; height: 600px; background: #FFFFFF;}
+#indeed_widget_wrapper{ border: 1px solid #DDDDDD; }
+#indeed_widget_wrapper, #indeed_link a{ color: #000000;}
+#indJobContent, #indeed_search_wrapper{ border-top: 1px solid #DDDDDD; }
+#indJobContent a { color: #00c; }
+#indeed_widget_header{ color: #000000; }
+</style>
+<script type="text/javascript">
+var ind_pub = '9172611916208179';
+var ind_el = 'indJobContent';
+var ind_pf = '';
+var ind_q = 'Machine Learning';
+var ind_l = '';
+var ind_chnl = 'none';
+var ind_n = 15;
+var ind_d = 'http://www.indeed.com';
+var ind_t = 40;
+var ind_c = 30;
+</script>
+<script type="text/javascript" src="http://www.indeed.com/ads/jobroll-widget-v3.js"></script>
+<div id="indeed_widget_wrapper" style="">
+<div id="indeed_widget_header">Machine Learning Jobs</div>
+
+<div id="indJobContent" class=""></div>
+
+<div id="indeed_search_wrapper">
+<script type="text/javascript">
+function clearDefaults() {
+var formInputs = document.getElementById('indeed_jobform').elements;
+for(var i = 0; i < formInputs.length; i++) {
+if(formInputs[i].value == 'title, keywords' || formInputs[i].value == 'city, state, or zip') {
+formInputs[i].value = '';
+}
+}
+}
+</script>
+<form onsubmit="clearDefaults();" method="get" action="http://www.indeed.com/jobs" id="indeed_jobform" target="_new">
+<div id="qc"><label>What:</label><input type="text" onfocus="this.value=&quot;&quot;" value="title, keywords" name="q" id="q" /></div>
+<div id="lc"><label>Where:</label><input type="text" onfocus="this.value=&quot;&quot;" value="city, state, or zip" name="l" id="l" /></div>
+<div id="indeed_search_footer">
+<div style="float:left"><input type="submit" value="Find Jobs" class="findjobs" /></div>
+</div>
+<input type="hidden" name="indpubnum" id="indpubnum" value="9172611916208179" />
+</form>
+</div>
+
+<div id="indeed_link">
+<a title="Job Search" href="http://www.indeed.com/" target="_new">jobs by <img alt="Indeed" src="http://www.indeed.com/p/jobsearch.gif" style="border: 0;vertical-align: bottom;" />
+</a>
+</div>
+</div>
+
+<div style="position:absolute; margin-top:-600px; margin-left:400px" id="MonsterJobSearchResultPlaceHolder8W8AAA_e_e" class="xmns_distroph"></div>
+<script type="text/javascript">
+(function() {
+  var oScript = document.createElement('script');
+  oScript.type = 'text/javascript';
+  oScript.async = true;
+  oScript.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'publisher.monster.com/Services/WidgetHandler.ashx?WidgetID=EAAQQ16gTwjBL3DT4_uFIOIXzA--&Verb=Initialize';
+  var oParent = document.getElementsByTagName('script')[0];
+  oParent.parentNode.insertBefore(oScript, oParent);
+})();
+</script>
+<a id="monsterBrowseLink8W8AAA_e_e" class="monsterBrowseLink fnt4" href="http://jobsearch.monster.com/jobs/?q=Machine-Learning">View More Job Search Results</a>
+
+
+
 <link rel="stylesheet" type="text/css" href="/css/shCore.css" />
 <link rel="stylesheet" type="text/css" href="/css/shThemeDefault.css" />
 <script src="/js/shCore.js"></script>
@@ -737,7 +852,7 @@ This toy example still needs quite a few bells and whistles to really approach t
 	SyntaxHighlighter.config.toolbar = true;
     SyntaxHighlighter.all();
 </script>
-</p></p></p>
+</p></p></p></p>
 
 
                 <hr>
@@ -748,6 +863,10 @@ This toy example still needs quite a few bells and whistles to really approach t
                         <a href="//2014/11/24/distributing-network/" data-toggle="tooltip" data-placement="top" title="Distributing a Fully Connected Neural Network Across a Cluster">&larr; Previous Post</a> 
                     </li>
                      
+                    
+                    <li class="next">
+                        <a href="//2015/07/24/python-network-part2/" data-toggle="tooltip" data-placement="top" title="A Neural Network in 13 lines of Python (Part 2)">Next Post &rarr;</a>
+                    </li>
                      
                 </ul>
 
@@ -758,9 +877,30 @@ This toy example still needs quite a few bells and whistles to really approach t
 
 <hr>
 
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Footer Add -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="8398577820"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<hr>
+
 
     <!-- Footer -->
 <footer>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Footer Add -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="8398577820"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -783,15 +923,6 @@ This toy example still needs quite a few bells and whistles to really approach t
                         </a>
                     </li>
                     
-                    
-                    <li>
-                        <a href="https://www.facebook.com/u8mybrownies">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
                     
                     
                     <li>
