@@ -5,13 +5,13 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 27 Jul 2015 21:43:13 -0500</pubDate>
-    <lastBuildDate>Mon, 27 Jul 2015 21:43:13 -0500</lastBuildDate>
+    <pubDate>Tue, 28 Jul 2015 07:40:02 -0500</pubDate>
+    <lastBuildDate>Tue, 28 Jul 2015 07:40:02 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
         <title>A Neural Network in 13 lines of Python (Part 2)</title>
-        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; I learn best with toy code that I can play with. This tutorial teaches stochastic gradient descent via a very simple toy example, a short python implementation. 
+        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; I learn best with toy code that I can play with. This tutorial teaches gradient descent via a very simple toy example, a short python implementation. 
 
 &lt;p&gt;&lt;b&gt;Followup Post:&lt;/b&gt; I intend to write a followup post to this one adding popular features leveraged by &lt;a href=&quot;http://rodrigob.github.io/are_we_there_yet/build/classification_datasets_results.html&quot;&gt;state-of-the-art approaches&lt;/a&gt; (likely Dropout, DropConnect, and Momentum). I&#39;ll tweet it out when it&#39;s complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you&#39;d be interested in reading more and thanks for all the feedback!&lt;/p&gt;
 
@@ -44,7 +44,7 @@ for j in xrange(60000):
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Optimization&lt;/h2&gt;
 
-&lt;p&gt;In &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Part 1&lt;/a&gt;, I laid out the basis for backpropagation in a simple neural network. Backpropagation allowed us to measure how each weight in the network contributed to the overall error. This ultimately allowed us to change these weights using a different algorithm, &lt;b&gt;Stochastic Gradient Descent&lt;/b&gt;.
+&lt;p&gt;In &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Part 1&lt;/a&gt;, I laid out the basis for backpropagation in a simple neural network. Backpropagation allowed us to measure how each weight in the network contributed to the overall error. This ultimately allowed us to change these weights using a different algorithm, &lt;b&gt;Gradient Descent&lt;/b&gt;.
 
 &lt;p&gt;The takeaway here is that &lt;b&gt;backpropagation doesn&#39;t optimize&lt;/b&gt;! It moves the error information from the end of the network to all the weights inside the network so that a different algorithm can optimize those weights to fit our data. We actually have a plethora of different &lt;b&gt;nonlinear optimization methods&lt;/b&gt; that we could use with backpropagation:&lt;/p&gt;
 &lt;p style=&quot;margin-left:40px&quot;&gt;
@@ -65,7 +65,7 @@ for j in xrange(60000):
 • &lt;a href=&quot;http://www.robertsdionne.com/bouncingball/&quot;&gt;RobertsDionne&lt;/a&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Many of these optimizations are good for different purposes, and in some cases several can be used together. In this tutorial, we will walk through Stochastic Gradient Descent (SGD), which is arguably the simplest and most widely used neural network optimization algorithm. By learning about SGD, we will then be able to improve our toy neural network through parameterization and tuning, and ultimately make it a &lt;b&gt;lot more powerful&lt;/b&gt;.
+&lt;p&gt;Many of these optimizations are good for different purposes, and in some cases several can be used together. In this tutorial, we will walk through Gradient Descent, which is arguably the simplest and most widely used neural network optimization algorithm. By learning about Gradient Descent, we will then be able to improve our toy neural network through parameterization and tuning, and ultimately make it a &lt;b&gt;lot more powerful&lt;/b&gt;.
 &lt;/p&gt;
 
 &lt;hr /&gt;
@@ -77,7 +77,7 @@ for j in xrange(60000):
 &lt;/script&gt;
 &lt;hr /&gt;
 
-&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Stochastic Gradient Descent&lt;/h2&gt;
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Gradient Descent&lt;/h2&gt;
 
 &lt;p&gt;Imagine that you had a red ball inside of a rounded bucket like in the picture below. Imagine further that the red ball is trying to find the bottom of the bucket. This is &lt;b&gt;optimization&lt;/b&gt;. In our case, the ball is optimizing it&#39;s position (from left to right) to find the lowest point in the bucket.&lt;/p&gt; 
 
@@ -94,7 +94,7 @@ for j in xrange(60000):
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sgd_optimal.png&quot; alt=&quot;&quot; /&gt;
 
 &lt;p&gt;
-	&lt;h4&gt;Oversimplified Stochastic Gradient Descent:&lt;/h4&gt;
+	&lt;h4&gt;Oversimplified Gradient Descent:&lt;/h4&gt;
 	&lt;ul&gt;
 	  &lt;li&gt;Calculate slope at current position&lt;/li&gt;
 	  &lt;li&gt;If slope is negative, move right&lt;/li&gt;
@@ -108,7 +108,7 @@ for j in xrange(60000):
 &lt;p&gt;The question is, however, &lt;b&gt;how much should the ball move &lt;/b&gt;at each time step? Look at the bucket again. The steeper the slope, the farther the ball is from the bottom. That&#39;s helpful! Let&#39;s improve our algorithm to leverage this new information. Also, let&#39;s assume that the bucket is on an (x,y) plane. So, it&#39;s location is x (along the bottom). Increasing the ball&#39;s &quot;x&quot; position moves it to the right. Decreasing the ball&#39;s &quot;x&quot; position moves it to the left.&lt;/p&gt;
 
 &lt;p&gt;
-&lt;h4&gt;Naive Stochastic Gradient Descent:&lt;/h4&gt;
+&lt;h4&gt;Naive Gradient Descent:&lt;/h4&gt;
 &lt;ul&gt;
 	&lt;li&gt;Calculate &quot;slope&quot; at current &quot;x&quot; position&lt;/li&gt;
 	&lt;li&gt;Change x by the negative of the slope. (x = x - slope)&lt;/li&gt;
@@ -128,7 +128,7 @@ for j in xrange(60000):
 &lt;hr /&gt;
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Sometimes It Breaks&lt;/h2&gt;
 
-&lt;p&gt;Stochastic Gradient Descent isn&#39;t perfect. Let&#39;s take a look at its issues and how people get around them. This will allow us to improve our network to overcome these issues.&lt;/p&gt;
+&lt;p&gt;Gradient Descent isn&#39;t perfect. Let&#39;s take a look at its issues and how people get around them. This will allow us to improve our network to overcome these issues.&lt;/p&gt;
 
 &lt;h3&gt;Problem 1: When slopes are too big&lt;/h3&gt;
 
@@ -145,7 +145,7 @@ for j in xrange(60000):
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sgd_optimal.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;
-&lt;h4&gt;Improved Stochastic Gradient Descent:&lt;/h4&gt;
+&lt;h4&gt;Improved Gradient Descent:&lt;/h4&gt;
 alpha = 0.1 (or some number between 0 and 1)
 &lt;ul&gt;
 	&lt;li&gt;Calculate &quot;slope&quot; at current &quot;x&quot; position&lt;/li&gt;
@@ -161,7 +161,7 @@ alpha = 0.1 (or some number between 0 and 1)
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sgd_local_min.png&quot; alt=&quot;&quot; /&gt;
 
 &lt;p&gt;
-This is by far the most difficult problem with stochastic gradient descent. There are a myriad of options to try to overcome this. Generally speaking, they all involve an element of random searching to try lots of different parts of the bucket. 
+This is by far the most difficult problem with gradient descent. There are a myriad of options to try to overcome this. Generally speaking, they all involve an element of random searching to try lots of different parts of the bucket. 
 &lt;/p&gt;
 
 &lt;h3&gt;Solution 2: Multiple Random Starting States&lt;/h3&gt;
@@ -281,10 +281,10 @@ print layer_1
 
 &lt;h3&gt;How Our 2 Layer Neural Network Optimizes&lt;/h3&gt;
 
-&lt;p&gt;So, given that lines 31,32,and 35 end up computing the error. It can be natural to see that lines 39, 40, and 43 optimize to reduce the error. This is where Stochastic Gradient Descent is happening! Remember our pseudocode?
+&lt;p&gt;So, given that lines 31,32,and 35 end up computing the error. It can be natural to see that lines 39, 40, and 43 optimize to reduce the error. This is where Gradient Descent is happening! Remember our pseudocode?
 
 &lt;p&gt;
-&lt;h4&gt;Naive Stochastic Gradient Descent:&lt;/h4&gt;
+&lt;h4&gt;Naive Gradient Descent:&lt;/h4&gt;
 &lt;ul&gt;
 	&lt;li&gt;&lt;b&gt;Lines 39 and 40: &lt;/b&gt;Calculate &quot;slope&quot; at current &quot;x&quot; position&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Line 43: &lt;/b&gt;Change x by the negative of the slope. (x = x - slope)&lt;/li&gt;
@@ -296,7 +296,7 @@ print layer_1
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 5: Improving our Neural Network&lt;/h2&gt;
 
-&lt;p&gt;Remember that Stochastic Gradient Descent had some weaknesses. Now that we have seen how our neural network leverages Stochastic Gradient Descent, we can improve our network to overcome these weaknesses in the same way that we improved Stochastic Gradient Descent in Part 3 (the 3 problems and solutions).&lt;/p&gt;
+&lt;p&gt;Remember that Gradient Descent had some weaknesses. Now that we have seen how our neural network leverages Gradient Descent, we can improve our network to overcome these weaknesses in the same way that we improved Gradient Descent in Part 3 (the 3 problems and solutions).&lt;/p&gt;
 
 &lt;h3&gt;Improvement 1: Adding and Tuning the Alpha Parameter&lt;/h3&gt;
 
@@ -311,7 +311,7 @@ If you have ever tuned an iterative algorithm, you have probably come across the
 &lt;p&gt;We&#39;re going to jump back to our 3 layer neural network from the first post and add in an alpha parameter at the appropriate place. Then, we&#39;re going to run a series of experiments to align all the intuition we developed around alpha with its behavior in live code.&lt;/p&gt;
 
 &lt;p&gt;
-&lt;h4&gt;Improved Stochastic Gradient Descent:&lt;/h4&gt;
+&lt;h4&gt;Improved Gradient Descent:&lt;/h4&gt;
 &lt;ul&gt;
 	&lt;li&gt;Calculate &quot;slope&quot; at current &quot;x&quot; position&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Lines 56 and 57: &lt;/b&gt;Change x by the negative of the slope scaled by alpha. (x = x - (alpha*slope) )&lt;/li&gt;
