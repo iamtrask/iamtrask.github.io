@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 29 Jul 2015 10:35:19 -0500</pubDate>
-    <lastBuildDate>Wed, 29 Jul 2015 10:35:19 -0500</lastBuildDate>
+    <pubDate>Wed, 29 Jul 2015 11:36:34 -0500</pubDate>
+    <lastBuildDate>Wed, 29 Jul 2015 11:36:34 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -20,19 +20,18 @@
 import numpy as np
 X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
 y = np.array([[0,1,1,0]]).T
-alpha,hidden_dim,dropout_percent,training = (0.5,4,0.2,True)
+alpha,hidden_dim,dropout_percent,do_dropout = (0.5,4,0.2,True)
 synapse_0 = 2*np.random.random((3,hidden_dim)) - 1
 synapse_1 = 2*np.random.random((hidden_dim,1)) - 1
 for j in xrange(60000):
     layer_1 = (1/(1+np.exp(-(np.dot(X,synapse_0)))))
-    if(training):
-        layer_1 *= np.random.binomial([np.ones((len(X),hidden_dim))],1-dropout_percent)[0]
+    if(do_dropout):
+        layer_1 *= np.random.binomial([np.ones((len(X),hidden_dim))],1-dropout_percent)[0] * (1.0/(1-dropout_percent))
     layer_2 = 1/(1+np.exp(-(np.dot(l1,synapse_1))))
-    if(training):
-	    layer_2_delta = (layer_2 - y)*(layer_2*(1-layer_2))
-	    layer_1_delta = layer_2_delta.dot(synapse_1.T) * (layer_1 * (1-layer_1))
-	    synapse_1 -= (alpha * l1.T.dot(layer_2_delta))
-	    synapse_0 -= (alpha * X.T.dot(layer_1_delta))
+    layer_2_delta = (layer_2 - y)*(layer_2*(1-layer_2))
+    layer_1_delta = layer_2_delta.dot(synapse_1.T) * (layer_1 * (1-layer_1))
+    synapse_1 -= (alpha * l1.T.dot(layer_2_delta))
+    synapse_0 -= (alpha * X.T.dot(layer_1_delta))
 &lt;/pre&gt;
 &lt;/p&gt;
 &lt;hr /&gt;
@@ -75,6 +74,8 @@ Consider the graphic above from the previous post. The line represents the error
 &lt;p&gt;The highlighted code above demonstrates how to install dropout. To perform dropout on a layer, you randomly set some of the layer&#39;s values to 0 during forward propagation. This is demonstrated on &lt;b&gt;line 10&lt;/b&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Line 9:&lt;/b&gt; parameterizes using dropout at all. You see, you only want to use Dropout during &lt;b&gt;training&lt;/b&gt;. Do not use it at runtime or on your testing dataset.  &lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;EDIT: Line 9:&lt;/b&gt; has a second portion to increase the size of the values being propagated forward. This happens in proportion to the number of values being turned off. A simple intuition is that if you&#39;re turning off half of your hidden layer, you want to double the values that ARE pushing forward so that the output compensates correctly. Many thanks to &lt;a href=&quot;https://twitter.com/karpathy&quot;&gt;@karpathy&lt;/a&gt; for catching this one.&lt;/p&gt;
 
 &lt;h3&gt;Tuning Best Practice&lt;/h3&gt;
 

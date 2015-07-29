@@ -16,19 +16,18 @@ header-img: "img/post-bg-04.jpg"
 import numpy as np
 X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
 y = np.array([[0,1,1,0]]).T
-alpha,hidden_dim,dropout_percent,training = (0.5,4,0.2,True)
+alpha,hidden_dim,dropout_percent,do_dropout = (0.5,4,0.2,True)
 synapse_0 = 2*np.random.random((3,hidden_dim)) - 1
 synapse_1 = 2*np.random.random((hidden_dim,1)) - 1
 for j in xrange(60000):
     layer_1 = (1/(1+np.exp(-(np.dot(X,synapse_0)))))
-    if(training):
-        layer_1 *= np.random.binomial([np.ones((len(X),hidden_dim))],1-dropout_percent)[0]
+    if(do_dropout):
+        layer_1 *= np.random.binomial([np.ones((len(X),hidden_dim))],1-dropout_percent)[0] * (1.0/(1-dropout_percent))
     layer_2 = 1/(1+np.exp(-(np.dot(l1,synapse_1))))
-    if(training):
-	    layer_2_delta = (layer_2 - y)*(layer_2*(1-layer_2))
-	    layer_1_delta = layer_2_delta.dot(synapse_1.T) * (layer_1 * (1-layer_1))
-	    synapse_1 -= (alpha * l1.T.dot(layer_2_delta))
-	    synapse_0 -= (alpha * X.T.dot(layer_1_delta))
+    layer_2_delta = (layer_2 - y)*(layer_2*(1-layer_2))
+    layer_1_delta = layer_2_delta.dot(synapse_1.T) * (layer_1 * (1-layer_1))
+    synapse_1 -= (alpha * l1.T.dot(layer_2_delta))
+    synapse_0 -= (alpha * X.T.dot(layer_1_delta))
 </pre>
 </p>
 <hr />
@@ -74,6 +73,8 @@ Consider the graphic above from the previous post. The line represents the error
 <p>The highlighted code above demonstrates how to install dropout. To perform dropout on a layer, you randomly set some of the layer's values to 0 during forward propagation. This is demonstrated on <b>line 10</b>.</p>
 
 <p><b>Line 9:</b> parameterizes using dropout at all. You see, you only want to use Dropout during <b>training</b>. Do not use it at runtime or on your testing dataset.  </p>
+
+<p><b>EDIT: Line 9:</b> has a second portion to increase the size of the values being propagated forward. This happens in proportion to the number of values being turned off. A simple intuition is that if you're turning off half of your hidden layer, you want to double the values that ARE pushing forward so that the output compensates correctly. Many thanks to <a href="https://twitter.com/karpathy">@karpathy</a> for catching this one.</p>
 
 <h3>Tuning Best Practice</h3>
 
