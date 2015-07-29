@@ -5,9 +5,212 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 28 Jul 2015 20:51:01 -0500</pubDate>
-    <lastBuildDate>Tue, 28 Jul 2015 20:51:01 -0500</lastBuildDate>
+    <pubDate>Wed, 29 Jul 2015 10:35:19 -0500</pubDate>
+    <lastBuildDate>Wed, 29 Jul 2015 10:35:19 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Hinton&#39;s Dropout in 3 Lines of Python</title>
+        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; Dropout is a vital feature in almost every state-of-the-art neural network implementation. This tutorial teaches how to install Dropout into a neural network in only a few lines of Python code. Those who walk through this tutorial will finish with a working Dropout implementation and will be empowered with the intuitions to install it and tune it in any neural network they encounter.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Followup Post:&lt;/b&gt; I intend to write a followup post to this one adding popular features leveraged by &lt;a href=&quot;http://rodrigob.github.io/are_we_there_yet/build/classification_datasets_results.html&quot;&gt;state-of-the-art approaches&lt;/a&gt;. I&#39;ll tweet it out when it&#39;s complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you&#39;d be interested in reading more and thanks for all the feedback!&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Just Give Me The Code:&lt;/h3&gt;
+&lt;pre class=&quot;brush:python; highlight:[4,9,10]&quot;&gt;
+import numpy as np
+X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
+y = np.array([[0,1,1,0]]).T
+alpha,hidden_dim,dropout_percent,training = (0.5,4,0.2,True)
+synapse_0 = 2*np.random.random((3,hidden_dim)) - 1
+synapse_1 = 2*np.random.random((hidden_dim,1)) - 1
+for j in xrange(60000):
+    layer_1 = (1/(1+np.exp(-(np.dot(X,synapse_0)))))
+    if(training):
+        layer_1 *= np.random.binomial([np.ones((len(X),hidden_dim))],1-dropout_percent)[0]
+    layer_2 = 1/(1+np.exp(-(np.dot(l1,synapse_1))))
+    if(training):
+	    layer_2_delta = (layer_2 - y)*(layer_2*(1-layer_2))
+	    layer_1_delta = layer_2_delta.dot(synapse_1.T) * (layer_1 * (1-layer_1))
+	    synapse_1 -= (alpha * l1.T.dot(layer_2_delta))
+	    synapse_0 -= (alpha * X.T.dot(layer_1_delta))
+&lt;/pre&gt;
+&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: What is Dropout?&lt;/h2&gt;
+
+&lt;p&gt;As discovered in the &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;previous post&lt;/a&gt;, a neural network is a glorified search problem. Each node in the neural network is searching for correlation between the input data and the correct output data.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sgd_randomness_ensemble.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;
+Consider the graphic above from the previous post. The line represents the error the network generates for every value of a particular weight. The low-points (READ: low error) in that line signify the weight &quot;finding&quot; points of correlation between the input and output data. The balls in the picture signify various weights. They are trying to find those low points.&lt;/p&gt;
+
+&lt;p&gt;Consider the color. The ball&#39;s initial positions are randomly generated (just like weights in a neural network). If two balls randomly start in the same colored zone, they will converge to the same point. This makes them redundant! They&#39;re wasting computation and memory! This is exactly what happens in neural networks.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Why Dropout:&lt;/b&gt; Dropout helps prevent weights from converging to identical positions. It does this by &lt;b&gt;randomly turning nodes off&lt;/b&gt; when forward propagating. It then back-propagates with all the nodes turned on. Let’s take a closer look.&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 2 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;3842123822&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: How Do I Install and Tune Dropout?&lt;/h2&gt;
+
+&lt;p&gt;The highlighted code above demonstrates how to install dropout. To perform dropout on a layer, you randomly set some of the layer&#39;s values to 0 during forward propagation. This is demonstrated on &lt;b&gt;line 10&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Line 9:&lt;/b&gt; parameterizes using dropout at all. You see, you only want to use Dropout during &lt;b&gt;training&lt;/b&gt;. Do not use it at runtime or on your testing dataset.  &lt;/p&gt;
+
+&lt;h3&gt;Tuning Best Practice&lt;/h3&gt;
+
+&lt;p&gt;&lt;b&gt;Line 4:&lt;/b&gt; parameterizes the dropout_percent. This affects the probability that any one node will be turned off. A good initial configuration for this for hidden layers is 50%. If applying dropout to an input layer, it&#39;s best to not exceed 25%.&lt;/p&gt;
+
+&lt;p&gt;Hinton advocates tuning dropout in conjunction with tuning the size of your hidden layer. Increase your hidden layer size(s) with dropout turned off until you perfectly fit your data. Then, using the same hidden layer size, train with dropout turned on. This should be a nearly optimal configuration. Turn off dropout as soon as you&#39;re done training and wallah! You have a working neural network!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 3 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;5318857026&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;h3 class=&quot;section-heading&quot;&gt;Part 3: Why does Dropout Work?&lt;/h3&gt;
+
+&lt;p&gt;&lt;i&gt; (This section builds upon concepts laid out in the &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;previous post&lt;/a&gt;.)&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine that you had two identical values in your hidden layer. By &quot;idential&quot;, I mean that their input weights were the same, so they turned on and off at exactly the same time. Given what we learned in Section 1 of this post, we know that this is a very real possibility.&lt;/p&gt;
+
+&lt;p&gt;This means that each weight was contributing half of an identical &quot;vote&quot; to the output. What if we turned one off and kept training? In this case, the network would start making errors because it was trained to expect two nodes to make this vote. In response, it would &lt;b&gt;turn up the volume&lt;/b&gt; on the node that was still turned on until it was casting a &lt;i&gt;full vote&lt;/i&gt; instead of a &lt;i&gt;half vote&lt;/i&gt;.&lt;/p&gt;
+
+&lt;p&gt;So, what happens to the node that&#39;s turned off? Well, under the dropout approach, it&#39;s not turned off all the time. It&#39;s only turned off in the &quot;forward propagation&quot; step. It&#39;s not turned off in the &quot;backward propagation&quot; step. This means that it still updates its weights to account for the error in the network. However, since it&#39;s turned off, each of its updates doesn&#39;t actually affect the error of the network. So, we&#39;re updating a weight that&#39;s actually quite irrelevant to the quality of the network. Why would we do this?&lt;/p&gt;
+
+&lt;p&gt;Remember that when we update a weight, it converges to reduce the error. Once it has reduced the error, the network doesn&#39;t backprop anything in that direction anymore. So, when our &quot;turned on&quot; node starts having a &quot;full vote&quot;, the &quot;turned off&quot; node doesn&#39;t feel the pull in that direction anymore.&lt;/p&gt;
+
+&lt;p&gt;So if the turned off node is feeling the pull of the network&#39;s error, EXCEPT for the pull in the direction of the &quot;turned on&quot; node, then it is free to ESCAPE to find a unique position in the network! &lt;b&gt;This is why dropout works!&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;Another intuitive perspective on dropout is that it is a form of &lt;b&gt;model averaging&lt;/b&gt;. Basically, if you force the network to converge using random subsets of its hidden nodes, you&#39;re forcing nodes to not have to &quot;rely&quot; on each other, because you don&#39;t know if your neighbor is going to be turned on or off. This forces each node to be a very valuable &quot;individual contributer&quot; instead of converging to similar places as its neighbors. (This is the more common explanation.)&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Wallah!&lt;/b&gt; Now we know how dropout works! Well done!&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/ford.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Want to Work in Machine Learning?&lt;/h2&gt;
+
+&lt;p&gt;
+One of the best things you can do to learn Machine Learning is to have a job where you&#39;re &lt;b&gt;practicing Machine Learning professionally&lt;/b&gt;. I&#39;d encourage you to check out the &lt;a href=&quot;http://www.digitalreasoning.com/careers&quot;&gt;positions at Digital Reasoning&lt;/a&gt; in your job hunt. If you have questions about any of the positions or about life at Digital Reasoning, feel free to send me a message on &lt;a href=&quot;https://www.linkedin.com/profile/view?id=226572677&amp;amp;trk=nav_responsive_tab_profile&quot;&gt;my LinkedIn&lt;/a&gt;. I&#39;m happy to hear about where you want to go in life, and help you evaluate whether Digital Reasoning could be a good fit.
+&lt;/p&gt;
+
+&lt;p&gt;If none of the positions above feel like a good fit. Continue your search! Machine Learning expertise is one of the &lt;b&gt;most valuable skills in the job market today&lt;/b&gt;, and there are many firms looking for practitioners. Perhaps some of these services below will help you in your hunt.
+
+&lt;style type=&quot;text/css&quot;&gt;#indJobContent{padding-bottom: 5px;}#indJobContent .company_location{font-size: 11px;overflow: hidden;display:block;}#indJobContent.wide .job{display:block;float:left;margin-right: 5px;width: 135px;overflow: hidden}#indeed_widget_wrapper{position: relative;font-family: &#39;Helvetica Neue&#39;,Helvetica,Arial,sans-serif;font-size: 13px;font-weight: normal;line-height: 18px;padding: 10px;height: auto;overflow: hidden;}#indeed_widget_header{font-size:18px; padding-bottom: 5px; }#indeed_search_wrapper{clear: both;font-size: 12px;margin-top: 5px;padding-top: 5px;}#indeed_search_wrapper label{font-size: 12px;line-height: inherit;text-align: left; margin-right: 5px;}#indeed_search_wrapper input[type=&#39;text&#39;]{width: 100px; font-size: 11px; }#indeed_search_wrapper #qc{float:left;}#indeed_search_wrapper #lc{float:right;}#indeed_search_wrapper.stacked #qc, #indeed_search_wrapper.stacked #lc{float: none; clear: both;}#indeed_search_wrapper.stacked input[type=&#39;text&#39;]{width: 150px;}#indeed_search_wrapper.stacked label{display: block;padding-bottom: 5px;}#indeed_search_footer{width:295px; padding-top: 5px; clear: both;}#indeed_link{position: absolute;bottom: 1px;right: 5px;clear: both;font-size: 11px; }#indeed_link a{text-decoration: none;}#results .job{padding: 1px 0px;}#pagination { clear: both; }&lt;/style&gt;&lt;style type=&quot;text/css&quot;&gt;
+#indeed_widget_wrapper{ width: 50%; height: 600px; background: #FFFFFF;}
+#indeed_widget_wrapper{ border: 1px solid #DDDDDD; }
+#indeed_widget_wrapper, #indeed_link a{ color: #000000;}
+#indJobContent, #indeed_search_wrapper{ border-top: 1px solid #DDDDDD; }
+#indJobContent a { color: #00c; }
+#indeed_widget_header{ color: #000000; }
+&lt;/style&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+var ind_pub = &#39;9172611916208179&#39;;
+var ind_el = &#39;indJobContent&#39;;
+var ind_pf = &#39;&#39;;
+var ind_q = &#39;Machine Learning&#39;;
+var ind_l = &#39;&#39;;
+var ind_chnl = &#39;none&#39;;
+var ind_n = 15;
+var ind_d = &#39;http://www.indeed.com&#39;;
+var ind_t = 40;
+var ind_c = 30;
+&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://www.indeed.com/ads/jobroll-widget-v3.js&quot;&gt;&lt;/script&gt;
+
+&lt;div id=&quot;indeed_widget_wrapper&quot; style=&quot;&quot;&gt;
+&lt;div id=&quot;indeed_widget_header&quot;&gt;Machine Learning Jobs&lt;/div&gt;
+
+&lt;div id=&quot;indJobContent&quot; class=&quot;&quot;&gt;&lt;/div&gt;
+
+&lt;div id=&quot;indeed_search_wrapper&quot;&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function clearDefaults() {
+var formInputs = document.getElementById(&#39;indeed_jobform&#39;).elements;
+for(var i = 0; i &lt; formInputs.length; i++) {
+if(formInputs[i].value == &#39;title, keywords&#39; || formInputs[i].value == &#39;city, state, or zip&#39;) {
+formInputs[i].value = &#39;&#39;;
+}
+}
+}
+&lt;/script&gt;
+&lt;form onsubmit=&quot;clearDefaults();&quot; method=&quot;get&quot; action=&quot;http://www.indeed.com/jobs&quot; id=&quot;indeed_jobform&quot; target=&quot;_new&quot;&gt;
+&lt;div id=&quot;qc&quot;&gt;&lt;label&gt;What:&lt;/label&gt;&lt;input type=&quot;text&quot; onfocus=&quot;this.value=&amp;quot;&amp;quot;&quot; value=&quot;title, keywords&quot; name=&quot;q&quot; id=&quot;q&quot; /&gt;&lt;/div&gt;
+&lt;div id=&quot;lc&quot;&gt;&lt;label&gt;Where:&lt;/label&gt;&lt;input type=&quot;text&quot; onfocus=&quot;this.value=&amp;quot;&amp;quot;&quot; value=&quot;city, state, or zip&quot; name=&quot;l&quot; id=&quot;l&quot; /&gt;&lt;/div&gt;
+&lt;div id=&quot;indeed_search_footer&quot;&gt;
+&lt;div style=&quot;float:left&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Find Jobs&quot; class=&quot;findjobs&quot; /&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;indpubnum&quot; id=&quot;indpubnum&quot; value=&quot;9172611916208179&quot; /&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;indeed_link&quot;&gt;
+&lt;a title=&quot;Job Search&quot; href=&quot;http://www.indeed.com/&quot; target=&quot;_new&quot;&gt;jobs by &lt;img alt=&quot;Indeed&quot; src=&quot;http://www.indeed.com/p/jobsearch.gif&quot; style=&quot;border: 0;vertical-align: bottom;&quot; /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div style=&quot;position:absolute; margin-top:-600px; margin-left:400px&quot; id=&quot;MonsterJobSearchResultPlaceHolderNXAAAA_e_e&quot; class=&quot;xmns_distroph&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+(function() {
+  var oScript = document.createElement(&#39;script&#39;);
+  oScript.type = &#39;text/javascript&#39;;
+  oScript.async = true;
+  oScript.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://&#39; : &#39;http://&#39;) + &#39;publisher.monster.com/Services/WidgetHandler.ashx?WidgetID=EAAQUeLsOxB7mqhf97nwIpkVXQ--&amp;Verb=Initialize&#39;;
+  var oParent = document.getElementsByTagName(&#39;script&#39;)[0];
+  oParent.parentNode.insertBefore(oScript, oParent);
+})();
+&lt;/script&gt;
+&lt;a id=&quot;monsterBrowseLinkNXAAAA_e_e&quot; class=&quot;monsterBrowseLink fnt4&quot; href=&quot;http://jobsearch.monster.com/jobs/?q=Machine-Learning&quot;&gt;View More Job Search Results&lt;/a&gt;
+
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shThemeDefault.css&quot; /&gt;
+&lt;script src=&quot;/js/shCore.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shLegacy.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shBrushPython.js&quot;&gt;&lt;/script&gt;
+
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	// SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.config.toolbar = true;
+    SyntaxHighlighter.all();
+&lt;/script&gt;
+&lt;/p&gt;
+</description>
+        <pubDate>Tue, 28 Jul 2015 07:00:00 -0500</pubDate>
+        <link>http://iamtrask.github.io/2015/07/28/dropout/</link>
+        <guid isPermaLink="true">http://iamtrask.github.io/2015/07/28/dropout/</guid>
+        
+        
+      </item>
     
       <item>
         <title>A Neural Network in 13 lines of Python (Part 2 - Gradient Descent)</title>

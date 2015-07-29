@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>Hinton's Dropout in 3 Lines of Python - i am trask</title>
+
+    <link rel="canonical" href="http://iamtrask.github.io/2015/07/28/dropout/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">i am trask</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">about</a>
+                </li>
+                
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<header class="intro-header" style="background-image: url('/img/post-bg-04.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Hinton's Dropout in 3 Lines of Python</h1>
+                    
+                    <h2 class="subheading">How to install Dropout into a neural network by only changing 3 lines of python.</h2>
+                    
+                    <span class="meta">Posted by iamtrask on July 28, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><b>Summary:</b> Dropout is a vital feature in almost every state-of-the-art neural network implementation. This tutorial teaches how to install Dropout into a neural network in only a few lines of Python code. Those who walk through this tutorial will finish with a working Dropout implementation and will be empowered with the intuitions to install it and tune it in any neural network they encounter.</p>
+
+<p><b>Followup Post:</b> I intend to write a followup post to this one adding popular features leveraged by <a href="http://rodrigob.github.io/are_we_there_yet/build/classification_datasets_results.html">state-of-the-art approaches</a>. I'll tweet it out when it's complete <a href="https://twitter.com/iamtrask">@iamtrask</a>. Feel free to follow if you'd be interested in reading more and thanks for all the feedback!</p>
+
+<p><h3>Just Give Me The Code:</h3>
+<pre class="brush:python; highlight:[4,9,10]">
+import numpy as np
+X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
+y = np.array([[0,1,1,0]]).T
+alpha,hidden_dim,dropout_percent,training = (0.5,4,0.2,True)
+synapse_0 = 2*np.random.random((3,hidden_dim)) - 1
+synapse_1 = 2*np.random.random((hidden_dim,1)) - 1
+for j in xrange(60000):
+    layer_1 = (1/(1+np.exp(-(np.dot(X,synapse_0)))))
+    if(training):
+        layer_1 *= np.random.binomial([np.ones((len(X),hidden_dim))],1-dropout_percent)[0]
+    layer_2 = 1/(1+np.exp(-(np.dot(l1,synapse_1))))
+    if(training):
+	    layer_2_delta = (layer_2 - y)*(layer_2*(1-layer_2))
+	    layer_1_delta = layer_2_delta.dot(synapse_1.T) * (layer_1 * (1-layer_1))
+	    synapse_1 -= (alpha * l1.T.dot(layer_2_delta))
+	    synapse_0 -= (alpha * X.T.dot(layer_1_delta))
+</pre>
+</p>
+<hr />
+
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- Part 1 -->
+<p><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6751104560361558" data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+<hr />
+
+<h2 class="section-heading">Part 1: What is Dropout?</h2>
+
+<p>As discovered in the <a href="http://iamtrask.github.io/2015/07/27/python-network-part2/">previous post</a>, a neural network is a glorified search problem. Each node in the neural network is searching for correlation between the input data and the correct output data.</p>
+
+<p><img class="img-responsive" width="100%" src="/img/sgd_randomness_ensemble.png" alt="" /></p>
+
+<p>
+Consider the graphic above from the previous post. The line represents the error the network generates for every value of a particular weight. The low-points (READ: low error) in that line signify the weight "finding" points of correlation between the input and output data. The balls in the picture signify various weights. They are trying to find those low points.</p>
+
+<p>Consider the color. The ball's initial positions are randomly generated (just like weights in a neural network). If two balls randomly start in the same colored zone, they will converge to the same point. This makes them redundant! They're wasting computation and memory! This is exactly what happens in neural networks.
+</p>
+
+<p><b>Why Dropout:</b> Dropout helps prevent weights from converging to identical positions. It does this by <b>randomly turning nodes off</b> when forward propagating. It then back-propagates with all the nodes turned on. Let’s take a closer look.</p>
+<hr />
+
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- Part 2 -->
+<p><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6751104560361558" data-ad-slot="3842123822"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+<hr />
+
+<h2 class="section-heading">Part 2: How Do I Install and Tune Dropout?</h2>
+
+<p>The highlighted code above demonstrates how to install dropout. To perform dropout on a layer, you randomly set some of the layer's values to 0 during forward propagation. This is demonstrated on <b>line 10</b>.</p>
+
+<p><b>Line 9:</b> parameterizes using dropout at all. You see, you only want to use Dropout during <b>training</b>. Do not use it at runtime or on your testing dataset.  </p>
+
+<h3>Tuning Best Practice</h3>
+
+<p><b>Line 4:</b> parameterizes the dropout_percent. This affects the probability that any one node will be turned off. A good initial configuration for this for hidden layers is 50%. If applying dropout to an input layer, it's best to not exceed 25%.</p>
+
+<p>Hinton advocates tuning dropout in conjunction with tuning the size of your hidden layer. Increase your hidden layer size(s) with dropout turned off until you perfectly fit your data. Then, using the same hidden layer size, train with dropout turned on. This should be a nearly optimal configuration. Turn off dropout as soon as you're done training and wallah! You have a working neural network!</p>
+
+<hr />
+
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- Part 3 -->
+<p><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6751104560361558" data-ad-slot="5318857026"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+<hr />
+
+<h3 class="section-heading">Part 3: Why does Dropout Work?</h3>
+
+<p><i> (This section builds upon concepts laid out in the <a href="http://iamtrask.github.io/2015/07/27/python-network-part2/">previous post</a>.)</i></p>
+
+<p>Imagine that you had two identical values in your hidden layer. By "idential", I mean that their input weights were the same, so they turned on and off at exactly the same time. Given what we learned in Section 1 of this post, we know that this is a very real possibility.</p>
+
+<p>This means that each weight was contributing half of an identical "vote" to the output. What if we turned one off and kept training? In this case, the network would start making errors because it was trained to expect two nodes to make this vote. In response, it would <b>turn up the volume</b> on the node that was still turned on until it was casting a <i>full vote</i> instead of a <i>half vote</i>.</p>
+
+<p>So, what happens to the node that's turned off? Well, under the dropout approach, it's not turned off all the time. It's only turned off in the "forward propagation" step. It's not turned off in the "backward propagation" step. This means that it still updates its weights to account for the error in the network. However, since it's turned off, each of its updates doesn't actually affect the error of the network. So, we're updating a weight that's actually quite irrelevant to the quality of the network. Why would we do this?</p>
+
+<p>Remember that when we update a weight, it converges to reduce the error. Once it has reduced the error, the network doesn't backprop anything in that direction anymore. So, when our "turned on" node starts having a "full vote", the "turned off" node doesn't feel the pull in that direction anymore.</p>
+
+<p>So if the turned off node is feeling the pull of the network's error, EXCEPT for the pull in the direction of the "turned on" node, then it is free to ESCAPE to find a unique position in the network! <b>This is why dropout works!</b></p>
+
+<p>Another intuitive perspective on dropout is that it is a form of <b>model averaging</b>. Basically, if you force the network to converge using random subsets of its hidden nodes, you're forcing nodes to not have to "rely" on each other, because you don't know if your neighbor is going to be turned on or off. This forces each node to be a very valuable "individual contributer" instead of converging to similar places as its neighbors. (This is the more common explanation.)</p>
+
+<p><b>Wallah!</b> Now we know how dropout works! Well done!</p>
+
+<p><img class="img-responsive" width="100%" src="/img/ford.jpg" alt="" /></p>
+
+<hr />
+
+<h2 class="section-heading">Want to Work in Machine Learning?</h2>
+
+<p>
+One of the best things you can do to learn Machine Learning is to have a job where you're <b>practicing Machine Learning professionally</b>. I'd encourage you to check out the <a href="http://www.digitalreasoning.com/careers">positions at Digital Reasoning</a> in your job hunt. If you have questions about any of the positions or about life at Digital Reasoning, feel free to send me a message on <a href="https://www.linkedin.com/profile/view?id=226572677&amp;trk=nav_responsive_tab_profile">my LinkedIn</a>. I'm happy to hear about where you want to go in life, and help you evaluate whether Digital Reasoning could be a good fit.
+</p>
+
+<p>If none of the positions above feel like a good fit. Continue your search! Machine Learning expertise is one of the <b>most valuable skills in the job market today</b>, and there are many firms looking for practitioners. Perhaps some of these services below will help you in your hunt.
+
+<style type="text/css">#indJobContent{padding-bottom: 5px;}#indJobContent .company_location{font-size: 11px;overflow: hidden;display:block;}#indJobContent.wide .job{display:block;float:left;margin-right: 5px;width: 135px;overflow: hidden}#indeed_widget_wrapper{position: relative;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 13px;font-weight: normal;line-height: 18px;padding: 10px;height: auto;overflow: hidden;}#indeed_widget_header{font-size:18px; padding-bottom: 5px; }#indeed_search_wrapper{clear: both;font-size: 12px;margin-top: 5px;padding-top: 5px;}#indeed_search_wrapper label{font-size: 12px;line-height: inherit;text-align: left; margin-right: 5px;}#indeed_search_wrapper input[type='text']{width: 100px; font-size: 11px; }#indeed_search_wrapper #qc{float:left;}#indeed_search_wrapper #lc{float:right;}#indeed_search_wrapper.stacked #qc, #indeed_search_wrapper.stacked #lc{float: none; clear: both;}#indeed_search_wrapper.stacked input[type='text']{width: 150px;}#indeed_search_wrapper.stacked label{display: block;padding-bottom: 5px;}#indeed_search_footer{width:295px; padding-top: 5px; clear: both;}#indeed_link{position: absolute;bottom: 1px;right: 5px;clear: both;font-size: 11px; }#indeed_link a{text-decoration: none;}#results .job{padding: 1px 0px;}#pagination { clear: both; }</style><style type="text/css">
+#indeed_widget_wrapper{ width: 50%; height: 600px; background: #FFFFFF;}
+#indeed_widget_wrapper{ border: 1px solid #DDDDDD; }
+#indeed_widget_wrapper, #indeed_link a{ color: #000000;}
+#indJobContent, #indeed_search_wrapper{ border-top: 1px solid #DDDDDD; }
+#indJobContent a { color: #00c; }
+#indeed_widget_header{ color: #000000; }
+</style>
+<script type="text/javascript">
+var ind_pub = '9172611916208179';
+var ind_el = 'indJobContent';
+var ind_pf = '';
+var ind_q = 'Machine Learning';
+var ind_l = '';
+var ind_chnl = 'none';
+var ind_n = 15;
+var ind_d = 'http://www.indeed.com';
+var ind_t = 40;
+var ind_c = 30;
+</script>
+<script type="text/javascript" src="http://www.indeed.com/ads/jobroll-widget-v3.js"></script>
+
+<div id="indeed_widget_wrapper" style="">
+<div id="indeed_widget_header">Machine Learning Jobs</div>
+
+<div id="indJobContent" class=""></div>
+
+<div id="indeed_search_wrapper">
+<script type="text/javascript">
+function clearDefaults() {
+var formInputs = document.getElementById('indeed_jobform').elements;
+for(var i = 0; i < formInputs.length; i++) {
+if(formInputs[i].value == 'title, keywords' || formInputs[i].value == 'city, state, or zip') {
+formInputs[i].value = '';
+}
+}
+}
+</script>
+<form onsubmit="clearDefaults();" method="get" action="http://www.indeed.com/jobs" id="indeed_jobform" target="_new">
+<div id="qc"><label>What:</label><input type="text" onfocus="this.value=&quot;&quot;" value="title, keywords" name="q" id="q" /></div>
+<div id="lc"><label>Where:</label><input type="text" onfocus="this.value=&quot;&quot;" value="city, state, or zip" name="l" id="l" /></div>
+<div id="indeed_search_footer">
+<div style="float:left"><input type="submit" value="Find Jobs" class="findjobs" /></div>
+</div>
+<input type="hidden" name="indpubnum" id="indpubnum" value="9172611916208179" />
+</form>
+</div>
+
+<div id="indeed_link">
+<a title="Job Search" href="http://www.indeed.com/" target="_new">jobs by <img alt="Indeed" src="http://www.indeed.com/p/jobsearch.gif" style="border: 0;vertical-align: bottom;" />
+</a>
+</div>
+</div>
+
+
+<div style="position:absolute; margin-top:-600px; margin-left:400px" id="MonsterJobSearchResultPlaceHolderNXAAAA_e_e" class="xmns_distroph"></div>
+<script type="text/javascript">
+(function() {
+  var oScript = document.createElement('script');
+  oScript.type = 'text/javascript';
+  oScript.async = true;
+  oScript.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'publisher.monster.com/Services/WidgetHandler.ashx?WidgetID=EAAQUeLsOxB7mqhf97nwIpkVXQ--&Verb=Initialize';
+  var oParent = document.getElementsByTagName('script')[0];
+  oParent.parentNode.insertBefore(oScript, oParent);
+})();
+</script>
+<a id="monsterBrowseLinkNXAAAA_e_e" class="monsterBrowseLink fnt4" href="http://jobsearch.monster.com/jobs/?q=Machine-Learning">View More Job Search Results</a>
+
+<link rel="stylesheet" type="text/css" href="/css/shCore.css" />
+<link rel="stylesheet" type="text/css" href="/css/shThemeDefault.css" />
+<script src="/js/shCore.js"></script>
+<script src="/js/shLegacy.js"></script>
+<script src="/js/shBrushPython.js"></script>
+
+
+<script type="text/javascript">
+	// SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.config.toolbar = true;
+    SyntaxHighlighter.all();
+</script>
+</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="//2015/07/27/python-network-part2/" data-toggle="tooltip" data-placement="top" title="A Neural Network in 13 lines of Python (Part 2 - Gradient Descent)">&larr; Previous Post</a> 
+                    </li>
+                     
+                     
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+    <!-- Footer -->
+<footer>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; i am trask 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>
