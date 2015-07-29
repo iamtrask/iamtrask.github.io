@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 29 Jul 2015 11:36:34 -0500</pubDate>
-    <lastBuildDate>Wed, 29 Jul 2015 11:36:34 -0500</lastBuildDate>
+    <pubDate>Wed, 29 Jul 2015 13:39:37 -0500</pubDate>
+    <lastBuildDate>Wed, 29 Jul 2015 13:39:37 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -27,7 +27,7 @@ for j in xrange(60000):
     layer_1 = (1/(1+np.exp(-(np.dot(X,synapse_0)))))
     if(do_dropout):
         layer_1 *= np.random.binomial([np.ones((len(X),hidden_dim))],1-dropout_percent)[0] * (1.0/(1-dropout_percent))
-    layer_2 = 1/(1+np.exp(-(np.dot(l1,synapse_1))))
+    layer_2 = 1/(1+np.exp(-(np.dot(layer_1,synapse_1))))
     layer_2_delta = (layer_2 - y)*(layer_2*(1-layer_2))
     layer_1_delta = layer_2_delta.dot(synapse_1.T) * (layer_1 * (1-layer_1))
     synapse_1 -= (alpha * l1.T.dot(layer_2_delta))
