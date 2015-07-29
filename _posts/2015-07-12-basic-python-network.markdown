@@ -711,7 +711,18 @@ formInputs[i].value = '';
 </a>
 </div>
 </div>
-
+<div style="position:absolute; margin-top:-600px; margin-left:400px" id="MonsterJobSearchResultPlaceHolderNXAAAA_e_e" class="xmns_distroph"></div>
+<script type="text/javascript">
+(function() {
+  var oScript = document.createElement('script');
+  oScript.type = 'text/javascript';
+  oScript.async = true;
+  oScript.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'publisher.monster.com/Services/WidgetHandler.ashx?WidgetID=EAAQUeLsOxB7mqhf97nwIpkVXQ--&Verb=Initialize';
+  var oParent = document.getElementsByTagName('script')[0];
+  oParent.parentNode.insertBefore(oScript, oParent);
+})();
+</script>
+<a id="monsterBrowseLinkNXAAAA_e_e" class="monsterBrowseLink fnt4" href="http://jobsearch.monster.com/jobs/?q=Machine-Learning">View More Job Search Results</a>
 
 
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shCore.css">

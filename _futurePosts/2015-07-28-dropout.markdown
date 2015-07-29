@@ -1,0 +1,10 @@
+---
+layout:     post
+title:      "Hinton's Dropout in 2 Lines of Python"
+subtitle:   "How to install Dropout into a neural network by only changing 2 lines of python."
+date:       2015-07-28 12:00:00
+author:     "iamtrask"
+header-img: "img/post-bg-04.jpg"
+---
+
+<p><b>Summary:</b> I learn best with toy code that I can play with. This tutorial teaches how to install Dropout into a neural newtwork in only a few lines of Python code. Those who walk through this tutorial will finish with a working Dropout implementation and be empowered with the intuitions to install it and tune it in any neural network they encounter.</p>

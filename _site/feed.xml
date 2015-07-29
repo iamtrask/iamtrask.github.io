@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 28 Jul 2015 07:58:29 -0500</pubDate>
-    <lastBuildDate>Tue, 28 Jul 2015 07:58:29 -0500</lastBuildDate>
+    <pubDate>Tue, 28 Jul 2015 20:49:34 -0500</pubDate>
+    <lastBuildDate>Tue, 28 Jul 2015 20:49:34 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -929,7 +929,7 @@ var ind_t = 40;
 var ind_c = 30;
 &lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;http://www.indeed.com/ads/jobroll-widget-v3.js&quot;&gt;&lt;/script&gt;
-&lt;center&gt;
+
 &lt;div id=&quot;indeed_widget_wrapper&quot; style=&quot;&quot;&gt;
 &lt;div id=&quot;indeed_widget_header&quot;&gt;Machine Learning Jobs&lt;/div&gt;
 
@@ -961,20 +961,20 @@ formInputs[i].value = &#39;&#39;;
 &lt;/a&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/center&gt;
-&lt;!-- 
-&lt;div style=&quot;position:absolute; margin-top:-600px; margin-left:400px&quot; id=&quot;MonsterJobSearchResultPlaceHolder8W8AAA_e_e&quot; class=&quot;xmns_distroph&quot;&gt;&lt;/div&gt;
+
+
+&lt;div style=&quot;position:absolute; margin-top:-600px; margin-left:400px&quot; id=&quot;MonsterJobSearchResultPlaceHolderNXAAAA_e_e&quot; class=&quot;xmns_distroph&quot;&gt;&lt;/div&gt;
 &lt;script type=&quot;text/javascript&quot;&gt;
 (function() {
   var oScript = document.createElement(&#39;script&#39;);
   oScript.type = &#39;text/javascript&#39;;
   oScript.async = true;
-  oScript.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://&#39; : &#39;http://&#39;) + &#39;publisher.monster.com/Services/WidgetHandler.ashx?WidgetID=EAAQQ16gTwjBL3DT4_uFIOIXzA--&amp;Verb=Initialize&#39;;
+  oScript.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://&#39; : &#39;http://&#39;) + &#39;publisher.monster.com/Services/WidgetHandler.ashx?WidgetID=EAAQUeLsOxB7mqhf97nwIpkVXQ--&amp;Verb=Initialize&#39;;
   var oParent = document.getElementsByTagName(&#39;script&#39;)[0];
   oParent.parentNode.insertBefore(oScript, oParent);
 })();
 &lt;/script&gt;
-&lt;a id=&quot;monsterBrowseLink8W8AAA_e_e&quot; class=&quot;monsterBrowseLink fnt4&quot; href=&quot;http://jobsearch.monster.com/jobs/?q=Machine-Learning&quot;&gt;View More Job Search Results&lt;/a&gt; --&gt;
+&lt;a id=&quot;monsterBrowseLinkNXAAAA_e_e&quot; class=&quot;monsterBrowseLink fnt4&quot; href=&quot;http://jobsearch.monster.com/jobs/?q=Machine-Learning&quot;&gt;View More Job Search Results&lt;/a&gt;
 
 &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
 &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shThemeDefault.css&quot; /&gt;
@@ -1696,7 +1696,18 @@ formInputs[i].value = &#39;&#39;;
 &lt;/a&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
+&lt;div style=&quot;position:absolute; margin-top:-600px; margin-left:400px&quot; id=&quot;MonsterJobSearchResultPlaceHolderNXAAAA_e_e&quot; class=&quot;xmns_distroph&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+(function() {
+  var oScript = document.createElement(&#39;script&#39;);
+  oScript.type = &#39;text/javascript&#39;;
+  oScript.async = true;
+  oScript.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://&#39; : &#39;http://&#39;) + &#39;publisher.monster.com/Services/WidgetHandler.ashx?WidgetID=EAAQUeLsOxB7mqhf97nwIpkVXQ--&amp;Verb=Initialize&#39;;
+  var oParent = document.getElementsByTagName(&#39;script&#39;)[0];
+  oParent.parentNode.insertBefore(oScript, oParent);
+})();
+&lt;/script&gt;
+&lt;a id=&quot;monsterBrowseLinkNXAAAA_e_e&quot; class=&quot;monsterBrowseLink fnt4&quot; href=&quot;http://jobsearch.monster.com/jobs/?q=Machine-Learning&quot;&gt;View More Job Search Results&lt;/a&gt;
 
 
 &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
