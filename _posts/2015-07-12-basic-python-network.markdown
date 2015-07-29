@@ -711,6 +711,7 @@ formInputs[i].value = '';
 </a>
 </div>
 </div>
+
 <div style="position:absolute; margin-top:-600px; margin-left:400px" id="MonsterJobSearchResultPlaceHolderNXAAAA_e_e" class="xmns_distroph"></div>
 <script type="text/javascript">
 (function() {
