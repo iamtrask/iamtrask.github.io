@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 30 Jul 2015 11:28:09 -0500</pubDate>
-    <lastBuildDate>Thu, 30 Jul 2015 11:28:09 -0500</lastBuildDate>
+    <pubDate>Fri, 31 Jul 2015 12:45:51 -0500</pubDate>
+    <lastBuildDate>Fri, 31 Jul 2015 12:45:51 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -94,9 +94,10 @@ Consider the graphic above from the previous post. The line represents the error
 &lt;/script&gt;&lt;/p&gt;
 &lt;hr /&gt;
 
+&lt;!-- 
 &lt;h3 class=&quot;section-heading&quot;&gt;Part 3: Why does Dropout Work?&lt;/h3&gt;
 
-&lt;p&gt;&lt;i&gt; (This section builds upon concepts laid out in the &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;previous post&lt;/a&gt;.)&lt;/i&gt;&lt;/p&gt;
+&lt;i&gt; (This section builds upon concepts laid out in the &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;previous post&lt;/a&gt;.)&lt;/i&gt;
 
 &lt;p&gt;Imagine that you had two identical values in your hidden layer. By &quot;idential&quot;, I mean that their input weights were the same, so they turned on and off at exactly the same time. Given what we learned in Section 1 of this post, we know that this is a very real possibility.&lt;/p&gt;
 
@@ -112,10 +113,10 @@ Consider the graphic above from the previous post. The line represents the error
 
 &lt;p&gt;&lt;b&gt;Wallah!&lt;/b&gt; Now we know how dropout works! Well done!&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/ford.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/ford.jpg&quot; alt=&quot;&quot;&gt;
 
 &lt;hr /&gt;
-
+ --&gt;
 &lt;h2 class=&quot;section-heading&quot;&gt;Want to Work in Machine Learning?&lt;/h2&gt;
 
 &lt;p&gt;

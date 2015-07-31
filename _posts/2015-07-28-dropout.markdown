@@ -93,7 +93,7 @@ Consider the graphic above from the previous post. The line represents the error
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <hr />
-
+<!-- 
 <h3 class="section-heading">Part 3: Why does Dropout Work?</h3>
 
 <i> (This section builds upon concepts laid out in the <a href="http://iamtrask.github.io/2015/07/27/python-network-part2/">previous post</a>.)</i>
@@ -115,7 +115,7 @@ Consider the graphic above from the previous post. The line represents the error
 <img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/ford.jpg" alt="">
 
 <hr />
-
+ -->
 <h2 class="section-heading">Want to Work in Machine Learning?</h2>
 
 
