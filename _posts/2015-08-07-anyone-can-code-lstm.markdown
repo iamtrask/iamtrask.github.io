@@ -326,7 +326,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p>We're going to be using a recurrent neural network to model <b>binary addition</b>. Do you see the sequence below? What do the colored ones in squares at the top signify?</p>
 
-<img class="img-responsive" width="95%" src="{{ site.baseurl }}/img/binary_addition.gif" alt="">
+<img class="img-responsive" width="95%" src="{{ site.baseurl }}/img/binary_addition.GIF" alt="">
 <font size="2" color="gray">source: angelfire.com</font>
 
 <p>The colorful ones in boxes at the top signify the "carry bit". They "carry the one" when the sum overfows at each place. This is the tiny bit of memory that we're going to teach our neural network how to model. It's going to "carry the one" when the sum requires it. (click <a href="https://www.youtube.com/watch?v=jB_sRh5yoZk">here</a> to learn about when this happens)</p>
