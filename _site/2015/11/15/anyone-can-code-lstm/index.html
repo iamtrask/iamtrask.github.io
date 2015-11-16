@@ -440,10 +440,10 @@ Why the hidden layer? Well, we could technically do this.
 
 <p>We're going to be using a recurrent neural network to model <b>binary addition</b>. Do you see the sequence below? What do the colored ones in squares at the top signify?</p>
 
-<img class="img-responsive" width="95%" src="/img/binary_addition.gif" alt="" />
+<img class="img-responsive" width="95%" src="/img/binary_addition.GIF" alt="" />
 <font size="2" color="gray">source: angelfire.com</font>
 
-<p>The colorful ones in boxes at the top signify the "carry bit". They "carry the one" when the sum overfows at each place. This is the tiny bit of memory that we're going to teach our neural network how to model. It's going to "carry the one" when the sum requires it. (click <a href="https://www.youtube.com/watch?v=jB_sRh5yoZk">here</a> to learn about when this happens)</p>
+<p>The colorful 1s in boxes at the top signify the "carry bit". They "carry the one" when the sum overfows at each place. This is the tiny bit of memory that we're going to teach our neural network how to model. It's going to "carry the one" when the sum requires it. (click <a href="https://www.youtube.com/watch?v=jB_sRh5yoZk">here</a> to learn about when this happens)</p>
 
 <p>So, binary addition moves from right to left, where we try to predict the number beneath the line given the numbers above the line. We want the neural network to move along the binary sequences and remember when it has carred the 1 and when it hasn't, so that it can make the correct prediction. Don't get too caught up in the problem. The network actually doesn't care too much. Just recognize that we're going to have two inputs at each time step, (either a one or a zero from each number begin added). These two inputs will be propagated to the hidden layer, which will have to remember whether or not we carry. The prediction will take all of this information into account to predict the correct bit at the given position (time step).</p>
 
