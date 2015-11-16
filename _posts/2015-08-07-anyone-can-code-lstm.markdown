@@ -2,7 +2,7 @@
 layout:     post
 title:      "Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN)"
 subtitle:   "Baby steps to your neural network's first memories."
-date:       2015-08-07 12:00:00
+date:       2015-11-15 12:00:00
 author:     "iamtrask"
 header-img: "img/nebula.jpg"
 ---
