@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN) - i am trask</title>
+
+    <link rel="canonical" href="http://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">i am trask</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">about</a>
+                </li>
+                
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<header class="intro-header" style="background-image: url('/img/nebula.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN)</h1>
+                    
+                    <h2 class="subheading">Baby steps to your neural network's first memories.</h2>
+                    
+                    <span class="meta">Posted by iamtrask on November 15, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><b>Summary:</b> I learn best with toy code that I can play with. This tutorial teaches Recurrent Neural Networks via a very simple toy example, a short python implementation.</p>
+
+<p>I'll tweet out <b>(Part 2: LSTM)</b> when it's complete at <a href="https://twitter.com/iamtrask">@iamtrask</a>. Feel free to follow if you'd be interested in reading it and thanks for all the feedback!
+</p>
+<h3>Just Give Me The Code:</h3>
+<pre class="brush: python">
+import copy, numpy as np
+np.random.seed(0)
+
+# compute sigmoid nonlinearity
+def sigmoid(x):
+    output = 1/(1+np.exp(-x))
+    return output
+
+# convert output of sigmoid function to its derivative
+def sigmoid_output_to_derivative(output):
+    return output*(1-output)
+
+
+# training dataset generation
+int2binary = {}
+binary_dim = 8
+
+largest_number = pow(2,binary_dim)
+binary = np.unpackbits(
+    np.array([range(largest_number)],dtype=np.uint8).T,axis=1)
+for i in range(largest_number):
+    int2binary[i] = binary[i]
+
+
+# input variables
+alpha = 0.1
+input_dim = 2
+hidden_dim = 16
+output_dim = 1
+
+
+# initialize neural network weights
+synapse_0 = 2*np.random.random((input_dim,hidden_dim)) - 1
+synapse_1 = 2*np.random.random((hidden_dim,output_dim)) - 1
+synapse_h = 2*np.random.random((hidden_dim,hidden_dim)) - 1
+
+synapse_0_update = np.zeros_like(synapse_0)
+synapse_1_update = np.zeros_like(synapse_1)
+synapse_h_update = np.zeros_like(synapse_h)
+
+# training logic
+for j in range(10000):
+    
+    # generate a simple addition problem (a + b = c)
+    a_int = np.random.randint(largest_number/2) # int version
+    a = int2binary[a_int] # binary encoding
+
+    b_int = np.random.randint(largest_number/2) # int version
+    b = int2binary[b_int] # binary encoding
+
+    # true answer
+    c_int = a_int + b_int
+    c = int2binary[c_int]
+    
+    # where we'll store our best guess (binary encoded)
+    d = np.zeros_like(c)
+
+    overallError = 0
+    
+    layer_2_deltas = list()
+    layer_1_values = list()
+    layer_1_values.append(np.zeros(hidden_dim))
+    
+    # moving along the positions in the binary encoding
+    for position in range(binary_dim):
+        
+        # generate input and output
+        X = np.array([[a[binary_dim - position - 1],b[binary_dim - position - 1]]])
+        y = np.array([[c[binary_dim - position - 1]]]).T
+
+        # hidden layer (input ~+ prev_hidden)
+        layer_1 = sigmoid(np.dot(X,synapse_0) + np.dot(layer_1_values[-1],synapse_h))
+
+        # output layer (new binary representation)
+        layer_2 = sigmoid(np.dot(layer_1,synapse_1))
+
+        # did we miss?... if so by how much?
+        layer_2_error = y - layer_2
+        layer_2_deltas.append((layer_2_error)*sigmoid_output_to_derivative(layer_2))
+        overallError += np.abs(layer_2_error[0])
+    
+        # decode estimate so we can print it out
+        d[binary_dim - position - 1] = np.round(layer_2[0][0])
+        
+        # store hidden layer so we can use it in the next timestep
+        layer_1_values.append(copy.deepcopy(layer_1))
+    
+    future_layer_1_delta = np.zeros(hidden_dim)
+    
+    for position in range(binary_dim):
+        
+        X = np.array([[a[position],b[position]]])
+        layer_1 = layer_1_values[-position-1]
+        prev_layer_1 = layer_1_values[-position-2]
+        
+        # error at output layer
+        layer_2_delta = layer_2_deltas[-position-1]
+        # error at hidden layer
+        layer_1_delta = (future_layer_1_delta.dot(synapse_h.T) + layer_2_delta.dot(synapse_1.T)) * sigmoid_output_to_derivative(layer_1)
+
+        # let's update all our weights so we can try again
+        synapse_1_update += np.atleast_2d(layer_1).T.dot(layer_2_delta)
+        synapse_h_update += np.atleast_2d(prev_layer_1).T.dot(layer_1_delta)
+        synapse_0_update += X.T.dot(layer_1_delta)
+        
+        future_layer_1_delta = layer_1_delta
+    
+
+    synapse_0 += synapse_0_update * alpha
+    synapse_1 += synapse_1_update * alpha
+    synapse_h += synapse_h_update * alpha    
+
+    synapse_0_update *= 0
+    synapse_1_update *= 0
+    synapse_h_update *= 0
+    
+    # print out progress
+    if(j % 1000 == 0):
+        print "Error:" + str(overallError)
+        print "Pred:" + str(d)
+        print "True:" + str(c)
+        out = 0
+        for index,x in enumerate(reversed(d)):
+            out += x*pow(2,index)
+        print str(a_int) + " + " + str(b_int) + " = " + str(out)
+        print "------------"
+
+        
+</pre>
+<h3>Runtime Output:</h3>
+<pre>
+Error:[ 3.45638663]
+Pred:[0 0 0 0 0 0 0 1]
+True:[0 1 0 0 0 1 0 1]
+9 + 60 = 1
+------------
+Error:[ 3.63389116]
+Pred:[1 1 1 1 1 1 1 1]
+True:[0 0 1 1 1 1 1 1]
+28 + 35 = 255
+------------
+Error:[ 3.91366595]
+Pred:[0 1 0 0 1 0 0 0]
+True:[1 0 1 0 0 0 0 0]
+116 + 44 = 72
+------------
+Error:[ 3.72191702]
+Pred:[1 1 0 1 1 1 1 1]
+True:[0 1 0 0 1 1 0 1]
+4 + 73 = 223
+------------
+Error:[ 3.5852713]
+Pred:[0 0 0 0 1 0 0 0]
+True:[0 1 0 1 0 0 1 0]
+71 + 11 = 8
+------------
+Error:[ 2.53352328]
+Pred:[1 0 1 0 0 0 1 0]
+True:[1 1 0 0 0 0 1 0]
+81 + 113 = 162
+------------
+Error:[ 0.57691441]
+Pred:[0 1 0 1 0 0 0 1]
+True:[0 1 0 1 0 0 0 1]
+81 + 0 = 81
+------------
+Error:[ 1.42589952]
+Pred:[1 0 0 0 0 0 0 1]
+True:[1 0 0 0 0 0 0 1]
+4 + 125 = 129
+------------
+Error:[ 0.47477457]
+Pred:[0 0 1 1 1 0 0 0]
+True:[0 0 1 1 1 0 0 0]
+39 + 17 = 56
+------------
+Error:[ 0.21595037]
+Pred:[0 0 0 0 1 1 1 0]
+True:[0 0 0 0 1 1 1 0]
+11 + 3 = 14
+------------
+</pre>
+
+<hr />
+
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- Part 1 -->
+<p><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;text-align:center" data-ad-client="ca-pub-6751104560361558" data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+<hr />
+
+<h2 class="section-heading">Part 1: What is Neural Memory?</h2>
+
+<p>List the alphabet forward.... you can do it, yes?</p>
+<p>List the alphabet backward.... hmmm... perhaps a bit tougher.</p>
+<p>Try with the lyrics of a song you know?.... Why is it easier to recall forward than it is to recall backward? Can you jump into the middle of the second verse?... hmm... also difficult. Why?</p>
+<p>There's a very logical reason for this....you haven't learned the letters of the alphabet or the lyrics of a song like a computer storing them as a set on a hard drive. You learned them as a <b>sequence</b>. You are really good at indexing from one letter to the next. It's a kind of conditional memory... you only have it when you very recently had the previous memory. It's also a lot like a <b>linked list</b> if you're familiar with that.</p>
+
+<p>However, it's not that you <i>don't</i> have the song in your memory except when you're singing it. Instead, when you try to jump straight to the middle of the song, you simply have a hard time finding that representation in your brain (perhaps that set of neurons). It starts searching all over looking for the middle of the song, but it hasn't tried to look for it this way before, so it doesn't have a map to the location of the middle of the second verse. It's a lot like living in a neighborhood with lots of coves/cul-de-sacs. It's much easier to picture how to get to someone's house by following all the windy roads because you've done it many times, but knowing exactly where to cut straight across someone's backyard is really difficult. Your brain instead uses the "directions" that it knows... through the neurons at the beginning of a song. (for more on brain stuff, click <a href="http://www.human-memory.net/processes_recall.html" target="_blank">here</a>)</p>
+
+<p>Much like a linked list, storing memory like this is very efficient. We will find that similar properties/advantages exist in giving our neural networks this type of memory as well. Some processes/problems/representations/searches are far more efficient if modeled as a sequence with a short term / pseudo conditional memory.</p>
+
+<p>Memory matters when your data is a <b>sequence</b> of some kind. (It means you have something to remember!) Imagine having a video of a bouncing ball. (here... i'll help this time)<br /><br />
+<center><iframe width="700" height="525" src="https://www.youtube.com/embed/UL0ZOgN2SqY?loop=1&amp;autoplay=0" frameborder="0" allowfullscreen=""></iframe><br /><br /></center><br />
+Each data point is a frame of your video. If you wanted to train a neural network to predict where the ball would be in the next frame, it would be really helpful to know where the ball was in the last frame! Sequential data like this is why we build recurrent neural networks. So, how does a neural network remember what it saw in previous time steps?</p>
+
+<p>Neural networks have hidden layers. Normally, the state of your hidden layer is <b>based ONLY on your input data</b>. So, normally a neural network's information flow would look like this:<br />
+<center><b>input -&gt; hidden -&gt; output</b></center>
+<br />
+
+<p>This is straightforward. Certain types of input create certain types of hidden layers. Certain types of hidden layers create certain types of output layers. It's kindof a closed system. Memory changes this. Memory means that the hidden layer is a combination of your input data at the current timestep <b>and the hidden layer of the previous timestep</b>.</p>
+
+<center><b>(input + prev_hidden) -&gt; hidden -&gt; output</b></center>
+<p>
+Why the hidden layer? Well, we could technically do this.
+</p>
+<center><b>(input + prev_input) -&gt; hidden -&gt; output</b></center>
+
+<p>However, we'd be missing out. I encourage you to sit and consider the difference between these two information flows. For a little helpful hint, consider how this plays out. Here, we have 4 timesteps of a recurrent neural network pulling information from the previous hidden layer.</p>
+
+<center><b>(input + empty_hidden) -&gt; hidden -&gt; output</b></center>
+<center><b>(input + prev_hidden) -&gt; hidden -&gt; output</b></center>
+<center><b>(input + prev_hidden) -&gt; hidden -&gt; output</b></center>
+<center><b>(input + prev_hidden) -&gt; hidden -&gt; output</b></center>
+
+<p>And here, we have 4 timesteps of a recurrent neural network pulling information from the previous input layer</p>
+
+<center><b>(input + empty_input) -&gt; hidden -&gt; output</b></center>
+<center><b>(input + prev_input) -&gt; hidden -&gt; output</b></center>
+<center><b>(input + prev_input) -&gt; hidden -&gt; output</b></center>
+<center><b>(input + prev_input) -&gt; hidden -&gt; output</b></center>
+
+<p>Maybe, if I colored things a bit, it would become more clear. Again, 4 timesteps with <b>hidden layer recurrence</b>:</p>
+
+<center><b>(<font color="blue">input</font> + empty_hidden) -&gt; <font color="blue">hidden</font> -&gt; output</b></center>
+<center><b>(<font color="red">input</font> + prev_<font color="blue">hidden</font>) -&gt; <font color="red">hid</font><font color="blue">den</font> -&gt; output</b></center>
+<center><b>(<font color="green">input</font> + prev_<font color="red">hid</font><font color="blue">den</font>) -&gt; <font color="green">hi</font><font color="red">dd</font><font color="blue">en</font> -&gt; output</b></center>
+<center><b>(<font color="purple">input</font> + prev_<font color="green">hi</font><font color="red">dd</font><font color="blue">en</font> ) -&gt; <font color="purple">hi</font><font color="red">d</font><font color="green">de</font><font color="blue">n</font> -&gt; output</b></center>
+
+<p>.... and 4 timesteps with <b>input layer recurrence</b>....</p>
+
+<center><b>(<font color="blue">input</font> + empty_input) -&gt; <font color="blue">hidden</font> -&gt; output</b></center>
+<center><b>(<font color="red">input</font> + prev_<font color="blue">input</font>) -&gt; <font color="red">hid</font><font color="blue">den</font> -&gt; output</b></center>
+<center><b>(<font color="green">input</font> + prev_<font color="red">input</font>) -&gt; <font color="green">hid</font><font color="red">den</font> -&gt; output</b></center>
+<center><b>(<font color="purple">input</font> + prev_<font color="green">input</font>) -&gt; <font color="purple">hid</font><font color="green">den</font> -&gt; output</b></center>
+
+<p>Focus on the last hidden layer (4th line). In the hidden layer recurrence, we see a presence of every input seen so far. In the input layer recurrence, it's exclusively defined by the current and previous inputs. This is why we model hidden recurrence. Hidden recurrence <b>learns what to remember</b> whereas input recurrence is hard wired to just remember the immediately previous datapoint. </p>
+
+<p>Now compare and contrast these two approaches with the backwards alphabet and middle-of-song exercises. The hidden layer is constantly changing as it gets more inputs. Furthermore, the only way that we could reach these hidden states is with the correct <b>sequence</b> of inputs. Now the money statement, the output is deterministic given the hidden layer, and the hidden layer is only reachable with the right <b>sequence</b> of inputs. Sound familiar?</p>
+
+<p>What's the practical difference? Let's say we were trying to predict the next word in a song given the previous. The "input layer recurrence" would break down if the song accidentally had the same sequence of two words in multiple places. Think about it, if the song had the statements "I love you", and "I love carrots", and the network was trying to predict the next word, how would it know what follows "I love"? It could be carrots. It could be you. The network REALLY needs to know more about what part of the song its in. However, the "hidden layer recurrence" doesn't break down in this way. It subtely remembers everything it saw (with memories becoming more subtle as it they fade into the past). To see this in action, check out <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank"> this</a>. 
+
+<center><b>stop and make sure this feels comfortable in your mind</b></center><br />
+
+<hr />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 2 -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;text-align:center" data-ad-client="ca-pub-6751104560361558" data-ad-slot="3842123822"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
+
+<h2 class="section-heading">Part 2: RNN - Neural Network Memory</h2>
+
+<p>Now that we have the intuition, let's dive down a layer (ba dum bump...). As described in the <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/"><u>backpropagation post</u></a>, our input layer to the neural network is determined by our input dataset. Each row of input data is used to generate the hidden layer (via forward propagation). Each hidden layer is then used to populate the output layer (assuming only 1 hidden layer). As we just saw, memory means that the hidden layer is a combination of the input data and the previous hidden layer. How is this done? Well, much like every other propagation in neural networks, it's done with a matrix. This matrix defines the relationship between the previous hidden layer and the current one.</p>
+
+<img class="img-responsive" width="100%" src="/img/basic_recurrence_singleton.png" alt="" />
+
+<p>Big thing to take from this picture, there are only three weight matrices. Two of them should be very familiar (same names too). SYNAPSE_0 propagates the input data to the hidden layer. SYNAPSE_1 propagates the hidden layer to the output data. The new matrix (SYNAPSE_h....the recurrent one), propagates from the hidden layer (layer_1) to the hidden layer at the next timestep (still layer_1).
+
+<center><b>stop and make sure this feels comfortable in your mind</b></center><br />
+
+<img class="img-responsive" width="95%" src="/img/recurrence_gif.gif" alt="" />
+
+<p>The gif above reflects the magic of recurrent networks, and several very, very important properties. It depicts 4 timesteps. The first is exclusively influenced by the input data. The second one is a mixture of the first and second inputs. This continues on. You should recognize that, in some way, network 4 is "full". Presumably, timestep 5 would have to choose which memories to keep and which ones to overwrite. This is very real. It's the notion of memory "capacity". As you might expect, bigger layers can hold more memories for a longer period of time. Also, this is when the network learns to <b>forget irrelevant memories</b> and <b>remember important memories</b>. What significant thing do you notice in timestep 3? Why is there more <font color="green">green</font> in the hidden layer than the other colors?</p>
+
+<p>Also notice that the hidden layer is the barrier between the input and the output. In reality, the output is no longer a pure function of the input. The input is just changing what's in the memory, and the output is exclusively based on the memory. Another interesting takeaway. If there was not input at timesteps 2,3,and 4, the hidden layer would still change from timestep to timestep.</p>
+
+<center><b>i know i've been stopping... but really make sure you got that last bit</b></center><br />
+
+<h2 class="section-heading">Part 3: Backpropagation Through Time:</h2>
+
+<p>So, how do recurrent neural networks learn? Check out this graphic. Black is the prediction, errors are bright yellow, derivatives are mustard colored.</p>
+
+<img class="img-responsive" width="95%" src="/img/backprop_through_time.gif" alt="" />
+
+<p>They learn by fully propagating forward from 1 to 4 (through an entire sequence of arbitrary length), and then backpropagating all the derivatives from 4 back to 1. You can also pretend that it's just a funny shaped normal neural network, except that we're re-using the same weights (synapses 0,1,and h) in their respective places. Other than that, it's normal backpropagation.
+
+<hr />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 3 -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;text-align:center" data-ad-client="ca-pub-6751104560361558" data-ad-slot="5318857026"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
+
+<h2 class="section-heading">Part 4: Our Toy Code</h2>
+
+<p>We're going to be using a recurrent neural network to model <b>binary addition</b>. Do you see the sequence below? What do the colored ones in squares at the top signify?</p>
+
+<img class="img-responsive" width="95%" src="/img/binary_addition.gif" alt="" />
+<font size="2" color="gray">source: angelfire.com</font>
+
+<p>The colorful ones in boxes at the top signify the "carry bit". They "carry the one" when the sum overfows at each place. This is the tiny bit of memory that we're going to teach our neural network how to model. It's going to "carry the one" when the sum requires it. (click <a href="https://www.youtube.com/watch?v=jB_sRh5yoZk">here</a> to learn about when this happens)</p>
+
+<p>So, binary addition moves from right to left, where we try to predict the number beneath the line given the numbers above the line. We want the neural network to move along the binary sequences and remember when it has carred the 1 and when it hasn't, so that it can make the correct prediction. Don't get too caught up in the problem. The network actually doesn't care too much. Just recognize that we're going to have two inputs at each time step, (either a one or a zero from each number begin added). These two inputs will be propagated to the hidden layer, which will have to remember whether or not we carry. The prediction will take all of this information into account to predict the correct bit at the given position (time step).</p>
+
+<center><i>At this point, I recommend opening this page in two windows so that you can follow along with the line numbers in the code example at the top. That's how I wrote it.</i></center>
+
+<p><b>Lines 0-2:</b> Importing our dependencies and seeding the random number generator. We will only use numpy and copy. Numpy is for matrix algebra. Copy is to copy things.</p>
+
+<p><b>Lines 4-11:</b> Our nonlinearity and derivative. For details, please read this <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/"> Neural Network Tutorial</a></p>
+
+<p><b>Line 15:</b> We're going to create a lookup table that maps from an integer to its binary representation. The binary representations will be our input and output data for each math probelm we try to get the network to solve. This lookup table will be very helpful in converting from integers to bit strings.</p>
+
+<p><b>Line 16:</b> This is where I set the maximum length of the binary numbers we'll be adding. If I've done everything right, you can adjust this to add potentially very large numbers.</p>
+
+<p><b>Line 18:</b> This computs the largest number that is possible to represent with the binary length we chose</p>
+
+<p><b>Line 19:</b> This is a lookup table that maps from an integer to its binary representation. We copy it into the int2binary. This is kindof un-ncessary but I thought it made things more obvious looking.</p>
+
+<p><b>Line 26:</b> This is our learning rate.</p>
+
+<p><b>Line 27:</b> We are adding two numbers together, so we'll be feeding in two bit strings one character at a time each. Thus, we need to have two inputs to the network (each for one of the numbers being added).</p>
+
+<p><b>Line 28:</b> This is the size of the hidden layer that will be storing our carry bit. Notice that it is way larger than it theoretically needs to be. Play with this and see how it affects the speed of convergence. Do larger hidden dimensions make things train faster or slower? More iterations or fewer?</p>
+
+<p><b>Line 29:</b> Well, we're only predicting the sum, which is one number. Thus, we only need one output</p>
+
+<p><b>Line 33:</b> This is the matrix of weights that connects our input layer and our hidden layer. Thus, it has "input_dim" rows and "hidden_dim" columns. (2 x 16 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
+
+<p><b>Line 34:</b> This is the matrix of weights that connects the hidden layer to the output layer Thus, it has "hidden_dim" rows and "output_dim" columns. (16 x 1 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
+
+<p><b>Line 35:</b> This is the matrix of weights that connects the hidden layer in the previous time-step to the hidden layer in the current timestep. It also connects the hidden layer in the current timestep to the hidden layer in the next timestep (we keep using it). Thus, it has the dimensoinality of "hidden_dim" rows and "hidden_dim" columns. (16 x 16 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
+
+<p><b>Line 37 - 39:</b> These store the weight updates that we would like to make for each of the weight matrices. After we've accumulated several weight updates, we'll actually update the matrices. More on this later.</p>
+
+<p><b>Line 42:</b> We're iterating over 100,000 training examples</p>
+
+<p><b>Line 45:</b> We're going to generate a random addition problem. So, we're initializing an integer randomly between 0 and half of the largest value we can represent. If we allowed the network to represent more than this, than adding two number could theoretically overflow (be a bigger number than we have bits to represent). Thus, we only add numbers that are less than half of the largest number we can represent.</p>
+
+<p><b>Line 46:</b> We lookup the binary form for "a_int" and store it in "a"</p>
+
+<p><b>Line 48:</b> Same thing as line 45, just getting another random number.</p>
+
+<p><b>Line 49:</b> Same thing as line 46, looking up the binary representation.</p>
+
+<p><b>Line 52:</b> We're computing what the correct answer should be for this addition</p>
+
+<p><b>Line 53:</b> Converting the true answer to its binary representation</p>
+
+<p><b>Line 56:</b> Initializing an empty binary array where we'll store the neural network's predictions (so we can see it at the end). You could get around doing this if you want...but i thought it made things more intuitive</p>
+
+<p><b>Line 58:</b> Resetting the error measure (which we use as a means to track convergence... see my tutorial on backpropagation and gradient descent to learn more about this)</p>
+
+<p><b>Lines 60-61:</b> These two lists will keep track of the layer 2 derivatives and layer 1 values at each time step.</p>
+
+<p><b>Line 62:</b> Time step zero has no previous hidden layer, so we initialize one that's off.</p>
+
+<p><b>Line 65:</b> This for loop iterates through the binary representation</p>
+
+<p><b>Line 68:</b>X is the same as "layer_0" in the pictures. X is a list of 2 numbers, one from a and one from b. It's indexed according to the "position" variable, but we index it in such a way that it goes from right to left. So, when position == 0, this is the farhest bit to the right in "a" and the farthest bit to the right in "b". When position equals 1, this shifts to the left one bit.
+</p>
+
+<p><b>Line 69:</b> Same indexing as line 62, but instead it's the value of the correct answer (either a 1 or a 0)</p>
+
+<p><b>Line 72:</b> This is the magic!!! Make sure you understand this line!!! To construct the hidden layer, we first do two things. First, we propagate from the input to the hidden layer (np.dot(X,synapse_0)). Then, we propagate from the previous hidden layer to the current hidden layer (np.dot(prev_layer_1, synapse_h)). Then WE SUM THESE TWO VECTORS!!!!... and pass through the sigmoid function.</p>
+
+<p>So, how do we combine the information from the previous hidden layer and the input? After each has been propagated through its various matrices (read: interpretations), we sum the information. </p>
+
+<p><b>Line 75:</b> This should look very familiar. It's the same as previous tutorials. It propagates the hidden layer to the output to make a prediction</p>
+
+<p><b>Line 78:</b> Compute how much the prediction missed</p>
+
+<p><b>Line 79:</b> We're going to store the derivative (mustard orange in the graphic above) in a list, holding the derivative at each timestep.</p>
+
+<p><b>Line 80:</b> Calculate the sum of the absolute errors so that we have a scalar error (to track propagation). We'll end up with a sum of the error at each binary position.</p>
+
+<p><b>Line 83</b> Copies the layer_1 value into an array so that at the next time step we can apply the hidden layer at the current one.</p>
+
+<p><b>Line 90:</b> So, we've done all the forward propagating for all the time steps, and we've computed the derivatives at the output layers and stored them in a list. Now we need to backpropagate, starting with the last timestep, backpropagating to the first</p>
+
+<p><b>Line 92:</b> Indexing the input data like we did before</p>
+<p><b>Line 93:</b> Selecting the current hidden layer from the list.</p>
+<p><b>Line 94:</b> Selecting the previous hidden layer from the list</p>
+<p><b>Line 97:</b> Selecting the current output error from the list</p>
+<p><b>Line 99:</b> this computes the current hidden layer error given the error at the hidden layer from the future and the error at the current output layer.</p>
+<p><b>Line 102-104:</b> Now that we have the derivatives backpropagated at this current time step, we can construct our weight updates (but not actually update the weights just yet). We don't actually update our weight matrices until after we've fully backpropagated everything. Why? Well, we use the weight matrices for the backpropagation. Thus, we don't want to go changing them yet until the actual backprop is done. See the <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">backprop blog post</a> for more details.</p>
+
+<p><b>Line 109 - 115</b> Now that we've backpropped everything and created our weight updates. It's time to update our weights (and empty the update variables).</p>
+
+<p><b>Line 118 - end</b> Just some nice logging to show progress</p>
+
+<h2 class="section-heading">Part 5: Questions / Comments</h2>
+
+If you have questions or comments, tweet <a href="https://twitter.com/iamtrask"><b>@iamtrask</b></a> and I'll be happy to help.
+
+<link rel="stylesheet" type="text/css" href="/css/shCore.css" />
+<link rel="stylesheet" type="text/css" href="/css/shThemeDefault.css" />
+<script src="/js/shCore.js"></script>
+<script src="/js/shLegacy.js"></script>
+<script src="/js/shBrushPython.js"></script>
+<script type="text/javascript">
+	// SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.config.toolbar = true;
+    SyntaxHighlighter.all();
+</script>
+</p></p></p></p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="//2015/07/28/dropout/" data-toggle="tooltip" data-placement="top" title="Hinton's Dropout in 3 Lines of Python">&larr; Previous Post</a> 
+                    </li>
+                     
+                     
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+    <!-- Footer -->
+<footer>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; i am trask 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>
