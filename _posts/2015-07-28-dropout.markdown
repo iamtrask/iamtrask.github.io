@@ -80,7 +80,7 @@ Consider the graphic above from the previous post. The line represents the error
 
 <p><b>Line 4:</b> parameterizes the dropout_percent. This affects the probability that any one node will be turned off. A good initial configuration for this for hidden layers is 50%. If applying dropout to an input layer, it's best to not exceed 25%.</p>
 
-<p>Hinton advocates tuning dropout in conjunction with tuning the size of your hidden layer. Increase your hidden layer size(s) with dropout turned off until you perfectly fit your data. Then, using the same hidden layer size, train with dropout turned on. This should be a nearly optimal configuration. Turn off dropout as soon as you're done training and wallah! You have a working neural network!</p>
+<p>Hinton advocates tuning dropout in conjunction with tuning the size of your hidden layer. Increase your hidden layer size(s) with dropout turned off until you perfectly fit your data. Then, using the same hidden layer size, train with dropout turned on. This should be a nearly optimal configuration. Turn off dropout as soon as you're done training and voila! You have a working neural network!</p>
 
 <hr />
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
