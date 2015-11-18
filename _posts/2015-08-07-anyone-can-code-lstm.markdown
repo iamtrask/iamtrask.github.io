@@ -298,7 +298,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p>The gif above reflects the magic of recurrent networks, and several very, very important properties. It depicts 4 timesteps. The first is exclusively influenced by the input data. The second one is a mixture of the first and second inputs. This continues on. You should recognize that, in some way, network 4 is "full". Presumably, timestep 5 would have to choose which memories to keep and which ones to overwrite. This is very real. It's the notion of memory "capacity". As you might expect, bigger layers can hold more memories for a longer period of time. Also, this is when the network learns to <b>forget irrelevant memories</b> and <b>remember important memories</b>. What significant thing do you notice in timestep 3? Why is there more <font color="green">green</font> in the hidden layer than the other colors?</p>
 
-<p>Also notice that the hidden layer is the barrier between the input and the output. In reality, the output is no longer a pure function of the input. The input is just changing what's in the memory, and the output is exclusively based on the memory. Another interesting takeaway. If there was not input at timesteps 2,3,and 4, the hidden layer would still change from timestep to timestep.</p>
+<p>Also notice that the hidden layer is the barrier between the input and the output. In reality, the output is no longer a pure function of the input. The input is just changing what's in the memory, and the output is exclusively based on the memory. Another interesting takeaway. If there was no input at timesteps 2,3,and 4, the hidden layer would still change from timestep to timestep.</p>
 
 <center><b>i know i've been stopping... but really make sure you got that last bit</b></center><br />
 
@@ -339,11 +339,11 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Lines 4-11:</b> Our nonlinearity and derivative. For details, please read this <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/"> Neural Network Tutorial</a></p>
 
-<p><b>Line 15:</b> We're going to create a lookup table that maps from an integer to its binary representation. The binary representations will be our input and output data for each math probelm we try to get the network to solve. This lookup table will be very helpful in converting from integers to bit strings.</p>
+<p><b>Line 15:</b> We're going to create a lookup table that maps from an integer to its binary representation. The binary representations will be our input and output data for each math problem we try to get the network to solve. This lookup table will be very helpful in converting from integers to bit strings.</p>
 
 <p><b>Line 16:</b> This is where I set the maximum length of the binary numbers we'll be adding. If I've done everything right, you can adjust this to add potentially very large numbers.</p>
 
-<p><b>Line 18:</b> This computs the largest number that is possible to represent with the binary length we chose</p>
+<p><b>Line 18:</b> This computes the largest number that is possible to represent with the binary length we chose</p>
 
 <p><b>Line 19:</b> This is a lookup table that maps from an integer to its binary representation. We copy it into the int2binary. This is kindof un-ncessary but I thought it made things more obvious looking.</p>
 
