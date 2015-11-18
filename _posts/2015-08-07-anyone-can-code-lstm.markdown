@@ -349,7 +349,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 26:</b> This is our learning rate.</p>
 
-<p><b>Line 27:</b> We are adding two numbers together, so we'll be feeding in two bit strings one character at a time each. Thus, we need to have two inputs to the network (each for one of the numbers being added).</p>
+<p><b>Line 27:</b> We are adding two numbers together, so we'll be feeding in two-bit strings one character at the time each. Thus, we need to have two inputs to the network (one for each of the numbers being added).</p>
 
 <p><b>Line 28:</b> This is the size of the hidden layer that will be storing our carry bit. Notice that it is way larger than it theoretically needs to be. Play with this and see how it affects the speed of convergence. Do larger hidden dimensions make things train faster or slower? More iterations or fewer?</p>
 
@@ -359,7 +359,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 34:</b> This is the matrix of weights that connects the hidden layer to the output layer Thus, it has "hidden_dim" rows and "output_dim" columns. (16 x 1 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
 
-<p><b>Line 35:</b> This is the matrix of weights that connects the hidden layer in the previous time-step to the hidden layer in the current timestep. It also connects the hidden layer in the current timestep to the hidden layer in the next timestep (we keep using it). Thus, it has the dimensoinality of "hidden_dim" rows and "hidden_dim" columns. (16 x 16 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
+<p><b>Line 35:</b> This is the matrix of weights that connects the hidden layer in the previous time-step to the hidden layer in the current timestep. It also connects the hidden layer in the current timestep to the hidden layer in the next timestep (we keep using it). Thus, it has the dimensionality of "hidden_dim" rows and "hidden_dim" columns. (16 x 16 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
 
 <p><b>Line 37 - 39:</b> These store the weight updates that we would like to make for each of the weight matrices. After we've accumulated several weight updates, we'll actually update the matrices. More on this later.</p>
 
