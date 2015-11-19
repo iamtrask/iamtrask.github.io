@@ -387,7 +387,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 65:</b> This for loop iterates through the binary representation</p>
 
-<p><b>Line 68:</b>X is the same as "layer_0" in the pictures. X is a list of 2 numbers, one from a and one from b. It's indexed according to the "position" variable, but we index it in such a way that it goes from right to left. So, when position == 0, this is the farhest bit to the right in "a" and the farthest bit to the right in "b". When position equals 1, this shifts to the left one bit.
+<p><b>Line 68:</b> X is the same as "layer_0" in the pictures. X is a list of 2 numbers, one from a and one from b. It's indexed according to the "position" variable, but we index it in such a way that it goes from right to left. So, when position == 0, this is the farhest bit to the right in "a" and the farthest bit to the right in "b". When position equals 1, this shifts to the left one bit.
 </p>
 
 <p><b>Line 69:</b> Same indexing as line 62, but instead it's the value of the correct answer (either a 1 or a 0)</p>
