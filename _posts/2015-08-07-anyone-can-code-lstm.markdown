@@ -398,7 +398,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 75:</b> This should look very familiar. It's the same as previous tutorials. It propagates the hidden layer to the output to make a prediction</p>
 
-<p><b>Line 78:</b> Compute how much the prediction missed</p>
+<p><b>Line 78:</b> Compute by how much the prediction missed</p>
 
 <p><b>Line 79:</b> We're going to store the derivative (mustard orange in the graphic above) in a list, holding the derivative at each timestep.</p>
 
