@@ -404,7 +404,9 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 80:</b> Calculate the sum of the absolute errors so that we have a scalar error (to track propagation). We'll end up with a sum of the error at each binary position.</p>
 
-<p><b>Line 83</b> Copies the layer_1 value into an array so that at the next time step we can apply the hidden layer at the current one.</p>
+<p><b>Line 83</b> Rounds the output (to a binary value, since it is between 0 and 1) and stores it in the designated slot of d.
+
+<p><b>Line 86</b> Copies the layer_1 value into an array so that at the next time step we can apply the hidden layer at the current one.</p>
 
 <p><b>Line 90:</b> So, we've done all the forward propagating for all the time steps, and we've computed the derivatives at the output layers and stored them in a list. Now we need to backpropagate, starting with the last timestep, backpropagating to the first</p>
 
