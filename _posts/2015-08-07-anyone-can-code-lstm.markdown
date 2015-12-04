@@ -89,7 +89,7 @@ for j in range(10000):
         # output layer (new binary representation)
         layer_2 = sigmoid(np.dot(layer_1,synapse_1))
 
-        # did we miss?... if so by how much?
+        # did we miss?... if so, by how much?
         layer_2_error = y - layer_2
         layer_2_deltas.append((layer_2_error)*sigmoid_output_to_derivative(layer_2))
         overallError += np.abs(layer_2_error[0])
