@@ -211,7 +211,7 @@ for j in range(10000):
         # output layer (new binary representation)
         layer_2 = sigmoid(np.dot(layer_1,synapse_1))
 
-        # did we miss?... if so by how much?
+        # did we miss?... if so, by how much?
         layer_2_error = y - layer_2
         layer_2_deltas.append((layer_2_error)*sigmoid_output_to_derivative(layer_2))
         overallError += np.abs(layer_2_error[0])
@@ -415,7 +415,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p>The gif above reflects the magic of recurrent networks, and several very, very important properties. It depicts 4 timesteps. The first is exclusively influenced by the input data. The second one is a mixture of the first and second inputs. This continues on. You should recognize that, in some way, network 4 is "full". Presumably, timestep 5 would have to choose which memories to keep and which ones to overwrite. This is very real. It's the notion of memory "capacity". As you might expect, bigger layers can hold more memories for a longer period of time. Also, this is when the network learns to <b>forget irrelevant memories</b> and <b>remember important memories</b>. What significant thing do you notice in timestep 3? Why is there more <font color="green">green</font> in the hidden layer than the other colors?</p>
 
-<p>Also notice that the hidden layer is the barrier between the input and the output. In reality, the output is no longer a pure function of the input. The input is just changing what's in the memory, and the output is exclusively based on the memory. Another interesting takeaway. If there was not input at timesteps 2,3,and 4, the hidden layer would still change from timestep to timestep.</p>
+<p>Also notice that the hidden layer is the barrier between the input and the output. In reality, the output is no longer a pure function of the input. The input is just changing what's in the memory, and the output is exclusively based on the memory. Another interesting takeaway. If there was no input at timesteps 2,3,and 4, the hidden layer would still change from timestep to timestep.</p>
 
 <center><b>i know i've been stopping... but really make sure you got that last bit</b></center><br />
 
@@ -453,17 +453,17 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Lines 4-11:</b> Our nonlinearity and derivative. For details, please read this <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/"> Neural Network Tutorial</a></p>
 
-<p><b>Line 15:</b> We're going to create a lookup table that maps from an integer to its binary representation. The binary representations will be our input and output data for each math probelm we try to get the network to solve. This lookup table will be very helpful in converting from integers to bit strings.</p>
+<p><b>Line 15:</b> We're going to create a lookup table that maps from an integer to its binary representation. The binary representations will be our input and output data for each math problem we try to get the network to solve. This lookup table will be very helpful in converting from integers to bit strings.</p>
 
 <p><b>Line 16:</b> This is where I set the maximum length of the binary numbers we'll be adding. If I've done everything right, you can adjust this to add potentially very large numbers.</p>
 
-<p><b>Line 18:</b> This computs the largest number that is possible to represent with the binary length we chose</p>
+<p><b>Line 18:</b> This computes the largest number that is possible to represent with the binary length we chose</p>
 
 <p><b>Line 19:</b> This is a lookup table that maps from an integer to its binary representation. We copy it into the int2binary. This is kindof un-ncessary but I thought it made things more obvious looking.</p>
 
 <p><b>Line 26:</b> This is our learning rate.</p>
 
-<p><b>Line 27:</b> We are adding two numbers together, so we'll be feeding in two bit strings one character at a time each. Thus, we need to have two inputs to the network (each for one of the numbers being added).</p>
+<p><b>Line 27:</b> We are adding two numbers together, so we'll be feeding in two-bit strings one character at the time each. Thus, we need to have two inputs to the network (one for each of the numbers being added).</p>
 
 <p><b>Line 28:</b> This is the size of the hidden layer that will be storing our carry bit. Notice that it is way larger than it theoretically needs to be. Play with this and see how it affects the speed of convergence. Do larger hidden dimensions make things train faster or slower? More iterations or fewer?</p>
 
@@ -471,9 +471,9 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 33:</b> This is the matrix of weights that connects our input layer and our hidden layer. Thus, it has "input_dim" rows and "hidden_dim" columns. (2 x 16 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
 
-<p><b>Line 34:</b> This is the matrix of weights that connects the hidden layer to the output layer Thus, it has "hidden_dim" rows and "output_dim" columns. (16 x 1 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
+<p><b>Line 34:</b> This is the matrix of weights that connects the hidden layer to the output layer. Thus, it has "hidden_dim" rows and "output_dim" columns. (16 x 1 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
 
-<p><b>Line 35:</b> This is the matrix of weights that connects the hidden layer in the previous time-step to the hidden layer in the current timestep. It also connects the hidden layer in the current timestep to the hidden layer in the next timestep (we keep using it). Thus, it has the dimensoinality of "hidden_dim" rows and "hidden_dim" columns. (16 x 16 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
+<p><b>Line 35:</b> This is the matrix of weights that connects the hidden layer in the previous time-step to the hidden layer in the current timestep. It also connects the hidden layer in the current timestep to the hidden layer in the next timestep (we keep using it). Thus, it has the dimensionality of "hidden_dim" rows and "hidden_dim" columns. (16 x 16 unless you change it). If you forgot what it does, look for it in the pictures in Part 2 of this blogpost.</p>
 
 <p><b>Line 37 - 39:</b> These store the weight updates that we would like to make for each of the weight matrices. After we've accumulated several weight updates, we'll actually update the matrices. More on this later.</p>
 
@@ -501,7 +501,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 65:</b> This for loop iterates through the binary representation</p>
 
-<p><b>Line 68:</b>X is the same as "layer_0" in the pictures. X is a list of 2 numbers, one from a and one from b. It's indexed according to the "position" variable, but we index it in such a way that it goes from right to left. So, when position == 0, this is the farhest bit to the right in "a" and the farthest bit to the right in "b". When position equals 1, this shifts to the left one bit.
+<p><b>Line 68:</b> X is the same as "layer_0" in the pictures. X is a list of 2 numbers, one from a and one from b. It's indexed according to the "position" variable, but we index it in such a way that it goes from right to left. So, when position == 0, this is the farhest bit to the right in "a" and the farthest bit to the right in "b". When position equals 1, this shifts to the left one bit.
 </p>
 
 <p><b>Line 69:</b> Same indexing as line 62, but instead it's the value of the correct answer (either a 1 or a 0)</p>
@@ -512,13 +512,15 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 75:</b> This should look very familiar. It's the same as previous tutorials. It propagates the hidden layer to the output to make a prediction</p>
 
-<p><b>Line 78:</b> Compute how much the prediction missed</p>
+<p><b>Line 78:</b> Compute by how much the prediction missed</p>
 
 <p><b>Line 79:</b> We're going to store the derivative (mustard orange in the graphic above) in a list, holding the derivative at each timestep.</p>
 
 <p><b>Line 80:</b> Calculate the sum of the absolute errors so that we have a scalar error (to track propagation). We'll end up with a sum of the error at each binary position.</p>
 
-<p><b>Line 83</b> Copies the layer_1 value into an array so that at the next time step we can apply the hidden layer at the current one.</p>
+<p><b>Line 83</b> Rounds the output (to a binary value, since it is between 0 and 1) and stores it in the designated slot of d.
+
+<p><b>Line 86</b> Copies the layer_1 value into an array so that at the next time step we can apply the hidden layer at the current one.</p>
 
 <p><b>Line 90:</b> So, we've done all the forward propagating for all the time steps, and we've computed the derivatives at the output layers and stored them in a list. Now we need to backpropagate, starting with the last timestep, backpropagating to the first</p>
 
@@ -547,7 +549,7 @@ If you have questions or comments, tweet <a href="https://twitter.com/iamtrask">
 	SyntaxHighlighter.config.toolbar = true;
     SyntaxHighlighter.all();
 </script>
-</p></p></p></p>
+</p></p></p></p></p>
 
 
                 <hr>
