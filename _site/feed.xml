@@ -5,13 +5,16 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://iamtrask.github.io/</link>
     <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 Feb 2016 19:54:00 -0600</pubDate>
-    <lastBuildDate>Sat, 27 Feb 2016 19:54:00 -0600</lastBuildDate>
+    <pubDate>Sat, 27 Feb 2016 20:53:17 -0600</pubDate>
+    <lastBuildDate>Sat, 27 Feb 2016 20:53:17 -0600</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
         <title>How to Code and Understand DeepMind&#39;s Neural Stack Machine</title>
         <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; I learn best with toy code that I can play with. This tutorial teaches &lt;a href=&quot;http://papers.nips.cc/paper/5648-learning-to-transduce-with-unbounded-memory.pdf&quot;&gt;DeepMind&#39;s Neural Stack&lt;/a&gt; machine via a very simple toy example, a short python implementation. I will also explain my thought process along the way for &lt;b&gt;reading and implementing research papers&lt;/b&gt; from scratch, which I hope you will find useful.&lt;/p&gt;
+
+&lt;p&gt;I typically tweet out new blogposts when they&#39;re complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you&#39;d be interested in reading more in the future and thanks for all the feedback!
+&lt;/p&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 1: What is a Neural Stack?&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
