@@ -271,7 +271,7 @@ nonlin(l1,True)
 If l1 represents these three dots, the code above generates the slopes of the lines below. Notice that very high values such as x=2.0 (green dot) and very low values such as x=-1.0 (purple dot) have rather shallow slopes. The highest slope you can have is at x=0 (blue dot). This plays an important role. Also notice that all derivatives are between 0 and 1.
 </p>
 
-<img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/sigmoid-deriv.png" alt="">
+<img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/sigmoid-deriv-2.png" alt="">
 
 <h4>Entire Statement: The Error Weighted Derivative</h4>
 <pre class="brush:python">
