@@ -3,11 +3,55 @@
   <channel>
     <title>i am trask</title>
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
-    <link>http://iamtrask.github.io/</link>
-    <atom:link href="http://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 28 Feb 2016 08:52:53 -0600</pubDate>
-    <lastBuildDate>Sun, 28 Feb 2016 08:52:53 -0600</lastBuildDate>
+    <link>https://iamtrask.github.io/</link>
+    <atom:link href="https://iamtrask.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 17 Aug 2016 20:07:09 -0500</pubDate>
+    <lastBuildDate>Wed, 17 Aug 2016 20:07:09 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Grokking Deep Learning</title>
+        <description>&lt;p&gt;If you passed high school math and can hack around in Python, &lt;u&gt;I want to teach you Deep Learning&lt;/u&gt;.&lt;/p&gt;
+
+&lt;p&gt;Well folks, I&#39;ve decided to write a &lt;a href=&quot;https://www.manning.com/books/grokking-deep-learning&quot;&gt;Deep Learning book&lt;/a&gt; in the same style as my blog, teaching Deep Learning from an &lt;i&gt;intuitive&lt;/i&gt; perspective, all in Python, using only numpy. I wanted to make the &lt;b&gt;lowest possible barrier to entry possible&lt;/b&gt; to learn Deep Learning.&lt;/p&gt;
+
+&lt;p&gt;Here&#39;s what you need to know:
+&lt;div style=&quot;padding-left:50px&quot;&gt;• High School Math (basic algebra)&lt;br /&gt;
+• Python... the basics&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The Problem&lt;/b&gt; with most &lt;i&gt;entry level&lt;/i&gt; Deep Learning resources these days is that they either assume advanced knowledge of Calculus, Linear Algebra, Differential Equations, and perhaps even Convex Optimization, or they just teach a &quot;black box&quot; framework like Torch, Keras, or TensorFlow (where you just hit &quot;train&quot; but you don&#39;t actually know what&#39;s going on under the hood).&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;My Solution&lt;/b&gt; is to teach Deep Learning from an &lt;i&gt;intuitive standpoint&lt;/i&gt;, just like I&#39;ve done in the other posts on this blog. Everything you need to know to undrstand Deep Learning will be explained like you would to a &lt;u&gt;5 year old&lt;/u&gt;, including the bits and pieces of Linear Algebra and Calculus that are necessary. You&#39;ll learn how neural network work, and how to use them to classify images, understand language (including machine translation), and even play games.&lt;/p&gt;
+
+&lt;p&gt;At the time of writing, I think that this is the only Deep Learning resource that is taught this way. I hope you enjoy it.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Who This Book Is NOT For:&lt;/b&gt; people who would rather be taught using formulas. Individuals with advanced mathematical backgrounds should choose another resource. This book is for an introduction to Deep Learning. It&#39;s about lowering the barrier to entry.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.manning.com/books/grokking-deep-learning&quot;&gt;Click To See the First Few Chapters&lt;/a&gt;&lt;/p&gt;
+
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shThemeDefault.css&quot; /&gt;
+
+&lt;script src=&quot;/js/shCore.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;/js/shLegacy.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;/js/shBrushPython.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	// SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.config.toolbar = true;
+    SyntaxHighlighter.all();
+&lt;/script&gt;
+
+</description>
+        <pubDate>Wed, 17 Aug 2016 07:00:00 -0500</pubDate>
+        <link>https://iamtrask.github.io/2016/08/17/grokking-deep-learning/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2016/08/17/grokking-deep-learning/</guid>
+        
+        
+      </item>
     
       <item>
         <title>How to Code and Understand DeepMind&#39;s Neural Stack Machine</title>
@@ -2059,8 +2103,8 @@ D:[  9.96007159e-01   9.98850792e-01   9.98678243e-01   9.93183510e-01
 &lt;/p&gt;
 </description>
         <pubDate>Thu, 25 Feb 2016 06:00:00 -0600</pubDate>
-        <link>http://iamtrask.github.io/2016/02/25/deepminds-neural-stack-machine/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2016/02/25/deepminds-neural-stack-machine/</guid>
+        <link>https://iamtrask.github.io/2016/02/25/deepminds-neural-stack-machine/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2016/02/25/deepminds-neural-stack-machine/</guid>
         
         
       </item>
@@ -2383,7 +2427,7 @@ Why the hidden layer? Well, we could technically do this.
 
 &lt;p&gt;The colorful 1s in boxes at the top signify the &quot;carry bit&quot;. They &quot;carry the one&quot; when the sum overfows at each place. This is the tiny bit of memory that we&#39;re going to teach our neural network how to model. It&#39;s going to &quot;carry the one&quot; when the sum requires it. (click &lt;a href=&quot;https://www.youtube.com/watch?v=jB_sRh5yoZk&quot;&gt;here&lt;/a&gt; to learn about when this happens)&lt;/p&gt;
 
-&lt;p&gt;So, binary addition moves from right to left, where we try to predict the number beneath the line given the numbers above the line. We want the neural network to move along the binary sequences and remember when it has carred the 1 and when it hasn&#39;t, so that it can make the correct prediction. Don&#39;t get too caught up in the problem. The network actually doesn&#39;t care too much. Just recognize that we&#39;re going to have two inputs at each time step, (either a one or a zero from each number begin added). These two inputs will be propagated to the hidden layer, which will have to remember whether or not we carry. The prediction will take all of this information into account to predict the correct bit at the given position (time step).&lt;/p&gt;
+&lt;p&gt;So, binary addition moves from right to left, where we try to predict the number beneath the line given the numbers above the line. We want the neural network to move along the binary sequences and remember when it has carried the 1 and when it hasn&#39;t, so that it can make the correct prediction. Don&#39;t get too caught up in the problem. The network actually doesn&#39;t care too much. Just recognize that we&#39;re going to have two inputs at each time step, (either a one or a zero from each number begin added). These two inputs will be propagated to the hidden layer, which will have to remember whether or not we carry. The prediction will take all of this information into account to predict the correct bit at the given position (time step).&lt;/p&gt;
 
 &lt;center&gt;&lt;i&gt;At this point, I recommend opening this page in two windows so that you can follow along with the line numbers in the code example at the top. That&#39;s how I wrote it.&lt;/i&gt;&lt;/center&gt;
 
@@ -2490,8 +2534,8 @@ If you have questions or comments, tweet &lt;a href=&quot;https://twitter.com/ia
 &lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 15 Nov 2015 06:00:00 -0600</pubDate>
-        <link>http://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/</guid>
+        <link>https://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/</guid>
         
         
       </item>
@@ -2695,8 +2739,8 @@ formInputs[i].value = &#39;&#39;;
 &lt;/p&gt;
 </description>
         <pubDate>Tue, 28 Jul 2015 07:00:00 -0500</pubDate>
-        <link>http://iamtrask.github.io/2015/07/28/dropout/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2015/07/28/dropout/</guid>
+        <link>https://iamtrask.github.io/2015/07/28/dropout/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2015/07/28/dropout/</guid>
         
         
       </item>
@@ -3683,8 +3727,8 @@ formInputs[i].value = &#39;&#39;;
 &lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 27 Jul 2015 07:00:00 -0500</pubDate>
-        <link>http://iamtrask.github.io/2015/07/27/python-network-part2/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2015/07/27/python-network-part2/</guid>
+        <link>https://iamtrask.github.io/2015/07/27/python-network-part2/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2015/07/27/python-network-part2/</guid>
         
         
       </item>
@@ -3954,7 +3998,7 @@ nonlin(l1,True)
 If l1 represents these three dots, the code above generates the slopes of the lines below. Notice that very high values such as x=2.0 (green dot) and very low values such as x=-1.0 (purple dot) have rather shallow slopes. The highest slope you can have is at x=0 (blue dot). This plays an important role. Also notice that all derivatives are between 0 and 1.
 &lt;/p&gt;
 
-&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sigmoid-deriv.png&quot; alt=&quot;&quot; /&gt;
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sigmoid-deriv-2.png&quot; alt=&quot;&quot; /&gt;
 
 &lt;h4&gt;Entire Statement: The Error Weighted Derivative&lt;/h4&gt;
 &lt;pre class=&quot;brush:python&quot;&gt;
@@ -4416,8 +4460,8 @@ formInputs[i].value = &#39;&#39;;
 &lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Jul 2015 07:00:00 -0500</pubDate>
-        <link>http://iamtrask.github.io/2015/07/12/basic-python-network/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2015/07/12/basic-python-network/</guid>
+        <link>https://iamtrask.github.io/2015/07/12/basic-python-network/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2015/07/12/basic-python-network/</guid>
         
         
       </item>
@@ -4874,8 +4918,8 @@ formInputs[i].value = &#39;&#39;;
 0.305949945529935:&amp;lt;cores &lt;br /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 23 Nov 2014 06:00:00 -0600</pubDate>
-        <link>http://iamtrask.github.io/2014/11/23/harry-potter/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2014/11/23/harry-potter/</guid>
+        <link>https://iamtrask.github.io/2014/11/23/harry-potter/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2014/11/23/harry-potter/</guid>
         
         
       </item>
@@ -4913,8 +4957,8 @@ formInputs[i].value = &#39;&#39;;
 &lt;p&gt;In this example, I create two numpy vectors of length 32. (one full of ones and another full of threes). I then benchmark and show how the cython/fortran version is &lt;b&gt;5.8x faster&lt;/b&gt;. It should be noted that this is still passing in a python object... this efficiency gain increases when everything stays in cython for several progressive operations.&lt;/p&gt;
 </description>
         <pubDate>Sun, 23 Nov 2014 06:00:00 -0600</pubDate>
-        <link>http://iamtrask.github.io/2014/11/23/cython-blas-fortran/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2014/11/23/cython-blas-fortran/</guid>
+        <link>https://iamtrask.github.io/2014/11/23/cython-blas-fortran/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2014/11/23/cython-blas-fortran/</guid>
         
         
       </item>
@@ -5031,8 +5075,8 @@ c.KernelManager.kernel_cmd = [&quot;java&quot;,&quot;-Djava.library.path=/Users/
 &lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt;The logging of the GPU program… showing that it is indeed being run on the GPU (didn’t fallback to JTP)&lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 22 Nov 2014 06:00:00 -0600</pubDate>
-        <link>http://iamtrask.github.io/2014/11/22/spark-gpu/</link>
-        <guid isPermaLink="true">http://iamtrask.github.io/2014/11/22/spark-gpu/</guid>
+        <link>https://iamtrask.github.io/2014/11/22/spark-gpu/</link>
+        <guid isPermaLink="true">https://iamtrask.github.io/2014/11/22/spark-gpu/</guid>
         
         
       </item>
