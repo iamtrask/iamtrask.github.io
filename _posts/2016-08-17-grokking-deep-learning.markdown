@@ -9,7 +9,7 @@ header-img: "img/stack_nebula.jpg"
 
 <p>If you passed <u>high school math</u> and can hack around in Python, <u>I want to teach you Deep Learning</u>.</p>
 
-<p>Well folks, I've decided to write a <a href="https://www.manning.com/books/grokking-deep-learning">Deep Learning book</a> in the same style as my blog, teaching Deep Learning from an <i>intuitive</i> perspective, all in Python, using only numpy. I wanted to make the <b>lowest possible barrier to entry</b> to learn Deep Learning.</p>
+<p>I've decided to write a <a href="https://www.manning.com/books/grokking-deep-learning">Deep Learning book</a> in the same style as my blog, teaching Deep Learning from an <i>intuitive</i> perspective, all in Python, using only numpy. I wanted to make the <b>lowest possible barrier to entry</b> to learn Deep Learning.</p>
 
 <p><b>Edit: 50% Coupon Code:</b> "mltrask" (expires August 26)</p>
 
