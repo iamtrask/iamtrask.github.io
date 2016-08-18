@@ -24,7 +24,7 @@ header-img: "img/stack_nebula.jpg"
 
 <p><b>Who This Book Is NOT For:</b> people who would rather be taught using formulas. Individuals with advanced mathematical backgrounds should choose another resource. This book is for an introduction to Deep Learning. It's about lowering the barrier to entry.</p>
 
-<p><a href="https://www.manning.com/books/grokking-deep-learning">Click To See the First Few Chapters</a></p>
+<p><a href="https://www.manning.com/books/grokking-deep-learning">Click To See the Early Release Page (where the first three chapters are)</a></p>
 
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shCore.css">
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shThemeDefault.css">
