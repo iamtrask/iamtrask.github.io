@@ -11,6 +11,8 @@ header-img: "img/stack_nebula.jpg"
 
 <p>Well folks, I've decided to write a <a href="https://www.manning.com/books/grokking-deep-learning">Deep Learning book</a> in the same style as my blog, teaching Deep Learning from an <i>intuitive</i> perspective, all in Python, using only numpy. I wanted to make the <b>lowest possible barrier to entry</b> to learn Deep Learning.</p>
 
+<p><b>Edit: 50% Coupon Code:</b> "mltrask" (expires August 26)</p>
+
 <p>Here's what you need to know:
 <div style="padding-left:50px">• High School Math (basic algebra)<br />
 • Python... the basics</div></p>
