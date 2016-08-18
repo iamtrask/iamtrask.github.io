@@ -16,7 +16,7 @@ header-img: "img/stack_nebula.jpg"
 • Python... the basics</div></p>
 
 
-<p><b>The Problem</b> with most <i>entry level</i> Deep Learning resources these days is that they either assume advanced knowledge of Calculus, Linear Algebra, Differential Equations, and perhaps even Convex Optimization, or they just teach a "black box" framework like Torch, Keras, or TensorFlow (where you just hit "train" but you don't actually know what's going on under the hood).</p>
+<p><b>The Problem</b> with most <i>entry level</i> Deep Learning resources these days is that they either assume advanced knowledge of Calculus, Linear Algebra, Differential Equations, and perhaps even Convex Optimization, or they just teach a "black box" framework like Torch, Keras, or TensorFlow (where you just hit "train" but you don't actually know what's going on under the hood). Both have their appropriate audience, but I don't believe that either are appropriate for your average python hacker.</p>
 
 <p><b>My Solution</b> is to teach Deep Learning from an <i>intuitive standpoint</i>, just like I've done in the other posts on this blog. Everything you need to know to undrstand Deep Learning will be explained like you would to a <u>5 year old</u>, including the bits and pieces of Linear Algebra and Calculus that are necessary. You'll learn how neural networks work, and how to use them to classify images, understand language (including machine translation), and even play games.</p>
 
