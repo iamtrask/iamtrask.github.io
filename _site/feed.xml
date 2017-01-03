@@ -5,54 +5,9 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 03 Jan 2017 14:14:57 +0000</pubDate>
-    <lastBuildDate>Tue, 03 Jan 2017 14:14:57 +0000</lastBuildDate>
+    <pubDate>Tue, 03 Jan 2017 14:16:07 +0000</pubDate>
+    <lastBuildDate>Tue, 03 Jan 2017 14:16:07 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
-    
-      <item>
-        <title>Free is not Freedom</title>
-        <description>&lt;h2 class=&quot;section-heading&quot;&gt;The &quot;free&quot; internet is not free.&lt;/h2&gt;
-
-&lt;p&gt;I know I normally set aside this blog to teach the basics of Machine Learning, but I want to take a detour and just write a quick note on something I really care about. Internet advertising doesn’t help us. IMO, it hurts us. Google is not free. Facebook is not free. Twitter is not free. These three entities (and many thousands more…) exist because they are able to do one thing: &lt;br /&gt;&lt;/p&gt;
-
-&lt;center&gt;&lt;i&gt;Persuade users to buy more than it costs for them to operate.&lt;/i&gt;&lt;/center&gt;
-
-&lt;p&gt;Not just a little more… so much more that both they AND the business buying the advertising can operate.&lt;/p&gt;
-
-&lt;p&gt;In other words, you go on Facebook and are persuaded &lt;i&gt;against your will&lt;/i&gt; to buy enough junk to keep both Facebook and X other company… profitable.&lt;/p&gt;
-
-&lt;h3 class=&quot;section-heading&quot;&gt;How much do I pay?&lt;/h3&gt;
-
-&lt;p&gt;This clearly varies based on the effectiveness of varying mediums, but in terms of facebook, the ROI for advertising on the site&lt;a href=&quot;http://www.slate.com/articles/technology/technology/2013/03/facebook_advertisement_studies_their_ads_are_more_like_tv_ads_than_google.single.html&quot;&gt; averages around 3x &lt;/a&gt;. What does this mean? This means that companies who invest $250,000 in facebook ads can buy $750,000 worth of persuasion! Still thinking you're in control?&lt;/p&gt;
-
-&lt;h3 class=&quot;section-heading&quot;&gt;The Grand Delusion: &quot;I chose to buy.&quot;&lt;/h3&gt;
-
-&lt;p&gt;We need to wake up and realize that we are all suckers to the worlds in which we live. There is a multi-billion dollar industry that exists to exploit our sensitivies, the very traits that make us human. Furthermore, they're continually empowered with more and more detail about what makes our minds tick. From our entire friend network, to our location every waking minute of the day, to our emails, chat messages, purchases, and with the advent of Google Home &amp;amp; Amazon Echo, everything that goes on in our own homes.&lt;/p&gt;
-
-&lt;p&gt;And for some reason, we still think that we're the ones behind the wheel of our own purchases! Check out this advertisement below. Look familiar?&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px;text-align:center&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
-&lt;h2 class=&quot;section-heading&quot;&gt;How to protect yourself&lt;/h2&gt;
-
-&lt;p&gt;In short, get &lt;a href=&quot;https://chrome.google.com/webstore/detail/adblock/gighmmpiobklfepjocnamgkkbiglidom&quot;&gt;AdBlock&lt;/a&gt; and spend less online on crap you don’t need.&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 02 Jan 2017 12:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2017/01/02/free-is-not-freedom/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/01/02/free-is-not-freedom/</guid>
-        
-        
-      </item>
     
       <item>
         <title>Grokking Deep Learning</title>
