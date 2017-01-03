@@ -5,15 +5,15 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 03 Jan 2017 13:50:16 +0000</pubDate>
-    <lastBuildDate>Tue, 03 Jan 2017 13:50:16 +0000</lastBuildDate>
+    <pubDate>Tue, 03 Jan 2017 14:14:57 +0000</pubDate>
+    <lastBuildDate>Tue, 03 Jan 2017 14:14:57 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
         <title>Free is not Freedom</title>
         <description>&lt;h2 class=&quot;section-heading&quot;&gt;The &quot;free&quot; internet is not free.&lt;/h2&gt;
 
-&lt;p&gt;Google is not free. Facebook is not free. Twitter is not free. These three entities (and many thousands more…) exist because they are able to do one thing: &lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;I know I normally set aside this blog to teach the basics of Machine Learning, but I want to take a detour and just write a quick note on something I really care about. Internet advertising doesn’t help us. IMO, it hurts us. Google is not free. Facebook is not free. Twitter is not free. These three entities (and many thousands more…) exist because they are able to do one thing: &lt;br /&gt;&lt;/p&gt;
 
 &lt;center&gt;&lt;i&gt;Persuade users to buy more than it costs for them to operate.&lt;/i&gt;&lt;/center&gt;
 
