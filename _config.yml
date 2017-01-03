@@ -1,6 +1,6 @@
 # Site settings
 title: i am trask
-subtitle: interesting
+subtitle: Machine Learning Blog
 email: liamtrask@gmail.com
 description: "Write your site description here. It will be used as your sites meta description as well!"
 baseurl: "https://iamtrask.github.io"
