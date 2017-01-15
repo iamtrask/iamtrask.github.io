@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 15 Jan 2017 18:18:28 +0000</pubDate>
-    <lastBuildDate>Sun, 15 Jan 2017 18:18:28 +0000</lastBuildDate>
+    <pubDate>Sun, 15 Jan 2017 18:19:38 +0000</pubDate>
+    <lastBuildDate>Sun, 15 Jan 2017 18:19:38 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -5371,6 +5371,17 @@ formInputs[i].value = '';
 
 &lt;p&gt;You might be wondering why I would cover CPU based speedups following GPU based... and the truth is that sometimes lighter weight optimiations are a better fit... especially when dealing with smaller batches of vectors at a time or when GPUs simply aren't available.&lt;/p&gt;
 
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: iPython-Notebook Cython Magic&lt;/h2&gt;
 
 &lt;p&gt;Install &lt;a href=&quot;http://stackoverflow.com/questions/2213551/installing-scipy-with-pip&quot;&gt;Numpy,Scipy&lt;/a&gt;,&lt;a href=&quot;http://brewformulas.org/Gfortran&quot;&gt;GFortran&lt;/a&gt;,&lt;a href=&quot;http://docs.cython.org/src/quickstart/install.html&quot;&gt;Cython&lt;/a&gt;, and &lt;a href=&quot;http://scikit-learn.org/stable/install.html&quot;&gt;scikit-learn&lt;/a&gt; packages. I &lt;i&gt;HIGHLY&lt;/i&gt; recommend sticking to easy_install, brew (apt-get), and pip. In my experience, macports has some real trouble with these packages. Also, of course, you need to have ipython notebook installed for these examples to work, but technically it can work for normal cython too.&lt;/p&gt;
@@ -5394,6 +5405,18 @@ formInputs[i].value = '';
 &lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/fasterThanNumpyDemo.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this example, I create two numpy vectors of length 32. (one full of ones and another full of threes). I then benchmark and show how the cython/fortran version is &lt;b&gt;5.8x faster&lt;/b&gt;. It should be noted that this is still passing in a python object... this efficiency gain increases when everything stays in cython for several progressive operations.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
 </description>
         <pubDate>Sun, 23 Nov 2014 12:00:00 +0000</pubDate>
         <link>http://localhost:4000/2014/11/23/cython-blas-fortran/</link>

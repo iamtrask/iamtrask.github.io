@@ -13,6 +13,19 @@ header-img: "img/typewriter.jpg"
 
 <p>You might be wondering why I would cover CPU based speedups following GPU based... and the truth is that sometimes lighter weight optimiations are a better fit... especially when dealing with smaller batches of vectors at a time or when GPUs simply aren't available.</p>
 
+<hr />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
+
+
 <h2 class="section-heading">Part 1: iPython-Notebook Cython Magic</h2>
 
 <p>Install <a href="http://stackoverflow.com/questions/2213551/installing-scipy-with-pip">Numpy,Scipy</a>,<a href="http://brewformulas.org/Gfortran">GFortran</a>,<a href="http://docs.cython.org/src/quickstart/install.html">Cython</a>, and <a href="http://scikit-learn.org/stable/install.html">scikit-learn</a> packages. I <i>HIGHLY</i> recommend sticking to easy_install, brew (apt-get), and pip. In my experience, macports has some real trouble with these packages. Also, of course, you need to have ipython notebook installed for these examples to work, but technically it can work for normal cython too.</p>
@@ -36,3 +49,16 @@ header-img: "img/typewriter.jpg"
 <img class="img-responsive" src="{{ site.baseurl }}/img/fasterThanNumpyDemo.png" alt="">
 
 <p>In this example, I create two numpy vectors of length 32. (one full of ones and another full of threes). I then benchmark and show how the cython/fortran version is <b>5.8x faster</b>. It should be noted that this is still passing in a python object... this efficiency gain increases when everything stays in cython for several progressive operations.</p>
+
+<hr />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
+
