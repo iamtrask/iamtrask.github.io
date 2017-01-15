@@ -12,6 +12,18 @@ header-img: "img/stack_nebula.jpg"
 <p>I typically tweet out new blogposts when they're complete at <a href="https://twitter.com/iamtrask">@iamtrask</a>. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
 </p>
 
+<hr />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
+
 <h2 class="section-heading"><hr />Part 1: What is a Neural Stack?<br /><hr /></h2>
 <br />
 <iframe width="700px" height="440px"  src="https://www.youtube.com/embed/3DeL7utEz_k" frameborder="0" allowfullscreen></iframe>
@@ -61,6 +73,18 @@ A close eye might ask, "We learn things with neural networks. What is there to l
 <p><b>Money Question:</b> How does backpropagation learn to push and pop when the error is on the output of the stack and the neural network is on the input to the stack? Normally we backpropagate the error from the output of the network to the weights so that we can make a weight update. It seems like the stack is "blocking" the output from the decision making neural network (which controls the pushing and popping).</p>
 
 <p><b>Money Answer:</b> We make the neural stack "differentiable". If you haven't had calculus, the simplest way to think about it is that we will make the "neural stack" using a sequence of vector additions, subtractions, and multiplications. If we can figure out how to mimic the stack's behaviors using only these tools, then we will be able to backpropagate the error <b>through the stack</b> just like we backpropagate it through a neural network's hidden layers. And it will be quite familiar to us! We're already used to backpropagating through sequences of additions, subtractions, and multiplications. Figuring out how to mimic the operations of a stack in a fully differentiable way was the hard part... which why Edward Grefenstette, Karl Moritz Hermann, Mustafa Suleyman, and Phil Blunsom are so brilliant!!!</p>
+
+<hr />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
 
 <h2 class="section-heading"><hr />Part 2: Reading and Implementing Academic Papers<br /><hr /></h2>
 <br />
@@ -129,6 +153,18 @@ A close eye might ask, "We learn things with neural networks. What is there to l
 <p><b>N More Passes:</b> At this point, you just keep reading the method section until you have your working implementation (which you can evaluate using the later sections). So, this is generally how to read the paper. :)<br /><br />
 
 <b>Have Questions? Stuck? Feel free to tweet your question <a href="https://twitter.com/iamtrask">@iamtrask</a> for help.</b></p>
+
+<hr />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
 
 <h2 class="section-heading"><hr />Part 3: Building a Toy Neural Stack<br /><hr /></h2>
 <br />
@@ -352,6 +388,18 @@ def r_t(t):
 
 <b>Have Questions? Stuck? Feel free to tweet your question <a href="https://twitter.com/iamtrask">@iamtrask</a> for help.</b></p>
 
+<hr />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
+
 
 <h2 class="section-heading"><hr />Part 4: Learning A Sequence<br /><hr /></h2>
 <br />
@@ -485,6 +533,18 @@ u_delta = list() # pop strengths
 <iframe src="https://trinket.io/embed/python/98c8cf72d5" width="100%" height="600" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
 
 <b>Have Questions? Stuck? Feel free to tweet your question <a href="https://twitter.com/iamtrask">@iamtrask</a> for help.</b></p>
+
+<hr />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
 
 <h2 class="section-heading"><hr />Part 5: Building a Neural Controller<br /><hr /></h2>
 <br />
@@ -1596,6 +1656,18 @@ MaxLen:19 Iter:2959999 Error:231.447857024True:[2 2 1 1] Pred:[1, 1, 2, 2]
 <p>Disaster... the neural network somehow learned how to model these sequences by pushing all of them onto the stack and then only popping off each number half at a time. What does this mean? Honestly, it could certainly be that I didn't train long enough. What do we do? Andrew... why are you sharing this with us? Was this 30 pages of blogging all for nothing?!?!</p>
 
 <p>At this point, we have reached a very realistic point in a neural network researcher's lifecycle. Furthermore, it's one that the authors have discussed somewhat extensively both in the paper and in external presentations. If we're not careful, the network can discover less than expected ways of solving the problem that you give it. So, what do we do?</p>
+
+<hr />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Part 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-6751104560361558"
+     data-ad-slot="2365390629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr />
 
 <h2 class="section-heading">Part 6: When Things Really Get Interesting</h2>
 

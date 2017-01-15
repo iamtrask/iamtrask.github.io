@@ -5,9 +5,341 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 03 Jan 2017 14:16:07 +0000</pubDate>
-    <lastBuildDate>Tue, 03 Jan 2017 14:16:07 +0000</lastBuildDate>
+    <pubDate>Sun, 15 Jan 2017 17:42:57 +0000</pubDate>
+    <lastBuildDate>Sun, 15 Jan 2017 17:42:57 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Tutorial: Deep Learning in PyTorch</title>
+        <description>&lt;p&gt;&lt;b&gt;This Blogpost Will Cover:&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Part 1: PyTorch Installation&lt;/li&gt;
+	&lt;li&gt;Part 2: Matrices and Linear Algebra in PyTorch&lt;/li&gt;
+	&lt;li&gt;Part 3: Building a Feedforward Network (starting with &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;&lt;u&gt;a familiar one&lt;/u&gt;&lt;/a&gt;)&lt;/li&gt;
+	&lt;li&gt;Part 4: The State of PyTorch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;b&gt;Pre-Requisite Knowledge:&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Simple Feedforward Neural Networks (&lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;&lt;u&gt;Tutorial&lt;/u&gt;&lt;/a&gt;)&lt;/li&gt;
+	&lt;li&gt;Basic Gradient Descent (&lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;&lt;u&gt;Tutorial&lt;/u&gt;&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://torch.ch/&quot;&gt;Torch&lt;/a&gt; is one of the most popular Deep Learning frameworks in the world, dominating much of the research community for the past few years (only recently being rivaled by major Google sponsored frameworks &lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;Tensorflow&lt;/a&gt; and &lt;a href=&quot;http://keras.io/&quot;&gt;Keras&lt;/a&gt;). Perhaps its only drawback to new users has been the fact that it requires one to know &lt;a href=&quot;https://www.lua.org/&quot;&gt;Lua&lt;/a&gt;, a language that used to be very uncommon in the Machine Learning community. Even today, this barrier to entry can seem a bit much for many new to the field, who are already in the midst of learning a tremendous amount, much less a completely new programming language.&lt;/p&gt;
+
+&lt;p&gt;However, thanks to the wonderful and billiant &lt;a href=&quot;https://github.com/hughperkins&quot;&gt;Hugh Perkins&lt;/a&gt;, Torch recently got a new face, &lt;a href=&quot;https://github.com/hughperkins/pytorch&quot;&gt;PyTorch&lt;/a&gt;... and it's much more accessible to the python hacker turned Deep Learning Extraordinare than it's Luariffic ancestor. I have a passion for tools that make Deep Learning accessible, and so I'd like to lay out a short &quot;Unofficial Startup Guide&quot; for those of you interested in taking it for a spin. Before we get started, however, a question:&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Why Use a Framework like PyTorch? &lt;/b&gt;In the past, I have advocated learning Deep Learning using only a matrix library. For the purposes of actually knowing what goes on under the hood, I think that this is essential, and the lessons learned from building things from scratch are real gamechangers when it comes to the messiness of tackling real world problems with these tools. However, when building neural networks in the wild (Kaggle Competitions, Production Systems, and Research Experiments), it's best to use a framework.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Why?&lt;/b&gt; Frameworks such as PyTorch allow you (the researcher) to focus exclusively on your experiment and iterate very quickly. Want to swap out a layer? Most frameworks will let you do this with a single line code change. Want to run on a GPU? Many frameworks will take care of it (sometimes with 0 code changes). If you built the network by hand in a matrix library, you might be spending a few hours working out these kinds of modifications. So, for learning, use a linear algebra library (like Numpy). For applying, use a framework (like PyTorch). Let's get started!&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;For New Readers:&lt;/b&gt; I typically tweet out new blogposts when they're complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the upvotes on &lt;a href=&quot;https://news.ycombinator.com/&quot;&gt;Hacker News&lt;/a&gt; and Reddit! They mean a lot to me.
+&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Installation&lt;/h2&gt;
+
+&lt;p&gt;&lt;b&gt;Install Torch:&lt;/b&gt; The first thing you need to do is install torch and the &quot;nn&quot; package using luarocks. As torch is a very robust framework, the &lt;a href=&quot;http://torch.ch/docs/getting-started.html#_&quot;&gt;installation instructions&lt;/a&gt; should work well for you. After that, you should be able to run: &lt;/p&gt;
+
+&lt;blockquote&gt;luarocks install nn&lt;/blockquote&gt;
+
+&lt;p&gt; and be good to go. If any of these steps fails to work, copy paste what looks like the &quot;error&quot; and error description (should just be one sentence or so) from the command line and put it into Google (as is common practice when installing).&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Clone the Repository: &lt;/b&gt; At the time of writing, PyTorch doesn't seem to be in the PyPI repository. So, we'll need to clone the repo in order to install it. Assuming you have &lt;a href=&quot;https://git-scm.com/&quot;&gt;git&lt;/a&gt; already installed (hint hint... if not go install it and come back), you should open up your &lt;a href=&quot;http://www.macworld.co.uk/feature/mac-software/get-more-out-of-os-x-terminal-3608274/&quot;&gt;Terminal&lt;/a&gt; application and navigate to an empty folder. Personally, I have a folder called &quot;Laboratory&quot; in my home directory (i.e. &quot;cd ~/Laboratory/&quot;), which cators to various &lt;a href=&quot;https://en.wikipedia.org/wiki/Dexter's_Laboratory&quot;&gt;childhood memories&lt;/a&gt; of mine. If you're not sure where to put it, feel free to use your Desktop for now. Once there, execute the commands:&lt;/p&gt;
+&lt;blockquote&gt;
+	git clone https://github.com/hughperkins/pytorch.git&lt;br /&gt;
+	cd pytorch/&lt;br /&gt;
+	pip install -r requirements.txt&lt;br /&gt;
+	pip install -r test/requirements.txt&lt;br /&gt;
+	source ~/torch/install/bin/torch-activate&lt;br /&gt;
+	./build.sh&lt;br /&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;For me, this worked flawlessly, finishing with the statement&lt;/p&gt;
+&lt;blockquote&gt;
+Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you also see this output at the bottom of your terminal, congraulations! You have successfully installed PyTorch!&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Startup Jupyter Notebook:&lt;/b&gt; While certainly not a requirement, I highly recommend playing around with this new tool using &lt;a href=&quot;http://jupyter.readthedocs.io/en/latest/install.html&quot;&gt;Jupyter Notebok&lt;/a&gt;, which is &lt;i&gt;definitely&lt;/i&gt; best &lt;a href=&quot;http://jupyter.readthedocs.io/en/latest/install.html&quot;&gt;installed using conda&lt;/a&gt;. Take my word for it. Install it using conda. All other ways are madness.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Matrices and Linear Algebra&lt;/h2&gt;
+
+&lt;p&gt;In the spirit of starting with the basics, neural networks run on linear algebra libraries. PyTorch is no exception. So, the simplest building block of PyTorch is its linear algebra library. &lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/pytorch_1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Above, I created 4 matrices. Notice that the library doesn't call them matrices though. It calls them &lt;i&gt;tensors&lt;/i&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Quick Primer on Tensors:&lt;/b&gt; A &lt;i&gt;Tensor&lt;/i&gt; is just a more generic term than &lt;i&gt;matrix&lt;/i&gt; or &lt;i&gt;vector&lt;/i&gt;. 1-dimensional tensors are vectors. 2-dimensional tensors are matrices. 3+ dimensional tensors are just refered to as tensors. If you're unfamiliar with these objects, here's a quick summary. A vector is &quot;a list of numbers&quot;. A matrix is &quot;a list of lists of numbers&quot;. A 3-d tensor is &quot;a list of lists of lists of numbers&quot;. A 4-d tensor is... See the pattern? For more on how vectors and matrices are used to make neural networks, see my first blog post on a &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Neural Network in 11 lines of Python&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;PyTorch Tensors&lt;/b&gt; There appear to be 4 major types of tensors in PyTorch: Byte, Float, Double, and Long tensors. Each tensor &lt;i&gt;type&lt;/i&gt; corresponds to the type of number (and more importantly the size/preision of the number) contained in each place of the matrix. So, if a 1-d Tensor is a &quot;list of numbers&quot;, a 1-d &lt;i&gt;Float&lt;/i&gt; Tensor is a list of &lt;u&gt;floats&lt;/u&gt;. As a general rule of thumb, for weight matries we use FloatTensors. For data matrices, we'll likely use either FloatTensors (for real valued inputs) or Long Tensors (for integers). I'm a little bit surprised to not see IntTensor anywhere. Perhaps it has yet to be wrapped or is just non-obvious in the API.&lt;/p&gt;
+
+&lt;p&gt;The final thing to notice is that the matries seem to come with lots of rather random looking numbers inside (but not sensibly random like &quot;evenly random between 0 and 1&quot;). This is actually a plus of the library in my book. Let me explain (skip 1 paragraph if you're familiar with this concept)&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Why Seemingly Nonsenical Values:&lt;/b&gt; When you create a new matrix in PyTorch, the framework goes and &quot;sets aside&quot; enough RAM memory to store your matrix. However, &quot;setting aside&quot; memory is completely different from &quot;changing all the values in that memory to  0&quot;. &quot;Setting aside&quot; memory while also &quot;changing all the values to 0&quot; is more computationally expensive. It's nice that this library doesn't assume you want the values to be any particular way. Instead, it just sets aside memory and whatever 1s and 0s happen to be there from the last program that used that piece of RAM will show up in your matrix. In most cases, we're going to set the values in our matrices to be something else anyway (say... our input data values or a specific kind of random number range). So, the fact that it doesn't pre-set the matrix values saves you a bit of processing time, but the user needs to recognize that it's their responsibility to actively choose the values he/she wants in a matrix. Numpy is not like this, which make Numpy a bit more user friendly but also less computationally efficient.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Basic Linear Algebra Operations:&lt;/b&gt; So, now that we know how to store numbers in PyTorch, lets talk a bit about how PyTorch manipulates them. How does one go about doing linear algebra in PyTorch?&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The Basic Neural Network Operations: &lt;/b&gt; Neural networks, amidst all their complexity, are actually mostly made up of rather simple operations. If you remember from &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;, we can build a working network with only Matrix-Matrix Multiplication, Vector-Matrix Multiplication, Elementwise Operations (addition, subtraction, multiplication, and division), Matrix Transposition, and a handful of elementwise functions (sigmoid, and a special function to compute sigmoid's derivative at a point which uses only the aforementioned elementwise operations). Let's initialize some matrices and start with the elementwise operations.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/pytorch_2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Elementwise Operations:&lt;/b&gt; Above I have given several examples of elementwise addition. (simply replacing the &quot;+&quot; sign with - *  or / will give you the others). These act &lt;i&gt;mostly&lt;/i&gt; how you would expect them to act. A few hiccups here and there. Notably, if you accidentally add two Tensors that aren't aligned correctly (have different dimensions) the python kernel crashes as opposed to throwing an error. It could be just my machine, but error handling in wrappers is notoriously time consuming to finish. I expect this functionality will be worked out soon enough, and as we will see, there's a suitable substitute. &lt;p&gt;
+
+&lt;p&gt;&lt;b&gt;Vector/Matrix Multiplication:&lt;/b&gt; It appears that the native matrix multiplication functionality of Torch isn't wrapped. Instead, we get to use something a bit more familiar. (This feature is really, really cool.) &lt;i&gt;Much of PyTorch can run on native numpy matrices.&lt;/i&gt; That's right! The convenient functionality of numpy is now integrated with one of the most popular Deep Learning Frameworks out there. So, how should you &lt;i&gt;really&lt;/i&gt; do elementwise and matrix multipliplication? Just use numpy! For completeness sake, here's the same elementwise operations using PyTorch's numpy connector.&lt;/p&gt;
+
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/pytorch_3.png&quot; alt=&quot;&quot; /&gt;
+
+&lt;p&gt;And now let's see how to do the basic matrix operations we need for a feedforward network.&lt;/p&gt;
+
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/pytorch_4.png&quot; alt=&quot;&quot; /&gt;
+
+&lt;p&gt;&lt;b&gt;Other Neural Functions:&lt;/b&gt; Finally, we also need to be able to compute some nonlinearities efficiently. There are both numpy and native wrappers made available which seem to run quite fast. Additionally, sigmoid has a native implementation (something that numpy does not implement), which is quite nice and a bit faster than computing it explicitly in numpy.&lt;/p&gt;
+
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/pytorch_5.png&quot; alt=&quot;&quot; /&gt;
+
+&lt;p&gt;I consider the fantastic integration between numpy and PyTorch to be one of the great selling points of this framework. I personally love prototyping with the full control of a matrix library, and PyTorch really respects this preference as an option. This is so nice relative to most other frameworks out there. +1 for PyTorch.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Building a Feedforward Network&lt;/h2&gt;
+
+&lt;p&gt;In this section, we really get to start seeing PyTorch shine. While understanding how matrices are handled is an important pre-requisite to learning a framework, the various layers of abstraction are where frameworks really become useful. In this section, we're going to take the bare bones 3 layer neural network from &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;a previous blogpost&lt;/a&gt; and convert it to a network using PyTorch's neural network abstractions. In this way, as we wrap each part of the network with a piece of framework functionality, you'll know exactly what PyTorch is doing under the hood. Your goal in this section should be to relate the PyTorch abstractions (objects, function calls, etc.) in the PyTorch network we will build with the matrix operations in the numpy neural network (pictured below)s. &lt;/p&gt;
+
+&lt;pre class=&quot;brush: python&quot;&gt;
+import PyTorch
+from PyTorch import np
+
+def nonlin(x,deriv=False):
+	if(deriv==True):
+	    return x*(1-x)
+
+	return 1/(1+np.exp(-x))
+    
+X = np.array([[0,0,1],
+            [0,1,1],
+            [1,0,1],
+            [1,1,1]])
+                
+y = np.array([[0],
+			[1],
+			[1],
+			[0]])
+
+np.random.seed(1)
+
+# randomly initialize our weights with mean 0
+syn0 = 2*np.random.random((3,4)) - 1
+syn1 = 2*np.random.random((4,1)) - 1
+
+for j in range(60000):
+
+	# Feed forward through layers 0, 1, and 2
+    l0 = X
+    l1 = nonlin(np.dot(l0,syn0))
+    l2 = nonlin(np.dot(l1,syn1))
+
+    # how much did we miss the target value?
+    l2_error = y - l2
+    
+    if (j% 10000) == 0:
+        print(&quot;Error:&quot; + str(np.mean(np.abs(l2_error))))
+        
+    # in what direction is the target value?
+    # were we really sure? if so, don't change too much.
+    l2_delta = l2_error*nonlin(l2,deriv=True)
+
+    # how much did each l1 value contribute to the l2 error (according to the weights)?
+    l1_error = l2_delta.dot(syn1.T)
+    
+    # in what direction is the target l1?
+    # were we really sure? if so, don't change too much.
+    l1_delta = l1_error * nonlin(l1,deriv=True)
+
+    # lets update our weights
+    syn1 += l1.T.dot(l2_delta)
+    syn0 += l0.T.dot(l1_delta)
+
+
+&lt;/pre&gt;
+&lt;!-- &lt;h3&gt;Runtime Output:&lt;/h3&gt; --&gt;
+&lt;pre&gt;
+Error:0.496410031903
+Error:0.00858452565325
+Error:0.00578945986251
+Error:0.00462917677677
+Error:0.00395876528027
+Error:0.00351012256786
+&lt;/pre&gt;
+
+&lt;p&gt;Now that we've seen how to build this network (more or less &quot;by hand&quot;), let's starting building the same network using PyTorch instead of numpy.&lt;/p&gt;
+
+&lt;pre class=&quot;brush: python&quot;&gt;
+import PyTorch
+from PyTorchAug import nn
+from PyTorch import np
+&lt;/pre&gt;
+
+&lt;p&gt;First, we want to import several packages from PyTorch. &lt;i&gt;np&lt;/i&gt; is the numpy wrapper mentioned before. &lt;i&gt;nn&lt;/i&gt; is the &lt;i&gt;Neural Network&lt;/i&gt; package, which contains things like layer types, error measures, and network containers, as we'll see in a second.&lt;/p&gt;
+
+&lt;pre class=&quot;brush: python&quot;&gt;
+# randomly initialize our weights with mean 0
+net = nn.Sequential()
+net.add(nn.Linear(3, 4))
+net.add(nn.Sigmoid())
+net.add(nn.Linear(4, 1))
+net.add(nn.Sigmoid())
+net.float()
+&lt;/pre&gt;
+
+&lt;p&gt;The next section highlights the primary advantage of deep learning frameworks in general. Instead of declaring a bunch of weight matrices (like with numpy), we create layers and &quot;glue&quot; them together using nn.Sequential(). Contained in these &quot;layer&quot; objects is logic about how the layers are constructed, how each layer forward propagates predictions, and how each layer backpropagates gradients. nn.Sequential() knows how to combine these layers together to allow them to learn together when presented with a dataset, which is what we'll do next.&lt;/p&gt;
+
+&lt;pre class=&quot;brush: python&quot;&gt;
+X = np.array([[0,0,1],
+            [0,1,1],
+            [1,0,1],
+            [1,1,1]]).astype('float32')
+                
+y = np.array([[0],
+			[1],
+			[1],
+			[0]]).astype('float32')
+
+
+&lt;/pre&gt;
+
+&lt;p&gt;This section is largely the same as before. We create our input (X) and output (y) datasets as numpy matrices. PyTorch seemed to want these matrices to be float32 values in order to do the implicit cast from numpy to PyTorch tensor objects well, so I added an .astype('float32') to ensure they were the right type.&lt;/p&gt;
+
+&lt;pre class=&quot;brush: python&quot;&gt;
+crit = nn.MSECriterion()
+crit.float()
+&lt;/pre&gt;
+
+&lt;p&gt;This one might look a little strange if you're not familiar with neural network error measures. As it turns out, you can measure &quot;how much you missed&quot; in a variety of different ways. How you measure error changes how a network prioritizes different errors when training (what kinds of errors should it take most seriously). In this case, we're going to use the &quot;Mean Squared Error&quot;. For a more in-depth coverage of this, please see Chapter 4 of &lt;a href=&quot;https://www.manning.com/books/grokking-deep-learning&quot;&gt;Grokking Deep Learning&lt;/a&gt;.
+
+&lt;pre class=&quot;brush: python&quot;&gt;
+
+
+for j in range(2400):
+    
+    net.zeroGradParameters()
+
+    # Feed forward through layers 0, 1, and 2
+    output = net.forward(X)
+    
+    # how much did we miss the target value?
+    loss = crit.forward(output, y)
+    gradOutput = crit.backward(output, y)
+    
+    # how much did each l1 value contribute to the l2 error (according to the weights)?
+    # in what direction is the target l1?
+    # were we really sure? if so, don't change too much.
+    gradInput = net.backward(X, gradOutput)
+    
+    # lets update our weights
+    net.updateParameters(1)
+    
+    if (j% 200) == 0:
+        print(&quot;Error:&quot; + str(loss))
+&lt;/pre&gt;
+
+&lt;p&gt;And now for the training of the network. I have annotated each section of the code with near identical annotations as the numpy network. In this way, if you look at them side by side, you should be able to see where each operation in the numpy network occurs in the PyTorch network.&lt;/p&gt;
+
+&lt;p&gt;One part might not look familiar. The &quot;net.zeroGradParameters()&quot; basically just zeros out all our &quot;delta&quot; matrices before a new iteration. In our numpy network, this was the l2_delta variable and l1_delta variable. PyTorch re-uses the same memory allocations each time you forward propgate / back propagate (to be efficient, similar to what was mentioned in the Matrices section), so in order to keep from accidentally re-using the gradients from the prevoius iteration, you need to re-set them to 0. This is also a standard practice for most popular deep learning frameworks.&lt;/p&gt;
+
+&lt;p&gt;Finally, Torch also separates your &quot;loss&quot; from your &quot;gradient&quot;. In our (somewhat oversimplified) numpy network, we just computed an &quot;error&quot; measure. As it turns out, your pure &quot;error&quot; and &quot;delta&quot; are actually slightly different measures. (delta is the derivative of the error). Again, for deeper coverage, see Chatper 4 of &lt;a href=&quot;https://www.manning.com/books/grokking-deep-learning&quot;&gt;GDL&lt;/a&gt;.
+
+&lt;p&gt;&lt;b&gt;Putting it all together&lt;/b&gt;&lt;/p&gt;
+&lt;pre class=&quot;brush: python&quot;&gt;
+import PyTorch
+from PyTorchAug import nn
+from PyTorch import np
+
+# randomly initialize our weights with mean 0
+net = nn.Sequential()
+net.add(nn.Linear(3, 4))
+net.add(nn.Sigmoid())
+net.add(nn.Linear(4, 1))
+net.add(nn.Sigmoid())
+net.float()
+
+X = np.array([[0,0,1],
+            [0,1,1],
+            [1,0,1],
+            [1,1,1]]).astype('float32')
+                
+y = np.array([[0],
+			[1],
+			[1],
+			[0]]).astype('float32')
+
+crit = nn.MSECriterion()
+crit.float()
+
+for j in range(2400):
+    
+    net.zeroGradParameters()
+
+    # Feed forward through layers 0, 1, and 2
+    output = net.forward(X)
+    
+    # how much did we miss the target value?
+    loss = crit.forward(output, y)
+    gradOutput = crit.backward(output, y)
+    
+    # how much did each l1 value contribute to the l2 error (according to the weights)?
+    # in what direction is the target l1?
+    # were we really sure? if so, don't change too much.
+    gradInput = net.backward(X, gradOutput)
+    
+    # lets update our weights
+    net.updateParameters(1)
+    
+    if (j% 200) == 0:
+        print(&quot;Error:&quot; + str(loss))
+&lt;/pre&gt;
+
+&lt;pre&gt;
+Error:0.2521711587905884
+Error:0.2500123083591461
+Error:0.249952495098114
+Error:0.24984735250473022
+Error:0.2495250701904297
+Error:0.2475520819425583
+Error:0.22693687677383423
+Error:0.13267411291599274
+Error:0.04083901643753052
+Error:0.016316475346684456
+Error:0.008736669085919857
+Error:0.005575092509388924
+&lt;/pre&gt;
+
+&lt;p&gt;Your results may vary a bit. I do not yet see how random numbers are to be seeded. If I come across that in the future, I'll add an edit.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 4: The State of PyTorch&lt;/h2&gt;
+
+&lt;p&gt;While still a new framework with lots of ground to cover to close the gap with its competitors, PyTorch already has a lot to offer. It looks like there's an LSTM test case in the works, and strong promise for building custom layers in .lua files that you can import into Python with some simple wrapper functions. If you want to build feedforward neural networks using the industry standard Torch backend without having to deal with Lua, PyTorch is what you're looking for. If you want to build custom layers or do some heavy sequence2sequence models, I think the framework will be there very soon (with documentation / test cases to describe best practices). Overall, I'm very excited to see where this framework goes, and I encourage you to &lt;a href=&quot;https://github.com/hughperkins/pytorch&quot;&gt;Star/Follow it on Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;For New Readers:&lt;/b&gt; I typically tweet out new blogposts when they're complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the upvotes on hacker news and reddit!
+&lt;/p&gt;
+
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shThemeDefault.css&quot; /&gt;
+&lt;script src=&quot;/js/shCore.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shLegacy.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shBrushPython.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	// SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.config.toolbar = true;
+    SyntaxHighlighter.all();
+&lt;/script&gt;
+&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 13 Jan 2017 12:00:00 +0000</pubDate>
+        <link>http://localhost:4000/2017/01/13/pytorch-tutorial/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/01/13/pytorch-tutorial/</guid>
+        
+        
+      </item>
     
       <item>
         <title>Grokking Deep Learning</title>
@@ -62,6 +394,17 @@
 &lt;p&gt;I typically tweet out new blogposts when they're complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
 &lt;/p&gt;
 
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 1: What is a Neural Stack?&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;iframe width=&quot;700px&quot; height=&quot;440px&quot; src=&quot;https://www.youtube.com/embed/3DeL7utEz_k&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
@@ -111,6 +454,15 @@ A close eye might ask, &quot;We learn things with neural networks. What is there
 &lt;p&gt;&lt;b&gt;Money Question:&lt;/b&gt; How does backpropagation learn to push and pop when the error is on the output of the stack and the neural network is on the input to the stack? Normally we backpropagate the error from the output of the network to the weights so that we can make a weight update. It seems like the stack is &quot;blocking&quot; the output from the decision making neural network (which controls the pushing and popping).&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Money Answer:&lt;/b&gt; We make the neural stack &quot;differentiable&quot;. If you haven't had calculus, the simplest way to think about it is that we will make the &quot;neural stack&quot; using a sequence of vector additions, subtractions, and multiplications. If we can figure out how to mimic the stack's behaviors using only these tools, then we will be able to backpropagate the error &lt;b&gt;through the stack&lt;/b&gt; just like we backpropagate it through a neural network's hidden layers. And it will be quite familiar to us! We're already used to backpropagating through sequences of additions, subtractions, and multiplications. Figuring out how to mimic the operations of a stack in a fully differentiable way was the hard part... which why Edward Grefenstette, Karl Moritz Hermann, Mustafa Suleyman, and Phil Blunsom are so brilliant!!!&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Part 1 --&gt;
+&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 2: Reading and Implementing Academic Papers&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;br /&gt;
@@ -179,6 +531,15 @@ A close eye might ask, &quot;We learn things with neural networks. What is there
 &lt;p&gt;&lt;b&gt;N More Passes:&lt;/b&gt; At this point, you just keep reading the method section until you have your working implementation (which you can evaluate using the later sections). So, this is generally how to read the paper. :)&lt;br /&gt;&lt;br /&gt;
 
 &lt;b&gt;Have Questions? Stuck? Feel free to tweet your question &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt; for help.&lt;/b&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Part 1 --&gt;
+&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 3: Building a Toy Neural Stack&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;br /&gt;
@@ -402,6 +763,15 @@ def r_t(t):
 
 &lt;b&gt;Have Questions? Stuck? Feel free to tweet your question &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt; for help.&lt;/b&gt;&lt;/p&gt;
 
+&lt;hr /&gt;
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Part 1 --&gt;
+&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;hr /&gt;
+
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 4: Learning A Sequence&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;br /&gt;
@@ -535,6 +905,17 @@ u_delta = list() # pop strengths
 &lt;iframe src=&quot;https://trinket.io/embed/python/98c8cf72d5&quot; width=&quot;100%&quot; height=&quot;600&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 &lt;b&gt;Have Questions? Stuck? Feel free to tweet your question &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt; for help.&lt;/b&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 5: Building a Neural Controller&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1646,6 +2027,17 @@ MaxLen:19 Iter:2959999 Error:231.447857024True:[2 2 1 1] Pred:[1, 1, 2, 2]
 &lt;p&gt;Disaster... the neural network somehow learned how to model these sequences by pushing all of them onto the stack and then only popping off each number half at a time. What does this mean? Honestly, it could certainly be that I didn't train long enough. What do we do? Andrew... why are you sharing this with us? Was this 30 pages of blogging all for nothing?!?!&lt;/p&gt;
 
 &lt;p&gt;At this point, we have reached a very realistic point in a neural network researcher's lifecycle. Furthermore, it's one that the authors have discussed somewhat extensively both in the paper and in external presentations. If we're not careful, the network can discover less than expected ways of solving the problem that you give it. So, what do we do?&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 6: When Things Really Get Interesting&lt;/h2&gt;
 
