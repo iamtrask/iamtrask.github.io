@@ -2,7 +2,7 @@
 layout:     post
 title:      "Tutorial: Deep Learning in PyTorch"
 subtitle:   "An Unofficial Startup Guide."
-date:       2017-01-13 12:00:00
+date:       2017-01-15 12:00:00
 author:     "iamtrask"
 header-img: "img/stack_nebula.jpg"
 ---
