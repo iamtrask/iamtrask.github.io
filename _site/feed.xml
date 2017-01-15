@@ -5,8 +5,8 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 15 Jan 2017 17:58:07 +0000</pubDate>
-    <lastBuildDate>Sun, 15 Jan 2017 17:58:07 +0000</lastBuildDate>
+    <pubDate>Sun, 15 Jan 2017 18:18:28 +0000</pubDate>
+    <lastBuildDate>Sun, 15 Jan 2017 18:18:28 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -36,6 +36,17 @@
 &lt;p&gt;&lt;b&gt;For New Readers:&lt;/b&gt; I typically tweet out new blogposts when they're complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the upvotes on &lt;a href=&quot;https://news.ycombinator.com/&quot;&gt;Hacker News&lt;/a&gt; and Reddit! They mean a lot to me.
 &lt;/p&gt;
 
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Installation&lt;/h2&gt;
 
 &lt;p&gt;&lt;b&gt;Install Torch:&lt;/b&gt; The first thing you need to do is install torch and the &quot;nn&quot; package using luarocks. As torch is a very robust framework, the &lt;a href=&quot;http://torch.ch/docs/getting-started.html#_&quot;&gt;installation instructions&lt;/a&gt; should work well for you. After that, you should be able to run: &lt;/p&gt;
@@ -62,6 +73,17 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 &lt;p&gt;If you also see this output at the bottom of your terminal, congraulations! You have successfully installed PyTorch!&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Startup Jupyter Notebook:&lt;/b&gt; While certainly not a requirement, I highly recommend playing around with this new tool using &lt;a href=&quot;http://jupyter.readthedocs.io/en/latest/install.html&quot;&gt;Jupyter Notebok&lt;/a&gt;, which is &lt;i&gt;definitely&lt;/i&gt; best &lt;a href=&quot;http://jupyter.readthedocs.io/en/latest/install.html&quot;&gt;installed using conda&lt;/a&gt;. Take my word for it. Install it using conda. All other ways are madness.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Matrices and Linear Algebra&lt;/h2&gt;
 
@@ -100,6 +122,16 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/pytorch_5.png&quot; alt=&quot;&quot; /&gt;
 
 &lt;p&gt;I consider the fantastic integration between numpy and PyTorch to be one of the great selling points of this framework. I personally love prototyping with the full control of a matrix library, and PyTorch really respects this preference as an option. This is so nice relative to most other frameworks out there. +1 for PyTorch.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Part 1 --&gt;
+&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;hr /&gt;
+
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Building a Feedforward Network&lt;/h2&gt;
 
@@ -314,6 +346,17 @@ Error:0.005575092509388924
 &lt;/pre&gt;
 
 &lt;p&gt;Your results may vary a bit. I do not yet see how random numbers are to be seeded. If I come across that in the future, I'll add an edit.&lt;/p&gt;
+
+
+&lt;hr /&gt;
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Part 1 --&gt;
+&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;hr /&gt;
+
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 4: The State of PyTorch&lt;/h2&gt;
 
