@@ -7,6 +7,8 @@ author:     "iamtrask"
 header-img: "img/stack_nebula.jpg"
 ---
 
+<b>UPDATE:</b> A new PyTorch will be released tomorrow, January 17th.
+
 <b>This Blogpost Will Cover:</b>
 <ul>
 	<li>Part 1: PyTorch Installation</li>
