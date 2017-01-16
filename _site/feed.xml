@@ -5,20 +5,9 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 16 Jan 2017 13:19:14 +0000</pubDate>
-    <lastBuildDate>Mon, 16 Jan 2017 13:19:14 +0000</lastBuildDate>
+    <pubDate>Mon, 16 Jan 2017 17:45:23 +0000</pubDate>
+    <lastBuildDate>Mon, 16 Jan 2017 17:45:23 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
-    
-      <item>
-        <title>Hierarchical Softmax</title>
-        <description>
-</description>
-        <pubDate>Sun, 15 Jan 2017 12:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2017/01/15/torch-hierarchical-softmax/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/01/15/torch-hierarchical-softmax/</guid>
-        
-        
-      </item>
     
       <item>
         <title>Tutorial: Deep Learning in PyTorch</title>
@@ -5432,6 +5421,124 @@ formInputs[i].value = '';
         <pubDate>Sun, 23 Nov 2014 12:00:00 +0000</pubDate>
         <link>http://localhost:4000/2014/11/23/cython-blas-fortran/</link>
         <guid isPermaLink="true">http://localhost:4000/2014/11/23/cython-blas-fortran/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Tutorial: Spark-GPU Cluster Dev in a Notebook</title>
+        <description>&lt;p&gt;Speed, Quality, Dev Time... pick two. This has been an age-old tradeoff in software development. The goal of this blog post is to create a local dev environment for ad-hoc gpu-cluster computing using Apache Spark, iPython Notebook (scala version), and the stock GPU powering your Macbook Pro's display.&lt;/p&gt;
+
+&lt;blockquote&gt;Make it work... then make it fast... then make it beautiful -- Matthew Russell&lt;/blockquote&gt;
+
+&lt;p&gt;In the spirit of my mentor, we will start by getting each part &quot;working&quot; individually. Fortunately, the second part (speed) sortof falls out of the first (GPU clusters are like that). Then, we'll integrate these parts into something beautiful... a scalable, ad-hoc environment.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Spark-Notebook&lt;/h2&gt;
+
+&lt;p&gt;Apache Spark can be controlled by notebooks from several languages. I'm going with Scala for several reasons. First, it allows me to have access to the full Spark API (Graphx support is a dealbreaker for me). Secondly, the only GPU library that allowed me to compile for the GPU without writing C code myself is in Java (which I can call from scala). Even with these limitations, there were still several to choose from. The options were:&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;http://zeppelin-project.org/&quot;&gt;Zeppelin&lt;/a&gt; -&amp;gt; buggy API after I imported classes &lt;br /&gt;
+&lt;a href=&quot;https://github.com/andypetrella/spark-notebook&quot;&gt;Spark-Notebook&lt;/a&gt; -&amp;gt; headache to import dependencies &lt;br /&gt;
+&lt;a href=&quot;https://github.com/hohonuuli/sparknotebook&quot;&gt;Sparknotebook&lt;/a&gt; -&amp;gt; Winner!!! Killer app. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;After cloning the Sparknotebook repo and following its instructions (downloading the IScala.jar...etc), with a single command I could open the notebook on top of a standalone spark cluster... easy peasy... &lt;/p&gt;
+
+&lt;p&gt;Please go like the REPO... I'd like to see it get some love....&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: GPU on the JVM&lt;/h2&gt;
+
+&lt;p&gt;The inspiration for this came from a rather impressive library called &lt;a href=&quot;http://www.scalanlp.org/&quot;&gt;ScalaNLP&lt;/a&gt;. They claimed to have a parser that could parse half a million words per minute on one machine! Given that I work in R&amp;amp;D at a &quot;Big-Data NLP&quot; firm, this peaked my interest. Scalanlp on a 100 node cluster seems.... rather disgustingly awesome.&lt;/p&gt;
+
+&lt;p&gt;ScalaNLP Leverages the java opencl library, &lt;a href=&quot;https://code.google.com/p/javacl/&quot;&gt;JavaCL&lt;/a&gt;. The decision to use OpenCL, as opposed to CUDA, means that the code runs on non-NVIDIA graphics cards. All Apple's can use OpenCL. Therefore, I can prototype on my Macbook's GPU. I like that.... i like that a lot. &lt;/p&gt;
+
+&lt;p&gt;However, what I don't like is writing C code. It slows me down and isn't portable. I need my code to be both enterprise-ready and, &quot;we don't want to buy GPUs&quot; ready. This is where &lt;a href=&quot;https://code.google.com/p/aparapi/&quot;&gt;Aparapi&lt;/a&gt; comes in. It compiles Java code down to OpenCL, and runs it in a Java Thread Pool if a GPU isn't available. Also, it's made by AMD... which means you can trust it. Those guys are total bosses. &lt;a href=&quot;http://www.amd.com/en-us/press-releases/Pages/amd-fx-8370-2014sep02.aspx&quot;&gt;AMD Claims New World Record&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I downloaded the AparaPi Mac OS Zip... although all these are available.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2012_01_23_MacOSX_zip&amp;amp;can=2&amp;amp;q=&quot;&gt;Aparapi_2012_01_23_MacOSX_zip&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_linux_x86.zip&amp;amp;can=2&amp;amp;q=&quot;&gt;Aparapi_2013_01_23_linux_x86.zip&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://code.google.com/p/aparapi/downloads/detail?name=Aparapi_2013_01_23_windows_x86.zip&amp;amp;can=2&amp;amp;q=&quot;&gt;Aparapi_2013_01_23_windows_x86.zip&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;I unzipped the download into a folder on my machine, and it created a folder called &quot;Aparapi_2012_01_23_MacOSX_zip&quot;. &lt;br /&gt;&lt;br /&gt;
+&lt;b&gt;Executions:&lt;/b&gt;
+&lt;blockquote&gt;cd Aparapi_2012_01_23_MacOSX_zip/samples/squares/ &lt;br /&gt;
+sh squares.sh&lt;/blockquote&gt;
+&lt;b&gt;Output Sample:&lt;/b&gt;
+&lt;blockquote&gt;Execution mode=GPU&lt;br /&gt;
+     0        0 &lt;br /&gt;
+     1        1&lt;br /&gt;
+     2        4&lt;br /&gt;
+     3        9&lt;br /&gt;
+     4       16&lt;br /&gt;
+     5       25&lt;br /&gt;
+     6       36&lt;br /&gt;
+     7       49&lt;br /&gt;
+     8       64&lt;br /&gt;
+     9       81&lt;br /&gt;
+    10      100
+&lt;/blockquote&gt;&lt;/p&gt;
+
+&lt;p&gt; Wallah! Apparently this java code can run on my Macbook's GPU. Feel free to try a few of the other sample programs... the mandlebrot one is super cool!&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Integrating Spark and Aparapi in the Notebook&lt;/h2&gt;
+
+&lt;p&gt; So, everything so far has simply been a tutorial on &quot;proper tool selection&quot; for the task. The real challenge is in getting these tools to talk to each other. The first integration step we need to do is to import the aparapi jar into the iscala notebook. This can be done using the following command.&lt;/p&gt;
+&lt;blockquote&gt;mvn install:install-file -Dfile=aparapi.jar -DgroupId=com.amd.aparapi -DartifactId=aparapi -Dversion=1.0 -Dpackaging=jar&lt;/blockquote&gt;
+
+&lt;p&gt;Furthermore, my ~/.ipython/profile_scala/ipython_config.py  looks like this at the bottom...&lt;/p&gt;
+
+&lt;blockquote&gt;c = get_config() &lt;br /&gt;&lt;br /&gt;
+
+c.KernelManager.kernel_cmd = [&quot;java&quot;,&quot;-Djava.library.path=/Users/.. .../Aparapi_2012_01_23_MacOSX_zip&quot;,&quot;-XX:MaxPermSize=2048m&quot;,&quot;-Xmx8g&quot;, &lt;br /&gt; &quot;-jar&quot;,
+                          &quot;/Users/myname/.ipython/profile_scala/lib/IScala.jar&quot;,&quot;/Users/... .../Aparapi_2012_01_23_MacOSX_zip/aparapi.jar&quot;, &lt;br /&gt;
+                          &quot;--profile&quot;, &lt;br /&gt;
+                          &quot;{connection_file}&quot;, &lt;br /&gt;
+                          &quot;--parent&quot;]&lt;/blockquote&gt;
+&lt;p&gt;This gets the aparapi jar on our spark cluster classpath.&lt;/p&gt;
+
+&lt;p&gt; One more detail, when you're starting ipython notebook, start it with this command (with your aparapi zip directory path instead of mine). I'll go into this in a minute&lt;/p&gt;
+&lt;blockquote&gt;SPARK_DAEMON_JAVA_OPTS=-Xmx8128m SPARK_WORKER_MEMORY=-Xmx2048m SPARK_DAEMON_MEMORY=-Xmx2048m SPARK_REPL_OPTS=-XX:MaxPermSize=2048m SBT_OPTS=-Xmx8128m SPARK_JAVA_OPTS=&quot;-Djava.library.path=/Users/... ..../Aparapi_2012_01_23_MacOSX_zip -Xms512m -Xmx8128m&quot; ipython notebook --profile scala	&lt;/blockquote&gt;
+
+&lt;p&gt;When I deploy the aparapi jar locally, I can then import aparapi like so...&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/ipythonDep.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt; GPU, iPython Notebooks, and Apache Spark meeting for the very first time ever…. a moment in history.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt; Assuming no errors in the &quot;upload&quot; command (scroll to the bottom for a list of any import failures), you should be good to go. Also, notice that I'm using the demo scala notebook from the sparknotebook github. I recommend this to make sure that the notebook is working before you start.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 4: Example Kernel Built in the Notebook (using Scala only)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/exampleKernel.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt;Building a kernel and running it… notice the output at the bottom…&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt; Notice that i tried to set the kernel to run on the GPU, but because the GPU wasn't available, it switched the version and ran it on the CPU. You might be thinking, &quot;Wait!!! This blog is a hoax!!!&quot;. I got a bit discouraged at this point as well, however, debugging later found out that we cannot compile Scala to GPU code. This is acceptable for prototyping kernels and chaining them together. This will even run in the spark context... so to develop and test your kenels (using the Java Thread Pool fallback), feel free to do it this way. &lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 5: Executing GPU Kernel on Spark Cluster&lt;/h2&gt;
+
+&lt;p&gt;Now the moment we've all been waiting for.... earlier when you installed the aparapi jar into maven, you were actually installing the compiled jar including the &quot;Square&quot; sample code. If we crack open the &quot;squares.sh&quot; script we ran earlier, we'll see that it is calling a program in that jar&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;squares.sh&lt;/b&gt;&lt;/p&gt;
+&lt;blockquote&gt;java \ &lt;br /&gt;
+ -Djava.library.path=../.. \ &lt;br /&gt;
+ -Dcom.amd.aparapi.executionMode=%1 \ &lt;br /&gt;
+ -classpath ../../aparapi.jar:squares.jar \ &lt;br /&gt;
+ com.amd.aparapi.sample.squares.Main&lt;/blockquote&gt;
+
+&lt;p&gt;This means that the compiled code is already on our classpath... and we can call it from a spark method like so...&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/gpuInSpark.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt;Running the kernel in the ipython notebook via spark&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/gpuOutputInTerminal.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;caption text-muted&quot;&gt;The logging of the GPU program… showing that it is indeed being run on the GPU (didn’t fallback to JTP)&lt;/span&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 22 Nov 2014 12:00:00 +0000</pubDate>
+        <link>http://localhost:4000/2014/11/22/spark-gpu/</link>
+        <guid isPermaLink="true">http://localhost:4000/2014/11/22/spark-gpu/</guid>
         
         
       </item>
