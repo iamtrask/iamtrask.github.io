@@ -7,7 +7,7 @@ author:     "iamtrask"
 header-img: "img/stack_nebula.jpg"
 ---
 
-<b>EDIT:</b> <a href="http://pytorch.org/">A complete revamp of PyTorch</a> was released today (Jan 18, 2017), making this blogpost a bit obselete.</a>
+<b>EDIT:</b> <a href="http://pytorch.org/">A complete revamp of PyTorch</a> was released today (Jan 18, 2017), making this blogpost a bit obselete. I will update this post with a new Quickstart Guide soon, but for now you should check out their documentation.</a>
 
 <b>This Blogpost Will Cover:</b>
 <ul>
