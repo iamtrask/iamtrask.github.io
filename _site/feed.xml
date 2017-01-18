@@ -5,13 +5,15 @@
     <description>Write your site description here. It will be used as your sites meta description as well!</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 16 Jan 2017 17:51:08 +0000</pubDate>
-    <lastBuildDate>Mon, 16 Jan 2017 17:51:08 +0000</lastBuildDate>
+    <pubDate>Wed, 18 Jan 2017 18:24:26 +0000</pubDate>
+    <lastBuildDate>Wed, 18 Jan 2017 18:24:26 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
         <title>Tutorial: Deep Learning in PyTorch</title>
-        <description>&lt;p&gt;&lt;b&gt;This Blogpost Will Cover:&lt;/b&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;b&gt;EDIT:&lt;/b&gt; &lt;a href=&quot;http://pytorch.org/&quot;&gt;A complete revamp of PyTorch&lt;/a&gt; was released today (Jan 18, 2017), making this blogpost a bit obselete.&amp;lt;/a&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;This Blogpost Will Cover:&lt;/b&gt;&lt;/p&gt;
 &lt;ul&gt;
 	&lt;li&gt;Part 1: PyTorch Installation&lt;/li&gt;
 	&lt;li&gt;Part 2: Matrices and Linear Algebra in PyTorch&lt;/li&gt;
