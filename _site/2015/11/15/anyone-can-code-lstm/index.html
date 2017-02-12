@@ -473,7 +473,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Line 37 - 39:</b> These store the weight updates that we would like to make for each of the weight matrices. After we've accumulated several weight updates, we'll actually update the matrices. More on this later.</p>
 
-<p><b>Line 42:</b> We're iterating over 100,000 training examples</p>
+<p><b>Line 42:</b> We're iterating over 10,000 training examples</p>
 
 <p><b>Line 45:</b> We're going to generate a random addition problem. So, we're initializing an integer randomly between 0 and half of the largest value we can represent. If we allowed the network to represent more than this, than adding two number could theoretically overflow (be a bigger number than we have bits to represent). Thus, we only add numbers that are less than half of the largest number we can represent.</p>
 
