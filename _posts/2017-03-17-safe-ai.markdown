@@ -719,7 +719,7 @@ When I train this neural network, this is the output that I see. Tuning was a bi
 
 <h2 class="section-heading">Part 9: Sentiment Classification</h2>
 
-<p>To make this a bit more real, here's the same network training on IMDB sentiment reviews based on a <a href="https://github.com/udacity/deep-learning/tree/master/sentiment_network">network from Udacity's Deep Learning Nanodegree</a>. You can find the full code <a href="">here</a>
+<p>To make this a bit more real, here's the same network training on IMDB sentiment reviews based on a <a href="https://github.com/udacity/deep-learning/tree/master/sentiment_network">network from Udacity's Deep Learning Nanodegree</a>. You can find the full code <a href="https://github.com/iamtrask/iamtrask.github.io/blob/master/notebooks/VHE%2B-%2BSentiment%2BClassification.ipynb">here</a>
 
 <pre class="brush: python">
 
