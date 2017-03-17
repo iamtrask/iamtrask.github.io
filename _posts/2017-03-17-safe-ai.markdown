@@ -174,7 +174,7 @@ Let's start by covering a bit of the Homomorphic Encryption jargon:
 	<li><b>Plaintext:</b> this is your un-encrypted data. It's also called the "message". In our case, this will be a bunch of numbers representing our neural network.</li>
 	<li><b>Cyphertext:</b> this is your encrypted data. We'll do math operations on the cyphertext which will change the underlying Plaintext.</li>
 	<li><b>Public Key:</b> this is a pseudo-random sequence of numbers that allows anyone to encrypt data. It's ok to share this with people because (in theory) they can only use it for encryption. </li>
-	<li><b>Private/Secret Key:</b> this is a psdueo-random sequence of numbers that allows you to decrypt data that was encrypted by the Public Key. You do NOT want to share this with people. Otherwise, they could decrypt your messages.</li>
+	<li><b>Private/Secret Key:</b> this is a pseudo-random sequence of numbers that allows you to decrypt data that was encrypted by the Public Key. You do NOT want to share this with people. Otherwise, they could decrypt your messages.</li>
 
 </ul>
 
@@ -205,7 +205,7 @@ Homomorphic Encryption has four kinds of operations that we care about: public/p
 <img class="img-responsive" width="200px" src="{{ site.baseurl }}/img/decryption.png" alt="" style="display:inline; margin-left:50px">
 </center>
 
-<p>The formula on the left describes the general relationship between our secret key S and our message x. The formula on the right shows how we can use our secret key to decrypt our message. Notice that "e" is gone? Basically, the general philosophy of Homomorphic Encryption techniques is to introduce just enough noise that the original message is hard to get back without the secret key, but a small enough amount of noise that it ammounts to a rounding error when you DO have the secret key. The brackets on the top and bottom represent "round to the nearest integer". Other Homomorphic Encryption algorithms round to various amounts. Modulus operators are nearly ubiquitous.
+<p>The formula on the left describes the general relationship between our secret key S and our message x. The formula on the right shows how we can use our secret key to decrypt our message. Notice that "e" is gone? Basically, the general philosophy of Homomorphic Encryption techniques is to introduce just enough noise that the original message is hard to get back without the secret key, but a small enough amount of noise that it amounts to a rounding error when you DO have the secret key. The brackets on the top and bottom represent "round to the nearest integer". Other Homomorphic Encryption algorithms round to various amounts. Modulus operators are nearly ubiquitous.
 
 Encryption, then, is about generating a c so that this relationship holds true. If S is a random matrix, then c will be hard to decrypt. The simpler, non-symmetric way of generating an encryption key is to just find the inverse of the secret key. Let's start there with some Python code.</p>
 
@@ -281,7 +281,7 @@ And when I run this code in an iPython notebook, I can perform the following ope
 <img class="img-responsive" width="200px" src="{{ site.baseurl }}/img/decryption.png" alt="" style="display:inline; margin-left:50px">
 </center>
 
-<p><b>Import Lesson:</b> Take a look at the decryption formulas again. If the secret key, S, is the identity matrix, then cyphertext c is just a re-weighted, slightly noisy version of the input x, which could easily be discovered given a handful of examples. If this doesn't make sense, Google "Identiy Matrix Tutorial" and come back. It's a bit too much to go into here.</p>
+<p><b>Import Lesson:</b> Take a look at the decryption formulas again. If the secret key, S, is the identity matrix, then cyphertext c is just a re-weighted, slightly noisy version of the input x, which could easily be discovered given a handful of examples. If this doesn't make sense, Google "Identity Matrix Tutorial" and come back. It's a bit too much to go into here.</p>
 
 <p>This leads us into how encryption takes place. Instead of explicitly allocating a self-standing "Public Key" and "Private Key", the authors propose a "Key Switching" technique, wherein they can swap out one Private Key S for another S'. More specifically, this private key switching technique involves generating a matrix M that can perform the transformation.Since M has the ability to convert a message from being unencrypted (secret key of the identity matrix) to being encrypted (secret key that's random and difficult to guess), this M becomes our public key! </p>
 
