@@ -120,7 +120,7 @@ header-img: "img/northern-lights.jpg"
 
 <iframe src="https://trinket.io/embed/python/0fc12dd1f6" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
 
-<p>With only the first four factors of the Taylor Series, we get very close to sigmoid for a relatively large series of numbers. Now that we have our general strategy, it's time to sepect a Homomorphic Encryption algorithm.</p>
+<p>With only the first four factors of the Taylor Series, we get very close to sigmoid for a relatively large series of numbers. Now that we have our general strategy, it's time to select a Homomorphic Encryption algorithm.</p>
 
 <hr />
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
