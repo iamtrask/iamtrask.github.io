@@ -1,13 +1,131 @@
----
-layout:     post
-title:      "How to Code and Understand DeepMind's Synthetic Gradients"
-subtitle:   "A Tutorial on Decoupled Neural Interfaces"
-date:       2017-03-20 12:00:00
-author:     "iamtrask"
-header-img: "img/nasa-43567.jpg"
----
+<!DOCTYPE html>
+<html lang="en">
 
-<p><b>TLDR:</b> In this blogpost, we're going to prototype (from scratch) and learn the intuitions behind DeepMind's recently proposed <a href="https://arxiv.org/pdf/1608.05343.pdf">Decoupled Neural Interfaces Using Synthetic Gradients</a> paper.</p>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A machine learning craftsmanship blog.">
+
+    <title>How to Code and Understand DeepMind's Synthetic Gradients - i am trask</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/03/21/synthetic-gradients/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">i am trask</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">about</a>
+                </li>
+                
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+                <li>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36138203-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<header class="intro-header" style="background-image: url('/img/nasa-43567.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>How to Code and Understand DeepMind's Synthetic Gradients</h1>
+                    
+                    <h2 class="subheading">A Tutorial on Decoupled Neural Interfaces</h2>
+                    
+                    <span class="meta">Posted by iamtrask on March 21, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p><b>TLDR:</b> In this blogpost, we're going to prototype (from scratch) and learn the intuitions behind DeepMind's recently proposed <a href="https://arxiv.org/pdf/1608.05343.pdf">Decoupled Neural Interfaces Using Synthetic Gradients</a> paper.</p>
 
 <p>I typically tweet out new blogposts when they're complete at <a href="https://twitter.com/iamtrask">@iamtrask</a>. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
 </p>
@@ -17,19 +135,17 @@ header-img: "img/nasa-43567.jpg"
 <p>Normally, a neural network compares its predictions to a dataset to decide how to update its weights. It then uses backpropagation to figure out how each weight should move in order to make the prediction more accurate. However, with Synthetic Gradients, individual layers instead make a "best guess" for what they think the data will say, and then update their weights according to this guess. This "best guess" is called a Synthetic Gradient. The data is only used to help update each layer's "guesser" or Synthetic Gradient generator. This allows for (most of the time), individual layers to learn in isolation, which increases the speed of training.</p>
 
 <center>
-<img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/synthetic_grads_paper.png" alt="">
+<img class="img-responsive" width="100%" src="/img/synthetic_grads_paper.png" alt="" />
 <i>Source: <a href="https://arxiv.org/pdf/1608.05343.pdf">Decoupled Neural Interfaces Using Synthetic Gradients</a></i>
 </center>
 
-
-The graphic above (from the paper) gives a very intuitive picture for what's going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let's start with how a regular neural network layer is updated.
+<p>The graphic above (from the paper) gives a very intuitive picture for what’s going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let’s start with how a regular neural network layer is updated.</p>
 
 <h2 class="section-heading">Part 2: Using Synthetic Gradients</h2>
 
-
 <p>Let's start by ignoring how the Synthetic Gradients are created and instead just look at how the are used. The far left box shows how these can work to update the first layer in a neural network. The first layer forward propagates into the Synthetic Gradient generator (M i+1), which then returns a gradient. This gradient is used <i>instead of</i> the real gradient (which would take a full forward propagation and backpropagation to compute). The weights are then updated as normal, pretending that this Synthetic Gradient is the real gradient. If you need a refresher on how weights are updated with gradients, check out <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">A Neural Network in 11 Lines of Python</a> and perhaps the followup post on <a href="http://iamtrask.github.io/2015/07/27/python-network-part2/">Gradient Descent</a>.</p>
 
-So, in short, Synthetic Gradients are used just like normal gradients, and for some magical reason they seem to be accurate (without consulting the data)! Seems like magic? Let's see how they're made.
+<p>So, in short, Synthetic Gradients are used just like normal gradients, and for some magical reason they seem to be accurate (without consulting the data)! Seems like magic? Let’s see how they’re made.</p>
 
 <h2 class="section-heading">Part 3: Generating Synthetic Gradients</h2>
 
@@ -50,7 +166,7 @@ So, in short, Synthetic Gradients are used just like normal gradients, and for s
 <p>Excellent question! The whole point of this technique was to allow individual neural networks to train without waiting on each other to finish forward and backpropagating. If our Synthetic Gradient networks require waiting for a full forward/backprop step, then we're back where we started but with more computation going on (even worse!). For the answer, let's revisit this visualization from the paper.</p>
 
 <center>
-<img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/synthetic_grads_paper.png" alt="">
+<img class="img-responsive" width="100%" src="/img/synthetic_grads_paper.png" alt="" />
 <i>Source: <a href="https://arxiv.org/pdf/1608.05343.pdf">Decoupled Neural Interfaces Using Synthetic Gradients</a></i>
 </center>
 
@@ -62,11 +178,11 @@ So, in short, Synthetic Gradients are used just like normal gradients, and for s
 
 <p>As far as the dataset we're training on, I'm going to genereate a synthetic dataset (har! har!) using binary addition. So, the network will take two, random binary numbers and predict their sum (also a binary number). The nice thing is that this gives us the flexibility to increase the dimensionality (~difficulty) of the task as needed. Here's the code for generating the dataset.</p>
 
-<iframe src="https://trinket.io/embed/python3/dd449f1a8a" width="100%" height="700" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<iframe src="https://trinket.io/embed/python3/dd449f1a8a" width="100%" height="700" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
 
 <p>And here's the code for a vanilla neural network training on that dataset.</p>
 
-<iframe src="https://trinket.io/embed/python3/835c9d729f" width="100%" height="900" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<iframe src="https://trinket.io/embed/python3/835c9d729f" width="100%" height="900" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
 
 <p>Now, at this point I really feel its necessary to do something that I almost never do in the context of learning, add a bit of object oriented structure. Normally, this obfuscates the network a little bit and makes it harder to see (from a high level) what's going on (relative to just reading a python script). However, since this post is about "Decoupled Neural Interfaces" and the benefits that they offer, it's really pretty hard to explain things without actually having those interfaces be reasonably decoupled.So, to make learning a little bit easier, I'm first going to convert the network above into <i>exactly the same network</i> but with a "Layer" class object that we'll soon convert into a DNI. Let's take a look at this Layer object.</p>
 
@@ -136,7 +252,7 @@ for iter in range(iterations):
 <p>So, all we've really done is taken the steps in the script from the previous neural network and split them into distinct functions inside of a class. Below, we can see this layer in action.</p>
 
 
-<iframe src="https://trinket.io/embed/python3/b78063bef4" width="100%" height="900" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<iframe src="https://trinket.io/embed/python3/b78063bef4" width="100%" height="900" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
 
 <p>If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach <i>nearly</i> identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, <i>don't move on</i>. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.</p>
 
@@ -192,11 +308,11 @@ class DNI(object):
 
 <p> <b>Forward And Synthetic Update:</b>The forward method has changed to forward_and_synthetic_update. Remember how we don't need any other part of the network to make our weight update? This is where the magic happens. First, forward propagation occurs like normal (line 22). Then, we generate our synthetic gradient by passing our output through a non-linearity. This part could be a more complicated neural network, but we've instead decided to keep things simple and just use a simple linear layer to generate our synthetic gradients. After we've got our gradient, we go ahead and update our normal weights (lines 28 and 29). Finally, we backpropagate our synthetic gradient from the output of the weights to the input so that we can send it to the previous layer.</p>
 
-<p><b>Update Synthetic Gradient:</b> Ok, so the gradient that we returned at the end of the "forward" method. That's what we're going to accept into the update_synthetic_gradient method from the next layer. So, if we're at layer 2, then layer 3 returns a gradient from its forward_and_synthetic_update method and that gets input into layer 2's update_synthetic_weights. Then, we simply update our synthetic weights just like we would a normal neural network. We take the input to the synthetic gradient layer (self.output), and then perform an average outer product (matrix transpose -> matrix mul) with the output delta. It's no different than learning in a normal neural network, we've just got some special inputs and outputs in leau of data</p>
+<p><b>Update Synthetic Gradient:</b> Ok, so the gradient that we returned at the end of the "forward" method. That's what we're going to accept into the update_synthetic_gradient method from the next layer. So, if we're at layer 2, then layer 3 returns a gradient from its forward_and_synthetic_update method and that gets input into layer 2's update_synthetic_weights. Then, we simply update our synthetic weights just like we would a normal neural network. We take the input to the synthetic gradient layer (self.output), and then perform an average outer product (matrix transpose -&gt; matrix mul) with the output delta. It's no different than learning in a normal neural network, we've just got some special inputs and outputs in leau of data</p>
 
 <p>Ok! Let's see it in action.</p>
 
-<iframe src="https://trinket.io/embed/python3/df0636703f" width="100%" height="1000" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<iframe src="https://trinket.io/embed/python3/df0636703f" width="100%" height="1000" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
 
 <p>Training is a bit different. A larger batch size and smaller alpha seemed to work a lot better, but positively it seemed to train in half the number of iterations! (this could easily be tuning, but still... not bad). A few takeaways. Training seems to be a bit more chaotic (doesn't just go down). I'm not sure what's really happening under the hood there, but when it converges it sure does it quick!</p>
 
@@ -207,13 +323,91 @@ class DNI(object):
 </p>
 
 
-<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shCore.css">
-<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shThemeDefault.css">
-<script src="{{ site.baseurl }}/js/shCore.js"></script>
-<script src="{{ site.baseurl }}/js/shLegacy.js"></script>
-<script src="{{ site.baseurl }}/js/shBrushPython.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/shCore.css" />
+<link rel="stylesheet" type="text/css" href="/css/shThemeDefault.css" />
+<script src="/js/shCore.js"></script>
+<script src="/js/shLegacy.js"></script>
+<script src="/js/shBrushPython.js"></script>
 <script type="text/javascript">
 	// SyntaxHighlighter.config.bloggerMode = true;
 	SyntaxHighlighter.config.toolbar = true;
     SyntaxHighlighter.all();
 </script>
+</p></p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="//2017/03/17/safe-ai/" data-toggle="tooltip" data-placement="top" title="Building Safe A.I.">&larr; Previous Post</a> 
+                    </li>
+                     
+                     
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+    <!-- Footer -->
+<footer>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/iamtrask">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; i am trask 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

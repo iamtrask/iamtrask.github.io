@@ -5,8 +5,8 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 21 Mar 2017 14:38:37 +0000</pubDate>
-    <lastBuildDate>Tue, 21 Mar 2017 14:38:37 +0000</lastBuildDate>
+    <pubDate>Tue, 21 Mar 2017 14:40:20 +0000</pubDate>
+    <lastBuildDate>Tue, 21 Mar 2017 14:40:20 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -221,9 +221,9 @@ class DNI(object):
 &lt;/script&gt;
 &lt;/p&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 20 Mar 2017 12:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2017/03/20/synthetic-gradients/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/03/20/synthetic-gradients/</guid>
+        <pubDate>Tue, 21 Mar 2017 12:00:00 +0000</pubDate>
+        <link>http://localhost:4000/2017/03/21/synthetic-gradients/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/03/21/synthetic-gradients/</guid>
         
         
       </item>
