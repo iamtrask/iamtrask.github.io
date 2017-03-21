@@ -5,13 +5,235 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 17 Mar 2017 17:36:34 +0000</pubDate>
-    <lastBuildDate>Fri, 17 Mar 2017 17:36:34 +0000</lastBuildDate>
+    <pubDate>Tue, 21 Mar 2017 14:38:37 +0000</pubDate>
+    <lastBuildDate>Tue, 21 Mar 2017 14:38:37 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>How to Code and Understand DeepMind's Synthetic Gradients</title>
+        <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; In this blogpost, we're going to prototype (from scratch) and learn the intuitions behind DeepMind's recently proposed &lt;a href=&quot;https://arxiv.org/pdf/1608.05343.pdf&quot;&gt;Decoupled Neural Interfaces Using Synthetic Gradients&lt;/a&gt; paper.&lt;/p&gt;
+
+&lt;p&gt;I typically tweet out new blogposts when they're complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
+&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Synthetic Gradients Overview&lt;/h2&gt;
+
+&lt;p&gt;Normally, a neural network compares its predictions to a dataset to decide how to update its weights. It then uses backpropagation to figure out how each weight should move in order to make the prediction more accurate. However, with Synthetic Gradients, individual layers instead make a &quot;best guess&quot; for what they think the data will say, and then update their weights according to this guess. This &quot;best guess&quot; is called a Synthetic Gradient. The data is only used to help update each layer's &quot;guesser&quot; or Synthetic Gradient generator. This allows for (most of the time), individual layers to learn in isolation, which increases the speed of training.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/synthetic_grads_paper.png&quot; alt=&quot;&quot; /&gt;
+&lt;i&gt;Source: &lt;a href=&quot;https://arxiv.org/pdf/1608.05343.pdf&quot;&gt;Decoupled Neural Interfaces Using Synthetic Gradients&lt;/a&gt;&lt;/i&gt;
+&lt;/center&gt;
+
+&lt;p&gt;The graphic above (from the paper) gives a very intuitive picture for what’s going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let’s start with how a regular neural network layer is updated.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Using Synthetic Gradients&lt;/h2&gt;
+
+&lt;p&gt;Let's start by ignoring how the Synthetic Gradients are created and instead just look at how the are used. The far left box shows how these can work to update the first layer in a neural network. The first layer forward propagates into the Synthetic Gradient generator (M i+1), which then returns a gradient. This gradient is used &lt;i&gt;instead of&lt;/i&gt; the real gradient (which would take a full forward propagation and backpropagation to compute). The weights are then updated as normal, pretending that this Synthetic Gradient is the real gradient. If you need a refresher on how weights are updated with gradients, check out &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt; and perhaps the followup post on &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;Gradient Descent&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;So, in short, Synthetic Gradients are used just like normal gradients, and for some magical reason they seem to be accurate (without consulting the data)! Seems like magic? Let’s see how they’re made.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Generating Synthetic Gradients&lt;/h2&gt;
+
+&lt;p&gt;Ok, this part is really clever, and frankly it's amazing that it works. How do you generate Synthetic Gradients for a neural network? Well, you use another network of course! Synthetic Gradient genenerators are nothing other than a neural network that is trained to take the output of a layer and predict the gradient that will likely happen at that layer.&lt;/p&gt;
+
+&lt;h4&gt;A Sidenote: Related Work by Geoffrey Hinton&lt;/h4&gt;
+
+&lt;p&gt;This actually reminds me of some work that Geoffrey Hinton did a couple years ago. Annoyingly, I can't seem to find the reference, but he did some work that showed you could backpropagate through randomly generated matrices and still accomplish learning. Furthermore, he showed that it had a kind of regularization affect. It was some interesting work for sure.&lt;/p&gt;
+
+&lt;p&gt;Ok, back to Synthetic Gradients. So, now we know that Synthetic Gradients are trained by another neural network that learns to predict the gradient at a step given the output at that step. The paper also says that any other relevant information could be used as input to the Synthetic Gradient generator network, but in the paper it seems like just the output of the layer is used for normal feedforwards networks. Furthermore, the paper even states that a &lt;i&gt;single linear layer&lt;/i&gt; can be used as the Synthetic Gradient generator. Amazing. We're going to try that out.&lt;/p&gt;
+
+&lt;h4&gt;How do we learn the network that generates Synthetic Gradients?&lt;/h4&gt;
+
+&lt;p&gt;This begs the question, how do we learn the neural networks that generate our Synthetic Gradients? Well, as it turns out, when we perform full forward and backpropagation, we actually get the &quot;correct&quot; gradient. We can compare this to our &quot;synthetic&quot; gradient in the same way we normally compare the output of a neural network to the dataset. Thus, we can train our Synthetic Gradient networks by pretending that our &quot;true gradients&quot; are coming from from mythical dataset... so we train them like normal. Neat!&lt;/p&gt;
+
+&lt;h4&gt;Wait... if our Synthetic Gradient Network requires backprop... what's the point?&lt;/h4&gt;
+
+&lt;p&gt;Excellent question! The whole point of this technique was to allow individual neural networks to train without waiting on each other to finish forward and backpropagating. If our Synthetic Gradient networks require waiting for a full forward/backprop step, then we're back where we started but with more computation going on (even worse!). For the answer, let's revisit this visualization from the paper.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/synthetic_grads_paper.png&quot; alt=&quot;&quot; /&gt;
+&lt;i&gt;Source: &lt;a href=&quot;https://arxiv.org/pdf/1608.05343.pdf&quot;&gt;Decoupled Neural Interfaces Using Synthetic Gradients&lt;/a&gt;&lt;/i&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Focus on the second section from the left. See how the gradient (M i+2) backpropagates through (f i+1) and into M(i+1)? As you can see, each synthetic gradient generator is &lt;i&gt;actually&lt;/i&gt; only trained using the Synthetic Gradients generated from the next layer. Thus, &lt;i&gt;only the last layer&lt;/i&gt; actually trains on the data. All the other layers, including the Synthetic Gradient generator networks, train based on Synthetic Gradients. Thus, the network can train with each layer only having to wait on the synthetic gradient from the following layer (which has no other dependencies). Very cool! &lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 4: A Baseline Neural Network&lt;/h2&gt;
+
+&lt;p&gt;Time to start coding! To get things started (so we have an easier frame of reference), I'm going to start with a vanilla neural network trained with backpropagation, styled in the same way as &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;. (So, if it doesn't make sense, just go read that post and come back). However, I'm going to add an additional layer, but that shoudln't be a problem for comprehension. I just figured that since we're all about reducing dependencies, having more layers might make for a better illustration.&lt;/p&gt;
+
+&lt;p&gt;As far as the dataset we're training on, I'm going to genereate a synthetic dataset (har! har!) using binary addition. So, the network will take two, random binary numbers and predict their sum (also a binary number). The nice thing is that this gives us the flexibility to increase the dimensionality (~difficulty) of the task as needed. Here's the code for generating the dataset.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://trinket.io/embed/python3/dd449f1a8a&quot; width=&quot;100%&quot; height=&quot;700&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;And here's the code for a vanilla neural network training on that dataset.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://trinket.io/embed/python3/835c9d729f&quot; width=&quot;100%&quot; height=&quot;900&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Now, at this point I really feel its necessary to do something that I almost never do in the context of learning, add a bit of object oriented structure. Normally, this obfuscates the network a little bit and makes it harder to see (from a high level) what's going on (relative to just reading a python script). However, since this post is about &quot;Decoupled Neural Interfaces&quot; and the benefits that they offer, it's really pretty hard to explain things without actually having those interfaces be reasonably decoupled.So, to make learning a little bit easier, I'm first going to convert the network above into &lt;i&gt;exactly the same network&lt;/i&gt; but with a &quot;Layer&quot; class object that we'll soon convert into a DNI. Let's take a look at this Layer object.&lt;/p&gt;
+
+&lt;pre class=&quot;brush: python&quot;&gt;
+
+class Layer(object):
+    
+    def __init__(self,input_dim, output_dim,nonlin,nonlin_deriv):
+        
+        self.weights = (np.random.randn(input_dim, output_dim) * 0.2) - 0.1
+        self.nonlin = nonlin
+        self.nonlin_deriv = nonlin_deriv
+    
+    def forward(self,input):
+        self.input = input
+        self.output = self.nonlin(self.input.dot(self.weights))
+        return self.output
+    
+    def backward(self,output_delta):
+        self.weight_output_delta = output_delta * self.nonlin_deriv(self.output)
+        return self.weight_output_delta.dot(self.weights.T)
+    
+    def update(self,alpha=0.1):
+        self.weights -= self.input.T.dot(self.weight_output_delta) * alpha
+
+
+&lt;/pre&gt;
+
+&lt;p&gt;In this Layer class, we have several class variables. &lt;b&gt;weights&lt;/b&gt; is the matrix we use for a linear transformation from input to output (just like a normal linear layer). Optionally, we can also include an output &lt;b&gt;nonlin&lt;/b&gt; function which will put a non-linearity on the output of our network. If we don't want a non-linearity, we can simply set this value to lambda x:x. In our case, we're going to pass in the &quot;sigmoid&quot; function.&lt;p&gt;
+
+&lt;p&gt;The second function we pass in is &lt;b&gt;nonlin_deriv&lt;/b&gt; which is a special derivative function. This function needs to take the output from our nonlinearity and convert it to the derivative. For sigmoid, this is simply (out * (1 - out)) where &quot;out&quot; is the output of the sigmoid. This particular function exists for pretty much all of the common neural network nonlinearities.&lt;/p&gt;
+
+&lt;p&gt;Now, let's take a look at the various methods in this class. &lt;b&gt;forward&lt;/b&gt; does what it's name implies. It forward propagates through the layer, first through a linear transformation, and then through the nonlin function. &lt;b&gt;backward&lt;/b&gt; accepts a output_delta paramter, which represents the &lt;i&gt;real gradient&lt;/i&gt; (as opposed to a synthetic one) coming back from the next layer during backpropagation. We then use this to compute self.weight_output_delta, which is the derivative at the output of our weights (just inside the nonlinearity). Finally, it backpropagates the error to send to the previous layer and returns it.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;update&lt;/b&gt; is perhaps the simplest method of all. It simply takes the derivative at the output of the weights and uses it to perform a weight update. If any of these steps don't make sense to you, again, consult &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt; and come back. If everything makes sense, then let's see our layer objects in the context of training.&lt;/p&gt;
+
+&lt;pre class=&quot;brush:python&quot;&gt;
+
+layer_1 = Layer(input_dim,layer_1_dim,sigmoid,sigmoid_out2deriv)
+layer_2 = Layer(layer_1_dim,layer_2_dim,sigmoid,sigmoid_out2deriv)
+layer_3 = Layer(layer_2_dim, output_dim,sigmoid, sigmoid_out2deriv)
+
+for iter in range(iterations):
+    error = 0
+
+    for batch_i in range(int(len(x) / batch_size)):
+        batch_x = x[(batch_i * batch_size):(batch_i+1)*batch_size]
+        batch_y = y[(batch_i * batch_size):(batch_i+1)*batch_size]  
+        
+        layer_1_out = layer_1.forward(batch_x)
+        layer_2_out = layer_2.forward(layer_1_out)
+        layer_3_out = layer_3.forward(layer_2_out)
+
+        layer_3_delta = layer_3_out - batch_y
+        layer_2_delta = layer_3.backward(layer_3_delta)
+        layer_1_delta = layer_2.backward(layer_2_delta)
+        layer_1.backward(layer_1_delta)
+        
+        layer_1.update()
+        layer_2.update()
+        layer_3.update()
+
+&lt;/pre&gt;
+
+&lt;p&gt;Given a dataset x and y, this is how we use our new layer objects. If you compare it to the script from before, pretty much everything happens in pretty much the same places. I just swapped out the script versions of the neural network for the method calls&lt;/p&gt;
+
+&lt;p&gt;So, all we've really done is taken the steps in the script from the previous neural network and split them into distinct functions inside of a class. Below, we can see this layer in action.&lt;/p&gt;
+
+
+&lt;iframe src=&quot;https://trinket.io/embed/python3/b78063bef4&quot; width=&quot;100%&quot; height=&quot;900&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach &lt;i&gt;nearly&lt;/i&gt; identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, &lt;i&gt;don't move on&lt;/i&gt;. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 5: Integrating Synthetic Gradients&lt;/h2&gt;
+
+&lt;p&gt;Ok, so now we're going to use a very similar interface to the one above, except we're going to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!&lt;/p&gt;
+
+&lt;pre class=&quot;brush:python&quot;&gt;
+
+class DNI(object):
+    
+    def __init__(self,input_dim, output_dim,nonlin,nonlin_deriv,alpha = 0.1):
+        
+        # same as before
+        self.weights = (np.random.randn(input_dim, output_dim) * 0.2) - 0.1
+        self.nonlin = nonlin
+        self.nonlin_deriv = nonlin_deriv
+
+
+        # new stuff
+        self.weights_synthetic_grads = (np.random.randn(output_dim,output_dim) * 0.2) - 0.1
+        self.alpha = alpha
+    
+    # used to be just &quot;forward&quot;, but now we update during the forward pass using Synthetic Gradients :)
+    def forward_and_synthetic_update(self,input):
+
+    	# cache input
+        self.input = input
+
+        # forward propagate
+        self.output = self.nonlin(self.input.dot(self.weights))
+        
+        # generate synthetic gradient via simple linear transformation
+        self.synthetic_gradient = self.output.dot(self.weights_synthetic_grads)
+
+        # update our regular weights using synthetic gradient
+        self.weight_synthetic_gradient = self.synthetic_gradient * self.nonlin_deriv(self.output)
+        self.weights += self.input.T.dot(self.weight_synthetic_gradient) * self.alpha
+        
+        # return backpropagated synthetic gradient (this is like the output of &quot;backprop&quot; method from the Layer class)
+        # also return forward propagated output (feels weird i know... )
+        return self.weight_synthetic_gradient.dot(self.weights.T), self.output
+    
+    # this is just like the &quot;update&quot; method from before... except it operates on the synthetic weights
+    def update_synthetic_weights(self,true_gradient):
+        self.synthetic_gradient_delta = self.synthetic_gradient - true_gradient 
+        self.weights_synthetic_grads += self.output.T.dot(self.synthetic_gradient_delta) * self.alpha
+        
+
+&lt;/pre&gt;
+
+&lt;p&gt;So, the first big change. We have some new class variables. The only one that really matters is the self.weights_synthetic_grads variable, which is our Synthetic Generator neural network (just a linear layer... i.e., ...just a matrix).&lt;/p&gt;
+
+&lt;p&gt; &lt;b&gt;Forward And Synthetic Update:&lt;/b&gt;The forward method has changed to forward_and_synthetic_update. Remember how we don't need any other part of the network to make our weight update? This is where the magic happens. First, forward propagation occurs like normal (line 22). Then, we generate our synthetic gradient by passing our output through a non-linearity. This part could be a more complicated neural network, but we've instead decided to keep things simple and just use a simple linear layer to generate our synthetic gradients. After we've got our gradient, we go ahead and update our normal weights (lines 28 and 29). Finally, we backpropagate our synthetic gradient from the output of the weights to the input so that we can send it to the previous layer.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Update Synthetic Gradient:&lt;/b&gt; Ok, so the gradient that we returned at the end of the &quot;forward&quot; method. That's what we're going to accept into the update_synthetic_gradient method from the next layer. So, if we're at layer 2, then layer 3 returns a gradient from its forward_and_synthetic_update method and that gets input into layer 2's update_synthetic_weights. Then, we simply update our synthetic weights just like we would a normal neural network. We take the input to the synthetic gradient layer (self.output), and then perform an average outer product (matrix transpose -&amp;gt; matrix mul) with the output delta. It's no different than learning in a normal neural network, we've just got some special inputs and outputs in leau of data&lt;/p&gt;
+
+&lt;p&gt;Ok! Let's see it in action.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://trinket.io/embed/python3/df0636703f&quot; width=&quot;100%&quot; height=&quot;1000&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Training is a bit different. A larger batch size and smaller alpha seemed to work a lot better, but positively it seemed to train in half the number of iterations! (this could easily be tuning, but still... not bad). A few takeaways. Training seems to be a bit more chaotic (doesn't just go down). I'm not sure what's really happening under the hood there, but when it converges it sure does it quick!&lt;/p&gt;
+
+
+&lt;p&gt;Hope you've enjoyed this tutorial!&lt;/p&gt;
+
+&lt;p&gt;I typically tweet out new blogposts when they're complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
+&lt;/p&gt;
+
+
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shThemeDefault.css&quot; /&gt;
+&lt;script src=&quot;/js/shCore.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shLegacy.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shBrushPython.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	// SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.config.toolbar = true;
+    SyntaxHighlighter.all();
+&lt;/script&gt;
+&lt;/p&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 20 Mar 2017 12:00:00 +0000</pubDate>
+        <link>http://localhost:4000/2017/03/20/synthetic-gradients/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/03/20/synthetic-gradients/</guid>
+        
+        
+      </item>
     
       <item>
         <title>Building Safe A.I.</title>
         <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; In this blogpost, we're going to train a neural network that is fully encrypted during training (trained on unencrypted data). The result will be a neural network with two beneficial properties. First, the neural network's intelligence is protected from those who might want to steal it, allowing valuable AIs to be trained in insecure environments without risking theft of their intelligence. Secondly, the network can &lt;u&gt;only make encrypted predictions&lt;/u&gt; (which presumably have no impact on the outside world because the outside world cannot understand the predictions without a secret key). This creates a valuable power imbalance between a user and a superintelligence. If the AI is homomorphically encrypted, then from it's perspective, &lt;u&gt;the entire outside world is also homomorphically encrypted&lt;/u&gt;. A human controls the secret key and has the option to either unlock the AI itself (releasing it on the world) or just individual predictions the AI makes (seems safer).&lt;/p&gt;
+
+&lt;p&gt;I typically tweet out new blogposts when they're complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
+&lt;/p&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Superintelligence&lt;/h2&gt;
 
@@ -38,7 +260,7 @@
 
 &lt;p&gt;&lt;b&gt;Question:&lt;/b&gt; How does a neural network learn?&lt;/p&gt;
 
-&lt;p&gt;A neural network makes predictions based on input. It learns to do this effectively by trial and error. It begins by making a prediction (which is largely random at first), and then receives an &quot;error signal&quot; indiciating that it predicted too high or too low (usually probabilities). After this cycle repeates many millions of times, the network starts figuring things out. For more detail on how this works, see &lt;a href=&quot;iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A neural network makes predictions based on input. It learns to do this effectively by trial and error. It begins by making a prediction (which is largely random at first), and then receives an &quot;error signal&quot; indiciating that it predicted too high or too low (usually probabilities). After this cycle repeates many millions of times, the network starts figuring things out. For more detail on how this works, see &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The big takeaway here is this error signal. Without being told how well it's predictions are, it cannot learn. This will be important to remember.&lt;/p&gt;
 
@@ -67,7 +289,7 @@
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Can we use them together?&lt;/h2&gt;
 
-&lt;p&gt;Perhaps the most frequent intersection between Deep Learning and Homomorphic Encryption has manifested around Data Privacy. As it turns out, when you homomorphically encrypt data, you can't read it but you still maintain most of the interesting statistical structure. This has allowed people to train models on encrypted data (&lt;a href=&quot;https://arxiv.org/abs/1412.6181&quot;&gt;CryptoNets&lt;/a&gt;). Furthermore a startup hedge fund called &lt;a href=&quot;https://medium.com/numerai/encrypted-data-for-efficient-markets-fffbe9743ba8&quot;&gt;Numer.ai&lt;/a&gt; encrypts expensive, proprietary data and allows anyone to attmept to train machine learning models to predict the stock market. Normally they wouldn't be able to do this becuase it would constitute giving away incredibly expensive information. (and normal encryption would make model training impossible)&lt;/p&gt;
+&lt;p&gt;Perhaps the most frequent intersection between Deep Learning and Homomorphic Encryption has manifested around Data Privacy. As it turns out, when you homomorphically encrypt data, you can't read it but you still maintain most of the interesting statistical structure. This has allowed people to train models on encrypted data (&lt;a href=&quot;https://arxiv.org/abs/1412.6181&quot;&gt;CryptoNets&lt;/a&gt;). Furthermore a startup hedge fund called &lt;a href=&quot;https://medium.com/numerai/encrypted-data-for-efficient-markets-fffbe9743ba8&quot;&gt;Numer.ai&lt;/a&gt; encrypts expensive, proprietary data and allows anyone to attempt to train machine learning models to predict the stock market. Normally they wouldn't be able to do this becuase it would constitute giving away incredibly expensive information. (and normal encryption would make model training impossible)&lt;/p&gt;
 
 &lt;p&gt;However, this blog post is about doing the inverse, encrypting the neural network and training it on decrypted data.&lt;/p&gt;
 
@@ -118,7 +340,7 @@
 
 &lt;iframe src=&quot;https://trinket.io/embed/python/0fc12dd1f6&quot; width=&quot;100%&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
-&lt;p&gt;With only the first four factors of the Taylor Series, we get very close to sigmoid for a relatively large series of numbers. Now that we have our general strategy, it's time to sepect a Homomorphic Encryption algorithm.&lt;/p&gt;
+&lt;p&gt;With only the first four factors of the Taylor Series, we get very close to sigmoid for a relatively large series of numbers. Now that we have our general strategy, it's time to select a Homomorphic Encryption algorithm.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -171,7 +393,7 @@
 	&lt;li&gt;&lt;b&gt;Plaintext:&lt;/b&gt; this is your un-encrypted data. It's also called the &quot;message&quot;. In our case, this will be a bunch of numbers representing our neural network.&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Cyphertext:&lt;/b&gt; this is your encrypted data. We'll do math operations on the cyphertext which will change the underlying Plaintext.&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Public Key:&lt;/b&gt; this is a pseudo-random sequence of numbers that allows anyone to encrypt data. It's ok to share this with people because (in theory) they can only use it for encryption. &lt;/li&gt;
-	&lt;li&gt;&lt;b&gt;Private/Secret Key:&lt;/b&gt; this is a psdueo-random sequence of numbers that allows you to decrypt data that was encrypted by the Public Key. You do NOT want to share this with people. Otherwise, they could decrypt your messages.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Private/Secret Key:&lt;/b&gt; this is a pseudo-random sequence of numbers that allows you to decrypt data that was encrypted by the Public Key. You do NOT want to share this with people. Otherwise, they could decrypt your messages.&lt;/li&gt;
 
 &lt;/ul&gt;
 
@@ -202,7 +424,7 @@ Homomorphic Encryption has four kinds of operations that we care about: public/p
 &lt;img class=&quot;img-responsive&quot; width=&quot;200px&quot; src=&quot;/img/decryption.png&quot; alt=&quot;&quot; style=&quot;display:inline; margin-left:50px&quot; /&gt;
 &lt;/center&gt;
 
-&lt;p&gt;The formula on the left describes the general relationship between our secret key S and our message x. The formula on the right shows how we can use our secret key to decrypt our message. Notice that &quot;e&quot; is gone? Basically, the general philosophy of Homomorphic Encryption techniques is to introduce just enough noise that the original message is hard to get back without the secret key, but a small enough amount of noise that it ammounts to a rounding error when you DO have the secret key. The brackets on the top and bottom represent &quot;round to the nearest integer&quot;. Other Homomorphic Encryption algorithms round to various amounts. Modulus operators are nearly ubiquitous.
+&lt;p&gt;The formula on the left describes the general relationship between our secret key S and our message x. The formula on the right shows how we can use our secret key to decrypt our message. Notice that &quot;e&quot; is gone? Basically, the general philosophy of Homomorphic Encryption techniques is to introduce just enough noise that the original message is hard to get back without the secret key, but a small enough amount of noise that it amounts to a rounding error when you DO have the secret key. The brackets on the top and bottom represent &quot;round to the nearest integer&quot;. Other Homomorphic Encryption algorithms round to various amounts. Modulus operators are nearly ubiquitous.
 
 Encryption, then, is about generating a c so that this relationship holds true. If S is a random matrix, then c will be hard to decrypt. The simpler, non-symmetric way of generating an encryption key is to just find the inverse of the secret key. Let's start there with some Python code.&lt;/p&gt;
 
@@ -276,7 +498,7 @@ S = generate_key(w,m,n)
 &lt;img class=&quot;img-responsive&quot; width=&quot;200px&quot; src=&quot;/img/decryption.png&quot; alt=&quot;&quot; style=&quot;display:inline; margin-left:50px&quot; /&gt;
 &lt;/center&gt;
 
-&lt;p&gt;&lt;b&gt;Import Lesson:&lt;/b&gt; Take a look at the decryption formulas again. If the secret key, S, is the identity matrix, then cyphertext c is just a re-weighted, slightly noisy version of the input x, which could easily be discovered given a handful of examples. If this doesn't make sense, Google &quot;Identiy Matrix Tutorial&quot; and come back. It's a bit too much to go into here.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Import Lesson:&lt;/b&gt; Take a look at the decryption formulas again. If the secret key, S, is the identity matrix, then cyphertext c is just a re-weighted, slightly noisy version of the input x, which could easily be discovered given a handful of examples. If this doesn't make sense, Google &quot;Identity Matrix Tutorial&quot; and come back. It's a bit too much to go into here.&lt;/p&gt;
 
 &lt;p&gt;This leads us into how encryption takes place. Instead of explicitly allocating a self-standing &quot;Public Key&quot; and &quot;Private Key&quot;, the authors propose a &quot;Key Switching&quot; technique, wherein they can swap out one Private Key S for another S'. More specifically, this private key switching technique involves generating a matrix M that can perform the transformation.Since M has the ability to convert a message from being unencrypted (secret key of the identity matrix) to being encrypted (secret key that's random and difficult to guess), this M becomes our public key! &lt;/p&gt;
 
@@ -711,7 +933,7 @@ When I train this neural network, this is the output that I see. Tuning was a bi
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 9: Sentiment Classification&lt;/h2&gt;
 
-&lt;p&gt;To make this a bit more real, here's the same network training on IMDB sentiment reviews based on a &lt;a href=&quot;https://github.com/udacity/deep-learning/tree/master/sentiment_network&quot;&gt;network from Udacity's Deep Learning Nanodegree&lt;/a&gt;. You can find the full code &lt;a href=&quot;&quot;&gt;here&lt;/a&gt;
+&lt;p&gt;To make this a bit more real, here's the same network training on IMDB sentiment reviews based on a &lt;a href=&quot;https://github.com/udacity/deep-learning/tree/master/sentiment_network&quot;&gt;network from Udacity's Deep Learning Nanodegree&lt;/a&gt;. You can find the full code &lt;a href=&quot;https://github.com/iamtrask/iamtrask.github.io/blob/master/notebooks/VHE%2B-%2BSentiment%2BClassification.ipynb&quot;&gt;here&lt;/a&gt;
 
 &lt;pre class=&quot;brush: python&quot;&gt;
 
@@ -993,9 +1215,9 @@ There are faster and more secure homomorphic encryption algorithms. Taking this 
 &lt;/script&gt;
 &lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 16 Mar 2017 12:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2017/03/16/safe-ai/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/03/16/safe-ai/</guid>
+        <pubDate>Fri, 17 Mar 2017 12:00:00 +0000</pubDate>
+        <link>http://localhost:4000/2017/03/17/safe-ai/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/03/17/safe-ai/</guid>
         
         
       </item>
@@ -6352,68 +6574,6 @@ formInputs[i].value = '';
         <pubDate>Sun, 23 Nov 2014 12:00:00 +0000</pubDate>
         <link>http://localhost:4000/2014/11/23/harry-potter/</link>
         <guid isPermaLink="true">http://localhost:4000/2014/11/23/harry-potter/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Tutorial: when Numpy isn't fast enough...</title>
-        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; a demo on how to use fortran/blas libraries under the hood of your python program's vector operations to squeeze out extra speed over Numpy.&lt;/p&gt;
-
-&lt;p&gt;Yesterday, I posted a on how to use Apache Spark with GPUs from a notebook. To my joy, it reached the first page of Hacker News (while serving the Scala community!!!). Using Spark from one of the iPython notebooks has become a real passion of mine... and whereas yesterday I focused on Scala/JVM/GPU operations, today I want to offer a bit up to the scientific Python community. These discoveries are from studying a wonderful codebase by Radim Rehurek called &lt;a href=&quot;https://github.com/piskvorky&quot;&gt;Gensim&lt;/a&gt;... specifically the word2vec implementation. &lt;/p&gt;
-
-&lt;p&gt;You might be wondering why I would cover CPU based speedups following GPU based... and the truth is that sometimes lighter weight optimiations are a better fit... especially when dealing with smaller batches of vectors at a time or when GPUs simply aren't available.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
-&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: iPython-Notebook Cython Magic&lt;/h2&gt;
-
-&lt;p&gt;Install &lt;a href=&quot;http://stackoverflow.com/questions/2213551/installing-scipy-with-pip&quot;&gt;Numpy,Scipy&lt;/a&gt;,&lt;a href=&quot;http://brewformulas.org/Gfortran&quot;&gt;GFortran&lt;/a&gt;,&lt;a href=&quot;http://docs.cython.org/src/quickstart/install.html&quot;&gt;Cython&lt;/a&gt;, and &lt;a href=&quot;http://scikit-learn.org/stable/install.html&quot;&gt;scikit-learn&lt;/a&gt; packages. I &lt;i&gt;HIGHLY&lt;/i&gt; recommend sticking to easy_install, brew (apt-get), and pip. In my experience, macports has some real trouble with these packages. Also, of course, you need to have ipython notebook installed for these examples to work, but technically it can work for normal cython too.&lt;/p&gt;
-
-&lt;p&gt;With Cython you'll get the &quot;Cython&quot; magic as well. The following command should work in your notebook.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/sampleCython.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Notice that you load the cython magic using &quot;%load_ext cythonmagic&quot; and then compile cython using &quot;%%cython&quot; at the top of the cell containing cython code. You can then call your cython functions (or classes... etc) from python. It's a neat system. :) &lt;/p&gt;
-
-&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Scipy Fortran-Blas in Cython&lt;/h2&gt;
-
-&lt;p&gt;Below you'll see the core code that we need to get our superfast blas operations. After the first few imports, you'll see a &quot;cdef extern from&quot; import from a file called voidptr.h. This file allows us to cast a numpy array to its pointer without copying any data.... a key part of the code. The contents of that file are also below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/fasterThanNumpyCode.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/klb3713/sentence2vec/blob/master/voidptr.h&quot;&gt;&lt;b&gt; voidptr.h code on Github&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Next, you'll also see six function types and their implementations. There is a whole suite of these funky-named fortran functions in the &lt;a href=&quot;http://docs.scipy.org/doc/scipy-0.12.0/reference/generated/scipy.linalg.blas.html&quot;&gt;Scipy Blas/Fortran Documentation&lt;/a&gt; I also write a simple dot-product function leveraging the dsdot (double dot product... as opposed to float) called pubDotty.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;img-responsive&quot; src=&quot;/img/fasterThanNumpyDemo.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;In this example, I create two numpy vectors of length 32. (one full of ones and another full of threes). I then benchmark and show how the cython/fortran version is &lt;b&gt;5.8x faster&lt;/b&gt;. It should be noted that this is still passing in a python object... this efficiency gain increases when everything stays in cython for several progressive operations.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
-</description>
-        <pubDate>Sun, 23 Nov 2014 12:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2014/11/23/cython-blas-fortran/</link>
-        <guid isPermaLink="true">http://localhost:4000/2014/11/23/cython-blas-fortran/</guid>
         
         
       </item>
