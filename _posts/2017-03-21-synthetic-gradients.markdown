@@ -4,7 +4,7 @@ title:      "How to Code and Understand DeepMind's Synthetic Gradients"
 subtitle:   "A Tutorial on Decoupled Neural Interfaces"
 date:       2017-03-21 12:00:00
 author:     "iamtrask"
-header-img: "img/nasa-43567.jpg"
+header-img: "img/nasa-43567-min.jpg"
 ---
 
 <p><b>TLDR:</b> In this blogpost, we're going to prototype (from scratch) and learn the intuitions behind DeepMind's recently proposed <a href="https://arxiv.org/pdf/1608.05343.pdf">Decoupled Neural Interfaces Using Synthetic Gradients</a> paper.</p>
