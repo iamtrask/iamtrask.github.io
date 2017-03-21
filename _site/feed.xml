@@ -5,12 +5,12 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 21 Mar 2017 14:56:38 +0000</pubDate>
-    <lastBuildDate>Tue, 21 Mar 2017 14:56:38 +0000</lastBuildDate>
+    <pubDate>Tue, 21 Mar 2017 15:30:17 +0000</pubDate>
+    <lastBuildDate>Tue, 21 Mar 2017 15:30:17 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
-        <title>How to Code and Understand DeepMind's Synthetic Gradients</title>
+        <title>Deep Learning without Backpropagation</title>
         <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; In this blogpost, we're going to prototype (from scratch) and learn the intuitions behind DeepMind's recently proposed &lt;a href=&quot;https://arxiv.org/pdf/1608.05343.pdf&quot;&gt;Decoupled Neural Interfaces Using Synthetic Gradients&lt;/a&gt; paper.&lt;/p&gt;
 
 &lt;p&gt;I typically tweet out new blogposts when they're complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!

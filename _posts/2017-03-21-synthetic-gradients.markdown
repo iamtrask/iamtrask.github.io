@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "How to Code and Understand DeepMind's Synthetic Gradients"
-subtitle:   "Neural Networks without Backpropagation"
+title:      "Deep Learning without Backpropagation"
+subtitle:   "Tutorial: DeepMind's Synthetic Gradients"
 date:       2017-03-21 12:00:00
 author:     "iamtrask"
 header-img: "img/nasa-43567-min.jpg"
