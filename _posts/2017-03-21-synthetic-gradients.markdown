@@ -16,6 +16,8 @@ header-img: "img/nasa-43567-min.jpg"
 
 <p>Normally, a neural network compares its predictions to a dataset to decide how to update its weights. It then uses backpropagation to figure out how each weight should move in order to make the prediction more accurate. However, with Synthetic Gradients, individual layers instead make a "best guess" for what they think the data will say, and then update their weights according to this guess. This "best guess" is called a Synthetic Gradient. The data is only used to help update each layer's "guesser" or Synthetic Gradient generator. This allows for (most of the time), individual layers to learn in isolation, which increases the speed of training.</p>
 
+<p><b>Edit:</b> This <a href="https://arxiv.org/abs/1703.00522">paper</a> also adds great intuitions on how/why Synthetic Gradients are so effective</p>
+
 <center>
 <img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/synthetic_grads_paper.png" alt="">
 <i>Source: <a href="https://arxiv.org/pdf/1608.05343.pdf">Decoupled Neural Interfaces Using Synthetic Gradients</a></i>
