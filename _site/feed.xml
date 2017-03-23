@@ -5,8 +5,8 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 23 Mar 2017 12:51:00 +0000</pubDate>
-    <lastBuildDate>Thu, 23 Mar 2017 12:51:00 +0000</lastBuildDate>
+    <pubDate>Thu, 23 Mar 2017 12:53:30 +0000</pubDate>
+    <lastBuildDate>Thu, 23 Mar 2017 12:53:30 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -200,7 +200,7 @@ class DNI(object):
 
 &lt;p&gt;Ok! Let's see it in action.&lt;/p&gt;
 
-&lt;iframe src=&quot;https://trinket.io/embed/python3/7723523911&quot; width=&quot;100%&quot; height=&quot;356&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;https://trinket.io/embed/python3/7723523911&quot; width=&quot;100%&quot; height=&quot;1000&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;Hmm... things aren't converging as I'd originally want them too. I mean, it is converging, but just not really very fast. Upon further inquiry, the hidden representations all start out pretty flat and random (which we're using as input to our gradient generators). In other words, two different training examples end up having nearly identical output representations at different layers. This seems to make it really difficult for the graident generators to do their job. In the paper, the solution for this is Batch Normalization, which scales all the layer outputs to 0 mean and unit variance. This adds a lot of complexity to what is otherwise a fairly simple toy neural network. Furthermore, the paper also mentions you can use other forms of input to the gradietn generators. I'm going to try using the output dataset. This still keeps things decoupled (the spirit of the DNI) but gives something really strong for the network to use to generate gradients from the very beginning. Let's check it out. &lt;/p&gt;
 
