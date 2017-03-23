@@ -134,6 +134,8 @@
 
 <p>Normally, a neural network compares its predictions to a dataset to decide how to update its weights. It then uses backpropagation to figure out how each weight should move in order to make the prediction more accurate. However, with Synthetic Gradients, individual layers instead make a "best guess" for what they think the data will say, and then update their weights according to this guess. This "best guess" is called a Synthetic Gradient. The data is only used to help update each layer's "guesser" or Synthetic Gradient generator. This allows for (most of the time), individual layers to learn in isolation, which increases the speed of training.</p>
 
+<p><b>Edit:</b> This <a href="https://arxiv.org/abs/1703.00522">paper</a> also adds great intuitions on how/why Synthetic Gradients are so effective</p>
+
 <center>
 <img class="img-responsive" width="100%" src="/img/synthetic_grads_paper.png" alt="" />
 <i>Source: <a href="https://arxiv.org/pdf/1608.05343.pdf">Decoupled Neural Interfaces Using Synthetic Gradients</a></i>
@@ -256,7 +258,7 @@ for iter in range(iterations):
 
 <p>If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach <i>nearly</i> identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, <i>don't move on</i>. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.</p>
 
-<h2 class="section-heading">Part 5: Integrating Synthetic Gradients</h2>
+<h2 class="section-heading">Part 6: Synthetic Gradients Based on Layer Output</h2>
 
 <p>Ok, so now we're going to use a very similar interface to the one above, except we're going to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!</p>
 
@@ -312,12 +314,13 @@ class DNI(object):
 
 <p>Ok! Let's see it in action.</p>
 
+<iframe src="https://trinket.io/embed/python3/7723523911" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+
+<p>Hmm... things aren't converging as I'd originally want them too. I mean, it is converging, but just not really very fast. Upon further inquiry, the hidden representations all start out pretty flat and random (which we're using as input to our gradient generators). In other words, two different training examples end up having nearly identical output representations at different layers. This seems to make it really difficult for the graident generators to do their job. In the paper, the solution for this is Batch Normalization, which scales all the layer outputs to 0 mean and unit variance. This adds a lot of complexity to what is otherwise a fairly simple toy neural network. Furthermore, the paper also mentions you can use other forms of input to the gradietn generators. I'm going to try using the output dataset. This still keeps things decoupled (the spirit of the DNI) but gives something really strong for the network to use to generate gradients from the very beginning. Let's check it out. </p>
+
 <iframe src="https://trinket.io/embed/python3/df0636703f" width="100%" height="1000" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
 
-<p>Training is a bit different. A larger batch size and smaller alpha seemed to work a lot better, but positively it seemed to train in half the number of iterations! (this could easily be tuning, but still... not bad). A few takeaways. Training seems to be a bit more chaotic (doesn't just go down). I'm not sure what's really happening under the hood there, but when it converges it sure does it quick!</p>
-
-
-<p>Hope you've enjoyed this tutorial!</p>
+<p>And things are training quite a bit faster! Thinking about what might make for good input to gradient generators is a really fascinating concept. Perhaps some combination between input data, output data, and batch normalized layer output would be optimal (feel free to give it a try!) Hope you've enjoyed this tutorial!</p>
 
 <p>I typically tweet out new blogposts when they're complete at <a href="https://twitter.com/iamtrask">@iamtrask</a>. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
 </p>

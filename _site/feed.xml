@@ -5,8 +5,8 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 21 Mar 2017 15:30:17 +0000</pubDate>
-    <lastBuildDate>Tue, 21 Mar 2017 15:30:17 +0000</lastBuildDate>
+    <pubDate>Thu, 23 Mar 2017 12:51:00 +0000</pubDate>
+    <lastBuildDate>Thu, 23 Mar 2017 12:51:00 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -19,6 +19,8 @@
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Synthetic Gradients Overview&lt;/h2&gt;
 
 &lt;p&gt;Normally, a neural network compares its predictions to a dataset to decide how to update its weights. It then uses backpropagation to figure out how each weight should move in order to make the prediction more accurate. However, with Synthetic Gradients, individual layers instead make a &quot;best guess&quot; for what they think the data will say, and then update their weights according to this guess. This &quot;best guess&quot; is called a Synthetic Gradient. The data is only used to help update each layer's &quot;guesser&quot; or Synthetic Gradient generator. This allows for (most of the time), individual layers to learn in isolation, which increases the speed of training.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; This &lt;a href=&quot;https://arxiv.org/abs/1703.00522&quot;&gt;paper&lt;/a&gt; also adds great intuitions on how/why Synthetic Gradients are so effective&lt;/p&gt;
 
 &lt;center&gt;
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/synthetic_grads_paper.png&quot; alt=&quot;&quot; /&gt;
@@ -142,7 +144,7 @@ for iter in range(iterations):
 
 &lt;p&gt;If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach &lt;i&gt;nearly&lt;/i&gt; identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, &lt;i&gt;don't move on&lt;/i&gt;. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.&lt;/p&gt;
 
-&lt;h2 class=&quot;section-heading&quot;&gt;Part 5: Integrating Synthetic Gradients&lt;/h2&gt;
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 6: Synthetic Gradients Based on Layer Output&lt;/h2&gt;
 
 &lt;p&gt;Ok, so now we're going to use a very similar interface to the one above, except we're going to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!&lt;/p&gt;
 
@@ -198,12 +200,13 @@ class DNI(object):
 
 &lt;p&gt;Ok! Let's see it in action.&lt;/p&gt;
 
+&lt;iframe src=&quot;https://trinket.io/embed/python3/7723523911&quot; width=&quot;100%&quot; height=&quot;356&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Hmm... things aren't converging as I'd originally want them too. I mean, it is converging, but just not really very fast. Upon further inquiry, the hidden representations all start out pretty flat and random (which we're using as input to our gradient generators). In other words, two different training examples end up having nearly identical output representations at different layers. This seems to make it really difficult for the graident generators to do their job. In the paper, the solution for this is Batch Normalization, which scales all the layer outputs to 0 mean and unit variance. This adds a lot of complexity to what is otherwise a fairly simple toy neural network. Furthermore, the paper also mentions you can use other forms of input to the gradietn generators. I'm going to try using the output dataset. This still keeps things decoupled (the spirit of the DNI) but gives something really strong for the network to use to generate gradients from the very beginning. Let's check it out. &lt;/p&gt;
+
 &lt;iframe src=&quot;https://trinket.io/embed/python3/df0636703f&quot; width=&quot;100%&quot; height=&quot;1000&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
-&lt;p&gt;Training is a bit different. A larger batch size and smaller alpha seemed to work a lot better, but positively it seemed to train in half the number of iterations! (this could easily be tuning, but still... not bad). A few takeaways. Training seems to be a bit more chaotic (doesn't just go down). I'm not sure what's really happening under the hood there, but when it converges it sure does it quick!&lt;/p&gt;
-
-
-&lt;p&gt;Hope you've enjoyed this tutorial!&lt;/p&gt;
+&lt;p&gt;And things are training quite a bit faster! Thinking about what might make for good input to gradient generators is a really fascinating concept. Perhaps some combination between input data, output data, and batch normalized layer output would be optimal (feel free to give it a try!) Hope you've enjoyed this tutorial!&lt;/p&gt;
 
 &lt;p&gt;I typically tweet out new blogposts when they're complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
 &lt;/p&gt;
