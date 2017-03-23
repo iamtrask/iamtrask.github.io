@@ -5,8 +5,8 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 23 Mar 2017 12:53:30 +0000</pubDate>
-    <lastBuildDate>Thu, 23 Mar 2017 12:53:30 +0000</lastBuildDate>
+    <pubDate>Thu, 23 Mar 2017 15:45:28 +0000</pubDate>
+    <lastBuildDate>Thu, 23 Mar 2017 15:45:28 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -28,6 +28,17 @@
 &lt;/center&gt;
 
 &lt;p&gt;The graphic above (from the paper) gives a very intuitive picture for what’s going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let’s start with how a regular neural network layer is updated.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Using Synthetic Gradients&lt;/h2&gt;
 
@@ -59,6 +70,17 @@
 &lt;/center&gt;
 
 &lt;p&gt;Focus on the second section from the left. See how the gradient (M i+2) backpropagates through (f i+1) and into M(i+1)? As you can see, each synthetic gradient generator is &lt;i&gt;actually&lt;/i&gt; only trained using the Synthetic Gradients generated from the next layer. Thus, &lt;i&gt;only the last layer&lt;/i&gt; actually trains on the data. All the other layers, including the Synthetic Gradient generator networks, train based on Synthetic Gradients. Thus, the network can train with each layer only having to wait on the synthetic gradient from the following layer (which has no other dependencies). Very cool! &lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Part 1 --&gt;
+&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;&lt;/p&gt;
+&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 4: A Baseline Neural Network&lt;/h2&gt;
 
@@ -143,6 +165,15 @@ for iter in range(iterations):
 &lt;iframe src=&quot;https://trinket.io/embed/python3/b78063bef4&quot; width=&quot;100%&quot; height=&quot;900&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach &lt;i&gt;nearly&lt;/i&gt; identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, &lt;i&gt;don't move on&lt;/i&gt;. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Part 1 --&gt;
+&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
+&lt;script&gt;
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 6: Synthetic Gradients Based on Layer Output&lt;/h2&gt;
 
