@@ -28,17 +28,6 @@ for j in xrange(60000):
     synapse_0 -= (alpha * X.T.dot(layer_1_delta))
 </pre>
 </p>
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 
 <h2 class="section-heading">Part 1: Optimization</h2>
@@ -66,18 +55,6 @@ for j in xrange(60000):
 
 <p>Many of these optimizations are good for different purposes, and in some cases several can be used together. In this tutorial, we will walk through Gradient Descent, which is arguably the simplest and most widely used neural network optimization algorithm. By learning about Gradient Descent, we will then be able to improve our toy neural network through parameterization and tuning, and ultimately make it a <b>lot more powerful</b>.
 </p>
-
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 2 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="3842123822"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 2: Gradient Descent</h2>
 
@@ -120,17 +97,7 @@ for j in xrange(60000):
 
 <p>Make sure you can picture this process in your head before moving on. This is a considerable improvement to our algorithm. For very positive slopes, we move left by a lot. For only slightly positive slopes, we move left by only a little. As it gets closer and closer to the bottom, it takes smaller and smaller steps until the slope equals zero, at which point it stops. This stopping point is called <b>convergence</b>.</p>
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 3 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="5318857026"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
+
 <h2 class="section-heading">Part 3: Sometimes It Breaks</h2>
 
 <p>Gradient Descent isn't perfect. Let's take a look at its issues and how people get around them. This will allow us to improve our network to overcome these issues.</p>
