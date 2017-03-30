@@ -30,18 +30,6 @@ for j in xrange(60000):
 
 However, this is a bit terse.... let's break it apart into a few simple parts.
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px;text-align:center"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
-
 <h2 class="section-heading">Part 1: A Tiny Toy Network</h2>
 
 <p>A neural network trained with backpropagation is attempting to use input to predict output.</p>
@@ -342,18 +330,6 @@ So, now that we've looked at how the network updates, let's look back at our tra
 Thus, in our four training examples below, the weight from the first input to the output would <b>consistently increment or remain unchanged</b>, whereas the other two weights would find themselves <b>both increasing and decreasing across training examples</b> (cancelling out progress). This phenomenon is what causes our network to learn based on correlations between the input and output.
 </p>
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 2 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px;text-align:center"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="3842123822"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
-
 <h2 class="section-heading">Part 2: A Slightly Harder Problem</h2>
 <br />
 <center>
@@ -611,18 +587,6 @@ Everything should look very familiar! It's really just 2 of the previous impleme
 </p>
 <p><b>Line 43:</b> uses the "confidence weighted error" from l2 to establish an error for l1. To do this, it simply sends the error across the weights from l2 to l1. This gives what you could call a "contribution weighted error" because we learn how much each node value in l1 "contributed" to the error in l2. This step is called "backpropagating" and is the namesake of the algorithm. We then update syn0 using the same steps we did in the 2 layer implementation.
 </p>
-
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 3 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px;text-align:center"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="5318857026"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 3: Conclusion and Future Work</h2>
 <br />
