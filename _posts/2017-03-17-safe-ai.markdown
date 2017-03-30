@@ -54,18 +54,6 @@ header-img: "img/northern-lights.jpg"
 
 <p>For now, let's just start with the following. Integer public key encryption schemes that are homomorphic over multiplication and addition can perform the operations in the picture above. Furthermore, because the public key allows for "one way" encryption, you can even perform operations between unencrypted numbers and encrypted numbers (by one-way encrypting them), as exemplified above by 2 * Cypher A. (Some encryption schemes don't even require that... but again... we'll come back to that later)</p>
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
-
 <h2 class="section-heading">Part 3: Can we use them together?</h2>
 
 <p>Perhaps the most frequent intersection between Deep Learning and Homomorphic Encryption has manifested around Data Privacy. As it turns out, when you homomorphically encrypt data, you can't read it but you still maintain most of the interesting statistical structure. This has allowed people to train models on encrypted data (<a href="https://arxiv.org/abs/1412.6181">CryptoNets</a>). Furthermore a startup hedge fund called <a href="https://medium.com/numerai/encrypted-data-for-efficient-markets-fffbe9743ba8">Numer.ai</a> encrypts expensive, proprietary data and allows anyone to attempt to train machine learning models to predict the stock market. Normally they wouldn't be able to do this becuase it would constitute giving away incredibly expensive information. (and normal encryption would make model training impossible)</p>
@@ -98,18 +86,6 @@ header-img: "img/northern-lights.jpg"
 
 <p>It seems like we'll be able to get Division and Subtraction pretty trivially, but these more complicated functions are... well... more complicated than simple addition and multiplication. In order to try to homomorphically encrypt a deep neural network, we need one more secret ingredient.</p>
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
-
 <h2 class="section-heading">Part 4: Taylor Series Expansion</h2>
 
 <p>Perhaps you remember it from primary school. A <a href="https://en.wikipedia.org/wiki/Taylor_series">Taylor Series</a> allows one to compute a complicated (nonlinear) function using an <u>infinite</u> series of additions, subtractions, multiplications, and divisions. This is perfect! (except for the infinite part). Fortunately, if you stop short of computing the exact Taylor Series Expansion you can still get a close approximation of the function at hand. Here are a few popular functions approximated via Taylor Series (<a href="http://hyperphysics.phy-astr.gsu.edu/hbase/tayser.html">Source</a>).</p>
@@ -121,18 +97,6 @@ header-img: "img/northern-lights.jpg"
 <iframe src="https://trinket.io/embed/python/0fc12dd1f6" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
 
 <p>With only the first four factors of the Taylor Series, we get very close to sigmoid for a relatively large series of numbers. Now that we have our general strategy, it's time to select a Homomorphic Encryption algorithm.</p>
-
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 5: Choosing an Encryption Algorithm</h2>
 
@@ -156,18 +120,6 @@ header-img: "img/northern-lights.jpg"
 <p>The best one to use here is likely either YASHE or FV. YASHE was the method used for the popular CryptoNets algorithm, with great support for floating point operations. However, it's pretty complex. For the purpose of making this blogpost easy and fun to play around with, we're going to go with the slightly less advanced (and possibly <a href="https://eprint.iacr.org/2016/775.pdf">less secure</a>) Efficient Integer Vector Homomorphic Encryption. However, I think it's important to note that new HE algorithms are being developed as you read this, and the ideas presented in this blogpost are generic to any schemes that are homomorphic over addition and multiplication of integers and/or floating point numbers. If anything, it is my hope to raise awareness for this application of HE such that more HE algos will be developed to optimize for Deep Learning.</p>
 
 <p>This encryption algorithm is also covered extensively by Yu, Lai, and Paylor in <a href="https://courses.csail.mit.edu/6.857/2015/files/yu-lai-payor.pdf"> this work</a> with an accompanying implementation <a href="https://github.com/jamespayor/vector-homomorphic-encryption">here</a>. The main bulk of the approach is in the C++ file vhe.cpp. Below we'll walk through a python port of this code with accompanying explanation for what's going on. This will also be useful if you choose to implement a more advanced scheme as there are themes that are relatively universal (general function names, variable names, etc.).</p>
-
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 6: Homomorphic Encryption in Python</h2>
 
@@ -262,18 +214,6 @@ And when I run this code in an iPython notebook, I can perform the following ope
 <img class="img-responsive" width="120%" src="{{ site.baseurl }}/img/simple_vhe_3.png" alt="" style="display:inline; margin-right:50px">
 
 <p>The key thing to look at are the bottom results. Notice that we can perform some basic operations to the cyphertext and it changes the underlying plaintext accordingly. Neat, eh?</p>
-
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 7: Optimizing Encryption</h2>
 
@@ -371,18 +311,6 @@ S = generate_key(w,m,n)
 <img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/basic_vhe_5.png" alt="" style="display:inline">
 
 <p>The way this works is by making the S key mostly the identiy matrix, simply concatenating a random vector T onto it. Thus, T really has all the information necessary for the secret key, even though we have to still create a matrix of size S to get things to work right.</p>
-
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 8: Building an XOR Neural Network</h2>
 
@@ -962,18 +890,6 @@ Progress:4.16% Speed(reviews/sec):1.983 #Correct:751 #Trained:1001 Training Accu
 Progress:4.33% Speed(reviews/sec):1.940 #Correct:788 #Trained:1042 Training Accuracy:75.6%
 ....
 </pre>
-
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 10: Advantages over Data Encryption</h2>
 
