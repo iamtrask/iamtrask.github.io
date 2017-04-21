@@ -39,7 +39,8 @@ So, in short, Synthetic Gradients are used just like normal gradients, and for s
 
 <h4>A Sidenote: Related Work by Geoffrey Hinton</h4>
 
-<p>This actually reminds me of some work that Geoffrey Hinton did a couple years ago. Annoyingly, I can't seem to find the reference, but he did some work that showed you could backpropagate through randomly generated matrices and still accomplish learning. Furthermore, he showed that it had a kind of regularization affect. It was some interesting work for sure.</p>
+<p>This actually reminds me of some work that Geoffrey Hinton did a couple years ago in which he showed that <a href="https://arxiv.org/abs/1411.0247">random feedback weights support learning
+in deep neural networks</a>. Basically, you can backpropagate through randomly generated matrices and still accomplish learning. Furthermore, he showed that it had a kind of regularization affect. It was some interesting work for sure.</p>
 
 <p>Ok, back to Synthetic Gradients. So, now we know that Synthetic Gradients are trained by another neural network that learns to predict the gradient at a step given the output at that step. The paper also says that any other relevant information could be used as input to the Synthetic Gradient generator network, but in the paper it seems like just the output of the layer is used for normal feedforwards networks. Furthermore, the paper even states that a <i>single linear layer</i> can be used as the Synthetic Gradient generator. Amazing. We're going to try that out.</p>
 
