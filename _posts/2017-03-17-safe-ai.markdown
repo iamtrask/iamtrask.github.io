@@ -106,7 +106,7 @@ header-img: "img/northern-lights.jpg"
 
 <p>This is where we want to start looking. In theory, we want a homomorphic encryption scheme that operates on floats (but we'll settle for integers, as we'll see) instead of binary values. Binary values would work, but not only would it require the flexibility of Fully Homomorphic Encryption (costing performance), but we'd have to manage the logic between binary representations and the math operations we want to compute. A less powerful, tailored HE algorithm for floating point operations would be a better fit.</p>
 
-<p>Despite this constraint, there is still a plethora of choices. Here are a few popular ones with characterics we like:</p>
+<p>Despite this constraint, there is still a plethora of choices. Here are a few popular ones with characteristics we like:</p>
 
 
 <ul>
