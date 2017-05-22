@@ -38,7 +38,7 @@ header-img: "img/northern-lights.jpg"
 
 <b>Question:</b> How does a neural network learn?
 
-<p>A neural network makes predictions based on input. It learns to do this effectively by trial and error. It begins by making a prediction (which is largely random at first), and then receives an "error signal" indiciating that it predicted too high or too low (usually probabilities). After this cycle repeates many millions of times, the network starts figuring things out. For more detail on how this works, see <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">A Neural Network in 11 Lines of Python</a></p>
+<p>A neural network makes predictions based on input. It learns to do this effectively by trial and error. It begins by making a prediction (which is largely random at first), and then receives an "error signal" indiciating that it predicted too high or too low (usually probabilities). After this cycle repeats many millions of times, the network starts figuring things out. For more detail on how this works, see <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">A Neural Network in 11 Lines of Python</a></p>
 
 <p>The big takeaway here is this error signal. Without being told how well it's predictions are, it cannot learn. This will be important to remember.</p>
 
