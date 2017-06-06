@@ -5,9 +5,516 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 23 Mar 2017 15:45:28 +0000</pubDate>
-    <lastBuildDate>Thu, 23 Mar 2017 15:45:28 +0000</lastBuildDate>
+    <pubDate>Tue, 06 Jun 2017 10:39:58 +0100</pubDate>
+    <lastBuildDate>Tue, 06 Jun 2017 10:39:58 +0100</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Safe Crime Prediction</title>
+        <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; What if it was possible for surveillance to only invade the privacy of criminals or terrorists, leaving the innocent unsurveilled?&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Abstract:&lt;/b&gt; Modern criminals and terrorists hide amongst the patterns of innocent civilians, exactly mirroring daily life until the very last moments before becoming lethal, which can happen as quickly as a car turning onto a sidewalk or a man pulling out a knife on the street. As police intervention of an instantly lethal event is impossible, law enforcement has turned to prediction based on the surveillance of public and private data streams, facilitated by legislation like the &lt;a href=&quot;https://en.wikipedia.org/wiki/Patriot_Act&quot;&gt;Patriot Act&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/USA_Freedom_Act&quot;&gt;USA Freedom Act&lt;/a&gt;, and the UK's &lt;a href=&quot;https://en.wikipedia.org/wiki/Counter-Terrorism_Act_2008&quot;&gt;Counter-Terrorism Act&lt;/a&gt;. This legislation sparks a heated debate (and rightly so) on the tradeoff between privacy and security. In this blogpost, we explore whether much of this tradeoff between privacy and security is &lt;b&gt;merely a technological limitation&lt;/b&gt;, overcommable by a combination of Homomorphic Encryption and Deep Learning. We supplement this discussion with a tutorial for a working prototype implementation and further analysis on where technological investments could be made to mature this technology. I am optimistic that it is possible to re-imagine the tools of crime prediction such that, relative to where we find ourselves today, citizen privacy is increased, surveillance is more effective, and the potential for mis-use is mitigated via modern techniques for &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Encrypted Artificial Intelligence&lt;/a&gt;. 
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Ideal Citizen Surveillance&lt;/h2&gt;
+
+&lt;p&gt;When you are collecting your bags at an international airport, often a drug sniffing dog will come up and give your bag a whiff. Amazingly, drug dogs are trained to detect conceiled criminal activity with absolutely no invasion of your privacy. Before drug dogs, enforcing the same laws required opening up every bag and searching its contents looking for drugs, an expensive, time consuming, privacy invading procedure. However, with a drug dog, the only bags that need to be searched are those that actually contain drugs (according to the dog). Thus, the development of K9 narcotics units simultaneously increased the privacy, effectiveness, and efficiency of narcotics surveillance.&lt;/p&gt;
+
+&lt;img width=&quot;100%&quot; src=&quot;http://www.vivapets.com/upload/Image/snifferdog.jpg&quot; /&gt;
+&lt;h6&gt;&lt;i&gt;Source:http://www.vivapets.com/upload/Image/snifferdog.jpg&lt;/i&gt;&lt;/h6&gt;
+
+&lt;p&gt;Similarly, in much of the developed world it is a commonly accepted practice to install an electronic fire alarm or burgular alarm in one's home. This first wave of the Internet of Things constitutes a voluntary, selective invasion of privacy. It is a piece of intelligence that is designed to only invade our privacy (and inform home security phone operators or law enforcement to the state of your doors and windows and give them permission to enter your home) if there is a great need for it (a threat to life or property such as a fire or burgular). Just like drug dogs, fire alarms and burgular alarms replace a much less efficient, far more invasive, expensive system: a guard or fire watchman standing at your house 24x7. Just like drug dugs, fire alarms and burgular alarams simultaneously incrase privacy, effectiveness, and efficiency of home surveillance.&lt;/p&gt;
+
+&lt;p&gt;In these two scenarios, there is almost no detectable tradeoff between privacy and security. It is a non-issue as a result of technological solutions that filter through irrelevant, invasive information to only detect the rare bits of information indicative of a crime or a threat to life or property. This is the ideal state of surveillance. Surveillance is effective yet privacy is protected. This state is reachable as a result of several characteristics of these devices:&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;Privacy is only invaded if danger/criminal activity is highly probable.&lt;/li&gt;
+	&lt;li&gt;The devices are accurate, with a low occurrence of False Positives.&lt;/li&gt;
+	&lt;li&gt;Those with access to the device (homeowners and K9 handlers) aren't explicitly trying to fool it. Thus, its inner workings can be made public, allowing it's protection of privacy to be fully known / auditable (no need for self-regulation of alarm manufacturers or dog handlers)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This combination of privacy protection, accuracy, and auditability is the key to the ideal state of surveillance, and it's quite intuitive. Why should every bag be opened and every airline passenger's privacy violated when less than 0.001% will actually contain drugs? Why should video feeds into people's homes be watched by security guards when 99.999% of the time there is no invasion or fire? More precisely, should it even be possible for a surveillance state to surveil the innocent, presenting the opportunity for corruption? Is it possible to create this limit to a surveillance state's powers while simultaneously increasing its effectiveness and reducing cost? What would such a technology look like? These are the questions explored below.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: National Security Surveillance&lt;/h2&gt;
+
+&lt;p&gt;At the time of writing, over 50 people have been killed by terror attacks in the last two weeks alone in Manchester, London, Egypt, and Afghanistan. My prayers go out to the victims and their families, and I deeply hope that we can find more effective ways to keep people safe.  I am also reminded of the recent terror attack in Westminster, which claimed the lives of &lt;a href=&quot;https://en.wikipedia.org/wiki/2017_Westminster_attack&quot;&gt;4 people and injured over 50&lt;/a&gt;. The investigation into the attack in Westminster revealed that it was &lt;a href=&quot;http://uk.businessinsider.com/westminster-terror-attacks-encryption-whatsapp-messaging-uk-2017-3?r=US&amp;amp;IR=T&quot;&gt;coordinated on WhatsApp&lt;/a&gt;. This has revived a heated debate on the tradeoff between privacy and safety. Governments want &lt;a href=&quot;https://www.theguardian.com/technology/2017/mar/27/amber-rudd-call-backdoor-access-hazy-grasp-encryption&quot;&gt;back-doors into apps like WhatsApp&lt;/a&gt; (which constitute unrestricted READ access to a live data stream), but many are concerned about trusting big brother to self-regulate the privacy of WhatsApp users. Furthermore, installing open backdoors makes these apps vulnerable to criminials discovering and exploiting them, further increasing risks to the public. This is reflective of the modern surveillance state. &lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;Privacy is only violated as a means to an end of detecting extremely rare events (attacks)&lt;/li&gt;
+	&lt;li&gt;There's a high degree of false positives in data collection (presumably 99.9999% of the data has nothing to do with an actual threat).&lt;/li&gt;
+	&lt;li&gt;If the detection technology was released to the public, presumbly bad actors would seek to evade it. Thus, it has to be deployed in secret behind a firewall (not auditable). This opens up the opportunity for mis-use (although in most nations I personally believe misuse is rare).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These three characteristics of national surveillance states are in stark contrast to the three ideal characteristics mentioned in the introduction. There is largely believed to be significant collateral damage to the privacy of innocent bystanders in data streams being surveilled. This is a result of the detection technology needing to remain secret. Unlike drug dogs, algorithms used to find bad actors (terrorists, criminals, etc.) can't be deployed  (i.e. on WhatsApp) out in public for everyone to see and audit for privacy protection. If they were released to the public to be evaluated for privacy protection they would quickly be reverse engineered and their effects deemed useless. Furthermore, even deploying them to people's phones (without auditing) to detect criminal activity would constitute a vulnerability. Bad actors would evade the algorithms by reverse engineering them and by vieweing/intercepting/faking their predictions being sent back to the state. Instead, entire data streams must be re-directed to warehouses for stockpiling and analysis, as it is impossible to determine which subsets of the data stream are actually relevant using an automatic method out in public.&lt;/p&gt;
+
+&lt;!-- &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Police Surveillance&lt;/h2&gt; --&gt;
+
+&lt;p&gt;While terrorism is perhaps the most discussed domain in the tradeoff between privacy and safety, it is not the only one. Crimes such as murder take the lives of hundreds of thousands of individuals around the world. The US alone averages around &lt;a href=&quot;https://www.reference.com/government-politics/many-people-murdered-day-united-states-4ce42c4182d89232&quot;&gt;16,000 murders per year&lt;/a&gt;, which oddly can be abstracted to a logistical issue: Law enforcement does not know of a crime far enough in advance to intervene. On average, 16,000 Americans simply call 911 too late, if they manage to call at all.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The Chicken and Egg Problem of &quot;Probable Cause&quot;:&lt;/b&gt; The challenge faced by the FBI and local law enforcement is incredibly similar to that of terrorism. The laws intended to protect citizens from the invasive nature of surveillance create a chicken and egg problem between observing &quot;probable cause&quot; for a crime (subsequently obtaining a warrant), and having access to the information indicative of &quot;probable cause&quot; in the first place. Thus, unless victims can somehow know (predict) they are about to be murdered far enough in advanced to send out a public cry for help, law enforcement is often unable to prevent their death. Viewing crime prediction from this light is an interesting perspective, as it moves crime prediction from something a citizien must invoke for themselves to a public good that justifies public funding and support.  &lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Bottom line:&lt;/b&gt; the cost of this chicken-and-egg &quot;probable cause&quot; issue is not only the invasion of citizen privacy, it is an extremely large number of human lives owing to the inability for people to predict when they will be harmed far enough in advance for law enforcement to intervene. Dialing 911 is often too little, too late. However, in rare cases like drug dogs or fire alarms, this is a non-issue as crime is detectable without significant collateral damage to privacy and thus &quot;probable cause&quot; is no longer a limiting factor to keeing the public safe.&lt;/p&gt;
+
+
+
+&lt;!-- 
+
+&lt;p&gt;Furthermore, while many might argue that national surveillance states are too invasive, local law enforcement is likely too ill-equiped from an information gathering standpoint. 16,000 murders per year is a result of local law enforcement simply not knowing enough about the dangers surrounding the people that they seek to protect. I am certain that if local law enforcement could effectively predict when citizens were in danger, this number would be near zero.&lt;/p&gt;
+
+
+&lt;p&gt;So, conveivably, when law enforcement performs surveillance over a large data stream, it's probably not hiring a team of 100,000 people to read through each and every datapoint, it's probably so that they can use a &lt;a href=&quot;https://www.splunk.com/pdfs/presentations/govsummit/machine-learning-applications-for-federal-government.pdf&quot;&gt;sophisticated Machine Learning classifer&lt;/a&gt; that, at the end of the day, makes 2 predictions &quot;FOUND IT&quot; or &quot;NOPE&quot;. One of my absolute favorite publicly discussed uses of this flavor of tech by law enforcement is at &lt;a href=&quot;http://www.digitalreasoning.com/partnering-to-combat-human-trafficking&quot;&gt;Digital Reasoning&lt;/a&gt; where they have partnered with Ashton Kutcher and Thorn to build &quot;an artificial intelligence tool called Spotlight that helps law enforcement identify both victims and perpetrators of human trafficking&quot;. According to their website, this tech has helped identify &quot;6,325 victims and 2,186 traffickers&quot;, a rather incredible feat. (You can watch &lt;a href=&quot;https://www.youtube.com/watch?time_continue=2&amp;v=DOc-SjcR6Eo&quot;&gt;Ashton Kutcher talking about it to Congress here.&lt;/a&gt;)&lt;/p&gt; 
+
+&lt;p&gt;I say all this to drive home a point. Fire Detectors for particular patterns of data (such as detecting &quot;victims and perpetrators of human trafficking&quot;) already exist in the form of narrow Artificial Intelligence, particularly narrow AI over human language such as social media, email, and other messaging systems. The core issue is not the lack of tech around the device. The core issue is that, unlike fire alarms, the &lt;b&gt;capabilities&lt;/b&gt; and &lt;b&gt;predictions&lt;/b&gt; of this tech can't live out in the open. If the capabilties were made public, people would reverse engineer and circumvent them. If the predictions were made public, criminals would get a &quot;heads up... you've been caught&quot; ahead of law enforcement in addition to an increased risk of prediction spoofing. Furthermore, if the machine learning was handed to...say... a chat application, there's no way to know if that chat application is actually running it on all messages or if their &quot;no dangerous messages today!&quot; is simply to keep their name out of the news. As a result, proper surveillance requires aggregating data into secure facilities wherein algorithms and their predictions are kept secret from villains who would want to circumvent them, and independent corporations who would have incentive to ignore them. &lt;/p&gt;
+ --&gt;
+
+ &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: The Role of Artificial Intelligence&lt;/h2&gt;
+
+ &lt;p&gt;In a perfect world, there would be a &quot;Fire Alarm&quot; device for activities involving irreversible, heinous crimes such as assault, murder, or terrorism, that was private, accurate, and auditable. Fortunately, the R&amp;amp;D investment into devices for this kind of detection by commerical entities has been massive. To be clear, this investment hasn't been driven by the desire for consumer privacy. On the contrary, these devices were developed to achieve scale. Consider developing Gmail and wanting to offer a feature that filters out SPAM. You could invade people's privacy and read all their emails by hand, but it would be faster and cheaper to build a machine that can simply detect SPAM such that you can filter through hundreds of millions of emails per day with a few dozen machines. Given that law enforcement seeks to protect such a large population (presumably filtering through rather massive amounts of data looking for criminals/terrorists), it is not hard to expect that there's a high degree of automation in this process. Bottom line, &lt;a href=&quot;http://www.darpa.mil/news-events/2016-06-17&quot;&gt;narrow AI based automation is probably involved&lt;/a&gt;. So, given this assumption, what we really lack is an ability to transform our AI agents such that:&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;they can be audited by a trusted party for privacy protection&lt;/li&gt;
+	&lt;li&gt;they can't be reverse engineered when deployed&lt;/li&gt;
+	&lt;li&gt;their predictions can't be known by those being surveilled&lt;/li&gt;
+	&lt;li&gt;their predictions can't be falsified by the deploying party (such as a chat application)&lt;/li&gt; 
+	&lt;li&gt;reasonably efficient and scalable&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In order to fully define this idea, we will be building a prototype &quot;Fire Detector&quot; for crime. In the next section, we're going to build a basic version of this detector using a 2 layer neural network. After that, we're going to upgrade this detector so that it meets the requirements listed above. For the sake of exposition, this detector is going to be trained on a SPAM dataset and thus will only detect SPAM, but it could conceivably be trained to detect any particular event you wanted (i.e., murder, arson, etc.). I only chose SPAM because it's relatively easy to train and gives me a simple, high quality network with which to demonstrate the methods of this blogpost. However, the spectrum of possible detectors is as broad as the field of AI itself.
+
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 4: Building a SPAM Detector&lt;/h2&gt;
+
+ &lt;p&gt;So, our demo use case is that a local law enforcement officer (we'll call him &quot;Bob&quot;) is hoping to crack down on people sending out SPAM emails. However, instead of reading everyone's emails, Bob only wants to detect when someone is sending SPAM so that he can file for an injunction and acquire a warrant with the police to further investigate. The first part of this process is to simply build an effective SPAM detector.&lt;/p&gt;
+
+&lt;!-- p&gt;In order to fully define this idea, we will be building a prototype &quot;Fire Detector&quot; for crime using a neural network. For the sake of exposition, let's say that Police Officer &quot;Bob&quot; is trying to detect a nefarious, evil, serial killing SPAMMER who has been sending hundreds of SPAM messages to everyone in a city, threatening their lives. He wants to detect this person's identity by detecting when the killer is about to send one of these SPAM messages. However, instead of having to READ everyone's emails before they send them (a hugely time consuming and privacy invading task), Bob only wants to DETECT when someone is sending SPAM so that he can file for an injunction and acquire a warrant with the police to further investigate. The first part of this process is to simply build an effective SPAM detector.&lt;/p&gt;
+
+&lt;p&gt;In this section, we're going to build a SPAM detector using a neural network.&lt;/p&gt; --&gt;
+
+ 
+&lt;!-- &lt;p&gt;Now, you may be thinking &quot;woah... law enforcement shouldn't have the ability to detect SPAM emails! I love sending those to my co-workers and it's my right to do so!&quot; I want to remind you, this is just a demo use case. Firstly, a real law enforcement officer wouldn't likely get a warrant for this Replace detecting &quot;SPAM&quot; with detecting &quot;homicidal language&quot;. This technology is based on the underlying assumption that sometimes it is justified for certain activities to be detectable by law enforcement. If your argument is that surveillance should never happen, that laws shouldn't exist, and that the government shouldn't have the ability to enforce anything (aka... you're an anarchist), just click away. This blogpost isn't for you. However, if you think &lt;/p&gt;
+ --&gt;
+&lt;center&gt;
+&lt;img src=&quot;/img/spam_meme.jpeg&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;b&gt;The Enron Spam Dataset:&lt;/b&gt; In order to teach an algorithm how to detect SPAM, we need a large set of emails that has been previously labeled as &quot;SPAM&quot; or &quot;NOT SPAM&quot;. That way, our algorithm can study the dataset and learn to tell the difference between the two kinds of emails. Fortunately, a prominent energy company called &lt;a href=&quot;https://en.wikipedia.org/wiki/Enron_scandal&quot;&gt;Enron committed a few crimes&lt;/a&gt; recorded in email, and as a result a rather large subset of the company's emails were made public. As many of these were SPAM, a dataset was curated specifically for building SPAM detectors called the &lt;a href=&quot;http://www2.aueb.gr/users/ion/data/enron-spam/&quot;&gt;Enron Spam Dataset&lt;/a&gt;. I have further pre-processed this dataset for you in the following files: &lt;a href=&quot;/data/ham.txt&quot;&gt;HAM&lt;/a&gt; and
+&lt;a href=&quot;/data/spam.txt&quot;&gt;SPAM&lt;/a&gt;. Each line contains an email. There are 22,032 HAM emails, and 9,000 SPAM emails. We're going to set aside the last 1,000 in each category as our &quot;test&quot; dataset. We'll train on the rest.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The Model:&lt;/b&gt; For this model, we're going to optimize for speed and simplicity and use a simple bag-of-words Logistic Classifier. It's a neural network with 2 layers (input and output). We could get more sophisticated with an LSTM, but this blogpost isn't about filtering SPAM, it's about making surveillance less intrusive, more accountable, and more effective. Besides that, bag-of-words LR works really well for SPAM detection anyway (and for a surprisingly large number of other tasks as well). No need to overcomplicate. Below you'll find the code to build this classifier. If you're unsure how this works, feel free to review my previous post on &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;.&lt;/p&gt;
+&lt;center&gt;
+(fwiw, this code works identically in Python 2 or 3 on my machine)
+&lt;/center&gt;
+&lt;pre class=&quot;brush:python&quot;&gt;
+
+import numpy as np
+from collections import Counter
+import random
+import sys
+
+np.random.seed(12345)
+
+f = open('spam.txt','r')
+raw = f.readlines()
+f.close()
+
+spam = list()
+for row in raw:
+    spam.append(row[:-2].split(&quot; &quot;))
+    
+f = open('ham.txt','r')
+raw = f.readlines()
+f.close()
+
+ham = list()
+for row in raw:
+    ham.append(row[:-2].split(&quot; &quot;))
+    
+class LogisticRegression(object):
+    
+    def __init__(self, positives,negatives,iterations=10,alpha=0.1):
+        
+        # create vocabulary (real world use case would add a few million
+        # other terms as well from a big internet scrape)
+        cnts = Counter()
+        for email in (positives+negatives):
+            for word in email:
+                cnts[word] += 1
+        
+        # convert to lookup table
+        vocab = list(cnts.keys())
+        self.word2index = {}
+        for i,word in enumerate(vocab):
+            self.word2index[word] = i
+    
+        # initialize decrypted weights
+        self.weights = (np.random.rand(len(vocab)) - 0.5) * 0.1
+        
+        # train model on unencrypted information
+        self.train(positives,negatives,iterations=iterations,alpha=alpha)
+    
+    def train(self,positives,negatives,iterations=10,alpha=0.1):
+        
+        for iter in range(iterations):
+            error = 0
+            n = 0
+            for i in range(max(len(positives),len(negatives))):
+
+                error += np.abs(self.learn(positives[i % len(positives)],1,alpha))
+                error += np.abs(self.learn(negatives[i % len(negatives)],0,alpha))
+                n += 2
+
+            print(&quot;Iter:&quot; + str(iter) + &quot; Loss:&quot; + str(error / float(n)))
+
+    
+    def softmax(self,x):
+        return 1/(1+np.exp(-x))
+
+    def predict(self,email):
+        pred = 0
+        for word in email:
+            pred += self.weights[self.word2index[word]]
+        pred = self.softmax(pred)
+        return pred
+
+    def learn(self,email,target,alpha):
+        pred = self.predict(email)
+        delta = (pred - target)# * pred * (1 - pred)
+        for word in email:
+            self.weights[self.word2index[word]] -= delta * alpha
+        return delta
+    
+model = LogisticRegression(spam[0:-1000],ham[0:-1000],iterations=3)
+
+# evaluate on holdout set
+
+fp = 0
+tn = 0
+tp = 0
+fn = 0
+
+for i,h in enumerate(ham[-1000:]):
+    pred = model.predict(h)
+
+    if(pred &amp;lt; 0.5):
+        tn += 1
+    else:
+        fp += 1
+        
+    if(i % 10 == 0):
+        sys.stdout.write('\rI:'+str(tn+tp+fn+fp) + &quot; % Correct:&quot; + str(100*tn/float(tn+fp))[0:6])
+
+for i,h in enumerate(spam[-1000:]):
+    pred = model.predict(h)
+
+    if(pred &amp;gt;= 0.5):
+        tp += 1
+    else:
+        fn += 1
+
+    if(i % 10 == 0):
+        sys.stdout.write('\rI:'+str(tn+tp+fn+fp) + &quot; % Correct:&quot; + str(100*(tn+tp)/float(tn+tp+fn+fp))[0:6])
+sys.stdout.write('\rI:'+str(tn+tp+fn+fp) + &quot; Correct: %&quot; + str(100*(tn+tp)/float(tn+tp+fn+fp))[0:6])
+
+print(&quot;\nTest Accuracy: %&quot; + str(100*(tn+tp)/float(tn+tp+fn+fp))[0:6])
+print(&quot;False Positives: %&quot; + str(100*fp/float(tp+fp))[0:4] + &quot;    &amp;lt;- privacy violation level out of 100.0%&quot;)
+print(&quot;False Negatives: %&quot; + str(100*fn/float(tn+fn))[0:4] + &quot;   &amp;lt;- security risk level out of 100.0%&quot;) 
+
+&lt;/pre&gt;
+
+
+&lt;pre&gt;
+Iter:0 Loss:0.0455724486216
+Iter:1 Loss:0.0173317643148
+Iter:2 Loss:0.0113520767678
+I:2000 Correct: %99.798
+Test Accuracy: %99.7
+False Positives: %0.3    &amp;lt;- privacy violation level out of 100.0%
+False Negatives: %0.3   &amp;lt;- security risk level out of 100.0%
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;b&gt;Feature: Auditability: &lt;/b&gt; a nice feature of our classifier is that it is a highly auditable algorithm. Not only does it give us accurate scores on the testing data, but we can open it up and look at how it weights various terms to make sure it's flagging emails based on what officer Bob is specifically looking for. It is with these insights that officer Bob seeks permission from his superior to perform his &lt;i&gt;very limited surveillance&lt;/i&gt; over the email clients in his jurisdiction. Note, Bob has no access to read anyone's emails. He only has access to detect &lt;u&gt;exactly what he's looking for&lt;/u&gt;. The purpose of this model is to be a measure of &quot;probable cause&quot;, which Bob's superior can make the final call on given the privacy and security levels indicated above for this model.&lt;/p&gt;
+
+&lt;p&gt;Ok, so we have our classifier and Bob gets it approved by his boss (the chief of police?). Presumably, law enforcement officer &quot;Bob&quot; would hand this over to all the email clients within his jurisdiction. Each email client would then use the classifier to make a prediction each time it's about to send an email (commit a crime). This prediction gets sent to Bob, and eventually he figures out who has been anonymously sending out 10,000 SPAM emails every day within his jurisdiction.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Problem 1: His Predictions Get Faked&lt;/b&gt; - after 1 week of running his algorithm in everyone's email clients, everyone is still receiving tons of SPAM. However, Bob's Logistic Regression Classifier apparently isn't flagging ANY of it, even though it seems to work when he tests some of the missed SPAM on the classifier with his own machine. He suspects that someone is intercepting the algorithm's predictions and faking them to look like they're all &quot;Negative&quot;. What's he to do?&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Problem 2: His Model is Reverse Enginered&lt;/b&gt; - Furthermore, he notices that he can take his pre-trained model and sort it by its weight values, yielding the following result.
+
+&lt;center&gt;
+&lt;img src=&quot;/img/sorted_weights.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;While this was advantageous for auditability (making the case to Bob's boss that this model is going to find only the information it's supposed to), it makes it vulnerable to attacks! So not only can people intercept and modify his model's predictions, but they can even reverse engineer the system to figure out which words to avoid. In other words, the model's &lt;b&gt;capabilities&lt;/b&gt; and &lt;b&gt;predictions&lt;/b&gt; are vulnerable to attack. Bob needs another line of defense.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 5: Homomorphic Encryption&lt;/h2&gt;
+
+&lt;p&gt;In my previous blogpost &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Building Safe A.I.&lt;/a&gt;, I outlined how one can train Neural Networks in an encrypted state (on data that is not encrypted) using Homomorphic Encryption. Along the way, I discussed how Homomorphic Encryption generally works and provided an implementation of &lt;a href=&quot;https://courses.csail.mit.edu/6.857/2015/files/yu-lai-payor.pdf&quot;&gt;Efficient Integer Vector Homomorphic Encryption&lt;/a&gt; with tooling for neural networks based on &lt;a href=&quot;https://github.com/jamespayor/vector-homomorphic-encryption&quot;&gt;this implementation&lt;/a&gt;. However, as mentioned in the post, there are many homomorphic encryption schemes to choose from. In this post, we're going to use a different one called Paillier Cryptography, which is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Paillier_cryptosystem&quot;&gt;probabilistic, assymetric algorithm for public key cryptography&lt;/a&gt;. While a complete breakdown of this cryptosystem is something best saved for a different blogpost, I did fork and update a python library for paillier to be able to handle larger cyphertexts and plaintexts (longs) as well as a small bugfix in the logging here &lt;a href=&quot;https://github.com/iamtrask/python-paillier&quot;&gt;Paillier Cryptosystem Library&lt;/a&gt;. Pull that repo down, run &quot;python setup.py install&quot; and try out the following code.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/img/paillier_101.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see, we can encrypt (positive or negative) numbers using a public key and then add their encrypted values together. We can then decrypt the resulting number which returns the output of whatever math operations we performed. Pretty cool, eh? We can use just these operations to encrypt our Logistic Regression classifier after training. For more on how this works, &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;check out my previous post on the subject&lt;/a&gt;, otherwise let's jump straight into the implementation.
+
+&lt;pre class=&quot;brush:python&quot;&gt;
+
+import phe as paillier
+import math
+import numpy as np
+from collections import Counter
+import random
+import sys
+
+np.random.seed(12345)
+
+print(&quot;Generating paillier keypair&quot;)
+pubkey, prikey = paillier.generate_paillier_keypair(n_length=64)
+
+print(&quot;Importing dataset from disk...&quot;)
+f = open('spam.txt','r')
+raw = f.readlines()
+f.close()
+
+spam = list()
+for row in raw:
+    spam.append(row[:-2].split(&quot; &quot;))
+    
+f = open('ham.txt','r')
+raw = f.readlines()
+f.close()
+
+ham = list()
+for row in raw:
+    ham.append(row[:-2].split(&quot; &quot;))
+    
+class HomomorphicLogisticRegression(object):
+    
+    def __init__(self, positives,negatives,iterations=10,alpha=0.1):
+        
+        self.encrypted=False
+        self.maxweight=10
+        
+        # create vocabulary (real world use case would add a few million
+        # other terms as well from a big internet scrape)
+        cnts = Counter()
+        for email in (positives+negatives):
+            for word in email:
+                cnts[word] += 1
+        
+        # convert to lookup table
+        vocab = list(cnts.keys())
+        self.word2index = {}
+        for i,word in enumerate(vocab):
+            self.word2index[word] = i
+    
+        # initialize decrypted weights
+        self.weights = (np.random.rand(len(vocab)) - 0.5) * 0.1
+        
+        # train model on unencrypted information
+        self.train(positives,negatives,iterations=iterations,alpha=alpha)
+        
+
+    
+    def train(self,positives,negatives,iterations=10,alpha=0.1):
+        
+        for iter in range(iterations):
+            error = 0
+            n = 0
+            for i in range(max(len(positives),len(negatives))):
+
+                error += np.abs(self.learn(positives[i % len(positives)],1,alpha))
+                error += np.abs(self.learn(negatives[i % len(negatives)],0,alpha))
+                n += 2
+
+            print(&quot;Iter:&quot; + str(iter) + &quot; Loss:&quot; + str(error / float(n)))
+
+    
+    def softmax(self,x):
+        return 1/(1+np.exp(-x))
+
+    def encrypt(self,pubkey,scaling_factor=1000):
+        if(not self.encrypted):
+            self.pubkey = pubkey
+            self.scaling_factor = float(scaling_factor)
+            self.encrypted_weights = list()
+
+            for weight in model.weights:
+                self.encrypted_weights.append(self.pubkey.encrypt(\\
+                int(min(weight,self.maxweight) * self.scaling_factor)))
+
+            self.encrypted = True            
+            self.weights = None
+
+            
+        return self
+
+    def predict(self,email):
+        if(self.encrypted):
+            return self.encrypted_predict(email)
+        else:
+            return self.unencrypted_predict(email)
+    
+    def encrypted_predict(self,email):
+        pred = self.pubkey.encrypt(0)
+        for word in email:
+            pred += self.encrypted_weights[self.word2index[word]]
+        return pred
+    
+    def unencrypted_predict(self,email):
+        pred = 0
+        for word in email:
+            pred += self.weights[self.word2index[word]]
+        pred = self.softmax(pred)
+        return pred
+
+    def learn(self,email,target,alpha):
+        pred = self.predict(email)
+        delta = (pred - target)# * pred * (1 - pred)
+        for word in email:
+            self.weights[self.word2index[word]] -= delta * alpha
+        return delta
+    
+model = HomomorphicLogisticRegression(spam[0:-1000],ham[0:-1000],iterations=10)
+
+encrypted_model = model.encrypt(pubkey)
+
+# generate encrypted predictions. Then decrypt them and evaluate.
+
+fp = 0
+tn = 0
+tp = 0
+fn = 0
+
+for i,h in enumerate(ham[-1000:]):
+    encrypted_pred = encrypted_model.predict(h)
+    try:
+        pred = prikey.decrypt(encrypted_pred) / encrypted_model.scaling_factor
+        if(pred &amp;lt; 0):
+            tn += 1
+        else:
+            fp += 1
+    except:
+        print(&quot;overflow&quot;)
+
+    if(i % 10 == 0):
+        sys.stdout.write('\r I:'+str(tn+tp+fn+fp) + &quot; % Correct:&quot; + str(100*tn/float(tn+fp))[0:6])
+
+for i,h in enumerate(spam[-1000:]):
+    encrypted_pred = encrypted_model.predict(h)
+    try:
+        pred = prikey.decrypt(encrypted_pred) / encrypted_model.scaling_factor
+        if(pred &amp;gt; 0):
+            tp += 1
+        else:
+            fn += 1
+    except:
+        print(&quot;overflow&quot;)
+
+    if(i % 10 == 0):
+        sys.stdout.write('\r I:'+str(tn+tp+fn+fp) + &quot; % Correct:&quot; + str(100*(tn+tp)/float(tn+tp+fn+fp))[0:6])
+sys.stdout.write('\r I:'+str(tn+tp+fn+fp) + &quot; % Correct:&quot; + str(100*(tn+tp)/float(tn+tp+fn+fp))[0:6])
+
+print(&quot;\n Encrypted Accuracy: %&quot; + str(100*(tn+tp)/float(tn+tp+fn+fp))[0:6])
+print(&quot;False Positives: %&quot; + str(100*fp/float(tp+fp))[0:4] + &quot;    &amp;lt;- privacy violation level&quot;)
+print(&quot;False Negatives: %&quot; + str(100*fn/float(tn+fn))[0:4] + &quot;   &amp;lt;- security risk level&quot;) 
+&lt;/pre&gt;
+
+&lt;pre&gt;
+
+Generating paillier keypair
+Importing dataset from disk...
+Iter:0 Loss:0.0455724486216
+Iter:1 Loss:0.0173317643148
+Iter:2 Loss:0.0113520767678
+Iter:3 Loss:0.00455875940625
+Iter:4 Loss:0.00178564065045
+Iter:5 Loss:0.000854385076612
+Iter:6 Loss:0.000417669805378
+Iter:7 Loss:0.000298985174998
+Iter:8 Loss:0.000244521525096
+Iter:9 Loss:0.000211014087681
+ I:2000 % Correct:99.296
+ Encrypted Accuracy: %99.2
+False Positives: %0.0    &amp;lt;- privacy violation level
+False Negatives: %1.57   &amp;lt;- security risk level
+&lt;/pre&gt;
+
+&lt;p&gt;This model is really quite special (and fast!... around 1000 emails per second with a single thread on my laptop). Note that we don't use the sigmoid during prediction (only during training) as it's followed by a threshold at 0.5. Thus, at testing we can simply skip the sigmoid and threshold at 0 (which is identical to running the sigmoid and thresholding at 0.5). However, enough with the technicals, let's get back to Bob.&lt;/p&gt;
+
+&lt;p&gt;Bob had a problem with people being able to see his predictions and fake them. However, now all the predictions are encrypted.&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&quot;/img/encrypted_prediction.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Furthermore, Bob had a problem with people reading his weights and reverse engineering how his algorithm had learned to detect. However, now all the weights themselves are also encrypted (and can predict in their encrypted state!).&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&quot;/img/encrypted_weights.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now when he deploys his model, no one can read what it is sending to spoof it (or even know what it is supposedly detecting) or reverse engineer it to further avoid its detection. This model has many of the desirable properties that we wanted. It's auditable by a third party, makes encrypted predictions, and its intelligence is also encrypted from those who might want to steal/fool it. Furthermore, it is quite accurate (with no false positives on the testing dataset), and also quite fast. Bob deploys his new model, receives encrypted predictions, and discovers that one particular person seems to be preparing to send out (what the model thinks is) 10,000 suspiciously SPAMY emails. He reports the metric to his boss and a judge, obtains a warrant, and rids the world of SPAM forever!!!!&lt;/p&gt;
+
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 6: Building Safe Crime Prediction&lt;/h2&gt;
+
+&lt;p&gt;Let's take a second and consider the high level difference that this model can make for law enforcement. Present day, in order to detect events such as a murder or terrorist attack, law enforcement needs unrestricted access to data streams which might be predictive of the event. Thus, in order to detect an event that may occur in 0.0001% of the data, they have to have access to 100% of the data stream by re-directing it to a secret warehouse wherein (I assume) Machine Learning models are likely deployed.&lt;/p&gt;
+
+&lt;p&gt;However, with this approach the same Machine Learning models currently used to identify crimes can instead be encrypted and used as detectors which are deployed to the data stream itself (i.e., chat applications). Law Enforcement then &lt;u&gt;only has access to the predictions of the model&lt;/u&gt; as opposed to having access to the entire dataset. This is similar to the use of drug dogs in an airport. Drug dogs eliminate the need for law enforcement to search everyone's bags looking for cocaine. Instead, a dog is TRAINED (just like a Machine Learning model) to exclusively detect the existence of narcotics. Barking == drugs. No barking == no drugs. POSITIVE neural network prediction means &quot;a terrorist plot is being planned on this phone&quot;, NEGATIVE neural network prediction means &quot;a terrorist plot is NOT being planned on this phone&quot;. Law enforcement has no need to see the data. They only need this one datapoint. Furthermore, as the model is a discrete piece of intelligence, it can be independently evaluated to ensure that it only detects what it's supposed to (just like we can independently audit what a drug dog is trained to detect by evaluating the dog's accuracy through tests). However, unlike drug dogs, Encrypted Artificial Intelligence could provide this ability for any crime that is detectable through digitial evidence.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Auditing Concerns:&lt;/b&gt; So, who do we trust to perform the auditing? I'm not a political science expert, so I'll leave this for others to comment. However, I think that third party watchdogs, a mixture of government contractors, or perhaps even open source developers could perform this role. If there are enough versions of every detector, it would likely be very difficult for bad actors to figure out which one was being deployed against them (since they're encrypted). I see several plausible options here and, largely, auditing bodies over government organizations seems like the kind of problem that many people have thought about before me, so I'll leave this part for the experts. ;) &lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Ethical Concerns:&lt;/b&gt; Notably, literary work provides commentary around the ethical and moral implications of crime predictions &lt;i&gt;leading to a conviction directly&lt;/i&gt;, (such as in the 1956 short story &quot;Minority Report&quot;, the origin of the term &quot;precrime&quot;). However, the primary value of crime prediction is not efficient punishment and inprisonment, it's the prevention of harm. Accordingly, there are two trivial ways to avoid this moral dilemma. First, the vast majority of crimes require smaller crimes in advance of a larger one (i.e., conspiracy to commit), and simply predicting the larger crime by being able to more accurately detect the smaller crimes of preparation avoids much of the moral dilemma. Secondly, pre-crime technology can simply be used as a method for how to best allocate police resources as well as a method for triggering a warrant/investigation (such as Bob did in our example). This latter use inparticular is perhaps the best use of crime prediction technology if the privacy security tradeoff can be mitigated (the topic of this blogpost). A positive prediction should launch an investigation, not put someone behind bars directly.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Legal Concerns:&lt;/b&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/United_States_v._Place&quot;&gt;United States v. Place&lt;/a&gt; ruled that because drug dogs are able to exclusively detect the odor of narcotics (without detecting anything else), they are not considered a &quot;search&quot;. In other words, because they are able to classify only the crime without requiring a citizen to divulge any other information, it is not considered an invasion of privacy. Furthermore, I believe that the general feeling of the public around this issue reflects the law. A fluffy dog coming up and giving your rolling bag a quick sniff at the airport is a very effective yet privacy preserving form of surveillance. Curiously, the dog un-doubtedly could be trained to detect the presence of any number of embarassing things in your bag. However, it is only TRAINED to detect those indicative of a crime. In the same way, Artificial Intelligence agents can be TRAINED to detect signs indicative of a crime without detecting anything else. As such, for models that achieve a sufficiently high accuracy rate, these models could obtain a similar legal status as drug dogs.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Authoritarian Corruption Concerns:&lt;/b&gt; Perhaps you're wondering, &quot;Why innovate in this space? Why propose new methods for surveillance? Aren't we being surveilled enough?&quot;. My answer is this: It should be impossible for those who do NOT harm one another (the innocent) to be surveilled by corporations or governments. Inversely, we want to detect anyone about to injure another human far enough in advance to stop them. Before recent technological advancements, these two statements were clearly impossible to achieve together. The purpose of this blogpost is to make one point: I believe it is technologically plausible to have both perfect safety and perfect privacy. By &quot;perfect privacy&quot;, I mean privacy that is NOT subject to the whims of an authoritarian government, but is instead limited by &lt;u&gt;auditable&lt;/u&gt; technology like Encrypted Artificial Intelligence. Who should be responsible for auditing this technology without revealing its techniques to bad actors? I'm not sure. Perhaps it's 3rd party watchdog organizations. Perhaps it's instead a system people opt-in to (like Fire Alarms) and there's a social contract established such that people can avoid those who do not opt in (because... why would you?). Perhaps it's developed entirely in the open source but is simply so effective that it can't be circumvented? These are some good questions to explore in subsequent discussions. This blogpost is not the whole solution. Social and government structures would undoubtedly need to adjust to the advent of this kind of tool. However, I do believe it is a significant piece of the puzzle, and I look forward to the conversations it can inspire.
+
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 7: Future Work&lt;/h2&gt;
+
+&lt;p&gt;First and foremost, we need modern float vector Homomorphic Encryption algorithms (FV, YASHE, etc.) supported in a major Deep Learning framework (PyTorch, Tensorflow, Keras, etc.). Furthermore, exploring how we can increase the speed and security of these algorithms is an actively innovated and vitally important line of work. Finally, we need to imagine how social structures could best partner with these new tools to protect people's safety without violating privacy (and continue to reduce the risk of authoritarian governments misusing the technology).&lt;/p&gt;
+
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Part 8: Let's Talk&lt;/h2&gt;
+
+&lt;p&gt;At the end of May, I had the pleasure of meeting with the brilliant &lt;a href=&quot;https://www.fhi.ox.ac.uk/team/carrick-flynn/&quot;&gt;Carrick Flynn&lt;/a&gt; and a number of wonderful folks from the &lt;a href=&quot;https://www.fhi.ox.ac.uk&quot;&gt;Future of Humanity Institute&lt;/a&gt;, one of the world's leading labs on A.I. Safety. We were speaking as they have recently become curious about Homomorphic Encryption, especially in the context of Deep Learning and A.I. One of the use cases we explored over Indian cuisine was that of Crime Prediction, and this blogpost is an early derivative of our conversation (hopefully one of many). I hope you find these ideas as exciting as I do, and I encourage you to reach out to Carrick, myself, and FHI if you are further curious about this topic or the Existential Risks of A.I. more broadly. To that end, if you find yourself excited about the idea that these tools might reduce government surveillance down to only criminals and terrorists, don't just click on! &lt;u&gt;Help spread the word!&lt;/u&gt; (upvote, share, etc.) Also, I'm particularly interested in hearing from you if you work in one of several industries (or can make introductions):&lt;/p&gt;
+
+&lt;ul&gt;
+
+	&lt;li&gt;&lt;b&gt;Law Enforcement:&lt;/b&gt; I'm very curious as to the extent to which these kinds of tools could become usable, particularly for local law enforcement. What are the major barriers to entry to tools such as these becoming useful for the triggering of a warrant? What kinds of certifications are needed? Do you know of similar precedent/cases? (i.e., drug dogs)&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;DARPA / Intelligence Community / Gov. Contractor:&lt;/b&gt; Similar question as for local law enforcement, but with the context being the federal space.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Legislation / Regulation:&lt;/b&gt; I envision a future where these tools become mature enough for legislation to be crafted such that they account for improved privacy/security tradeoffs (reduced privacy invasion but expedited warrant triggering procedure). Are there members of the legislative body who are actually interested in backing this type of development?&lt;/li&gt;
+
+&lt;/ul&gt;
+
+&lt;p&gt;I typically tweet out new blogposts when they're complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. As mentioned above, if these ideas inspire you to help in some way, a share or upvote is the first place to start as a &lt;b&gt;lack of awareness&lt;/b&gt; of these tools is the greatest obstacle at this stage. All in all, thank you for your time and attention, and I hope you enjoyed the post!&lt;/p&gt;
+
+
+&lt;b&gt;Relevant Links&lt;/b&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;http://blog.fastforwardlabs.com/2017/03/09/fairml-auditing-black-box-predictive-models.html&lt;/li&gt;
+	&lt;li&gt;https://eprint.iacr.org/2013/075.pdf&lt;/li&gt;
+	&lt;li&gt;https://iamtrask.github.io/2017/03/17/safe-ai/&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shThemeDefault.css&quot; /&gt;
+&lt;script src=&quot;/js/shCore.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shLegacy.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/shBrushPython.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	// SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.config.toolbar = true;
+    SyntaxHighlighter.all();
+&lt;/script&gt;
+&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 05 Jun 2017 13:00:00 +0100</pubDate>
+        <link>http://localhost:4000/2017/06/05/homomorphic-surveillance/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/06/05/homomorphic-surveillance/</guid>
+        
+        
+      </item>
     
       <item>
         <title>Deep Learning without Backpropagation</title>
@@ -28,17 +535,6 @@
 &lt;/center&gt;
 
 &lt;p&gt;The graphic above (from the paper) gives a very intuitive picture for what’s going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let’s start with how a regular neural network layer is updated.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Using Synthetic Gradients&lt;/h2&gt;
 
@@ -70,17 +566,6 @@
 &lt;/center&gt;
 
 &lt;p&gt;Focus on the second section from the left. See how the gradient (M i+2) backpropagates through (f i+1) and into M(i+1)? As you can see, each synthetic gradient generator is &lt;i&gt;actually&lt;/i&gt; only trained using the Synthetic Gradients generated from the next layer. Thus, &lt;i&gt;only the last layer&lt;/i&gt; actually trains on the data. All the other layers, including the Synthetic Gradient generator networks, train based on Synthetic Gradients. Thus, the network can train with each layer only having to wait on the synthetic gradient from the following layer (which has no other dependencies). Very cool! &lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 4: A Baseline Neural Network&lt;/h2&gt;
 
@@ -166,14 +651,6 @@ for iter in range(iterations):
 
 &lt;p&gt;If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach &lt;i&gt;nearly&lt;/i&gt; identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, &lt;i&gt;don't move on&lt;/i&gt;. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.&lt;/p&gt;
 
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 6: Synthetic Gradients Based on Layer Output&lt;/h2&gt;
 
@@ -6150,464 +6627,6 @@ formInputs[i].value = '';
         <pubDate>Sun, 12 Jul 2015 13:00:00 +0100</pubDate>
         <link>http://localhost:4000/2015/07/12/basic-python-network/</link>
         <guid isPermaLink="true">http://localhost:4000/2015/07/12/basic-python-network/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Word2Vec Analysis of Harry Potter</title>
-        <description>&lt;p&gt;Word2vec is a very cool algorithm that uses neural networks to map words to feature vectors. Those vectors then have interesting properties. You can use these vectors to cluster words into groups… find words that are most similar in an unsupervised fashion.&lt;/p&gt;
-
-&lt;p&gt;I ran &lt;a href=&quot;https://code.google.com/p/word2vec/&quot;&gt;word2vec&lt;/a&gt; on the 7 harry potter books and ran some cosine similarities on words i thought might be interesting. (using the open source &lt;a href=&quot;http://radimrehurek.com/gensim/&quot;&gt;Gensim&lt;/a&gt; library I love) My favorite is the word “password” below… which revealed a list of passwords to the Gryffendor Common Room.&lt;/p&gt;
-
-&lt;p&gt;The top word of each list is the focus word… and then a list of the most similar words thereafter.&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;expecto&lt;/b&gt; &lt;br /&gt;
-0.8790060473734644:&amp;lt;patronum &lt;br /&gt;
-0.755879251292692:&amp;lt;pettigrews &lt;br /&gt;
-0.6931649914220047:&amp;lt;scabbers &lt;br /&gt;
-0.6921019768155199:&amp;lt;pettigrew &lt;br /&gt;
-0.6854965539870754:&amp;lt;lumos &lt;br /&gt;
-0.6800035990521911:&amp;lt;groped &lt;br /&gt;
-0.664763725362591:&amp;lt;buckbeaks &lt;br /&gt;
-0.6386204400460198:&amp;lt;lupins &lt;br /&gt;
-0.6368874336372525:&amp;lt;forcing &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs)&lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;expecto&lt;/b&gt; &lt;br /&gt;
-0.881676712172453:&amp;lt;patronum &lt;br /&gt;
-0.66633365764735:&amp;lt;expec &lt;br /&gt;
-0.5100899639798923:&amp;lt;patrono &lt;br /&gt;
-0.4183506799917183:&amp;lt;poppy &lt;br /&gt;
-0.4151233329572086:&amp;lt;wailed &lt;br /&gt;
-0.4093665595659816:&amp;lt;nicknamed &lt;br /&gt;
-0.3973543132151556:&amp;lt;riddikulus &lt;br /&gt;
-0.3944545196592748:&amp;lt;fistbeating &lt;br /&gt;
-0.39103755743544927:&amp;lt;bristling &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(256 dimensions : 10 epochs)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;lumos&lt;/b&gt; &lt;br /&gt;
-0.42209239730743003:&amp;lt;imperio &lt;br /&gt;
-0.40507159450163904:&amp;lt;ignited &lt;br /&gt;
-0.3758083182732268:&amp;lt;tergeo &lt;br /&gt;
-0.3744004687853999:&amp;lt;episkey &lt;br /&gt;
-0.3658264199741773:&amp;lt;portus &lt;br /&gt;
-0.35926607923955595:&amp;lt;uhoh &lt;br /&gt;
-0.3574845249683229:&amp;lt;serpensortia &lt;br /&gt;
-0.35644744188201566:&amp;lt;wandtip &lt;br /&gt;
-0.3503601500539219:&amp;lt;dissendium &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;weasley&lt;/b&gt; &lt;br /&gt;
-0.7899136471577068:&amp;lt;cole &lt;br /&gt;
-0.7580984973288645:&amp;lt;weasleys &lt;br /&gt;
-0.704308962845765:&amp;lt;cattermole &lt;br /&gt;
-0.696147590313737:&amp;lt;figg &lt;br /&gt;
-0.6615516871288135:&amp;lt;bill &lt;br /&gt;
-0.5775892972766857:&amp;lt;mr &lt;br /&gt;
-0.5623844627363042:&amp;lt;mrs &lt;br /&gt;
-0.547272989628803:&amp;lt;crouch &lt;br /&gt;
-0.5346744691953205:&amp;lt;brightly &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;weasley&lt;/b&gt; &lt;br /&gt;
-0.5571492216402788:&amp;lt;mrs &lt;br /&gt;
-0.525661506461713:&amp;lt;mr &lt;br /&gt;
-0.5122609732187181:&amp;lt;redheads &lt;br /&gt;
-0.47470149235833253:&amp;lt;greatauntie &lt;br /&gt;
-0.4636894081306857:&amp;lt;basil &lt;br /&gt;
-0.4615857402277965:&amp;lt;wwhats &lt;br /&gt;
-0.44954942844918266:&amp;lt;whew &lt;br /&gt;
-0.44593325992665894:&amp;lt;pranksters &lt;br /&gt;
-0.4366713328133361:&amp;lt;weasleys &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;potter&lt;/b&gt; &lt;br /&gt;
-0.7040619432963181:&amp;lt;severus &lt;br /&gt;
-0.6994994807105462:&amp;lt;thank &lt;br /&gt;
-0.6875348923351211:&amp;lt;sir &lt;br /&gt;
-0.6822709821434811:&amp;lt;please &lt;br /&gt;
-0.632136736822497:&amp;lt;may &lt;br /&gt;
-0.6291806648311767:&amp;lt;cannot &lt;br /&gt;
-0.6284403688596681:&amp;lt;yes &lt;br /&gt;
-0.624241093676769:&amp;lt;kindly &lt;br /&gt;
-0.6217287188964961:&amp;lt;will &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs)&lt;br /&gt;
-&lt;b&gt;0.9999999999999999:&amp;lt;potter &lt;/b&gt;&lt;br /&gt;
-0.3901893042844876:&amp;lt;humble &lt;br /&gt;
-0.38913611920424174:&amp;lt;rotter &lt;br /&gt;
-0.36768347738598195:&amp;lt;heed &lt;br /&gt;
-0.3666138243923663:&amp;lt;heroworshipped &lt;br /&gt;
-0.3587120147197108:&amp;lt;woooooooo &lt;br /&gt;
-0.34933445012876724:&amp;lt;characters &lt;br /&gt;
-0.3440882110680894:&amp;lt;dunderbore &lt;br /&gt;
-0.344022635479845:&amp;lt;questionall &lt;br /&gt;
-0.34103571192794435:&amp;lt;pining &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;gryffindor&lt;/b&gt; &lt;br /&gt;
-0.74139062089133:&amp;lt;team &lt;br /&gt;
-0.734880573018089:&amp;lt;tower &lt;br /&gt;
-0.7231970430099021:&amp;lt;slytherin &lt;br /&gt;
-0.7021615040969098:&amp;lt;common &lt;br /&gt;
-0.7018928824840882:&amp;lt;ravenclaw &lt;br /&gt;
-0.6585783668158374:&amp;lt;points &lt;br /&gt;
-0.6540640450146518:&amp;lt;spinnet &lt;br /&gt;
-0.64507063817762:&amp;lt;bell &lt;br /&gt;
-0.6289645923037345:&amp;lt;goal &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;gryffindor&lt;/b&gt; &lt;br /&gt;
-0.4581853977277023:&amp;lt;hufflepuff &lt;br /&gt;
-0.4420478362268596:&amp;lt;tower &lt;br /&gt;
-0.44149319299048684:&amp;lt;points &lt;br /&gt;
-0.4410251892894441:&amp;lt;slytherin &lt;br /&gt;
-0.4188516239321704:&amp;lt;ravenclaw &lt;br /&gt;
-0.3600329597460896:&amp;lt;gryffindors &lt;br /&gt;
-0.35418207017889025:&amp;lt;team &lt;br /&gt;
-0.34891474092816965:&amp;lt;wellearned &lt;br /&gt;
-0.3404098626732141:&amp;lt;penalty &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;0.9999999999999999:&amp;lt;ravenclaw&lt;/b&gt; &lt;br /&gt;
-0.781214400477696:&amp;lt;hufflepuff &lt;br /&gt;
-0.7512446691492253:&amp;lt;slytherin &lt;br /&gt;
-0.7254427881734692:&amp;lt;captain &lt;br /&gt;
-0.7208340720937167:&amp;lt;oclock &lt;br /&gt;
-0.7147691706800555:&amp;lt;lee &lt;br /&gt;
-0.7147331227062966:&amp;lt;montague &lt;br /&gt;
-0.7018928824840882:&amp;lt;gryffindor &lt;br /&gt;
-0.697691445889272:&amp;lt;team &lt;br /&gt;
-0.6839508546137936:&amp;lt;wednesday &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;ravenclaw&lt;/b&gt; &lt;br /&gt;
-0.5732267167869871:&amp;lt;hufflepuff &lt;br /&gt;
-0.43935832571981465:&amp;lt;slytherin &lt;br /&gt;
-0.43555165040705907:&amp;lt;rowena &lt;br /&gt;
-0.4188516239321704:&amp;lt;gryffindor &lt;br /&gt;
-0.407678924818592:&amp;lt;turpin &lt;br /&gt;
-0.38709404961590305:&amp;lt;helga &lt;br /&gt;
-0.3708434204576607:&amp;lt;seeker &lt;br /&gt;
-0.35874384841804063:&amp;lt;huffepuff &lt;br /&gt;
-0.35602194786273583:&amp;lt;loses &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;hufflepuff&lt;/b&gt; &lt;br /&gt;
-0.7921196174194491:&amp;lt;fifth &lt;br /&gt;
-0.7848088164254446:&amp;lt;seventh &lt;br /&gt;
-0.781214400477696:&amp;lt;ravenclaw &lt;br /&gt;
-0.7780135594276192:&amp;lt;fourth &lt;br /&gt;
-0.7568581966579454:&amp;lt;hufflepuffs &lt;br /&gt;
-0.7452088578170768:&amp;lt;slytherin &lt;br /&gt;
-0.7329618627066322:&amp;lt;slytherins &lt;br /&gt;
-0.7241609971259948:&amp;lt;thursday &lt;br /&gt;
-0.7202963910695652:&amp;lt;gryffindors &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;hufflepuff&lt;/b&gt; &lt;br /&gt;
-0.5732267167869871:&amp;lt;ravenclaw &lt;br /&gt;
-0.560598634502152:&amp;lt;slytherin &lt;br /&gt;
-0.4581853977277023:&amp;lt;gryffindor &lt;br /&gt;
-0.41404169865069024:&amp;lt;points &lt;br /&gt;
-0.41335251749481483:&amp;lt;helga &lt;br /&gt;
-0.40705600406104697:&amp;lt;pushover &lt;br /&gt;
-0.3964490683438199:&amp;lt;applauding &lt;br /&gt;
-0.39567843096475613:&amp;lt;loses &lt;br /&gt;
-0.39244432848771427:&amp;lt;match &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;slytherin&lt;/b&gt; &lt;br /&gt;
-0.7512446691492253:&amp;lt;ravenclaw &lt;br /&gt;
-0.7452088578170768:&amp;lt;hufflepuff &lt;br /&gt;
-0.7238327202395243:&amp;lt;team &lt;br /&gt;
-0.7231970430099021:&amp;lt;gryffindor &lt;br /&gt;
-0.7165509326427633:&amp;lt;captain &lt;br /&gt;
-0.7030698136643037:&amp;lt;bell &lt;br /&gt;
-0.6922161358648197:&amp;lt;goal &lt;br /&gt;
-0.6914818449404438:&amp;lt;montague &lt;br /&gt;
-0.6612854741883617:&amp;lt;pucey &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;slytherin&lt;/b&gt; &lt;br /&gt;
-0.560598634502152:&amp;lt;hufflepuff &lt;br /&gt;
-0.44370546214405354:&amp;lt;slytherins &lt;br /&gt;
-0.4410251892894441:&amp;lt;gryffindor &lt;br /&gt;
-0.43935832571981465:&amp;lt;ravenclaw &lt;br /&gt;
-0.4111100118874837:&amp;lt;team &lt;br /&gt;
-0.3960522941982452:&amp;lt;captain &lt;br /&gt;
-0.3834171440911241:&amp;lt;gains &lt;br /&gt;
-0.3816636526374869:&amp;lt;pushover &lt;br /&gt;
-0.37815919943099136:&amp;lt;fen &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-1.0:&amp;lt;hermione &lt;br /&gt;
-&lt;b&gt;0.6373033872867323:&amp;lt;she&lt;/b&gt; &lt;br /&gt;
-0.5360344746735539:&amp;lt;neville &lt;br /&gt;
-0.5274756001139249:&amp;lt;he &lt;br /&gt;
-0.5214301504925287:&amp;lt;ginny &lt;br /&gt;
-0.5109574888160943:&amp;lt;ron &lt;br /&gt;
-0.4999163834053927:&amp;lt;luna &lt;br /&gt;
-0.49574563180394704:&amp;lt;harry &lt;br /&gt;
-0.451967913703171:&amp;lt;romilda &lt;br /&gt;
-0.446476077232399:&amp;lt;her &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&lt;/b&gt;&amp;lt;hermione &lt;br /&gt;
-0.5042554769286905:&amp;lt;ron &lt;br /&gt;
-0.4808255935304602:&amp;lt;she &lt;br /&gt;
-0.3717110232643911:&amp;lt;ginny &lt;br /&gt;
-0.35913453543144513:&amp;lt;acidly &lt;br /&gt;
-0.35306516236363134:&amp;lt;ermyknee &lt;br /&gt;
-0.3515929674760651:&amp;lt;encouragingly &lt;br /&gt;
-0.35124423149024275:&amp;lt;uhoh &lt;br /&gt;
-0.3455436053959502:&amp;lt;grabbing &lt;br /&gt;
-0.34365264010683094:&amp;lt;lavender &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;dumbledore&lt;/b&gt; &lt;br /&gt;
-0.7867909396010355:&amp;lt;snape &lt;br /&gt;
-0.652590036205367:&amp;lt;slughorn &lt;br /&gt;
-0.6378681113816113:&amp;lt;voldemort &lt;br /&gt;
-0.6120050198022656:&amp;lt;aberforth &lt;br /&gt;
-0.6019010767912868:&amp;lt;he &lt;br /&gt;
-0.5929735071374835:&amp;lt;scrimgeour &lt;br /&gt;
-0.5840436894354705:&amp;lt;sirius &lt;br /&gt;
-0.5553253520856778:&amp;lt;dumbledores &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;dumbledore&lt;/b&gt; &lt;br /&gt;
-0.49688884807669753:&amp;lt;snape &lt;br /&gt;
-0.43320641875023586:&amp;lt;fudge &lt;br /&gt;
-0.42104734145946027:&amp;lt;voldemort &lt;br /&gt;
-0.409769764165034:&amp;lt;corpses &lt;br /&gt;
-0.40586327560858065:&amp;lt;lupin &lt;br /&gt;
-0.3992514094799346:&amp;lt;dumbledores &lt;br /&gt;
-0.3984795966379898:&amp;lt;headmaster &lt;br /&gt;
-0.36481567503440565:&amp;lt;devastating &lt;br /&gt;
-0.35980117000272555:&amp;lt;riddle &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;spell&lt;/b&gt; &lt;br /&gt;
-0.5705834288105536:&amp;lt;jinx &lt;br /&gt;
-0.5528068188658538:&amp;lt;clear &lt;br /&gt;
-0.5308173140619804:&amp;lt;however &lt;br /&gt;
-0.5256446406146716:&amp;lt;crumplehorned &lt;br /&gt;
-0.5217704552103746:&amp;lt;hit &lt;br /&gt;
-0.5214290685798957:&amp;lt;latter &lt;br /&gt;
-0.5210853653286843:&amp;lt;sectumsempra &lt;br /&gt;
-0.5204984581955842:&amp;lt;dolohov &lt;br /&gt;
-0.5172019428367624:&amp;lt;made &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;0.9999999999999999:&amp;lt;spell&lt;/b&gt; &lt;br /&gt;
-0.45622019920423756:&amp;lt;spells &lt;br /&gt;
-0.38503414331623603:&amp;lt;charm &lt;br /&gt;
-0.3744579769148505:&amp;lt;retaliate &lt;br /&gt;
-0.3365386087137521:&amp;lt;stunning &lt;br /&gt;
-0.31299212123460146:&amp;lt;fourpoint &lt;br /&gt;
-0.3047318421865308:&amp;lt;defensive &lt;br /&gt;
-0.3018663449722407:&amp;lt;jinx &lt;br /&gt;
-0.2986278064898596:&amp;lt;practicing &lt;br /&gt;
-0.29811271395978733:&amp;lt;hit &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(64 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;chamber&lt;/b&gt; &lt;br /&gt;
-0.7516236239509654:&amp;lt;staffroom &lt;br /&gt;
-0.7097278407351896:&amp;lt;basilisk &lt;br /&gt;
-0.6396829682468098:&amp;lt;secrets &lt;br /&gt;
-0.6303229904669257:&amp;lt;messages &lt;br /&gt;
-0.6292212718692173:&amp;lt;pages &lt;br /&gt;
-0.6255458905896577:&amp;lt;gargoyle &lt;br /&gt;
-0.623691053534629:&amp;lt;stage &lt;br /&gt;
-0.6189105698380645:&amp;lt;sealed &lt;br /&gt;
-0.6165084868604697:&amp;lt;hilt &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;chamber&lt;/b&gt; &lt;br /&gt;
-0.527350716695893:&amp;lt;secrets &lt;br /&gt;
-0.45803538999265264:&amp;lt;forsaken &lt;br /&gt;
-0.4509279299021009:&amp;lt;fanciful &lt;br /&gt;
-0.3937455721042796:&amp;lt;unseal &lt;br /&gt;
-0.3737416685904814:&amp;lt;roosters &lt;br /&gt;
-0.35312885285278145:&amp;lt;drawingroom &lt;br /&gt;
-0.3358263562408226:&amp;lt;unleash &lt;br /&gt;
-0.32925459347667607:&amp;lt;daubed &lt;br /&gt;
-0.32405200326296857:&amp;lt;runin &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;black&lt;/b&gt; &lt;br /&gt;
-0.7090495706356712:&amp;lt;thick &lt;br /&gt;
-0.6825056469408932:&amp;lt;silver &lt;br /&gt;
-0.6687549059638025:&amp;lt;white &lt;br /&gt;
-0.6671827818068091:&amp;lt;thin &lt;br /&gt;
-0.6595272052625423:&amp;lt;green &lt;br /&gt;
-0.6559287359085553:&amp;lt;tiny &lt;br /&gt;
-0.6520876963925315:&amp;lt;glass &lt;br /&gt;
-0.6499197812776186:&amp;lt;bright &lt;br /&gt;
-0.6376775975420493:&amp;lt;hair &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;black&lt;/b&gt; &lt;br /&gt;
-0.4187862746289444:&amp;lt;ravaged &lt;br /&gt;
-0.41376806599272925:&amp;lt;bald &lt;br /&gt;
-0.3964342510912526:&amp;lt;silky &lt;br /&gt;
-0.39399279699897416:&amp;lt;stripes &lt;br /&gt;
-0.3782092012451359:&amp;lt;broadshouldered &lt;br /&gt;
-0.3779053329184092:&amp;lt;graying &lt;br /&gt;
-0.37579439331917774:&amp;lt;paleeyed &lt;br /&gt;
-0.3734468240600482:&amp;lt;atop &lt;br /&gt;
-0.37307859100552243:&amp;lt;leathery &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;requirement&lt;/b&gt; &lt;br /&gt;
-0.6805251004125765:&amp;lt;common &lt;br /&gt;
-0.58822928078406:&amp;lt;detail &lt;br /&gt;
-0.5869718509295418:&amp;lt;gaunts &lt;br /&gt;
-0.5677933609626798:&amp;lt;portrait &lt;br /&gt;
-0.5612000668830176:&amp;lt;rest &lt;br /&gt;
-0.5611572795099765:&amp;lt;space &lt;br /&gt;
-0.5554348127278043:&amp;lt;marquee &lt;br /&gt;
-0.5519591805530948:&amp;lt;middle &lt;br /&gt;
-0.5455370331332081:&amp;lt;slightest &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;0.9999999999999998:&amp;lt;requirement&lt;/b&gt; &lt;br /&gt;
-0.4016798211784335:&amp;lt;unknowable &lt;br /&gt;
-0.3867069097055046:&amp;lt;jampacked &lt;br /&gt;
-0.37050061385790234:&amp;lt;room &lt;br /&gt;
-0.3616482568609007:&amp;lt;partlife &lt;br /&gt;
-0.3557306897710399:&amp;lt;assaulted &lt;br /&gt;
-0.35489547684406436:&amp;lt;compression &lt;br /&gt;
-0.33972003944909956:&amp;lt;common &lt;br /&gt;
-0.32747964915808203:&amp;lt;upholstery &lt;br /&gt;
-0.3205128295096265:&amp;lt;reliving &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;voldemort&lt;/b&gt; &lt;br /&gt;
-0.6883758949036237:&amp;lt;voldemorts &lt;br /&gt;
-0.6882314118148244:&amp;lt;bellatrix &lt;br /&gt;
-0.6687046547843726:&amp;lt;sirius &lt;br /&gt;
-0.6456113933094144:&amp;lt;dumbledores &lt;br /&gt;
-0.6378681113816113:&amp;lt;dumbledore &lt;br /&gt;
-0.6198750862701423:&amp;lt;lord &lt;br /&gt;
-0.601800677476979:&amp;lt;prophecy &lt;br /&gt;
-0.5979378004431092:&amp;lt;connection &lt;br /&gt;
-0.5976976164728673:&amp;lt;ariana &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;voldemort&lt;/b&gt; &lt;br /&gt;
-0.5231034885732724:&amp;lt;lord &lt;br /&gt;
-0.4949022273659753:&amp;lt;voldemorts &lt;br /&gt;
-0.42104734145946027:&amp;lt;dumbledore &lt;br /&gt;
-0.40269571073980126:&amp;lt;kill &lt;br /&gt;
-0.39346439983965364:&amp;lt;inindeed &lt;br /&gt;
-0.3625195714553203:&amp;lt;snape &lt;br /&gt;
-0.36251702487473614:&amp;lt;elm &lt;br /&gt;
-0.35635136288239055:&amp;lt;merciful &lt;br /&gt;
-0.35450715479438577:&amp;lt;prostrate &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;snape&lt;/b&gt; &lt;br /&gt;
-0.7867909396010355:&amp;lt;dumbledore &lt;br /&gt;
-0.7602249542226724:&amp;lt;slughorn &lt;br /&gt;
-0.6055605238284325:&amp;lt;bellatrix &lt;br /&gt;
-0.6030688726296658:&amp;lt;mcgonagall &lt;br /&gt;
-0.5929395283735124:&amp;lt;phineas &lt;br /&gt;
-0.5913798507548866:&amp;lt;umbridge &lt;br /&gt;
-0.5626612723245389:&amp;lt;narcissa &lt;br /&gt;
-0.5592886705523973:&amp;lt;horace &lt;br /&gt;
-0.5535260402939475:&amp;lt;dumbledores &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;snape &lt;/b&gt;&lt;br /&gt;
-0.49688884807669753:&amp;lt;dumbledore &lt;br /&gt;
-0.39141319194131824:&amp;lt;snapes &lt;br /&gt;
-0.3788874389546836:&amp;lt;severus &lt;br /&gt;
-0.3625195714553203:&amp;lt;voldemort &lt;br /&gt;
-0.3602838216909781:&amp;lt;malfoy &lt;br /&gt;
-0.3495411504557353:&amp;lt;mcgonagall &lt;br /&gt;
-0.3432543679925834:&amp;lt;heroworshipped &lt;br /&gt;
-0.3407031113901212:&amp;lt;silkily &lt;br /&gt;
-0.3385766904895776:&amp;lt;bbbut &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0000000000000002:&amp;lt;password&lt;/b&gt; &lt;br /&gt;
-0.6759946677363984:&amp;lt;lady &lt;br /&gt;
-0.6260981919566827:&amp;lt;north &lt;br /&gt;
-0.6258023922269232:&amp;lt;tower &lt;br /&gt;
-0.6253624288287926:&amp;lt;owlery &lt;br /&gt;
-0.6189141007115594:&amp;lt;fat &lt;br /&gt;
-0.6020323426260975:&amp;lt;afterward &lt;br /&gt;
-0.5984440756682315:&amp;lt;waking &lt;br /&gt;
-0.5788408987574969:&amp;lt;cave &lt;br /&gt;
-0.5730507346420423:&amp;lt;heading &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;password&lt;/b&gt; &lt;br /&gt;
-0.47446983465719267:&amp;lt;fritters &lt;br /&gt;
-0.4712847308362276:&amp;lt;lady &lt;br /&gt;
-0.4654321201001382:&amp;lt;banana &lt;br /&gt;
-0.4440026686633822:&amp;lt;flibbertigibbet &lt;br /&gt;
-0.37558294153078775:&amp;lt;ladys &lt;br /&gt;
-0.3705196683435887:&amp;lt;abstinence &lt;br /&gt;
-0.36897045258759176:&amp;lt;fat &lt;br /&gt;
-0.3470203296601344:&amp;lt;portrait &lt;br /&gt;
-0.3172485840936194:&amp;lt;festive &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;chocolate&lt;/b&gt; &lt;br /&gt;
-0.7724365211403441:&amp;lt;frog &lt;br /&gt;
-0.7337068328667901:&amp;lt;mug &lt;br /&gt;
-0.7211389912598347:&amp;lt;squeak &lt;br /&gt;
-0.7203372114689538:&amp;lt;mouthful &lt;br /&gt;
-0.7123522162102919:&amp;lt;meat &lt;br /&gt;
-0.7110375068682293:&amp;lt;male &lt;br /&gt;
-0.7029104114344779:&amp;lt;swig &lt;br /&gt;
-0.6955470835808224:&amp;lt;drops &lt;br /&gt;
-0.6901040539654248:&amp;lt;blew &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;0.9999999999999999:&amp;lt;chocolate &lt;/b&gt;&lt;br /&gt;
-0.5475055711590749:&amp;lt;frog &lt;br /&gt;
-0.5431921714687046:&amp;lt;frogs &lt;br /&gt;
-0.47751803650826924:&amp;lt;cards &lt;br /&gt;
-0.45420825957039807:&amp;lt;cakes &lt;br /&gt;
-0.43692834317867524:&amp;lt;marmalade &lt;br /&gt;
-0.4356386019624927:&amp;lt;tarts &lt;br /&gt;
-0.43098893267906485:&amp;lt;abbot &lt;br /&gt;
-0.41999201661912083:&amp;lt;chopped &lt;br /&gt;
-0.4170767831464866:&amp;lt;pasties &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;(128 dimensions : 1 epoch)&lt;br /&gt;
-&lt;b&gt;1.0:&amp;lt;phoenix&lt;/b&gt; &lt;br /&gt;
-0.6477570284902336:&amp;lt;wizengamot &lt;br /&gt;
-0.611456341909926:&amp;lt;order &lt;br /&gt;
-0.601307062292621:&amp;lt;recent &lt;br /&gt;
-0.5894212574676222:&amp;lt;warlock &lt;br /&gt;
-0.5777717037132631:&amp;lt;educational &lt;br /&gt;
-0.5672181094594285:&amp;lt;charges &lt;br /&gt;
-0.5577200810058244:&amp;lt;mysteries &lt;br /&gt;
-0.5560769924913356:&amp;lt;ministers &lt;br /&gt;
-0.5528013856762239:&amp;lt;quibbler &lt;br /&gt;
-&lt;br /&gt;
-(256 dimensions : 10 epochs) &lt;br /&gt;
-&lt;b&gt;0.9999999999999998:&amp;lt;phoenix&lt;/b&gt; &lt;br /&gt;
-0.44566492530943996:&amp;lt;feather &lt;br /&gt;
-0.4307836965454031:&amp;lt;order &lt;br /&gt;
-0.41943464449038814:&amp;lt;maple &lt;br /&gt;
-0.34291846139813786:&amp;lt;fawkes &lt;br /&gt;
-0.33463728125471814:&amp;lt;cuttlebone &lt;br /&gt;
-0.3323033150650069:&amp;lt;headquarters &lt;br /&gt;
-0.33116604341560135:&amp;lt;brethren &lt;br /&gt;
-0.31389382936668453:&amp;lt;tto &lt;br /&gt;
-0.305949945529935:&amp;lt;cores &lt;br /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 23 Nov 2014 12:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2014/11/23/harry-potter/</link>
-        <guid isPermaLink="true">http://localhost:4000/2014/11/23/harry-potter/</guid>
         
         
       </item>

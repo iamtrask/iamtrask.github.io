@@ -26,17 +26,6 @@ header-img: "img/nasa-43567-min.jpg"
 
 The graphic above (from the paper) gives a very intuitive picture for what's going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let's start with how a regular neural network layer is updated.
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 2: Using Synthetic Gradients</h2>
 
@@ -70,17 +59,6 @@ So, in short, Synthetic Gradients are used just like normal gradients, and for s
 
 <p>Focus on the second section from the left. See how the gradient (M i+2) backpropagates through (f i+1) and into M(i+1)? As you can see, each synthetic gradient generator is <i>actually</i> only trained using the Synthetic Gradients generated from the next layer. Thus, <i>only the last layer</i> actually trains on the data. All the other layers, including the Synthetic Gradient generator networks, train based on Synthetic Gradients. Thus, the network can train with each layer only having to wait on the synthetic gradient from the following layer (which has no other dependencies). Very cool! </p>
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 4: A Baseline Neural Network</h2>
 
@@ -166,17 +144,6 @@ for iter in range(iterations):
 
 <p>If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach <i>nearly</i> identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, <i>don't move on</i>. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.</p>
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 6: Synthetic Gradients Based on Layer Output</h2>
 
