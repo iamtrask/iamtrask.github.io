@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Safe Crime Prediction"
+title:      "Government Surveillance Without Privacy Invasion"
 subtitle:   "Homomorphic Encryption and Deep Learning for More Effective, Less Intrusive Digital Surveillance"
 date:       2017-06-05 12:00:00
 author:     "iamtrask"
