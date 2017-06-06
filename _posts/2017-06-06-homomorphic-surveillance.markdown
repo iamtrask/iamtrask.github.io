@@ -2,7 +2,7 @@
 layout:     post
 title:      "Safe Crime Prediction"
 subtitle:   "Homomorphic Encryption and Deep Learning for More Effective, Less Intrusive Digital Surveillance"
-date:       2017-06-05 12:00:00
+date:       2017-06-06 12:00:00
 author:     "iamtrask"
 header-img: "img/nasa-43563.jpg"
 ---
