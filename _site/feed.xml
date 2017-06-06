@@ -5,12 +5,12 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Jun 2017 15:33:55 +0100</pubDate>
-    <lastBuildDate>Tue, 06 Jun 2017 15:33:55 +0100</lastBuildDate>
+    <pubDate>Tue, 06 Jun 2017 15:56:03 +0100</pubDate>
+    <lastBuildDate>Tue, 06 Jun 2017 15:56:03 +0100</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
-        <title>Government Surveillance Without Privacy Invasion</title>
+        <title>Safe Crime Prediction</title>
         <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; What if it was possible for surveillance to only invade the privacy of criminals or terrorists, leaving the innocent unsurveilled? This post proposes a way with a prototype in Python.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Abstract:&lt;/b&gt; Modern criminals and terrorists hide amongst the patterns of innocent civilians, exactly mirroring daily life until the very last moments before becoming lethal, which can happen as quickly as a car turning onto a sidewalk or a man pulling out a knife on the street. As police intervention of an instantly lethal event is impossible, law enforcement has turned to prediction based on the surveillance of public and private data streams, facilitated by legislation like the &lt;a href=&quot;https://en.wikipedia.org/wiki/Patriot_Act&quot;&gt;Patriot Act&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/USA_Freedom_Act&quot;&gt;USA Freedom Act&lt;/a&gt;, and the UK's &lt;a href=&quot;https://en.wikipedia.org/wiki/Counter-Terrorism_Act_2008&quot;&gt;Counter-Terrorism Act&lt;/a&gt;. This legislation sparks a heated debate (and rightly so) on the tradeoff between privacy and security. In this blogpost, we explore whether much of this tradeoff between privacy and security is &lt;b&gt;merely a technological limitation&lt;/b&gt;, overcommable by a combination of Homomorphic Encryption and Deep Learning. We supplement this discussion with a tutorial for a working prototype implementation and further analysis on where technological investments could be made to mature this technology. I am optimistic that it is possible to re-imagine the tools of crime prediction such that, relative to where we find ourselves today, citizen privacy is increased, surveillance is more effective, and the potential for mis-use is mitigated via modern techniques for &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Encrypted Artificial Intelligence&lt;/a&gt;.
