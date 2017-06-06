@@ -7,7 +7,7 @@ author:     "iamtrask"
 header-img: "img/nebula.jpg"
 ---
 
-<p><b>Summary:</b> I learn best with toy code that I can play with. This tutorial teaches Recurrent Neural Networks via a very simple toy example, a short python implementation. <a href="http://magicly.me/2017/03/09/iamtrask-anyone-can-code-lstm/">Chinese Translation</a></p>
+<p><b>Summary:</b> I learn best with toy code that I can play with. This tutorial teaches Recurrent Neural Networks via a very simple toy example, a short python implementation. <a href="http://magicly.me/2017/03/09/iamtrask-anyone-can-code-lstm/">Chinese Translation</a> <a href="https://jaejunyoo.blogspot.com/2017/06/anyone-can-learn-to-code-LSTM-RNN-Python.html">Korean Translation</a></p> 
 
 <p>I'll tweet out <b>(Part 2: LSTM)</b> when it's complete at <a href="https://twitter.com/iamtrask">@iamtrask</a>. Feel free to follow if you'd be interested in reading it and thanks for all the feedback!
 </p>

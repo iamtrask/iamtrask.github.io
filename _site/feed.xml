@@ -5,8 +5,8 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Jun 2017 15:56:03 +0100</pubDate>
-    <lastBuildDate>Tue, 06 Jun 2017 15:56:03 +0100</lastBuildDate>
+    <pubDate>Tue, 06 Jun 2017 18:05:22 +0100</pubDate>
+    <lastBuildDate>Tue, 06 Jun 2017 18:05:22 +0100</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -4112,7 +4112,7 @@ D:[  9.96007159e-01   9.98850792e-01   9.98678243e-01   9.93183510e-01
     
       <item>
         <title>Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN)</title>
-        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; I learn best with toy code that I can play with. This tutorial teaches Recurrent Neural Networks via a very simple toy example, a short python implementation. &lt;a href=&quot;http://magicly.me/2017/03/09/iamtrask-anyone-can-code-lstm/&quot;&gt;Chinese Translation&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; I learn best with toy code that I can play with. This tutorial teaches Recurrent Neural Networks via a very simple toy example, a short python implementation. &lt;a href=&quot;http://magicly.me/2017/03/09/iamtrask-anyone-can-code-lstm/&quot;&gt;Chinese Translation&lt;/a&gt; &lt;a href=&quot;https://jaejunyoo.blogspot.com/2017/06/anyone-can-learn-to-code-LSTM-RNN-Python.html&quot;&gt;Korean Translation&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;I'll tweet out &lt;b&gt;(Part 2: LSTM)&lt;/b&gt; when it's complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading it and thanks for all the feedback!
 &lt;/p&gt;
