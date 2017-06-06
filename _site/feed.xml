@@ -5,13 +5,13 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Jun 2017 11:02:06 +0100</pubDate>
-    <lastBuildDate>Tue, 06 Jun 2017 11:02:06 +0100</lastBuildDate>
+    <pubDate>Tue, 06 Jun 2017 14:57:48 +0100</pubDate>
+    <lastBuildDate>Tue, 06 Jun 2017 14:57:48 +0100</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
-        <title>Safe Crime Prediction</title>
-        <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; What if it was possible for surveillance to only invade the privacy of criminals or terrorists, leaving the innocent unsurveilled?&lt;/p&gt;
+        <title>Building Safe Precrime</title>
+        <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; What if it was possible for surveillance to only invade the privacy of criminals or terrorists, leaving the innocent unsurveilled? This post proposes a way with a prototype in Python.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Abstract:&lt;/b&gt; Modern criminals and terrorists hide amongst the patterns of innocent civilians, exactly mirroring daily life until the very last moments before becoming lethal, which can happen as quickly as a car turning onto a sidewalk or a man pulling out a knife on the street. As police intervention of an instantly lethal event is impossible, law enforcement has turned to prediction based on the surveillance of public and private data streams, facilitated by legislation like the &lt;a href=&quot;https://en.wikipedia.org/wiki/Patriot_Act&quot;&gt;Patriot Act&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/USA_Freedom_Act&quot;&gt;USA Freedom Act&lt;/a&gt;, and the UK's &lt;a href=&quot;https://en.wikipedia.org/wiki/Counter-Terrorism_Act_2008&quot;&gt;Counter-Terrorism Act&lt;/a&gt;. This legislation sparks a heated debate (and rightly so) on the tradeoff between privacy and security. In this blogpost, we explore whether much of this tradeoff between privacy and security is &lt;b&gt;merely a technological limitation&lt;/b&gt;, overcommable by a combination of Homomorphic Encryption and Deep Learning. We supplement this discussion with a tutorial for a working prototype implementation and further analysis on where technological investments could be made to mature this technology. I am optimistic that it is possible to re-imagine the tools of crime prediction such that, relative to where we find ourselves today, citizen privacy is increased, surveillance is more effective, and the potential for mis-use is mitigated via modern techniques for &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Encrypted Artificial Intelligence&lt;/a&gt;.
 
@@ -541,10 +541,6 @@ False Negatives: %1.57   &amp;lt;- security risk level
 
 &lt;p&gt;The graphic above (from the paper) gives a very intuitive picture for what’s going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let’s start with how a regular neural network layer is updated.&lt;/p&gt;
 
-&lt;p&gt;«««&amp;lt; HEAD&lt;/p&gt;
-
-&lt;p&gt;=======
-»»»&amp;gt; e5ddf2e0fe2f72495c00542982a3756ff306b157&lt;/p&gt;
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Using Synthetic Gradients&lt;/h2&gt;
 
 &lt;p&gt;Let's start by ignoring how the Synthetic Gradients are created and instead just look at how the are used. The far left box shows how these can work to update the first layer in a neural network. The first layer forward propagates into the Synthetic Gradient generator (M i+1), which then returns a gradient. This gradient is used &lt;i&gt;instead of&lt;/i&gt; the real gradient (which would take a full forward propagation and backpropagation to compute). The weights are then updated as normal, pretending that this Synthetic Gradient is the real gradient. If you need a refresher on how weights are updated with gradients, check out &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt; and perhaps the followup post on &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;Gradient Descent&lt;/a&gt;.&lt;/p&gt;
@@ -670,7 +666,7 @@ for iter in range(iterations):
 &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; e5ddf2e0fe2f72495c00542982a3756ff306b157
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 6: Synthetic Gradients Based on Layer Output&lt;/h2&gt;
 
-&lt;p&gt;Ok, so now we're going to use a very similar interface to the one above, except we're going to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!&lt;/p&gt;
+&lt;p&gt;Ok, so now we're going to use a very similar interface to the onee to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!&lt;/p&gt;
 
 &lt;pre class=&quot;brush:python&quot;&gt;
 

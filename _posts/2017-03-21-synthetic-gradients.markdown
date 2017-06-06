@@ -26,10 +26,7 @@ header-img: "img/nasa-43567-min.jpg"
 
 The graphic above (from the paper) gives a very intuitive picture for what's going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let's start with how a regular neural network layer is updated.
 
-<<<<<<< HEAD
 
-=======
->>>>>>> e5ddf2e0fe2f72495c00542982a3756ff306b157
 <h2 class="section-heading">Part 2: Using Synthetic Gradients</h2>
 
 
@@ -156,7 +153,7 @@ for iter in range(iterations):
 >>>>>>> e5ddf2e0fe2f72495c00542982a3756ff306b157
 <h2 class="section-heading">Part 6: Synthetic Gradients Based on Layer Output</h2>
 
-<p>Ok, so now we're going to use a very similar interface to the one above, except we're going to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!</p>
+<p>Ok, so now we're going to use a very similar interface to the onee to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!</p>
 
 <pre class="brush:python">
 
