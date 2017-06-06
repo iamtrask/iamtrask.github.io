@@ -148,16 +148,6 @@ for j in xrange(60000):
     synapse_0 -= (alpha * X.T.dot(layer_1_delta))
 </pre>
 </p>
-<hr />
-
-<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-<!-- Part 1 -->
-<p><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6751104560361558" data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script></p>
-<hr />
 
 <h2 class="section-heading">Part 1: What is Dropout?</h2>
 
@@ -172,16 +162,6 @@ Consider the graphic above from the previous post. The line represents the error
 </p>
 
 <p><b>Why Dropout:</b> Dropout helps prevent weights from converging to identical positions. It does this by <b>randomly turning nodes off</b> when forward propagating. It then back-propagates with all the nodes turned on. Let’s take a closer look.</p>
-<hr />
-
-<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-<!-- Part 2 -->
-<p><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6751104560361558" data-ad-slot="3842123822"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script></p>
-<hr />
 
 <h2 class="section-heading">Part 2: How Do I Install and Tune Dropout?</h2>
 
@@ -196,17 +176,6 @@ Consider the graphic above from the previous post. The line represents the error
 <p><b>Line 4:</b> parameterizes the dropout_percent. This affects the probability that any one node will be turned off. A good initial configuration for this for hidden layers is 50%. If applying dropout to an input layer, it's best to not exceed 25%.</p>
 
 <p>Hinton advocates tuning dropout in conjunction with tuning the size of your hidden layer. Increase your hidden layer size(s) with dropout turned off until you perfectly fit your data. Then, using the same hidden layer size, train with dropout turned on. This should be a nearly optimal configuration. Turn off dropout as soon as you're done training and voila! You have a working neural network!</p>
-
-<hr />
-
-<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-<!-- Part 3 -->
-<p><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6751104560361558" data-ad-slot="5318857026"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script></p>
-<hr />
 
 <!-- 
 <h3 class="section-heading">Part 3: Why does Dropout Work?</h3>

@@ -5,8 +5,8 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Jun 2017 10:39:58 +0100</pubDate>
-    <lastBuildDate>Tue, 06 Jun 2017 10:39:58 +0100</lastBuildDate>
+    <pubDate>Tue, 06 Jun 2017 10:40:37 +0100</pubDate>
+    <lastBuildDate>Tue, 06 Jun 2017 10:40:37 +0100</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -536,6 +536,10 @@ False Negatives: %1.57   &amp;lt;- security risk level
 
 &lt;p&gt;The graphic above (from the paper) gives a very intuitive picture for what’s going on (from left to right). The squares with rounded off corners are layers and the diamond shaped objects are (what I call) the Synthetic Gradient generators. Let’s start with how a regular neural network layer is updated.&lt;/p&gt;
 
+&lt;p&gt;«««&amp;lt; HEAD&lt;/p&gt;
+
+&lt;p&gt;=======
+»»»&amp;gt; e5ddf2e0fe2f72495c00542982a3756ff306b157&lt;/p&gt;
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Using Synthetic Gradients&lt;/h2&gt;
 
 &lt;p&gt;Let's start by ignoring how the Synthetic Gradients are created and instead just look at how the are used. The far left box shows how these can work to update the first layer in a neural network. The first layer forward propagates into the Synthetic Gradient generator (M i+1), which then returns a gradient. This gradient is used &lt;i&gt;instead of&lt;/i&gt; the real gradient (which would take a full forward propagation and backpropagation to compute). The weights are then updated as normal, pretending that this Synthetic Gradient is the real gradient. If you need a refresher on how weights are updated with gradients, check out &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt; and perhaps the followup post on &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;Gradient Descent&lt;/a&gt;.&lt;/p&gt;
@@ -567,6 +571,10 @@ False Negatives: %1.57   &amp;lt;- security risk level
 
 &lt;p&gt;Focus on the second section from the left. See how the gradient (M i+2) backpropagates through (f i+1) and into M(i+1)? As you can see, each synthetic gradient generator is &lt;i&gt;actually&lt;/i&gt; only trained using the Synthetic Gradients generated from the next layer. Thus, &lt;i&gt;only the last layer&lt;/i&gt; actually trains on the data. All the other layers, including the Synthetic Gradient generator networks, train based on Synthetic Gradients. Thus, the network can train with each layer only having to wait on the synthetic gradient from the following layer (which has no other dependencies). Very cool! &lt;/p&gt;
 
+&lt;p&gt;«««&amp;lt; HEAD&lt;/p&gt;
+
+&lt;p&gt;=======
+»»»&amp;gt; e5ddf2e0fe2f72495c00542982a3756ff306b157&lt;/p&gt;
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 4: A Baseline Neural Network&lt;/h2&gt;
 
 &lt;p&gt;Time to start coding! To get things started (so we have an easier frame of reference), I'm going to start with a vanilla neural network trained with backpropagation, styled in the same way as &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;. (So, if it doesn't make sense, just go read that post and come back). However, I'm going to add an additional layer, but that shoudln't be a problem for comprehension. I just figured that since we're all about reducing dependencies, having more layers might make for a better illustration.&lt;/p&gt;
@@ -651,7 +659,10 @@ for iter in range(iterations):
 
 &lt;p&gt;If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach &lt;i&gt;nearly&lt;/i&gt; identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, &lt;i&gt;don't move on&lt;/i&gt;. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.&lt;/p&gt;
 
+&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; HEAD
 
+=======
+&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; e5ddf2e0fe2f72495c00542982a3756ff306b157
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 6: Synthetic Gradients Based on Layer Output&lt;/h2&gt;
 
 &lt;p&gt;Ok, so now we're going to use a very similar interface to the one above, except we're going to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!&lt;/p&gt;
@@ -771,7 +782,7 @@ class DNI(object):
 
 &lt;p&gt;&lt;b&gt;Question:&lt;/b&gt; How does a neural network learn?&lt;/p&gt;
 
-&lt;p&gt;A neural network makes predictions based on input. It learns to do this effectively by trial and error. It begins by making a prediction (which is largely random at first), and then receives an &quot;error signal&quot; indiciating that it predicted too high or too low (usually probabilities). After this cycle repeates many millions of times, the network starts figuring things out. For more detail on how this works, see &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A neural network makes predictions based on input. It learns to do this effectively by trial and error. It begins by making a prediction (which is largely random at first), and then receives an &quot;error signal&quot; indiciating that it predicted too high or too low (usually probabilities). After this cycle repeats many millions of times, the network starts figuring things out. For more detail on how this works, see &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The big takeaway here is this error signal. Without being told how well it's predictions are, it cannot learn. This will be important to remember.&lt;/p&gt;
 
@@ -786,17 +797,6 @@ class DNI(object):
 &lt;p&gt;Now, there are a growing number of homomorphic encryption schemes, each with different properties. It's a relatively young field and there are several significant problems still being worked through, but we'll come back to that later. &lt;/p&gt;
 
 &lt;p&gt;For now, let's just start with the following. Integer public key encryption schemes that are homomorphic over multiplication and addition can perform the operations in the picture above. Furthermore, because the public key allows for &quot;one way&quot; encryption, you can even perform operations between unencrypted numbers and encrypted numbers (by one-way encrypting them), as exemplified above by 2 * Cypher A. (Some encryption schemes don't even require that... but again... we'll come back to that later)&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Can we use them together?&lt;/h2&gt;
 
@@ -830,17 +830,6 @@ class DNI(object):
 
 &lt;p&gt;It seems like we'll be able to get Division and Subtraction pretty trivially, but these more complicated functions are... well... more complicated than simple addition and multiplication. In order to try to homomorphically encrypt a deep neural network, we need one more secret ingredient.&lt;/p&gt;
 
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 4: Taylor Series Expansion&lt;/h2&gt;
 
 &lt;p&gt;Perhaps you remember it from primary school. A &lt;a href=&quot;https://en.wikipedia.org/wiki/Taylor_series&quot;&gt;Taylor Series&lt;/a&gt; allows one to compute a complicated (nonlinear) function using an &lt;u&gt;infinite&lt;/u&gt; series of additions, subtractions, multiplications, and divisions. This is perfect! (except for the infinite part). Fortunately, if you stop short of computing the exact Taylor Series Expansion you can still get a close approximation of the function at hand. Here are a few popular functions approximated via Taylor Series (&lt;a href=&quot;http://hyperphysics.phy-astr.gsu.edu/hbase/tayser.html&quot;&gt;Source&lt;/a&gt;).&lt;/p&gt;
@@ -853,17 +842,6 @@ class DNI(object):
 
 &lt;p&gt;With only the first four factors of the Taylor Series, we get very close to sigmoid for a relatively large series of numbers. Now that we have our general strategy, it's time to select a Homomorphic Encryption algorithm.&lt;/p&gt;
 
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 5: Choosing an Encryption Algorithm&lt;/h2&gt;
 
 &lt;p&gt;Homomorphic Encryption is a relatively new field, with the major landmark being the discovery of the &lt;a href=&quot;https://www.cs.cmu.edu/~odonnell/hits09/gentry-homomorphic-encryption.pdf&quot;&gt;first Fully Homomorphic algorithm&lt;/a&gt; by Craig Gentry in 2009. This landmark event created a foothold for many to follow. Most of the excitement around Homomorphic Encryption has been around developing Turing Complete, homomorphically encrypted computers. Thus, the quest for a fully homomorphic scheme seeks to find an algorithm that can efficiently and securely compute the various logic gates required to run arbitrary computation. The general hope is that people would be able to securely offload work to the cloud with no risk that the data being sent could be read by anyone other than the sender. It's a very cool idea, and a lot of progress has been made.&lt;/p&gt;
@@ -872,7 +850,7 @@ class DNI(object):
 
 &lt;p&gt;This is where we want to start looking. In theory, we want a homomorphic encryption scheme that operates on floats (but we'll settle for integers, as we'll see) instead of binary values. Binary values would work, but not only would it require the flexibility of Fully Homomorphic Encryption (costing performance), but we'd have to manage the logic between binary representations and the math operations we want to compute. A less powerful, tailored HE algorithm for floating point operations would be a better fit.&lt;/p&gt;
 
-&lt;p&gt;Despite this constraint, there is still a plethora of choices. Here are a few popular ones with characterics we like:&lt;/p&gt;
+&lt;p&gt;Despite this constraint, there is still a plethora of choices. Here are a few popular ones with characteristics we like:&lt;/p&gt;
 
 &lt;ul&gt;
 	&lt;li&gt;&lt;a href=&quot;http://www.rle.mit.edu/sia/wp-content/uploads/2015/04/2014-zhou-wornell-ita.pdf&quot;&gt;Efficient Homomorphic Encryption on Integer Vectors and Its Applications&lt;/a&gt;&lt;/li&gt;
@@ -884,17 +862,6 @@ class DNI(object):
 &lt;p&gt;The best one to use here is likely either YASHE or FV. YASHE was the method used for the popular CryptoNets algorithm, with great support for floating point operations. However, it's pretty complex. For the purpose of making this blogpost easy and fun to play around with, we're going to go with the slightly less advanced (and possibly &lt;a href=&quot;https://eprint.iacr.org/2016/775.pdf&quot;&gt;less secure&lt;/a&gt;) Efficient Integer Vector Homomorphic Encryption. However, I think it's important to note that new HE algorithms are being developed as you read this, and the ideas presented in this blogpost are generic to any schemes that are homomorphic over addition and multiplication of integers and/or floating point numbers. If anything, it is my hope to raise awareness for this application of HE such that more HE algos will be developed to optimize for Deep Learning.&lt;/p&gt;
 
 &lt;p&gt;This encryption algorithm is also covered extensively by Yu, Lai, and Paylor in &lt;a href=&quot;https://courses.csail.mit.edu/6.857/2015/files/yu-lai-payor.pdf&quot;&gt; this work&lt;/a&gt; with an accompanying implementation &lt;a href=&quot;https://github.com/jamespayor/vector-homomorphic-encryption&quot;&gt;here&lt;/a&gt;. The main bulk of the approach is in the C++ file vhe.cpp. Below we'll walk through a python port of this code with accompanying explanation for what's going on. This will also be useful if you choose to implement a more advanced scheme as there are themes that are relatively universal (general function names, variable names, etc.).&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 6: Homomorphic Encryption in Python&lt;/h2&gt;
 
@@ -989,17 +956,6 @@ S = generate_key(w,m,n)
 &lt;p&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;120%&quot; src=&quot;/img/simple_vhe_3.png&quot; alt=&quot;&quot; style=&quot;display:inline; margin-right:50px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The key thing to look at are the bottom results. Notice that we can perform some basic operations to the cyphertext and it changes the underlying plaintext accordingly. Neat, eh?&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 7: Optimizing Encryption&lt;/h2&gt;
 
@@ -1096,15 +1052,6 @@ S = generate_key(w,m,n)
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/basic_vhe_5.png&quot; alt=&quot;&quot; style=&quot;display:inline&quot; /&gt;
 
 &lt;p&gt;The way this works is by making the S key mostly the identiy matrix, simply concatenating a random vector T onto it. Thus, T really has all the information necessary for the secret key, even though we have to still create a matrix of size S to get things to work right.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 8: Building an XOR Neural Network&lt;/h2&gt;
 
@@ -1685,15 +1632,6 @@ Progress:4.33% Speed(reviews/sec):1.940 #Correct:788 #Trained:1042 Training Accu
 ....
 &lt;/pre&gt;
 
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 10: Advantages over Data Encryption&lt;/h2&gt;
 
 &lt;p&gt;The most similar approach to this one is to encrypt training data and train neural networks on the encrypted data (accepting encrypted input and predicting encrypted output). This is a fantastic idea. However, it does have a few drawbacks. First and foremost, encrypting the data means that the neural network is completely useless to anyone without the private key for the encrypted data. This makes it impossible for data from different private sources to be trained on the same Deep Learning model. Most commercial applications have this requirement, requiring the aggregation of consumer data. In theory, we'd want every consumer to be protected by their own secret key, but homomorphically encrypting the data requires that everyone use the SAME key.&lt;/p&gt;
@@ -1762,17 +1700,6 @@ There are faster and more secure homomorphic encryption algorithms. Taking this 
 &lt;p&gt;&lt;b&gt;For New Readers:&lt;/b&gt; I typically tweet out new blogposts when they're complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the upvotes on &lt;a href=&quot;https://news.ycombinator.com/&quot;&gt;Hacker News&lt;/a&gt; and Reddit! They mean a lot to me.
 &lt;/p&gt;
 
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Installation&lt;/h2&gt;
 
 &lt;p&gt;&lt;b&gt;Install Torch:&lt;/b&gt; The first thing you need to do is install torch and the &quot;nn&quot; package using luarocks. As torch is a very robust framework, the &lt;a href=&quot;http://torch.ch/docs/getting-started.html#_&quot;&gt;installation instructions&lt;/a&gt; should work well for you. After that, you should be able to run: &lt;/p&gt;
@@ -1799,17 +1726,6 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 &lt;p&gt;If you also see this output at the bottom of your terminal, congraulations! You have successfully installed PyTorch!&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Startup Jupyter Notebook:&lt;/b&gt; While certainly not a requirement, I highly recommend playing around with this new tool using &lt;a href=&quot;http://jupyter.readthedocs.io/en/latest/install.html&quot;&gt;Jupyter Notebok&lt;/a&gt;, which is &lt;i&gt;definitely&lt;/i&gt; best &lt;a href=&quot;http://jupyter.readthedocs.io/en/latest/install.html&quot;&gt;installed using conda&lt;/a&gt;. Take my word for it. Install it using conda. All other ways are madness.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Matrices and Linear Algebra&lt;/h2&gt;
 
@@ -1848,16 +1764,6 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/pytorch_5.png&quot; alt=&quot;&quot; /&gt;
 
 &lt;p&gt;I consider the fantastic integration between numpy and PyTorch to be one of the great selling points of this framework. I personally love prototyping with the full control of a matrix library, and PyTorch really respects this preference as an option. This is so nice relative to most other frameworks out there. +1 for PyTorch.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
-
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Building a Feedforward Network&lt;/h2&gt;
 
@@ -2074,16 +1980,6 @@ Error:0.005575092509388924
 &lt;p&gt;Your results may vary a bit. I do not yet see how random numbers are to be seeded. If I come across that in the future, I'll add an edit.&lt;/p&gt;
 
 
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
-
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 4: The State of PyTorch&lt;/h2&gt;
 
 &lt;p&gt;While still a new framework with lots of ground to cover to close the gap with its competitors, PyTorch already has a lot to offer. It looks like there's an LSTM test case in the works, and strong promise for building custom layers in .lua files that you can import into Python with some simple wrapper functions. If you want to build feedforward neural networks using the industry standard Torch backend without having to deal with Lua, PyTorch is what you're looking for. If you want to build custom layers or do some heavy sequence2sequence models, I think the framework will be there very soon (with documentation / test cases to describe best practices). Overall, I'm very excited to see where this framework goes, and I encourage you to &lt;a href=&quot;https://github.com/hughperkins/pytorch&quot;&gt;Star/Follow it on Github&lt;/a&gt;&lt;/p&gt;
@@ -2163,17 +2059,6 @@ Error:0.005575092509388924
 &lt;p&gt;I typically tweet out new blogposts when they're complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
 &lt;/p&gt;
 
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 1: What is a Neural Stack?&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;iframe width=&quot;700px&quot; height=&quot;440px&quot; src=&quot;https://www.youtube.com/embed/3DeL7utEz_k&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
@@ -2224,14 +2109,6 @@ A close eye might ask, &quot;We learn things with neural networks. What is there
 
 &lt;p&gt;&lt;b&gt;Money Answer:&lt;/b&gt; We make the neural stack &quot;differentiable&quot;. If you haven't had calculus, the simplest way to think about it is that we will make the &quot;neural stack&quot; using a sequence of vector additions, subtractions, and multiplications. If we can figure out how to mimic the stack's behaviors using only these tools, then we will be able to backpropagate the error &lt;b&gt;through the stack&lt;/b&gt; just like we backpropagate it through a neural network's hidden layers. And it will be quite familiar to us! We're already used to backpropagating through sequences of additions, subtractions, and multiplications. Figuring out how to mimic the operations of a stack in a fully differentiable way was the hard part... which why Edward Grefenstette, Karl Moritz Hermann, Mustafa Suleyman, and Phil Blunsom are so brilliant!!!&lt;/p&gt;
 
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 2: Reading and Implementing Academic Papers&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;br /&gt;
@@ -2300,15 +2177,6 @@ A close eye might ask, &quot;We learn things with neural networks. What is there
 &lt;p&gt;&lt;b&gt;N More Passes:&lt;/b&gt; At this point, you just keep reading the method section until you have your working implementation (which you can evaluate using the later sections). So, this is generally how to read the paper. :)&lt;br /&gt;&lt;br /&gt;
 
 &lt;b&gt;Have Questions? Stuck? Feel free to tweet your question &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt; for help.&lt;/b&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 3: Building a Toy Neural Stack&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;br /&gt;
@@ -2532,15 +2400,6 @@ def r_t(t):
 
 &lt;b&gt;Have Questions? Stuck? Feel free to tweet your question &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt; for help.&lt;/b&gt;&lt;/p&gt;
 
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
-
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 4: Learning A Sequence&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;br /&gt;
@@ -2674,17 +2533,6 @@ u_delta = list() # pop strengths
 &lt;iframe src=&quot;https://trinket.io/embed/python/98c8cf72d5&quot; width=&quot;100%&quot; height=&quot;600&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 &lt;b&gt;Have Questions? Stuck? Feel free to tweet your question &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt; for help.&lt;/b&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;&lt;hr /&gt;Part 5: Building a Neural Controller&lt;br /&gt;&lt;hr /&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -3797,17 +3645,6 @@ MaxLen:19 Iter:2959999 Error:231.447857024True:[2 2 1 1] Pred:[1, 1, 2, 2]
 
 &lt;p&gt;At this point, we have reached a very realistic point in a neural network researcher's lifecycle. Furthermore, it's one that the authors have discussed somewhat extensively both in the paper and in external presentations. If we're not careful, the network can discover less than expected ways of solving the problem that you give it. So, what do we do?&lt;/p&gt;
 
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 6: When Things Really Get Interesting&lt;/h2&gt;
 
 &lt;p&gt;I did end up getting the neural network to push and pop correctly. Here's the code. This blog is already like 80 pages long on my laptop so... Enjoy the puzzle!&lt;/p&gt;
@@ -4463,17 +4300,6 @@ True:[0 0 0 0 1 1 1 0]
 ------------
 &lt;/pre&gt;
 
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px;text-align:center&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: What is Neural Memory?&lt;/h2&gt;
 
 &lt;p&gt;List the alphabet forward.... you can do it, yes?&lt;/p&gt;
@@ -4537,14 +4363,6 @@ Why the hidden layer? Well, we could technically do this.
 
 &lt;center&gt;&lt;b&gt;stop and make sure this feels comfortable in your mind&lt;/b&gt;&lt;/center&gt;&lt;br /&gt;
 
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 2 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px;text-align:center&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;3842123822&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: RNN - Neural Network Memory&lt;/h2&gt;
 
@@ -4571,15 +4389,6 @@ Why the hidden layer? Well, we could technically do this.
 &lt;img class=&quot;img-responsive&quot; width=&quot;95%&quot; src=&quot;/img/backprop_through_time.gif&quot; alt=&quot;&quot; /&gt;
 
 &lt;p&gt;They learn by fully propagating forward from 1 to 4 (through an entire sequence of arbitrary length), and then backpropagating all the derivatives from 4 back to 1. You can also pretend that it's just a funny shaped normal neural network, except that we're re-using the same weights (synapses 0,1,and h) in their respective places. Other than that, it's normal backpropagation.
-
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 3 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px;text-align:center&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;5318857026&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 4: Our Toy Code&lt;/h2&gt;
 
@@ -4728,16 +4537,6 @@ for j in xrange(60000):
     synapse_0 -= (alpha * X.T.dot(layer_1_delta))
 &lt;/pre&gt;
 &lt;/p&gt;
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: What is Dropout?&lt;/h2&gt;
 
@@ -4752,16 +4551,6 @@ Consider the graphic above from the previous post. The line represents the error
 &lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Why Dropout:&lt;/b&gt; Dropout helps prevent weights from converging to identical positions. It does this by &lt;b&gt;randomly turning nodes off&lt;/b&gt; when forward propagating. It then back-propagates with all the nodes turned on. Let’s take a closer look.&lt;/p&gt;
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 2 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;3842123822&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: How Do I Install and Tune Dropout?&lt;/h2&gt;
 
@@ -4776,17 +4565,6 @@ Consider the graphic above from the previous post. The line represents the error
 &lt;p&gt;&lt;b&gt;Line 4:&lt;/b&gt; parameterizes the dropout_percent. This affects the probability that any one node will be turned off. A good initial configuration for this for hidden layers is 50%. If applying dropout to an input layer, it's best to not exceed 25%.&lt;/p&gt;
 
 &lt;p&gt;Hinton advocates tuning dropout in conjunction with tuning the size of your hidden layer. Increase your hidden layer size(s) with dropout turned off until you perfectly fit your data. Then, using the same hidden layer size, train with dropout turned on. This should be a nearly optimal configuration. Turn off dropout as soon as you're done training and voila! You have a working neural network!&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 3 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;5318857026&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
 
 &lt;!-- 
 &lt;h3 class=&quot;section-heading&quot;&gt;Part 3: Why does Dropout Work?&lt;/h3&gt;
@@ -4931,14 +4709,6 @@ for j in xrange(60000):
     synapse_0 -= (alpha * X.T.dot(layer_1_delta))
 &lt;/pre&gt;
 &lt;/p&gt;
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 1 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Optimization&lt;/h2&gt;
@@ -4966,15 +4736,6 @@ for j in xrange(60000):
 
 &lt;p&gt;Many of these optimizations are good for different purposes, and in some cases several can be used together. In this tutorial, we will walk through Gradient Descent, which is arguably the simplest and most widely used neural network optimization algorithm. By learning about Gradient Descent, we will then be able to improve our toy neural network through parameterization and tuning, and ultimately make it a &lt;b&gt;lot more powerful&lt;/b&gt;.
 &lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 2 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;3842123822&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Gradient Descent&lt;/h2&gt;
 
@@ -5017,14 +4778,7 @@ for j in xrange(60000):
 
 &lt;p&gt;Make sure you can picture this process in your head before moving on. This is a considerable improvement to our algorithm. For very positive slopes, we move left by a lot. For only slightly positive slopes, we move left by only a little. As it gets closer and closer to the bottom, it takes smaller and smaller steps until the slope equals zero, at which point it stops. This stopping point is called &lt;b&gt;convergence&lt;/b&gt;.&lt;/p&gt;
 
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 3 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;5318857026&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
+
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Sometimes It Breaks&lt;/h2&gt;
 
 &lt;p&gt;Gradient Descent isn't perfect. Let's take a look at its issues and how people get around them. This will allow us to improve our network to overcome these issues.&lt;/p&gt;
@@ -5921,17 +5675,6 @@ for j in xrange(60000):
 
 &lt;p&gt;However, this is a bit terse…. let’s break it apart into a few simple parts.&lt;/p&gt;
 
-&lt;hr /&gt;
-
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- Part 1 --&gt;
-&lt;p&gt;&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px;text-align:center&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;2365390629&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: A Tiny Toy Network&lt;/h2&gt;
 
 &lt;p&gt;A neural network trained with backpropagation is attempting to use input to predict output.&lt;/p&gt;
@@ -6232,15 +5975,6 @@ So, now that we've looked at how the network updates, let's look back at our tra
 Thus, in our four training examples below, the weight from the first input to the output would &lt;b&gt;consistently increment or remain unchanged&lt;/b&gt;, whereas the other two weights would find themselves &lt;b&gt;both increasing and decreasing across training examples&lt;/b&gt; (cancelling out progress). This phenomenon is what causes our network to learn based on correlations between the input and output.
 &lt;/p&gt;
 
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 2 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px;text-align:center&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;3842123822&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
-
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: A Slightly Harder Problem&lt;/h2&gt;
 &lt;br /&gt;
 &lt;center&gt;
@@ -6498,15 +6232,6 @@ Everything should look very familiar! It's really just 2 of the previous impleme
 &lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Line 43:&lt;/b&gt; uses the &quot;confidence weighted error&quot; from l2 to establish an error for l1. To do this, it simply sends the error across the weights from l2 to l1. This gives what you could call a &quot;contribution weighted error&quot; because we learn how much each node value in l1 &quot;contributed&quot; to the error in l2. This step is called &quot;backpropagating&quot; and is the namesake of the algorithm. We then update syn0 using the same steps we did in the 2 layer implementation.
 &lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;script async=&quot;&quot; src=&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;&gt;&lt;/script&gt;
-&lt;!-- Part 3 --&gt;
-&lt;ins class=&quot;adsbygoogle&quot; style=&quot;display:inline-block;width:728px;height:90px;text-align:center&quot; data-ad-client=&quot;ca-pub-6751104560361558&quot; data-ad-slot=&quot;5318857026&quot;&gt;&lt;/ins&gt;
-&lt;script&gt;
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script&gt;
-&lt;hr /&gt;
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Conclusion and Future Work&lt;/h2&gt;
 &lt;br /&gt;

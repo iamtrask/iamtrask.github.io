@@ -196,17 +196,7 @@ True:[0 0 0 0 1 1 1 0]
 ------------
 </pre>
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px;text-align:center"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="2365390629"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
+
 
 <h2 class="section-heading">Part 1: What is Neural Memory?</h2>
 
@@ -272,17 +262,6 @@ Why the hidden layer? Well, we could technically do this.
 
 <center><b>stop and make sure this feels comfortable in your mind</b></center><br />
 
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 2 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px;text-align:center"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="3842123822"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 2: RNN - Neural Network Memory</h2>
 
@@ -309,18 +288,6 @@ Why the hidden layer? Well, we could technically do this.
 <img class="img-responsive" width="95%" src="{{ site.baseurl }}/img/backprop_through_time.gif" alt="">
 
 <p>They learn by fully propagating forward from 1 to 4 (through an entire sequence of arbitrary length), and then backpropagating all the derivatives from 4 back to 1. You can also pretend that it's just a funny shaped normal neural network, except that we're re-using the same weights (synapses 0,1,and h) in their respective places. Other than that, it's normal backpropagation.
-
-<hr />
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Part 3 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px;text-align:center"
-     data-ad-client="ca-pub-6751104560361558"
-     data-ad-slot="5318857026"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<hr />
 
 <h2 class="section-heading">Part 4: Our Toy Code</h2>
 
