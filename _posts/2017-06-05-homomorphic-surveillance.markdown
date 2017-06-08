@@ -112,22 +112,12 @@ import sys
 
 np.random.seed(12345)
 
-f = open('spam.txt','r')
-raw = f.readlines()
-f.close()
-
-spam = list()
-for row in raw:
-    spam.append(row[:-2].split(" "))
+with open('spam.txt','r') as f:
+    spam = [line[:-2].split(" ") for line in f.readlines()]
     
-f = open('ham.txt','r')
-raw = f.readlines()
-f.close()
-
-ham = list()
-for row in raw:
-    ham.append(row[:-2].split(" "))
-    
+with open('ham.txt','r') as f:
+    ham = [line[:-2].split(" ") for line in f.readlines()]
+   
 class LogisticRegression(object):
     
     def __init__(self, positives,negatives,iterations=10,alpha=0.1):
@@ -157,7 +147,6 @@ class LogisticRegression(object):
             error = 0
             n = 0
             for i in range(max(len(positives),len(negatives))):
-
                 error += np.abs(self.learn(positives[i % len(positives)],1,alpha))
                 error += np.abs(self.learn(negatives[i % len(negatives)],0,alpha))
                 n += 2
@@ -169,11 +158,7 @@ class LogisticRegression(object):
         return 1/(1+np.exp(-x))
 
     def predict(self,email):
-        pred = 0
-        for word in email:
-            pred += self.weights[self.word2index[word]]
-        pred = self.softmax(pred)
-        return pred
+        return self.softmax(sum(self.weights[self.word2index[word]] for word in email))
 
     def learn(self,email,target,alpha):
         pred = self.predict(email)
@@ -194,23 +179,23 @@ fn = 0
 for i,h in enumerate(ham[-1000:]):
     pred = model.predict(h)
 
-    if(pred < 0.5):
+    if pred < 0.5:
         tn += 1
     else:
         fp += 1
         
-    if(i % 10 == 0):
+    if i % 10 == 0:
         sys.stdout.write('\rI:'+str(tn+tp+fn+fp) + " % Correct:" + str(100*tn/float(tn+fp))[0:6])
 
-for i,h in enumerate(spam[-1000:]):
+for i, h in enumerate(spam[-1000:]):
     pred = model.predict(h)
 
-    if(pred >= 0.5):
+    if pred >= 0.5:
         tp += 1
     else:
         fn += 1
 
-    if(i % 10 == 0):
+    if i % 10 == 0:
         sys.stdout.write('\rI:'+str(tn+tp+fn+fp) + " % Correct:" + str(100*(tn+tp)/float(tn+tp+fn+fp))[0:6])
 sys.stdout.write('\rI:'+str(tn+tp+fn+fp) + " Correct: %" + str(100*(tn+tp)/float(tn+tp+fn+fp))[0:6])
 
