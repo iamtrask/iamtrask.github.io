@@ -106,7 +106,6 @@ header-img: "img/nasa-43563.jpg"
 <pre class="brush:python">
 
 import numpy as np
-from collections import Counter
 import random
 import sys
 
@@ -121,19 +120,10 @@ with open('ham.txt','r') as f:
 class LogisticRegression(object):
     
     def __init__(self, positives,negatives,iterations=10,alpha=0.1):
-        
-        # create vocabulary (real world use case would add a few million
-        # other terms as well from a big internet scrape)
-        cnts = Counter()
-        for email in (positives+negatives):
-            for word in email:
-                cnts[word] += 1
-        
-        # convert to lookup table
-        vocab = list(cnts.keys())
-        self.word2index = {}
-        for i,word in enumerate(vocab):
-            self.word2index[word] = i
+        # create a vocabulary lookup table (real world use case would be
+        # a few million other terms as well from a big internet scrape)
+        vocab = list({word for email in (positives+negatives) for word in email})
+        self.word2index = {word: i for i, word in enumerate(vocab)}
     
         # initialize decrypted weights
         self.weights = (np.random.rand(len(vocab)) - 0.5) * 0.1
