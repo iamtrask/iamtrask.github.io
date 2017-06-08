@@ -300,7 +300,7 @@ class HomomorphicLogisticRegression(object):
                 error += np.abs(self.learn(negatives[i % len(negatives)],0,alpha))
                 n += 2
 
-            print("Iter:" + str(iter) + " Loss:" + str(error / float(n)))
+            print("Iter:{} Loss:{}".format(iter, error / float(n)))
 
     
     def softmax(self,x):
