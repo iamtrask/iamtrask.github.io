@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Safe Crime Prediction"
+title:      "Safe Crime Detection"
 subtitle:   "Homomorphic Encryption and Deep Learning for More Effective, Less Intrusive Digital Surveillance"
 date:       2017-06-05 12:00:00
 author:     "iamtrask"
@@ -10,6 +10,13 @@ header-img: "img/nasa-43563.jpg"
 <p><b>TLDR:</b> What if it was possible for surveillance to only invade the privacy of criminals or terrorists, leaving the innocent unsurveilled? This post proposes a way with a prototype in Python.</p>
 
 <p><b>Abstract:</b> Modern criminals and terrorists hide amongst the patterns of innocent civilians, exactly mirroring daily life until the very last moments before becoming lethal, which can happen as quickly as a car turning onto a sidewalk or a man pulling out a knife on the street. As police intervention of an instantly lethal event is impossible, law enforcement has turned to prediction based on the surveillance of public and private data streams, facilitated by legislation like the <a href="https://en.wikipedia.org/wiki/Patriot_Act">Patriot Act</a>, <a href="https://en.wikipedia.org/wiki/USA_Freedom_Act">USA Freedom Act</a>, and the UK's <a href="https://en.wikipedia.org/wiki/Counter-Terrorism_Act_2008">Counter-Terrorism Act</a>. This legislation sparks a heated debate (and rightly so) on the tradeoff between privacy and security. In this blogpost, we explore whether much of this tradeoff between privacy and security is <b>merely a technological limitation</b>, overcommable by a combination of Homomorphic Encryption and Deep Learning. We supplement this discussion with a tutorial for a working prototype implementation and further analysis on where technological investments could be made to mature this technology. I am optimistic that it is possible to re-imagine the tools of crime prediction such that, relative to where we find ourselves today, citizen privacy is increased, surveillance is more effective, and the potential for mis-use is mitigated via modern techniques for <a href="http://iamtrask.github.io/2017/03/17/safe-ai/">Encrypted Artificial Intelligence</a>.
+
+
+<p><b>Edit:</b>The term "Prediction" seemed to trigger the use of this tech for future crimes. However, it was only intent to describe a system that can detect crime unfolding (including intent / pre-meditation) in accordance with agreed upon defintions of "intent" and "pre-meditation" in our criminal justice system. So, I'm changing the title to "Detection".</p>
+
+<p><b>Edit 2:</b>Some have critiqued this post by citing court cases when tools such as drug dogs or machine learning have been either inaccurate or biased based on unsuitable characteristics such as race. These constitute fixable defects in the predictive technology and have little to no bearing on this post. This post is, instead, about how homomorphic encryption can allow this technology to run out in the open (on private data), the nature of which does NOT constitute a search or seizure because it reveals no information about any citizen other than whether or not they are commiting a crime (much like a drug dog giving your bag a sniff. It knows everything in your bag but doesn't tell anyone. It only informs the public whether or not you are likely committing a crime... triggering a search or seizure.) </p>
+
+<p><b>Edit 3:</b> Others have critiqued this post by confusing it with tech for allocation of police resources, which uses high level statistical informaiton to basically predict "this is a bad neighborhood". Note that tech such as this is categorically different than what I am proposing, as it makes judgements against large groups of people, many of whom have committed no crime. This technology is instead about detecting when crimes actually occur but would normally go un-discovered because no information to the crime's existence was made public (i.e., the "perfect crime").</p>
 
 <hr />
 <p>I typically tweet out new blogposts when they're complete <a href="https://twitter.com/iamtrask">@iamtrask</a>. If these ideas inspire you to help in some way, a share or upvote is the first place to start as a <b>lack of awareness</b> of these tools is the greatest obstacle at this stage. All in all, thank you for your time and attention, and I hope you enjoy the post.</p>
