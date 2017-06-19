@@ -5,8 +5,8 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 19 Jun 2017 20:03:33 +0100</pubDate>
-    <lastBuildDate>Mon, 19 Jun 2017 20:03:33 +0100</lastBuildDate>
+    <pubDate>Mon, 19 Jun 2017 20:07:22 +0100</pubDate>
+    <lastBuildDate>Mon, 19 Jun 2017 20:07:22 +0100</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -18,7 +18,7 @@
 &lt;p&gt;I typically tweet out new blogposts when they're complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Thank you for your time and attention, and I hope you enjoy the post.&lt;/p&gt;
 &lt;hr /&gt;
 
-&lt;p&gt;The Oxford English Dictionary defines randomness as &quot;a lack of pattern or predictability in events&quot;. I like this definition as it reveals that &quot;randomness&quot; is more about the &lt;u&gt;predicative ability of the observer&lt;/u&gt; than about an event itself. Consider the following consequence of this definition:&lt;/p&gt;
+&lt;p&gt;The Oxford English Dictionary defines randomness as &quot;a lack of pattern or predictability in events&quot;. I like this definition as it reveals that &quot;randomness&quot; is more about the &lt;u&gt;predictive ability of the observer&lt;/u&gt; than about an event itself. Consider the following consequence of this definition:&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Consequence:&lt;/b&gt; Two people can accurately describe the same event as having different degrees of randomness.&lt;/p&gt;
 
