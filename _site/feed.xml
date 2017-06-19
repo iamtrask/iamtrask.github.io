@@ -5,15 +5,197 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Jun 2017 18:05:22 +0100</pubDate>
-    <lastBuildDate>Tue, 06 Jun 2017 18:05:22 +0100</lastBuildDate>
+    <pubDate>Mon, 19 Jun 2017 19:57:51 +0100</pubDate>
+    <lastBuildDate>Mon, 19 Jun 2017 19:57:51 +0100</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
-        <title>Safe Crime Prediction</title>
+        <title>Is the Universe Random?</title>
+        <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; I've recently wondered about whether the Universe is truly random, and I thought I'd write down a few thoughts on the subject.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;I typically tweet out new blogposts when they're complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Thank you for your time and attention, and I hope you enjoy the post.&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;The Oxford English Dictionary defines randomness as &quot;a lack of pattern or predictability in events&quot;. I like this definition as it reveals that &quot;randomness&quot; is more about the &lt;u&gt;predicative ability of the observer&lt;/u&gt; than about an event itself. Consider the following consequence of this definition:&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Consequence:&lt;/b&gt; Two people can accurately describe the same event as having different degrees of randomness.&lt;/p&gt;
+
+&lt;p&gt;Consider when two meterologists are trying to predict the probability that it will rain today. One person (we will call them the &quot;Ignorant Meterologist&quot;) is only allowed a record of how often it has rained in the region between the years 1900 and 2000. The second person (the &quot;Smart Meterologist&quot;) is also allowed this information, but this second individual is also allowed to know today's date. These two individuals would consider the likelihood of rain to be very different. The Ignorant Meterologist would simply say, &quot;it rains 40% of the time in the region, thus there is a 40% chance of rain today.&quot;. What else can he/she say? Given the information provided, the degree of randomness is very high. However, the &quot;Smart Meterologist&quot; is more informed. He/she might be able to say &quot;it is the dry season, thus there is only a 5% chance of rain today&quot;.&lt;/p&gt;
+
+&lt;p&gt;If we asked each of these meterologists to continue to make predictions over time. They would each make predictions with different degrees of randomness (one higher and one lower) in accordance with the availability of information. However, the event is no more or less random in and of itself. It's only more or less random in relation to an invidual and other available predictive information. &lt;/p&gt;
+
+&lt;p&gt;Perhaps this makes you feel that randomness is no longer real, that it is only in the eye of the beholder. However, I believe that the context of Machine Learning provides a much more precise definition of randomness. In this context, one can think of randomness as a measure of compatability between 3 datasets: &quot;input&quot;, &quot;target&quot;, and &quot;model&quot;.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Input:&lt;/b&gt; is data that is readily known. It is what we're going to try to use to predict something else. All potential &quot;causes&quot; are contained within the input.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Target:&lt;/b&gt; is the data that we wish to predict. This is the thing that we say is either random or not random.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Model:&lt;/b&gt; this &quot;dataset&quot; is simply a set of instructions for transforming the input into the target. When a human is making a prediction, this is the human's intelligence. In a computer, it's a large series of 1s and 0s which operate gates and represent a particular transformation.&lt;/p&gt;
+
+&lt;p&gt;Thus, we can view randomness as merely a degree of compatability between these three datasets. If there is a high degree of compatability (input -&amp;gt; model -&amp;gt; target is very reliable), then there is a low degree of randomness.&lt;/p&gt;
+
+&lt;p&gt;Now that we've identified what I believe to be the most practical and commonly used definition of randomness, I'd like to introduce the bigger version of randomness, which we'll call Randomness (with a capital R). This Randomness refers to whether, given infinite knowledge and intelligence, a future event could be predicted before it happens (a &quot;model&quot; dataset could exist for that event). This Randomness also implies whether or not something is caused by another thing. If it is NOT caused but simply IS of its own accord, it is (capital &quot;R&quot;) Random.&lt;/p&gt;
+
+&lt;h2 class=&quot;section-heading&quot;&gt;Is the Universe Random?&lt;/h2&gt;
+
+&lt;p&gt;The simple answer is that, from our perspective, it has a degree of randomness that is rapidly decreasing. We are consistently able to predict future events with greater accuracy. Furthermore, predicting outcomes given our interaction allows us a certain degree of control over the future (because we can choose interactions which we predict will lead to the desired outcome). This plays out in the advancement of every sector: agriculture, healthcare, finance (bigtime), politics, etc. However, because we cannot predict the universe entirely, it is somewhat random. (lowercase &quot;r&quot;)&lt;/p&gt;
+
+&lt;p&gt;Whether the universe is uppercase &quot;R&quot; Random is a different question entirely. We can, however, make some progress on this question:&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Claim 1:&lt;/b&gt; Causality exists&lt;/p&gt;
+
+&lt;p&gt;In short, we can predict things with far better than random accuracy. Thus, some things tend to cause other things. We might even be able to say that some things absolutely cause other things unless effected by some unpredictable randomness, but we don't even need this bold of a claim. Simply stated, much of the universe is probably causal because we can predict events with better than random accuracy. To claim otherwise would be extremely unlikely and would imply that the entirety of human innovation and intelligence throughout history leading to prosperity and survival was simply a coincidence. It's possible, but very unlikely. We'll go ahead and accept the notion that causality exists in the universe.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Claim 2:&lt;/b&gt; The Universe is not &lt;i&gt;entirely&lt;/i&gt; Random.&lt;/p&gt;
+
+&lt;p&gt;For all things in the Universe that are not Random but are instead caused, randomness (lowercase) in their behavior is a result of either random or Random objects exerting upon it. Thus, asking whether the universe is Random is about asking whether or not there exists a Random object within it. It is not about asking whether &lt;i&gt;every&lt;/i&gt; object is inherently random, because cause and effect can transfer the unpredictable behavior of a Random object across the Universe via things that are merely random.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Claim 3:&lt;/b&gt; Because we can observe cause and effect relationships, the Universe is, at most, a mixture of Random and causal objects, and at least, exclusively made of causal objects.&lt;/p&gt;
+
+&lt;p&gt;This brings us to the root of our question. When we repeatedly ask &quot;and what caused that?&quot; over and over again, where do we end up? Well, there are 4 possible states of the Universe (finite/finite space/time)&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;&lt;b&gt;Finite Time + Finite Space&lt;/b&gt; If time is finite, there was a beginning. If there was a beginning, there was a TON of Randomness which began the Universe. Thus, Randomness at least has existed within the Universe (although whether it still exists is less certain).&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Finite Time + Infinite Space&lt;/b&gt; (see above)&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Infinite Time + Finite Space&lt;/b&gt; Laws of entropy determine that if this was our universe, you wouldn't be reading this blogpost as all the energy in the universe would have disipated to equilibrium an infinite number of years ago. I suppose there are counter arguments to this, but I don't personally find them particularly strong. We have a rather large amount of empirical evidence that energy tends to dissipate (perhaps more empirical evidence for this than for any other claim in the universe?).&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Infinite Time + Infinite Space&lt;/b&gt; This state is interesting because there's theoretically an infinite amount of energy (inside the infinite space) alongside an infinite amount of time for it to disipate. Thus, while I don't have solid footing to say that this Universe does not exist, I think we can make a reasonble case for (capital R) Randomness in this universe. Specifically, because the state of the Universe at any given time &quot;t&quot; is, itself, infinite, there are an infinite number of potential causes for an event. Thus, every event is Random because there are an infinite number of potential causes for any event. It may be asymtotically predicatable given proximity to some causal events playing a more dominant role, but in the limit every event is Random.
+
+
+&lt;p&gt;&lt;b&gt;Conclusion:&lt;/b&gt; Randomness with a capital R either exists or has existed before in the Universe because all 3 plausible configurations of the universe necessitate events that have no cause, and an event with no cause cannot be predicted and is therefore Random.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;!-- &lt;p&gt;To the extent that there are varying degrees of randomness, there are varying degrees of ignorance. Someone might say, &quot;I know for sure that the temperature today will be between -100 degrees and 200 degrees&quot;. This statement can be said with a high degree of certainty, even though the same person will have almost no ability to tell exact temperature down to the 10th decimal point. Thus, degrees of randomness correspond to degrees of ignorance about a problem. In this case, there is a degree of randomness within the temperature on any given day, but there is also some structure, allowing wide ranges to be predicted with great accuracy.&lt;/p&gt;
+
+&lt;p&gt;Additionally, it follows that two different individuals can perceive the same pattern as being random or not. Perhaps this is the best case for randomness simply measuring the ignorance of an individual. Two individuals of varying degrees of intelligence can look at the same pattern and accurately describe it as more or less random. A laymen might say &quot;it rains 40% of the days of the year, thus today's chance of rain is 40%&quot;. However, a meterologist would find less randomness in the patterns of rain within a region than a non-meterologist. A meterologist might claim, &quot;well, it is the spring, and in the spring it rains on 60% of days.&quot; Thus, the same pattern can be perceived as being more or less random by two individuals. One person has identifed an additional piece of structure that the other has not realized (the season of year). Neither person is incorrect. Both accurately describe the degree of randomness in their world with respect to the rain. Given two individuals with varying amounts of information/intelligence, the same phenomenon can have a different degree of randomness.&lt;p&gt; --&gt;
+
+&lt;!-- &lt;p&gt;&lt;b&gt;Point 1:&lt;/b&gt; Randomness does not exist, only lack of information and/or intelligence.&lt;/p&gt;
+
+&lt;p&gt;Despite how much like the definition above, I'd like to refine it a bit with a different perspective. &quot;pattern or predictability&quot; is really a state of relationship between three datasets. Something is predictable if one dataset can be transformed into the other using a method described in the third. In the case of Machine Learning, the two datasets are our &quot;input&quot; and &quot;target&quot; datasets, and the third dataset is our &quot;model&quot; (or a set of instructions for their transformation). Thus, randomness is a measurement of compatability between these three datasets. If the &quot;input&quot; dataset is lacking or the &quot;model&quot; dataset is inaccurate, there is a high degree of randomness. If, however, the input dataset can be perfectly transformed into the target dataset using the model, then randomness is low&quot;.&lt;/p&gt;
+
+&lt;p&gt;This fits with the more common description of &quot;randomness&quot; where we simply consider the &quot;model&quot; to be a human. Either the human has the ability to take input data and transform it into a target or not.&lt;/p&gt;
+
+
+
+
+
+&lt;p&gt;&lt;b&gt;Point 2:&lt;/b&gt; Randomness is only a measure of ignorance.&lt;/p&gt;
+
+
+
+&lt;p&gt;Consider perhaps the most extreme example of this: random number generation. In Computer Science, it is common practice to have fully determinate random number generation. What does this mean? It means that we can generate the &lt;i&gt;exact same random numbers&lt;/i&gt; multiple times. To the outside eye reading the numbers, no identifiable pattern could be found. However, if one knows the key and the method for generation, one can produce the sequence exactly. Consider this example:&lt;/p&gt;
+
+&lt;iframe src=&quot;https://trinket.io/embed/python3/6640886a7f&quot; width=&quot;100%&quot; height=&quot;356&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;This begs the question. Are these numbers random or not? If I simply showed you a sequence of numbers:&lt;/p&gt;
+
+&lt;pre&gt;
+1203331985376754
+583140786735941
+1134687094167102
+22057784828280
+496650415399687
+575015241940526
+633895258015519
+117435265909307
+526453411549069
+800599726470883
+&lt;/pre&gt;
+
+&lt;p&gt;you could confidently say that they are quite random. Even more so, if I asked you to predict what the next number would be, you would have almost no ability to accurately predict it (because the pattern is completely random to you). However, if you have the code that can generate these numbers, you can predict the next number exactly with 100% confidence. So, are these numbers random or not? Well, it depends on whether or not you have the code to generate them. Your measure of randomness is based on your level of knowledge. If you are ignorant, these numbers are ~perfectly random. If you are not, they are perfectly NOT random.&lt;/p&gt; --&gt;
+
+&lt;!-- &lt;h2 class=&quot;section-heading&quot;&gt;Is the Universe Random?&lt;/h2&gt;
+
+&lt;p&gt;The simple answer is that, from our perspective, it has a degree of randomness that is rapidly decreasing. We are consistently able to predict future events with greater accuracy. Furthermore, predicting outcomes given our interaction allows us a certain degree of control over the future. This plays out in the advancement of every sector: agriculture, healthcare, finance (bigtime), politics,... and maybe even religion.&lt;/p&gt;
+
+&lt;p&gt;So that answer is pretty easy when asked from this perspective, but the next question is a bit harder. Is the universe &lt;i&gt;truly&lt;/i&gt; Random? We'll use Random with a capital &quot;R&quot; to denote a randomness that is impossible to predict. In other words, given absolute knowledge of the entire universe, something that is Random is something that truly cannot be predicted given the state of every/any other object in the universe. Furthermore, it is also something that cannot be &quot;caused&quot;. Something that is Random is simply a standalone &quot;effect&quot;.&lt;/p&gt;
+
+&lt;p&gt;To answer this question, let's start with what we know. There are some events that we can predict with better than random accuracy. Thus, we know there is some notion of causality in the universe. The real mystery isn't what we can predict, it's the origin of what we cannot predict. Do we make mistakes in our predictions based on a lack of knowledge/intelligence or is there a truely Random object somewhere in the universe that continually &quot;shakes things up&quot; (think &quot;butterfly effect&quot;) adding noise to the causality.&lt;/p&gt;
+
+&lt;p&gt;Now, let's assume that science and technology progresses enough to where we learn every cause/effect relationship out there. Where does this put us? In my mind, this breaks down into 4 universes. One with/without one or more sources of Randomness, and one that is either finite or infinite. Let's take these four scenarios one by one.&lt;/p&gt; 
+
+&lt;p&gt;In my opinion, we can eliminate one of these universes as a contradiction. A universe that is truly infinite but not Random is impossible. Why? An infinite universe means that there is an infinite number of potential causes. An infinite number of causes with non-zero probability is Random. No amount of study or knowledge will ever quantify the state of all relevant causes. The probability of an event can only be asymtotically approached. Thus, a universe must either be Random or finite.&lt;/p&gt;
+ --&gt;
+
+
+&lt;!-- 
+&lt;h2 class=&quot;section-heading&quot;&gt;Searching for Randomness in the Universe&lt;/h2&gt;
+
+&lt;p&gt;Well, one place to start is simply where you are. What is causing the thing in front of you? Several things? What caused those? Many more things? What caused those? Before long, it should become quiet evident that there is simply too many things for you to ever fully understand everything. Even just holding it in your brain is impossible. Collecting the data is impossible...&lt;/p&gt;
+
+&lt;p&gt;This is actually an interesting place to stop and smell the roses. Remember, randomness is not about reality. It's about your level of knowledge. Furthermore, we just quickly realized that your level of knowledge (in isolation) is certainly too small to ever account for the randomness of the universe. Thus, no matter how hard you look (on your own), you will undoubtedly never be able to chase this causality train to the beginning. However, mankind has invented a tool for this: the historical record.&lt;/p&gt;
+
+&lt;p&gt;The historical record is an amazing thing. It allows me to search for causality my entire life, write down the causes I find, and pass it on to the next individual. Thus, the next person can pick up where I left off. Note, the scientific record is an important subset of this record, but truly we pass on useful information about reality and the Universe through far more than just scientific journals.&lt;/p&gt;
+
+&lt;p&gt;So, what does it mean for you to take the ideas of someone before you? Well, the whole point of the system is that you don't have to go investigate these things yourself. Instead, you choose to have a degree of belief that they are accurate findings. Furthermore, this reduces the randomness you see in the world &lt;i&gt;substantially&lt;/i&gt;. In fact, I'd bet that 99% of the non-randomness (structure) in your world is a result of someone else teaching you what they have learned themselves. Reading, writing, arithmetic, culture, occupation, science, art... all these things are passed down from generation to generation. Furthermore, these are how you interpret reality. Even our earlier analogy of meterology. No modern meterologist re-discovers everything he/she uses to predict the rain. Instead, they reduce the randomness in their predictions by believing that others have performed accurate investigations themselves. Now, what is randomness? It's a degree of intelligence about a pattern. To simplify, belief reduces randomness.&lt;/p&gt;
+
+&lt;p&gt;Now, you might slightly reject this statement (frankly, as I do). After all, we have empirical evidence on the accuracy by which our own beliefs may predict the future. If we take on random beliefs, we're going to find out pretty quickly. If I suddenly believe that english letters are actually math numbers and vice versa, I'm going to have a really hard time predicting reality based on what I read. So, there's this notion of testing beliefs based on how well they are able to help us predict our world. We are more likely to accept a belief if it is able to help us predict the future events.&lt;/p&gt;.
+
+&lt;p&gt;Damn... the human condition... what an amazing limitation.&lt;/p&gt;
+
+Argument: no two things are exactly alike
+
+
+
+
+
+ --&gt;
+
+
+
+
+
+
+
+
+&lt;/li&gt;&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 19 Jun 2017 13:00:00 +0100</pubDate>
+        <link>http://localhost:4000/2017/06/19/randomness/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/06/19/randomness/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Safe Crime Detection</title>
         <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; What if it was possible for surveillance to only invade the privacy of criminals or terrorists, leaving the innocent unsurveilled? This post proposes a way with a prototype in Python.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Abstract:&lt;/b&gt; Modern criminals and terrorists hide amongst the patterns of innocent civilians, exactly mirroring daily life until the very last moments before becoming lethal, which can happen as quickly as a car turning onto a sidewalk or a man pulling out a knife on the street. As police intervention of an instantly lethal event is impossible, law enforcement has turned to prediction based on the surveillance of public and private data streams, facilitated by legislation like the &lt;a href=&quot;https://en.wikipedia.org/wiki/Patriot_Act&quot;&gt;Patriot Act&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/USA_Freedom_Act&quot;&gt;USA Freedom Act&lt;/a&gt;, and the UK's &lt;a href=&quot;https://en.wikipedia.org/wiki/Counter-Terrorism_Act_2008&quot;&gt;Counter-Terrorism Act&lt;/a&gt;. This legislation sparks a heated debate (and rightly so) on the tradeoff between privacy and security. In this blogpost, we explore whether much of this tradeoff between privacy and security is &lt;b&gt;merely a technological limitation&lt;/b&gt;, overcommable by a combination of Homomorphic Encryption and Deep Learning. We supplement this discussion with a tutorial for a working prototype implementation and further analysis on where technological investments could be made to mature this technology. I am optimistic that it is possible to re-imagine the tools of crime prediction such that, relative to where we find ourselves today, citizen privacy is increased, surveillance is more effective, and the potential for mis-use is mitigated via modern techniques for &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Encrypted Artificial Intelligence&lt;/a&gt;.
+
+
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt;The term &quot;Prediction&quot; seemed to trigger the assumption that I was proposing technology to predict &quot;future&quot; crimes. However, it was only intended to describe a system that can detect crime unfolding (including intent / pre-meditation) in accordance with agreed upon defintions of &quot;intent&quot; and &quot;pre-meditation&quot; in our criminal justice system, which do relate to future crimes. However, I am in no way advocating punishment for people who have commited no crime. So, I'm changing the title to &quot;Detection&quot; to better communicate this.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Edit 2:&lt;/b&gt; Some have critiqued this post by citing court cases when tools such as drug dogs or machine learning have been either inaccurate or biased based on unsuitable characteristics such as race. These constitute fixable defects in the predictive technology and have little to no bearing on this post. This post is, instead, about how homomorphic encryption can allow this technology to run out in the open (on private data), the nature of which does NOT constitute a search or seizure because it reveals no information about any citizen other than whether or not they are commiting a crime (much like a drug dog giving your bag a sniff. It knows everything in your bag but doesn't tell anyone. It only informs the public whether or not you are likely committing a crime... triggering a search or seizure.) Ways to make the underlying technology more accurate can be discussed elsewhere.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Edit 3:&lt;/b&gt; Others have critiqued this post by confusing it with tech for allocation of police resources, which uses high level statistical informaiton to basically predict &quot;this is a bad neighborhood&quot;. Note that tech such as this is categorically different than what I am proposing, as it makes judgements against large groups of people, many of whom have committed no crime. This technology is instead about detecting when crimes actually occur but would normally go un-discovered because no information to the crime's existence was made public (i.e., the &quot;perfect crime&quot;).&lt;/p&gt;
 
 &lt;hr /&gt;
 &lt;p&gt;I typically tweet out new blogposts when they're complete &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. If these ideas inspire you to help in some way, a share or upvote is the first place to start as a &lt;b&gt;lack of awareness&lt;/b&gt; of these tools is the greatest obstacle at this stage. All in all, thank you for your time and attention, and I hope you enjoy the post.&lt;/p&gt;
@@ -5647,712 +5829,6 @@ formInputs[i].value = '';
         <pubDate>Mon, 27 Jul 2015 13:00:00 +0100</pubDate>
         <link>http://localhost:4000/2015/07/27/python-network-part2/</link>
         <guid isPermaLink="true">http://localhost:4000/2015/07/27/python-network-part2/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>A Neural Network in 11 lines of Python (Part 1)</title>
-        <description>&lt;p&gt;&lt;b&gt;Summary:&lt;/b&gt; I learn best with toy code that I can play with. This tutorial teaches backpropagation via a very simple toy example, a short python implementation.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; Some folks have asked about a followup article, and I'm planning to write one. I'll tweet it out when it's complete at &lt;a href=&quot;https://twitter.com/iamtrask&quot;&gt;@iamtrask&lt;/a&gt;. Feel free to follow if you'd be interested in reading it and thanks for all the feedback!
-&lt;/p&gt;
-&lt;h3&gt;Just Give Me The Code:&lt;/h3&gt;
-&lt;pre class=&quot;brush: python&quot;&gt;
-X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
-y = np.array([[0,1,1,0]]).T
-syn0 = 2*np.random.random((3,4)) - 1
-syn1 = 2*np.random.random((4,1)) - 1
-for j in xrange(60000):
-    l1 = 1/(1+np.exp(-(np.dot(X,syn0))))
-    l2 = 1/(1+np.exp(-(np.dot(l1,syn1))))
-    l2_delta = (y - l2)*(l2*(1-l2))
-    l1_delta = l2_delta.dot(syn1.T) * (l1 * (1-l1))
-    syn1 += l1.T.dot(l2_delta)
-    syn0 += X.T.dot(l1_delta)
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;b&gt;Other Languages: &lt;/b&gt;&lt;a href=&quot;https://github.com/Marenz/neural_net_examples&quot;&gt;D&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;However, this is a bit terse…. let’s break it apart into a few simple parts.&lt;/p&gt;
-
-&lt;h2 class=&quot;section-heading&quot;&gt;Part 1: A Tiny Toy Network&lt;/h2&gt;
-
-&lt;p&gt;A neural network trained with backpropagation is attempting to use input to predict output.&lt;/p&gt;
-&lt;center&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-.tg .tg-5rcs{font-weight:bold;font-size:20px;}
-.tg .tg-4kyz{font-size:20px;text-align:center;}
-&lt;/style&gt;
-&lt;table class=&quot;tg&quot;&gt;
-  &lt;tr&gt;
-    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;3&quot;&gt;Inputs&lt;/th&gt;
-    &lt;th class=&quot;tg-5rcs&quot;&gt;Output&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;/center&gt;
-
-&lt;p&gt;Consider trying to predict the output column given the three input columns. We could solve this problem by simply &lt;b&gt;measuring statistics&lt;/b&gt; between the input values and the output values. If we did so, we would see that the leftmost input column is &lt;i&gt;perfectly correlated&lt;/i&gt; with the output. Backpropagation, in its simplest form, measures statistics like this to make a model. Let's jump right in and use it to do this.&lt;/p&gt;
-&lt;h3&gt;2 Layer Neural Network:&lt;/h3&gt;
-&lt;pre class=&quot;brush: python&quot;&gt;
-import numpy as np
-
-# sigmoid function
-def nonlin(x,deriv=False):
-    if(deriv==True):
-        return x*(1-x)
-    return 1/(1+np.exp(-x))
-    
-# input dataset
-X = np.array([  [0,0,1],
-                [0,1,1],
-                [1,0,1],
-                [1,1,1] ])
-    
-# output dataset            
-y = np.array([[0,0,1,1]]).T
-
-# seed random numbers to make calculation
-# deterministic (just a good practice)
-np.random.seed(1)
-
-# initialize weights randomly with mean 0
-syn0 = 2*np.random.random((3,1)) - 1
-
-for iter in xrange(10000):
-
-    # forward propagation
-    l0 = X
-    l1 = nonlin(np.dot(l0,syn0))
-
-    # how much did we miss?
-    l1_error = y - l1
-
-    # multiply how much we missed by the 
-    # slope of the sigmoid at the values in l1
-    l1_delta = l1_error * nonlin(l1,True)
-
-    # update weights
-    syn0 += np.dot(l0.T,l1_delta)
-
-print &quot;Output After Training:&quot;
-print l1
-
-&lt;/pre&gt;
-&lt;pre&gt;
-Output After Training:
-[[ 0.00966449]
- [ 0.00786506]
- [ 0.99358898]
- [ 0.99211957]]
-&lt;/pre&gt;
-&lt;center&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-.tg .tg-5rcs{font-weight:bold;font-size:20px; text-align:center; padding-left:20px; padding-right: 20px;}
-.tg .tg-4kyx{font-size:20px;text-align:center;font-weight:italic; padding-left:20px; padding-right: 20px;}
-.tg .tg-4kyz{font-size:20px;text-align:left; padding-left: 20px;}
-&lt;/style&gt;
-&lt;table class=&quot;tg&quot;&gt;
-  &lt;tr&gt;
-    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;1&quot;&gt;Variable&lt;/th&gt;
-    &lt;th class=&quot;tg-5rcs&quot;&gt;Definition&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;X&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Input dataset matrix where each row is a training example&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;y&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Output dataset matrix where each row is a training example&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;First Layer of the Network, specified by the input data&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Second Layer of the Network, otherwise known as the hidden layer&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;syn0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;First layer of weights, Synapse 0, connecting l0 to l1.&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;*&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Elementwise multiplication, so two vectors of equal size are multiplying corresponding values 1-to-1 to generate a final vector of identical size.&lt;/td&gt;
-  &lt;/tr&gt;
-  
-    &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;-&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Elementwise subtraction, so two vectors of equal size are subtracting corresponding values 1-to-1 to generate a final vector of identical size.&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;x.dot(y)&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;If x and y are vectors, this is a dot product. If both are matrices, it's a matrix-matrix multiplication. If only one is a matrix, then it's vector matrix multiplication.&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;/center&gt;
-
-&lt;p&gt;As you can see in the &quot;Output After Training&quot;, it works!!! Before I describe processes, I recommend playing around with the code to get an intuitive feel for how it works. You should be able to run it &quot;as is&quot; in an &lt;a href=&quot;http://ipython.org/notebook.html&quot;&gt;ipython notebook&lt;/a&gt; (or a script if you must, but I HIGHLY recommend the notebook). Here are some good places to look in the code: &lt;br /&gt;
-&lt;div style=&quot;padding-left:20px&quot;&gt;
-• Compare l1 after the first iteration and after the last iteration. &lt;br /&gt;
-• Check out the &quot;nonlin&quot; function. This is what gives us a probability as output.&lt;br /&gt;
-• Check out how l1_error changes as you iterate. &lt;br /&gt;
-• Take apart line 36. Most of the secret sauce is here. &lt;br /&gt;
-• Check out line 39. Everything in the network prepares for this operation. &lt;br /&gt;
-&lt;br /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;
-Let's walk through the code line by line.
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Recommendation:&lt;/b&gt; open this blog in two screens so you can see the code while you read it. That's kinda what I did while I wrote it. :)&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 01:&lt;/b&gt;
-This imports numpy, which is a linear algebra library. This is our only dependency.
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 04:&lt;/b&gt;
-This is our &quot;nonlinearity&quot;. While it can be several kinds of functions, this nonlinearity maps a function called a &quot;sigmoid&quot;. A &lt;a href=&quot;https://en.wikipedia.org/wiki/Sigmoid_function&quot;&gt;sigmoid function&lt;/a&gt; maps any value to a value between 0 and 1. We use it to convert numbers to probabilities. It also has several other desirable properties for training neural networks.
-&lt;/p&gt;
-
-&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sigmoid.png&quot; alt=&quot;&quot; /&gt;
-
-&lt;p&gt;&lt;b&gt;Line 05:&lt;/b&gt;
-Notice that this function can also generate the derivative of a sigmoid (when deriv=True). One of the desirable properties of a sigmoid function is that its output can be used to create its derivative. If the sigmoid's output is a variable &quot;out&quot;, then the derivative is simply out * (1-out). This is very efficient. &lt;br /&gt;&lt;br /&gt;
-
-If you're unfamililar with derivatives, just think about it as the slope of the sigmoid function at a given point (as you can see above, different points have different slopes). For more on derivatives, check out this &lt;a href=&quot;https://www.khanacademy.org/math/differential-calculus/taking-derivatives/derivative_intro/v/calculus-derivatives-1&quot;&gt; derivatives tutorial&lt;/a&gt; from Khan Academy.
-
-&lt;p&gt;&lt;b&gt;Line 10:&lt;/b&gt;
-This initializes our input dataset as a numpy matrix. Each row is a single &quot;training example&quot;. Each column corresponds to one of our input nodes. Thus, we have 3 input nodes to the network and 4 training examples.  
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 16:&lt;/b&gt;
-This initializes our output dataset. In this case, I generated the dataset horizontally (with a single row and 4 columns) for space. &quot;.T&quot; is the transpose function. After the transpose, this y matrix has 4 rows with one column. Just like our input, each row is a training example, and each column (only one) is an output node. So, our network has 3 inputs and 1 output.
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 20:&lt;/b&gt;
-It's good practice to seed your random numbers. Your numbers will still be randomly distributed, but they'll be randomly distributed in &lt;b&gt;exactly the same way&lt;/b&gt; each time you train. This makes it easier to see how your changes affect the network.
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 23:&lt;/b&gt;
-This is our weight matrix for this neural network. It's called &quot;syn0&quot; to imply &quot;synapse zero&quot;. Since we only have 2 layers (input and output), we only need one matrix of weights to connect them. Its dimension is (3,1) because we have 3 inputs and 1 output. Another way of looking at it is that l0 is of size 3 and l1 is of size 1. Thus, we want to connect every node in l0 to every node in l1, which requires a matrix of dimensionality (3,1). :)
-&lt;br /&gt;&lt;br /&gt;
-Also notice that it is initialized randomly with a mean of zero. There is quite a bit of theory that goes into weight initialization. For now, just take it as a best practice that it's a good idea to have a mean of zero in weight initialization.
-&lt;br /&gt;&lt;br /&gt;
-Another note is that the &quot;neural network&quot; is really just this matrix. We have &quot;layers&quot; l0 and l1 but they are transient values based on the dataset. We don't save them. All of the learning is stored in the syn0 matrix.
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 25:&lt;/b&gt;
-This begins our actual network training code. This for loop &quot;iterates&quot; multiple times over the training code to optimize our network to the dataset.
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 28:&lt;/b&gt;
-Since our first layer, l0, is simply our data. We explicitly describe it as such at this point. Remember that X contains 4 training examples (rows). We're going to process all of them at the same time in this implementation. This is known as &quot;full batch&quot; training. Thus, we have 4 different l0 rows, but you can think of it as a single training example if you want. It makes no difference at this point. (We could load in 1000 or 10,000 if we wanted to without changing any of the code).
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 29:&lt;/b&gt;
-This is our prediction step. Basically, we first let the network &quot;try&quot; to predict the output given the input. We will then study how it performs so that we can adjust it to do a bit better for each iteration. &lt;br /&gt;&lt;br /&gt;
-
-This line contains 2 steps. The first matrix multiplies l0 by syn0. The second passes our output through the sigmoid function. Consider the dimensions of each:&lt;br /&gt;&lt;br /&gt;
-(4 x 3) dot (3 x 1) = (4 x 1) &lt;br /&gt;&lt;br /&gt;
-Matrix multiplication is ordered, such the dimensions in the middle of the equation must be the same. The final matrix generated is thus the number of rows of the first matrix and the number of columns of the second matrix.&lt;br /&gt;&lt;br /&gt;
-Since we loaded in 4 training examples, we ended up with 4 guesses for the correct answer, a (4 x 1) matrix. Each output corresponds with the network's guess for a given input. Perhaps it becomes intuitive why we could have &quot;loaded in&quot; an arbitrary number of training examples. The matrix multiplication would still work out. :)
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 32:&lt;/b&gt;
-So, given that l1 had a &quot;guess&quot; for each input. We can now compare how well it did by subtracting the true answer (y) from the guess (l1). l1_error is just a vector of positive and negative numbers reflecting how much the network missed.
-&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Line 36:&lt;/b&gt;
-Now we're getting to the good stuff! This is the secret sauce! There's a lot going on in this line, so let's further break it into two parts. 
-&lt;h4&gt;First Part: The Derivative&lt;/h4&gt;
-&lt;pre class=&quot;brush:python&quot;&gt;
-nonlin(l1,True)
-&lt;/pre&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-If l1 represents these three dots, the code above generates the slopes of the lines below. Notice that very high values such as x=2.0 (green dot) and very low values such as x=-1.0 (purple dot) have rather shallow slopes. The highest slope you can have is at x=0 (blue dot). This plays an important role. Also notice that all derivatives are between 0 and 1.
-&lt;/p&gt;
-
-&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sigmoid-deriv-2.png&quot; alt=&quot;&quot; /&gt;
-
-&lt;h4&gt;Entire Statement: The Error Weighted Derivative&lt;/h4&gt;
-&lt;pre class=&quot;brush:python&quot;&gt;
-l1_delta = l1_error * nonlin(l1,True)
-&lt;/pre&gt;
-&lt;p&gt;There are more &quot;mathematically precise&quot; ways than &quot;The Error Weighted Derivative&quot; but I think that this captures the intuition. l1_error is a (4,1) matrix. nonlin(l1,True) returns a (4,1) matrix. What we're doing is multiplying them &lt;a href=&quot;http://nl.mathworks.com/help/matlab/ref/times.html&quot;&gt;&quot;elementwise&quot;&lt;/a&gt;. This returns a (4,1) matrix &lt;b&gt;l1_delta&lt;/b&gt; with the multiplied values. &lt;br /&gt;&lt;br /&gt;
-
-When we multiply the &quot;slopes&quot; by the error, we are &lt;b&gt;reducing the error of high confidence predictions&lt;/b&gt;. Look at the sigmoid picture again! If the slope was really shallow (close to 0), then the network either had a very high value, or a very low value. This means that the network was quite confident one way or the other. However, if the network guessed something close to (x=0, y=0.5) then it isn't very confident. We update these &quot;wishy-washy&quot; predictions most heavily, and we tend to leave the confident ones alone by multiplying them by a number close to 0.
-
-&lt;p&gt;&lt;b&gt;Line 39:&lt;/b&gt;
-We are now ready to update our network! Let's take a look at a single training example.
-&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/toy_network_deriv.png&quot; alt=&quot;&quot; /&gt;
-In this training example, we're all setup to update our weights. Let's update the far left weight (9.5).&lt;br /&gt;&lt;br /&gt;
-&lt;b&gt;weight_update = input_value * l1_delta&lt;/b&gt;
-&lt;br /&gt;&lt;br /&gt;
-For the far left weight, this would multiply 1.0 * the l1_delta. Presumably, this would increment 9.5 ever so slightly. Why only a small ammount? Well, the prediction was already very confident, and the prediction was largely correct. A small error and a small slope means a VERY small update. Consider all the weights. It would ever so slightly increase all three.
-&lt;/p&gt;
-&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/toy_network_batch.png&quot; alt=&quot;&quot; /&gt;
-&lt;p&gt;
-However, because we're using a &quot;full batch&quot; configuration, we're doing the above step on all four training examples. So, it looks a lot more like the image above. So, what does line 39 do? It computes the weight updates for each weight for each training example, sums them, and updates the weights, all in a simple line. Play around with the matrix multiplication and you'll see it do this! 
-&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Takeaways:&lt;/h3&gt;
-So, now that we've looked at how the network updates, let's look back at our training data and reflect. When both an input and a output are 1, we increase the weight between them. When an input is 1 and an output is 0, we decrease the weight between them. &lt;/p&gt;
-
-&lt;center&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-.tg .tg-5rcs{font-weight:bold;font-size:20px;}
-.tg .tg-4kyz{font-size:20px;text-align:center;}
-&lt;/style&gt;
-&lt;table class=&quot;tg&quot;&gt;
-  &lt;tr&gt;
-    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;3&quot;&gt;Inputs&lt;/th&gt;
-    &lt;th class=&quot;tg-5rcs&quot;&gt;Output&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;/center&gt;
-&lt;p&gt;
-Thus, in our four training examples below, the weight from the first input to the output would &lt;b&gt;consistently increment or remain unchanged&lt;/b&gt;, whereas the other two weights would find themselves &lt;b&gt;both increasing and decreasing across training examples&lt;/b&gt; (cancelling out progress). This phenomenon is what causes our network to learn based on correlations between the input and output.
-&lt;/p&gt;
-
-&lt;h2 class=&quot;section-heading&quot;&gt;Part 2: A Slightly Harder Problem&lt;/h2&gt;
-&lt;br /&gt;
-&lt;center&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-.tg .tg-5rcs{font-weight:bold;font-size:20px;}
-.tg .tg-4kyz{font-size:20px;text-align:center}
-&lt;/style&gt;
-&lt;table class=&quot;tg&quot;&gt;
-  &lt;tr&gt;
-    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;3&quot;&gt;Inputs&lt;/th&gt;
-    &lt;th class=&quot;tg-5rcs&quot;&gt;Output&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;/center&gt;
-
-
-&lt;p&gt;Consider trying to predict the output column given the two input columns. A key takeway should be that neither columns have any correlation to the output. Each column has a 50% chance of predicting a 1 and a 50% chance of predicting a 0. &lt;/p&gt;
-
-&lt;p&gt;
-So, what's the pattern? It appears to be completely unrelated to column three, which is always 1. However, columns 1 and 2 give more clarity. If either column 1 or 2 are a 1 (but not both!) then the output is a 1. This is our pattern. 
-&lt;/p&gt;
-&lt;p&gt;
-This is considered a &quot;nonlinear&quot; pattern because there isn't a direct one-to-one relationship between the input and output. Instead, there is a &lt;b&gt;one-to-one relationship between a combination of inputs&lt;/b&gt;, namely columns 1 and 2.
-&lt;/p&gt;
-
-
-
-&lt;div id=&quot;pic1&quot; style=&quot;float:left;width:50%&quot;&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/rcnn.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;&lt;/div&gt;
-&lt;div id=&quot;pic2&quot; style=&quot;float:right;width:50%;&quot;&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/margritti-this-is-not-a-pipe.jpg&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;&lt;/div&gt;
-
-&lt;p&gt;Believe it or not, image recognition is a similar problem. If one had 100 identically sized images of pipes and bicycles, no individual pixel position would directly correlate with the presence of a bicycle or pipe. The pixels might as well be random from a purely statistical point of view. However, certain &lt;b&gt;combinations of pixels&lt;/b&gt; are not random, namely the combination that forms the image of a bicycle or a person.&lt;/p&gt;
-
-&lt;h3&gt;Our Strategy&lt;/h3&gt;
-
-&lt;p&gt; In order to first combine pixels into something that can then have a one-to-one relationship with the output, we need to add another layer. Our first layer will combine the inputs, and our second layer will then map them to the output using the output of the first layer as input. Before we jump into an implementation though, take a look at this table.&lt;/p&gt;
-
-&lt;center&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-.tg .tg-5rcs{font-weight:bold;font-size:20px;}
-.tg .tg-4kyz{font-size:20px;text-align:center}
-&lt;/style&gt;
-&lt;table class=&quot;tg&quot;&gt;
-  &lt;tr&gt;
-    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;3&quot;&gt;Inputs (l0)&lt;/th&gt;
-    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;4&quot;&gt;Hidden Weights (l1)&lt;/th&gt;
-    &lt;th class=&quot;tg-5rcs&quot;&gt;Output (l2)&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.5&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.6&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.7&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.3&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.3&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.9&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.2&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.3&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0.8&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;0&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;/center&gt;
-
-&lt;p&gt;
-If we randomly initialize our weights, we will get hidden state values for layer 1. Notice anything? &lt;b&gt;The second column (second hidden node), has a slight correlation with the output already!&lt;/b&gt; It's not perfect, but it's there. Believe it or not, this is a huge part of how neural networks train. (Arguably, it's the only way that neural networks train.) What the training below is going to do is amplify that correlation. It's both going to update syn1 to map it to the output, and update syn0 to be better at producing it from the input!
-&lt;/p&gt;
-
-&lt;p&gt;
-Note: The field of adding more layers to model more combinations of relationships such as this is known as &lt;a href=&quot;https://en.wikipedia.org/wiki/Deep_learning&quot;&gt;&quot;deep learning&quot;&lt;/a&gt; because of the increasingly deep layers being modeled.&lt;/p&gt;
-
-&lt;h3&gt;3 Layer Neural Network:&lt;/h3&gt;
-&lt;pre class=&quot;brush: python&quot;&gt;
-import numpy as np
-
-def nonlin(x,deriv=False):
-	if(deriv==True):
-	    return x*(1-x)
-
-	return 1/(1+np.exp(-x))
-    
-X = np.array([[0,0,1],
-            [0,1,1],
-            [1,0,1],
-            [1,1,1]])
-                
-y = np.array([[0],
-			[1],
-			[1],
-			[0]])
-
-np.random.seed(1)
-
-# randomly initialize our weights with mean 0
-syn0 = 2*np.random.random((3,4)) - 1
-syn1 = 2*np.random.random((4,1)) - 1
-
-for j in xrange(60000):
-
-	# Feed forward through layers 0, 1, and 2
-    l0 = X
-    l1 = nonlin(np.dot(l0,syn0))
-    l2 = nonlin(np.dot(l1,syn1))
-
-    # how much did we miss the target value?
-    l2_error = y - l2
-    
-    if (j% 10000) == 0:
-        print &quot;Error:&quot; + str(np.mean(np.abs(l2_error)))
-        
-    # in what direction is the target value?
-    # were we really sure? if so, don't change too much.
-    l2_delta = l2_error*nonlin(l2,deriv=True)
-
-    # how much did each l1 value contribute to the l2 error (according to the weights)?
-    l1_error = l2_delta.dot(syn1.T)
-    
-    # in what direction is the target l1?
-    # were we really sure? if so, don't change too much.
-    l1_delta = l1_error * nonlin(l1,deriv=True)
-
-    syn1 += l1.T.dot(l2_delta)
-    syn0 += l0.T.dot(l1_delta)
-
-&lt;/pre&gt;
-&lt;!-- &lt;h3&gt;Runtime Output:&lt;/h3&gt; --&gt;
-&lt;pre&gt;
-Error:0.496410031903
-Error:0.00858452565325
-Error:0.00578945986251
-Error:0.00462917677677
-Error:0.00395876528027
-Error:0.00351012256786
-&lt;/pre&gt;
-&lt;center&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-.tg .tg-5rcs{font-weight:bold;font-size:20px; text-align:center; padding-left:20px; padding-right: 20px;}
-.tg .tg-4kyx{font-size:20px;text-align:center;font-weight:italic; padding-left:20px; padding-right: 20px;}
-.tg .tg-4kyz{font-size:20px;text-align:left; padding-left: 20px;}
-&lt;/style&gt;
-&lt;table class=&quot;tg&quot;&gt;
-  &lt;tr&gt;
-    &lt;th class=&quot;tg-5rcs&quot; colspan=&quot;1&quot;&gt;Variable&lt;/th&gt;
-    &lt;th class=&quot;tg-5rcs&quot;&gt;Definition&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;X&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Input dataset matrix where each row is a training example&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;y&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Output dataset matrix where each row is a training example&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;First Layer of the Network, specified by the input data&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Second Layer of the Network, otherwise known as the hidden layer&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l2&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Final Layer of the Network, which is our hypothesis, and should approximate the correct answer as we train.&lt;/td&gt;
-  &lt;/tr&gt;
-    &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;syn0&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;First layer of weights, Synapse 0, connecting l0 to l1.&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;syn1&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Second layer of weights, Synapse 1 connecting l1 to l2.&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l2_error&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;This is the amount that the neural network &quot;missed&quot;.&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l2_delta&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;This is the error of the network scaled by the confidence. It's almost identical to the error except that very confident errors are muted.&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l1_error&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;Weighting l2_delta by the weights in syn1, we can calculate the error in the middle/hidden layer.&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&quot;tg-4kyx&quot;&gt;l1_delta&lt;/td&gt;
-    &lt;td class=&quot;tg-4kyz&quot;&gt;This is the l1 error of the network scaled by the confidence. Again, it's almost identical to the l1_error except that confident errors are muted.&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;/center&gt;
-&lt;p&gt;&lt;b&gt;Recommendation:&lt;/b&gt; open this blog in two screens so you can see the code while you read it. That's kinda what I did while I wrote it. :)&lt;/p&gt;
-
-&lt;p&gt;
-Everything should look very familiar! It's really just 2 of the previous implementation stacked on top of each other. The output of the first layer (l1) is the input to the second layer. The only new thing happening here is on line 43.
-&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Line 43:&lt;/b&gt; uses the &quot;confidence weighted error&quot; from l2 to establish an error for l1. To do this, it simply sends the error across the weights from l2 to l1. This gives what you could call a &quot;contribution weighted error&quot; because we learn how much each node value in l1 &quot;contributed&quot; to the error in l2. This step is called &quot;backpropagating&quot; and is the namesake of the algorithm. We then update syn0 using the same steps we did in the 2 layer implementation.
-&lt;/p&gt;
-
-&lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Conclusion and Future Work&lt;/h2&gt;
-&lt;br /&gt;
-
-&lt;p&gt;&lt;h3&gt;My Recommendation:&lt;/h3&gt;
-
-If you're serious about neural networks, I have one recommendation. &lt;b&gt;Try to rebuild this network from memory.&lt;/b&gt; I know that might sound a bit crazy, but it seriously helps. If you want to be able to create arbitrary architectures based on new academic papers or read and understand sample code for these different architectures, I think that it's a killer exercise. I think it's useful even if you're using frameworks like &lt;a href=&quot;http://torch.ch/&quot;&gt;Torch&lt;/a&gt;, &lt;a href=&quot;http://caffe.berkeleyvision.org/&quot;&gt;Caffe&lt;/a&gt;, or &lt;a href=&quot;http://deeplearning.net/software/theano/&quot;&gt;Theano&lt;/a&gt;. I worked with neural networks for a couple years before performing this exercise, and it was the best investment of time I've made in the field (and it didn't take long). 
-&lt;/p&gt;
-
-
-&lt;p&gt;&lt;h3&gt;Future Work&lt;/h3&gt;
-This toy example still needs quite a few bells and whistles to really approach the state-of-the-art architectures. Here's a few things you can look into if you want to further improve your network. (Perhaps I will in a followup post.)&lt;/p&gt;
-
-&lt;p style=&quot;padding-left:20px&quot;&gt;
-• Alpha &lt;br /&gt;
-• &lt;a href=&quot;http://stackoverflow.com/questions/2480650/role-of-bias-in-neural-networks&quot;&gt;Bias Units&lt;/a&gt;&lt;br /&gt;
-• &lt;a href=&quot;https://class.coursera.org/ml-003/lecture/106&quot;&gt;Mini-Batches&lt;/a&gt;&lt;br /&gt;
-• Delta Trimming &lt;br /&gt;
-• &lt;a href=&quot;https://www.youtube.com/watch?v=XqRUHEeiyCs&quot;&gt;Parameterized Layer Sizes&lt;/a&gt;&lt;br /&gt;
-• &lt;a href=&quot;https://class.coursera.org/ml-003/lecture/63&quot;&gt;Regularization&lt;/a&gt;&lt;br /&gt;
-• &lt;a href=&quot;http://videolectures.net/nips2012_hinton_networks/&quot;&gt;Dropout&lt;/a&gt;&lt;br /&gt;
-• &lt;a href=&quot;https://www.youtube.com/watch?v=XqRUHEeiyCs&quot;&gt;Momentum&lt;/a&gt;&lt;br /&gt;
-• &lt;a href=&quot;http://arxiv.org/abs/1502.03167&quot;&gt;Batch Normalization&lt;/a&gt; &lt;br /&gt;
-• GPU Compatability&lt;br /&gt;
-• Other Awesomeness You Implement&lt;br /&gt;
-&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 class=&quot;section-heading&quot;&gt;Want to Work in Machine Learning?&lt;/h2&gt;
-
-
-&lt;p&gt;
-One of the best things you can do to learn Machine Learning is to have a job where you're &lt;b&gt;practicing Machine Learning professionally&lt;/b&gt;. I'd encourage you to check out the &lt;a href=&quot;https://www.linkedin.com/vsearch/j?page_num=1&amp;amp;locationType=Y&amp;amp;f_C=74158&amp;amp;trk=jobs_biz_prem_all_header&quot;&gt;positions at Digital Reasoning&lt;/a&gt; in your job hunt. If you have questions about any of the positions or about life at Digital Reasoning, feel free to send me a message on &lt;a href=&quot;https://www.linkedin.com/profile/view?id=226572677&amp;amp;trk=nav_responsive_tab_profile&quot;&gt;my LinkedIn&lt;/a&gt;. I'm happy to hear about where you want to go in life, and help you evaluate whether Digital Reasoning could be a good fit.
-&lt;/p&gt;
-
-&lt;p&gt;If none of the positions above feel like a good fit. Continue your search! Machine Learning expertise is one of the &lt;b&gt;most valuable skills in the job market today&lt;/b&gt;, and there are many firms looking for practitioners. Perhaps some of these services below will help you in your hunt.
-
-&lt;style type=&quot;text/css&quot;&gt;#indJobContent{padding-bottom: 5px;}#indJobContent .company_location{font-size: 11px;overflow: hidden;display:block;}#indJobContent.wide .job{display:block;float:left;margin-right: 5px;width: 135px;overflow: hidden}#indeed_widget_wrapper{position: relative;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 13px;font-weight: normal;line-height: 18px;padding: 10px;height: auto;overflow: hidden;}#indeed_widget_header{font-size:18px; padding-bottom: 5px; }#indeed_search_wrapper{clear: both;font-size: 12px;margin-top: 5px;padding-top: 5px;}#indeed_search_wrapper label{font-size: 12px;line-height: inherit;text-align: left; margin-right: 5px;}#indeed_search_wrapper input[type='text']{width: 100px; font-size: 11px; }#indeed_search_wrapper #qc{float:left;}#indeed_search_wrapper #lc{float:right;}#indeed_search_wrapper.stacked #qc, #indeed_search_wrapper.stacked #lc{float: none; clear: both;}#indeed_search_wrapper.stacked input[type='text']{width: 150px;}#indeed_search_wrapper.stacked label{display: block;padding-bottom: 5px;}#indeed_search_footer{width:295px; padding-top: 5px; clear: both;}#indeed_link{position: absolute;bottom: 1px;right: 5px;clear: both;font-size: 11px; }#indeed_link a{text-decoration: none;}#results .job{padding: 1px 0px;}#pagination { clear: both; }&lt;/style&gt;&lt;style type=&quot;text/css&quot;&gt;
-#indeed_widget_wrapper{ width: 50%; height: 600px; background: #FFFFFF;}
-#indeed_widget_wrapper{ border: 1px solid #DDDDDD; }
-#indeed_widget_wrapper, #indeed_link a{ color: #000000;}
-#indJobContent, #indeed_search_wrapper{ border-top: 1px solid #DDDDDD; }
-#indJobContent a { color: #00c; }
-#indeed_widget_header{ color: #000000; }
-&lt;/style&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-var ind_pub = '9172611916208179';
-var ind_el = 'indJobContent';
-var ind_pf = '';
-var ind_q = 'Machine Learning';
-var ind_l = '';
-var ind_chnl = 'none';
-var ind_n = 15;
-var ind_d = 'http://www.indeed.com';
-var ind_t = 40;
-var ind_c = 30;
-&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;http://www.indeed.com/ads/jobroll-widget-v3.js&quot;&gt;&lt;/script&gt;
-&lt;div id=&quot;indeed_widget_wrapper&quot; style=&quot;&quot;&gt;
-&lt;div id=&quot;indeed_widget_header&quot;&gt;Machine Learning Jobs&lt;/div&gt;
-
-&lt;div id=&quot;indJobContent&quot; class=&quot;&quot;&gt;&lt;/div&gt;
-
-&lt;div id=&quot;indeed_search_wrapper&quot;&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-function clearDefaults() {
-var formInputs = document.getElementById('indeed_jobform').elements;
-for(var i = 0; i &lt; formInputs.length; i++) {
-if(formInputs[i].value == 'title, keywords' || formInputs[i].value == 'city, state, or zip') {
-formInputs[i].value = '';
-}
-}
-}
-&lt;/script&gt;
-&lt;form onsubmit=&quot;clearDefaults();&quot; method=&quot;get&quot; action=&quot;http://www.indeed.com/jobs&quot; id=&quot;indeed_jobform&quot; target=&quot;_new&quot;&gt;
-&lt;div id=&quot;qc&quot;&gt;&lt;label&gt;What:&lt;/label&gt;&lt;input type=&quot;text&quot; onfocus=&quot;this.value=&amp;quot;&amp;quot;&quot; value=&quot;title, keywords&quot; name=&quot;q&quot; id=&quot;q&quot; /&gt;&lt;/div&gt;
-&lt;div id=&quot;lc&quot;&gt;&lt;label&gt;Where:&lt;/label&gt;&lt;input type=&quot;text&quot; onfocus=&quot;this.value=&amp;quot;&amp;quot;&quot; value=&quot;city, state, or zip&quot; name=&quot;l&quot; id=&quot;l&quot; /&gt;&lt;/div&gt;
-&lt;div id=&quot;indeed_search_footer&quot;&gt;
-&lt;div style=&quot;float:left&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Find Jobs&quot; class=&quot;findjobs&quot; /&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;input type=&quot;hidden&quot; name=&quot;indpubnum&quot; id=&quot;indpubnum&quot; value=&quot;9172611916208179&quot; /&gt;
-&lt;/form&gt;
-&lt;/div&gt;
-
-&lt;div id=&quot;indeed_link&quot;&gt;
-&lt;a title=&quot;Job Search&quot; href=&quot;http://www.indeed.com/&quot; target=&quot;_new&quot;&gt;jobs by &lt;img alt=&quot;Indeed&quot; src=&quot;http://www.indeed.com/p/jobsearch.gif&quot; style=&quot;border: 0;vertical-align: bottom;&quot; /&gt;
-&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;position:absolute; margin-top:-600px; margin-left:400px&quot; id=&quot;MonsterJobSearchResultPlaceHolderNXAAAA_e_e&quot; class=&quot;xmns_distroph&quot;&gt;&lt;/div&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-(function() {
-  var oScript = document.createElement('script');
-  oScript.type = 'text/javascript';
-  oScript.async = true;
-  oScript.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'publisher.monster.com/Services/WidgetHandler.ashx?WidgetID=EAAQUeLsOxB7mqhf97nwIpkVXQ--&amp;Verb=Initialize';
-  var oParent = document.getElementsByTagName('script')[0];
-  oParent.parentNode.insertBefore(oScript, oParent);
-})();
-&lt;/script&gt;
-&lt;a id=&quot;monsterBrowseLinkNXAAAA_e_e&quot; class=&quot;monsterBrowseLink fnt4&quot; href=&quot;http://jobsearch.monster.com/jobs/?q=Machine-Learning&quot;&gt;View More Job Search Results&lt;/a&gt;
-
-
-&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shCore.css&quot; /&gt;
-&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/shThemeDefault.css&quot; /&gt;
-&lt;script src=&quot;/js/shCore.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;/js/shLegacy.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;/js/shBrushPython.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-	// SyntaxHighlighter.config.bloggerMode = true;
-	SyntaxHighlighter.config.toolbar = true;
-    SyntaxHighlighter.all();
-&lt;/script&gt;
-&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 12 Jul 2015 13:00:00 +0100</pubDate>
-        <link>http://localhost:4000/2015/07/12/basic-python-network/</link>
-        <guid isPermaLink="true">http://localhost:4000/2015/07/12/basic-python-network/</guid>
         
         
       </item>
