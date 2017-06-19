@@ -5,8 +5,8 @@
     <description>A machine learning craftsmanship blog.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 19 Jun 2017 19:57:51 +0100</pubDate>
-    <lastBuildDate>Mon, 19 Jun 2017 19:57:51 +0100</lastBuildDate>
+    <pubDate>Mon, 19 Jun 2017 20:01:39 +0100</pubDate>
+    <lastBuildDate>Mon, 19 Jun 2017 20:01:39 +0100</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -60,37 +60,10 @@
 	&lt;li&gt;&lt;b&gt;Finite Time + Finite Space&lt;/b&gt; If time is finite, there was a beginning. If there was a beginning, there was a TON of Randomness which began the Universe. Thus, Randomness at least has existed within the Universe (although whether it still exists is less certain).&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Finite Time + Infinite Space&lt;/b&gt; (see above)&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Infinite Time + Finite Space&lt;/b&gt; Laws of entropy determine that if this was our universe, you wouldn't be reading this blogpost as all the energy in the universe would have disipated to equilibrium an infinite number of years ago. I suppose there are counter arguments to this, but I don't personally find them particularly strong. We have a rather large amount of empirical evidence that energy tends to dissipate (perhaps more empirical evidence for this than for any other claim in the universe?).&lt;/li&gt;
-	&lt;li&gt;&lt;b&gt;Infinite Time + Infinite Space&lt;/b&gt; This state is interesting because there's theoretically an infinite amount of energy (inside the infinite space) alongside an infinite amount of time for it to disipate. Thus, while I don't have solid footing to say that this Universe does not exist, I think we can make a reasonble case for (capital R) Randomness in this universe. Specifically, because the state of the Universe at any given time &quot;t&quot; is, itself, infinite, there are an infinite number of potential causes for an event. Thus, every event is Random because there are an infinite number of potential causes for any event. It may be asymtotically predicatable given proximity to some causal events playing a more dominant role, but in the limit every event is Random.
-
+	&lt;li&gt;&lt;b&gt;Infinite Time + Infinite Space&lt;/b&gt; This state is interesting because there's theoretically an infinite amount of energy (inside the infinite space) alongside an infinite amount of time for it to disipate. Thus, while I don't have solid footing to say that this Universe does not exist, I think we can make a reasonble case for (capital R) Randomness in this universe. Specifically, because the state of the Universe at any given time &quot;t&quot; is, itself, infinite, there are an infinite number of potential causes for an event. Thus, every event is Random because there are an infinite number of potential causes for any event. It may be asymtotically predicatable given proximity to some causal events playing a more dominant role, but in the limit every event is Random.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;b&gt;Conclusion:&lt;/b&gt; Randomness with a capital R either exists or has existed before in the Universe because all 3 plausible configurations of the universe necessitate events that have no cause, and an event with no cause cannot be predicted and is therefore Random.&lt;/p&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 &lt;!-- &lt;p&gt;To the extent that there are varying degrees of randomness, there are varying degrees of ignorance. Someone might say, &quot;I know for sure that the temperature today will be between -100 degrees and 200 degrees&quot;. This statement can be said with a high degree of certainty, even though the same person will have almost no ability to tell exact temperature down to the 10th decimal point. Thus, degrees of randomness correspond to degrees of ignorance about a problem. In this case, there is a degree of randomness within the temperature on any given day, but there is also some structure, allowing wide ranges to be predicted with great accuracy.&lt;/p&gt;
 
@@ -144,7 +117,6 @@
 &lt;p&gt;In my opinion, we can eliminate one of these universes as a contradiction. A universe that is truly infinite but not Random is impossible. Why? An infinite universe means that there is an infinite number of potential causes. An infinite number of causes with non-zero probability is Random. No amount of study or knowledge will ever quantify the state of all relevant causes. The probability of an event can only be asymtotically approached. Thus, a universe must either be Random or finite.&lt;/p&gt;
  --&gt;
 
-
 &lt;!-- 
 &lt;h2 class=&quot;section-heading&quot;&gt;Searching for Randomness in the Universe&lt;/h2&gt;
 
@@ -168,14 +140,6 @@ Argument: no two things are exactly alike
 
  --&gt;
 
-
-
-
-
-
-
-
-&lt;/li&gt;&lt;/ul&gt;
 </description>
         <pubDate>Mon, 19 Jun 2017 13:00:00 +0100</pubDate>
         <link>http://localhost:4000/2017/06/19/randomness/</link>
