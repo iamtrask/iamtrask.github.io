@@ -7,7 +7,7 @@ author:     "iamtrask"
 header-img: "img/earthrise.jpg"
 ---
 
-<p><b>TLDR:</b> I've recently wondered about whether the Universe is truly random, and I thought I'd write down a few thoughts on the subject.</p>
+<p><b>TLDR:</b> I've recently wondered about whether the Universe is truly random, and I thought I'd write down a few thoughts on the subject. As a heads up, this post is more about sharing a personal journey I'm on than teaching a skill or tool (unlike many other blogposts). Feel free to chat with me about these ideas on Twitter as I'm still working through them myself and I'd love to hear your perspective.</p>
 
 <hr />
 <p>I typically tweet out new blogposts when they're complete <a href="https://twitter.com/iamtrask">@iamtrask</a>. Thank you for your time and attention, and I hope you enjoy the post.</p>
