@@ -26,7 +26,7 @@ for j in xrange(60000):
     syn0 += X.T.dot(l1_delta)
 </pre>
 
-<b>Other Languages: </b><a href="https://github.com/Marenz/neural_net_examples">D</a><br />
+<b>Other Languages: </b><a href="https://github.com/Marenz/neural_net_examples">D</a>, <a href="https://cognitivedemons.wordpress.com/2017/07/06/a-neural-network-in-10-lines-of-c-code/">C++</a><br />
 
 However, this is a bit terse.... let's break it apart into a few simple parts.
 
