@@ -59,10 +59,6 @@ So, in short, Synthetic Gradients are used just like normal gradients, and for s
 
 <p>Focus on the second section from the left. See how the gradient (M i+2) backpropagates through (f i+1) and into M(i+1)? As you can see, each synthetic gradient generator is <i>actually</i> only trained using the Synthetic Gradients generated from the next layer. Thus, <i>only the last layer</i> actually trains on the data. All the other layers, including the Synthetic Gradient generator networks, train based on Synthetic Gradients. Thus, the network can train with each layer only having to wait on the synthetic gradient from the following layer (which has no other dependencies). Very cool! </p>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e5ddf2e0fe2f72495c00542982a3756ff306b157
 <h2 class="section-heading">Part 4: A Baseline Neural Network</h2>
 
 <p>Time to start coding! To get things started (so we have an easier frame of reference), I'm going to start with a vanilla neural network trained with backpropagation, styled in the same way as <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">A Neural Network in 11 Lines of Python</a>. (So, if it doesn't make sense, just go read that post and come back). However, I'm going to add an additional layer, but that shoudln't be a problem for comprehension. I just figured that since we're all about reducing dependencies, having more layers might make for a better illustration.</p>
@@ -147,10 +143,6 @@ for iter in range(iterations):
 
 <p>If you pull both the previous network and this network into Jupyter notebooks, you'll see that the random seeds cause these networks to have exactly the same values. It seems that Trinket.io might not have perfect random seeding, such that these networks reach <i>nearly</i> identical values. However, I assure you that the networks are identical. If this network doesn't make sense to you, <i>don't move on</i>. Be sure you're comfortable with how this abstraction works before moving forward, as it's going to get a bit more complex below.</p>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e5ddf2e0fe2f72495c00542982a3756ff306b157
 <h2 class="section-heading">Part 6: Synthetic Gradients Based on Layer Output</h2>
 
 <p>Ok, so now we're going to use a very similar interface to the onee to integrate what we learned about Synthetic Gradients into our Layer object (and rename it DNI). First, I'm going to show you the class, and then I'll explain it. Check it out!</p>
