@@ -12,6 +12,8 @@ header-img: "img/northern-lights.jpg"
 <p>I typically tweet out new blogposts when they're complete at <a href="https://twitter.com/iamtrask">@iamtrask</a>. Feel free to follow if you'd be interested in reading more in the future and thanks for all the feedback!
 </p>
 
+<p><b>Edit:</b> If you're interested in training Encrypted Neural Networks, check out the <a href="https://github.com/OpenMined/PySyft">PySyft Library at OpenMined</a></p>
+
 <h2 class="section-heading">Superintelligence</h2>
 
 <p>Many people are concerned that superpoweful AI will one day choose to harm humanity. Most recently, Stephen Hawking called for a <a href="https://futurism.com/stephen-hawking-finally-revealed-his-plan-for-preventing-an-ai-apocalypse/">new world government</a> to govern the abilities that we give to Artificial Intelligence so that it doesn't turn to destroy us. These are pretty bold statements, and I think they reflect the general concern shared between both the scientific community and the world at large. In this blogpost, I'd like to give a tutorial on a potential technical solution to this problem with some toy-ish example code to demonstrate the approach.</p>
