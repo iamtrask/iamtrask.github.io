@@ -20,7 +20,7 @@ header-img: "img/stack_nebula.jpg"
 <b>Pre-Requisite Knowledge:</b>
 <ul>
 	<li>Simple Feedforward Neural Networks (<a href="https://iamtrask.github.io/2015/07/12/basic-python-network/"><u>Tutorial</u></a>)</li>
-	<li>Basic Gradient Descent (<a href="http://iamtrask.github.io/2015/07/27/python-network-part2/"><u>Tutorial</u></a>)</li>
+	<li>Basic Gradient Descent (<a href="https://iamtrask.github.io/2015/07/27/python-network-part2/"><u>Tutorial</u></a>)</li>
 </ul>
 
 
@@ -70,7 +70,7 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 
 <p>Above, I created 4 matrices. Notice that the library doesn't call them matrices though. It calls them <i>tensors</i>.</p>
 
-<p><b>Quick Primer on Tensors:</b> A <i>Tensor</i> is just a more generic term than <i>matrix</i> or <i>vector</i>. 1-dimensional tensors are vectors. 2-dimensional tensors are matrices. 3+ dimensional tensors are just refered to as tensors. If you're unfamiliar with these objects, here's a quick summary. A vector is "a list of numbers". A matrix is "a list of lists of numbers". A 3-d tensor is "a list of lists of lists of numbers". A 4-d tensor is... See the pattern? For more on how vectors and matrices are used to make neural networks, see my first blog post on a <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">Neural Network in 11 lines of Python</a></p>
+<p><b>Quick Primer on Tensors:</b> A <i>Tensor</i> is just a more generic term than <i>matrix</i> or <i>vector</i>. 1-dimensional tensors are vectors. 2-dimensional tensors are matrices. 3+ dimensional tensors are just refered to as tensors. If you're unfamiliar with these objects, here's a quick summary. A vector is "a list of numbers". A matrix is "a list of lists of numbers". A 3-d tensor is "a list of lists of lists of numbers". A 4-d tensor is... See the pattern? For more on how vectors and matrices are used to make neural networks, see my first blog post on a <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/">Neural Network in 11 lines of Python</a></p>
 
 <p><b>PyTorch Tensors</b> There appear to be 4 major types of tensors in PyTorch: Byte, Float, Double, and Long tensors. Each tensor <i>type</i> corresponds to the type of number (and more importantly the size/preision of the number) contained in each place of the matrix. So, if a 1-d Tensor is a "list of numbers", a 1-d <i>Float</i> Tensor is a list of <u>floats</u>. As a general rule of thumb, for weight matries we use FloatTensors. For data matrices, we'll likely use either FloatTensors (for real valued inputs) or Long Tensors (for integers). I'm a little bit surprised to not see IntTensor anywhere. Perhaps it has yet to be wrapped or is just non-obvious in the API.</p>
 
@@ -80,7 +80,7 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 
 <p><b>Basic Linear Algebra Operations:</b> So, now that we know how to store numbers in PyTorch, lets talk a bit about how PyTorch manipulates them. How does one go about doing linear algebra in PyTorch?</p>
 
-<p><b>The Basic Neural Network Operations: </b> Neural networks, amidst all their complexity, are actually mostly made up of rather simple operations. If you remember from <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">A Neural Network in 11 Lines of Python</a>, we can build a working network with only Matrix-Matrix Multiplication, Vector-Matrix Multiplication, Elementwise Operations (addition, subtraction, multiplication, and division), Matrix Transposition, and a handful of elementwise functions (sigmoid, and a special function to compute sigmoid's derivative at a point which uses only the aforementioned elementwise operations). Let's initialize some matrices and start with the elementwise operations.</p>
+<p><b>The Basic Neural Network Operations: </b> Neural networks, amidst all their complexity, are actually mostly made up of rather simple operations. If you remember from <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/">A Neural Network in 11 Lines of Python</a>, we can build a working network with only Matrix-Matrix Multiplication, Vector-Matrix Multiplication, Elementwise Operations (addition, subtraction, multiplication, and division), Matrix Transposition, and a handful of elementwise functions (sigmoid, and a special function to compute sigmoid's derivative at a point which uses only the aforementioned elementwise operations). Let's initialize some matrices and start with the elementwise operations.</p>
 
 <img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/pytorch_2.png" alt="">
 
@@ -102,7 +102,7 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 
 <h2 class="section-heading">Part 3: Building a Feedforward Network</h2>
 
-<p>In this section, we really get to start seeing PyTorch shine. While understanding how matrices are handled is an important pre-requisite to learning a framework, the various layers of abstraction are where frameworks really become useful. In this section, we're going to take the bare bones 3 layer neural network from <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">a previous blogpost</a> and convert it to a network using PyTorch's neural network abstractions. In this way, as we wrap each part of the network with a piece of framework functionality, you'll know exactly what PyTorch is doing under the hood. Your goal in this section should be to relate the PyTorch abstractions (objects, function calls, etc.) in the PyTorch network we will build with the matrix operations in the numpy neural network (pictured below)s. </p>
+<p>In this section, we really get to start seeing PyTorch shine. While understanding how matrices are handled is an important pre-requisite to learning a framework, the various layers of abstraction are where frameworks really become useful. In this section, we're going to take the bare bones 3 layer neural network from <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/">a previous blogpost</a> and convert it to a network using PyTorch's neural network abstractions. In this way, as we wrap each part of the network with a piece of framework functionality, you'll know exactly what PyTorch is doing under the hood. Your goal in this section should be to relate the PyTorch abstractions (objects, function calls, etc.) in the PyTorch network we will build with the matrix operations in the numpy neural network (pictured below)s. </p>
 
 <pre class="brush: python">
 import PyTorch

@@ -32,7 +32,7 @@ for j in xrange(60000):
 
 <h2 class="section-heading">Part 1: Optimization</h2>
 
-<p>In <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">Part 1</a>, I laid out the basis for backpropagation in a simple neural network. Backpropagation allowed us to measure how each weight in the network contributed to the overall error. This ultimately allowed us to change these weights using a different algorithm, <b>Gradient Descent</b>.
+<p>In <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/">Part 1</a>, I laid out the basis for backpropagation in a simple neural network. Backpropagation allowed us to measure how each weight in the network contributed to the overall error. This ultimately allowed us to change these weights using a different algorithm, <b>Gradient Descent</b>.
 
 <p>The takeaway here is that <b>backpropagation doesn't optimize</b>! It moves the error information from the end of the network to all the weights inside the network so that a different algorithm can optimize those weights to fit our data. We actually have a plethora of different <b>nonlinear optimization methods</b> that we could use with backpropagation:</p>
 <p style="margin-left:40px">
@@ -896,11 +896,11 @@ var ind_q = 'Machine Learning';
 var ind_l = '';
 var ind_chnl = 'none';
 var ind_n = 15;
-var ind_d = 'http://www.indeed.com';
+var ind_d = 'https://www.indeed.com';
 var ind_t = 40;
 var ind_c = 30;
 </script>
-<script type='text/javascript' src='http://www.indeed.com/ads/jobroll-widget-v3.js'></script>
+<script type='text/javascript' src='https://www.indeed.com/ads/jobroll-widget-v3.js'></script>
 
 <div id='indeed_widget_wrapper' style=''>
 <div id='indeed_widget_header'>Machine Learning Jobs</div>
@@ -918,7 +918,7 @@ formInputs[i].value = '';
 }
 }
 </script>
-<form onsubmit='clearDefaults();' method='get' action='http://www.indeed.com/jobs' id='indeed_jobform' target="_new">
+<form onsubmit='clearDefaults();' method='get' action='https://www.indeed.com/jobs' id='indeed_jobform' target="_new">
 <div id="qc"><label>What:</label><input type='text' onfocus='this.value=""' value='title, keywords' name='q' id='q'></div>
 <div id="lc"><label>Where:</label><input type='text' onfocus='this.value=""' value='city, state, or zip' name='l' id='l'></div>
 <div id='indeed_search_footer'>
@@ -929,7 +929,7 @@ formInputs[i].value = '';
 </div>
 
 <div id='indeed_link'>
-<a title="Job Search" href="http://www.indeed.com/" target="_new">jobs by <img alt="Indeed" src='http://www.indeed.com/p/jobsearch.gif' style='border: 0;vertical-align: bottom;'>
+<a title="Job Search" href="https://www.indeed.com/" target="_new">jobs by <img alt="Indeed" src='https://www.indeed.com/p/jobsearch.gif' style='border: 0;vertical-align: bottom;'>
 </a>
 </div>
 </div>
