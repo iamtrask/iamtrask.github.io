@@ -165,7 +165,6 @@ Output After Training:
     <td class="tg-4kyx">*</td>
     <td class="tg-4kyz">Elementwise multiplication, so two vectors of equal size are multiplying corresponding values 1-to-1 to generate a final vector of identical size.</td>
   </tr>
-  </tr>
     <tr>
     <td class="tg-4kyx">-</td>
     <td class="tg-4kyz">Elementwise subtraction, so two vectors of equal size are subtracting corresponding values 1-to-1 to generate a final vector of identical size.</td>
