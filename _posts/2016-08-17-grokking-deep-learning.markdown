@@ -11,7 +11,7 @@ header-img: "img/stack_nebula.jpg"
 
 <p><b>Edit: 50% Coupon Code:</b> "mltrask" (expires August 26)</p>
 
-<p>I've decided to write a <a href="https://www.manning.com/books/grokking-deep-learning">Deep Learning book</a> in the same style as my blog, teaching Deep Learning from an <i>intuitive</i> perspective, all in Python, using only numpy. I wanted to make the <b>lowest possible barrier to entry</b> to learn Deep Learning.</p>
+<p>I've decided to write a <a href="https://manning.com/books/grokking-deep-learning?a_aid=grokkingdl&a_bid=32715258">Deep Learning book</a> in the same style as my blog, teaching Deep Learning from an <i>intuitive</i> perspective, all in Python, using only numpy. I wanted to make the <b>lowest possible barrier to entry</b> to learn Deep Learning.</p>
 
 <p>Here's what you need to know:
 <div style="padding-left:50px">• High School Math (basic algebra)<br />
@@ -26,7 +26,7 @@ header-img: "img/stack_nebula.jpg"
 
 <p><b>Who This Book Is NOT For:</b> people who would rather be taught using formulas. Individuals with advanced mathematical backgrounds should choose another resource. This book is for an introduction to Deep Learning. It's about lowering the barrier to entry.</p>
 
-<p><a href="https://www.manning.com/books/grokking-deep-learning">Click To See the Early Release Page (where the first three chapters are)</a></p>
+<p><a href="https://manning.com/books/grokking-deep-learning?a_aid=grokkingdl&a_bid=32715258">Click To See the Early Release Page (where the first three chapters are)</a></p>
 
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shCore.css">
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shThemeDefault.css">
