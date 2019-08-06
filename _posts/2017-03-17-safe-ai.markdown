@@ -320,7 +320,7 @@ So, now that we know how to encrypt and decrypt messages (And compute basic addi
 
 <ul>
 	<li><b>Floating Point Numbers:</b> We're going to do this by simply scaling our floats into integers. We'll train our network on integers as if they were floats. Let's say we're scaling by 1000. 0.2 * 0.5 = 0.1. If we scale up, 200 * 500 = 100000. We have to scale down by 1000 twice since we performed multiplication, but 100000 / (1000 * 1000) = 0.1 which is what we want. This can be tricky at first but you'll get used to it. Since this HE scheme rounds to the nearest integer, this also lets you control the precision of your neural net.</li>
-	<li><b>Vector-Matrix Multiplication:</b> This is our bread and butter. As it turns out, the M matrix that converts from one secret key to another is actually a way to linear transform. </li>
+	<li><b>Vector-Matrix Multiplication:</b> This is our bread and butter. As it turns out, for the M matrix that converts from one secret key to another, there is actually a way to linear transform it. </li>
 	<li><b>Inner Dot Product:</b> In the right context, the linear transformation above can also be an inner dot product.</li>
 	<li><b>Sigmoid:</b> Since we can do vector-matrix multiplication, we can evaluate arbitrary polynomials given enough multiplications. Since we know the Taylor Series polynomial for sigmoid, we can evaluate an approximate sigmoid!</li>
 	<li><b>Elementwise Matrix Multiplication:</b> This one is surprisingly inefficient. We have to do a Vector-Matrix multiplication or a series of inner dot products.</li>
