@@ -7,9 +7,9 @@ author:     "iamtrask"
 header-img: "img/earthrise.jpg"
 ---
 
-<p>One plausible description for "the goal of the AI community" goes like this: to build automated systems which solve all of humanity's problems both now and in the future. In the first order, this is based on the well founded belief that our lives would be better if our problems were solved. This is closely realted to the somewhat obvious observation that (nearly) all of humanity is in some way taking part in helping to solve humanity's present or future problems. This is what we're all doing, so wouldn't it be great if AI could help in the most general possible way?</p>
+<p>One plausible description for "the goal of the AI community" goes like this: to build automated systems which solve all of humanity's problems both now and in the future. Surely our lives would be better if our problems were solved? This goal natural follows from a related observation: nearly all of humanity is in some way taking part in helping to solve humanity's present or future problems. This is what we're all doing, so wouldn't it be great if AI could do it all for us? Bonus points if it can solve all our problems better than we can!</p>
 
-<p>An interesting tangent is to observe that if we simply had more humans to help we would make faster progress on solving humanity's problems. However, adding more humans also makes many of the problems harder (hunger, war, global warming, etc.). Thus, it's important to consider that some plausible solutions to "all of humanity's problems" are net-negative in their approach, causing more problems than they fix. But beyond observing that net-nevative solutions exist, let's set this aside for the moment.</p>
+<p>An interesting tangent is to observe that if we simply had more humans to help we would make faster progress on solving humanity's problems. However, adding more humans also makes many of the problems harder (hunger, war, global warming, etc.). Thus, it's important to consider that some plausible solutions to "all of humanity's problems" are net-negative in their approach, causing more problems than they fix. But beyond observing that net-nevative solutions exist, and that AI-related solutions could be net-negative too, let's set this aside for the moment.</p>
 
 <p>For anyone else who also learned AI from Russell and Norvig's influential book, it's often useful to think about AI form the perspective of a database and a search algorithm. If your live-updating database contains the answer to any question, and you have enough compute to query it fast enough, then you have AGI and in theory all of humanity's problems are solved. Pick any problem, ask for the solution, and do it. This could be high level questions ("What is the meaning of life?") or low-level questions ("Should my car turn 3 degrees to the left?"), but as long as they're all in the database then you're good.</p>
 
@@ -21,7 +21,7 @@ header-img: "img/earthrise.jpg"
   <li>even if we had enough compute, we wouldn't have enough energy to run that compute</li>
 </ul>
 
-<p>That is to say, from this perspective, solving AGI is mostly about enegy efficiency. We can group energy efficiency into useful groups such as:</p>
+<p>That is to say, from this perspective, solving AGI is mostly about efficiency. We can group efficiency into useful groups such as:</p>
 
 
 <ul>
