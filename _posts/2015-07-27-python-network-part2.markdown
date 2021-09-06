@@ -84,7 +84,7 @@ for j in xrange(60000):
 </p>
 
 
-<p>The question is, however, <b>how much should the ball move </b>at each time step? Look at the bucket again. The steeper the slope, the farther the ball is from the bottom. That's helpful! Let's improve our algorithm to leverage this new information. Also, let's assume that the bucket is on an (x,y) plane. So, it's location is x (along the bottom). Increasing the ball's "x" position moves it to the right. Decreasing the ball's "x" position moves it to the left.</p>
+<p>The question is, however, <b>how much should the ball move </b>at each time step? Look at the bucket again. The steeper the slope, the farther the ball is from the bottom. That's helpful! Let's improve our algorithm to leverage this new information. Also, let's assume that the bucket is on an (x,y) plane. So, its location is x (along the bottom). Increasing the ball's "x" position moves it to the right. Decreasing the ball's "x" position moves it to the left.</p>
 
 <p>
 <h4>Naive Gradient Descent:</h4>
@@ -428,7 +428,7 @@ Now we can see that taking steps that are too large can be very counterproductiv
 </p>
 
 <p><b>Alpha = 1000</b><br />
-And with an extremely large alpha, we see a textbook example of divergence, with the error increasing instead of decreasing... hardlining at 0.5. This is a more extreme version of <b>Problem 3</b> where it overcorrectly whildly and ends up very far away from any local minimums.
+And with an extremely large alpha, we see a textbook example of divergence, with the error increasing instead of decreasing... hardlining at 0.5. This is a more extreme version of <b>Problem 1</b> where it overcorrectly whildly and ends up very far away from any local minimums.
 </p>
 
 <h3>Let's Take a Closer Look</h3>
