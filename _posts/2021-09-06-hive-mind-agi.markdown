@@ -32,7 +32,7 @@ header-img: "img/earthrise.jpg"
 
 <p>So if the ultimate fallback towards AGI is just data collection (memorization, like in a database), AI is trying to give us more efficient methods than simply collecting everything under the sun. Information re-use and prioritization schemes are plausibly the most popular strategies.</p>
 
-<p>In short - we live in a world of finite resources, so solving AGI is actually about saying "How far can we get with the smallest amount of <x resource>?" Given fixed supply, whomever can be the most efficient can be the most intelligent. In a world with limited energy, efficiency is intelligence.</p>
+<p>In short - we live in a world of finite resources, so solving AGI is actually about saying "How far can we get with the smallest amount of "x" resource?" Given fixed supply, whomever can be the most efficient can be the most intelligent. In a world with limited energy, efficiency is intelligence.</p>
 
 <p>So what type of AGI will be the most intelligent? Hive-mind or single-model?</p>
 
