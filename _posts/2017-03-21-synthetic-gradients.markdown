@@ -47,7 +47,7 @@ in deep neural networks</a>. Basically, you can backpropagate through randomly g
 
 <h4>How do we learn the network that generates Synthetic Gradients?</h4>
 
-<p>This begs the question, how do we learn the neural networks that generate our Synthetic Gradients? Well, as it turns out, when we perform full forward and backpropagation, we actually get the "correct" gradient. We can compare this to our "synthetic" gradient in the same way we normally compare the output of a neural network to the dataset. Thus, we can train our Synthetic Gradient networks by pretending that our "true gradients" are coming from from mythical dataset... so we train them like normal. Neat!</p>
+<p>This begs the question, how do we learn the neural networks that generate our Synthetic Gradients? Well, as it turns out, when we perform full forward and backpropagation, we actually get the "correct" gradient. We can compare this to our "synthetic" gradient in the same way we normally compare the output of a neural network to the dataset. Thus, we can train our Synthetic Gradient networks by pretending that our "true gradients" are coming from mythical dataset... so we train them like normal. Neat!</p>
 
 <h4>Wait... if our Synthetic Gradient Network requires backprop... what's the point?</h4>
 
