@@ -61,6 +61,7 @@ header-img: "img/earthrise.jpg"
 <ul>
   <li>superhuman models on board games aren't trained on medical tasks, and there's little to indicate doing so would be helpful to the board game performance.</li>
   <li>superhuman models on medical tasks aren't trained on driving cars, and there's little to indicate that being able to drive better would help one with medical tasks.</li>
+  <li>governance and safety is probably easier if AGI ownership is actually spread amongst a large number of different entities for the same reason that democracy is better than totalitarianism. And while this is doable for single-model AI, it's probably a lot easier for hive-mind AI.</li>
 </ul>
 
 
