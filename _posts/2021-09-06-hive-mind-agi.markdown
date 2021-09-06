@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Theory: Hive-mind AGI will outperform single-model AGI"
-subtitle:   ""
+subtitle:   "A short summary."
 date:       2020-09-06 12:00:00
 author:     "iamtrask"
 header-img: "img/earthrise.jpg"
