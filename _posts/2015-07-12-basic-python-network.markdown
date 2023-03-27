@@ -640,11 +640,11 @@ var ind_q = 'Machine Learning';
 var ind_l = '';
 var ind_chnl = 'none';
 var ind_n = 15;
-var ind_d = 'http://www.indeed.com';
+var ind_d = 'https://www.indeed.com';
 var ind_t = 40;
 var ind_c = 30;
 </script>
-<script type='text/javascript' src='http://www.indeed.com/ads/jobroll-widget-v3.js'></script>
+<script type='text/javascript' src='https://www.indeed.com/ads/jobroll-widget-v3.js'></script>
 <div id='indeed_widget_wrapper' style=''>
 <div id='indeed_widget_header'>Machine Learning Jobs</div>
 
@@ -661,7 +661,7 @@ formInputs[i].value = '';
 }
 }
 </script>
-<form onsubmit='clearDefaults();' method='get' action='http://www.indeed.com/jobs' id='indeed_jobform' target="_new">
+<form onsubmit='clearDefaults();' method='get' action='https://www.indeed.com/jobs' id='indeed_jobform' target="_new">
 <div id="qc"><label>What:</label><input type='text' onfocus='this.value=""' value='title, keywords' name='q' id='q'></div>
 <div id="lc"><label>Where:</label><input type='text' onfocus='this.value=""' value='city, state, or zip' name='l' id='l'></div>
 <div id='indeed_search_footer'>
@@ -672,7 +672,7 @@ formInputs[i].value = '';
 </div>
 
 <div id='indeed_link'>
-<a title="Job Search" href="http://www.indeed.com/" target="_new">jobs by <img alt="Indeed" src='http://www.indeed.com/p/jobsearch.gif' style='border: 0;vertical-align: bottom;'>
+<a title="Job Search" href="https://www.indeed.com/" target="_new">jobs by <img alt="Indeed" src='https://www.indeed.com/p/jobsearch.gif' style='border: 0;vertical-align: bottom;'>
 </a>
 </div>
 </div>
