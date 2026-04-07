@@ -484,31 +484,29 @@ while True:
 
 <p><b>"How is this different from just using ChatGPT with a system prompt?"</b></p>
 
-<p>Two differences. First, local context. The model is mostly an <i>interface</i> into your private data, data that doesn't exist on the public internet. You're governing what context each person gets to see, and that's the valuable part.</p>
+<p>There are two key differences, and the first is local context. The model is mostly an <i>interface</i> into your private data, data that doesn't exist on the public internet, so you're governing what context each person gets to see, and that's the valuable part.</p>
 
-<p>Second, scale. Current models are trained on roughly 180 terabytes of data, but there are 180 <i>zettabytes</i> of data in existence (that's a billion times more). Most of that is private. The model that can conditionally query private data for a given domain will be the smartest model in the world for that domain, and that's profoundly different from a system prompt over public knowledge.</p>
+<p>The second is scale. Current models are trained on roughly 180 terabytes of data, but there is something like 180 <i>zettabytes</i> of data in existence (that's a billion times more). Most of that is private, and while ChatGPT is largely based on public data (or data the company hires from outside firms), the model we put together can conditionally query private data for a given domain. That model will be the smartest model in the world for that domain, and that's profoundly different from a system prompt over public knowledge.</p>
 
 <p><b>"Why would anyone text an AI instead of just texting me?"</b></p>
 
-<p>They wouldn't, and that's not the point.</p>
+<p>I don't think they would, but that's not necessarily the point. In 1968, JCR Licklider wrote <a href="https://internetat50.com/references/Licklider_Taylor_The-Computer-As-A-Communications-Device.pdf"><i>The Computer as a Communication Device</i></a> and then went to ARPA and built the internet in line with this vision. His first insight was that communication isn't the sending and receiving of bits... it's the <i>alignment of mental models</i>. For example, you have a model of the world in your head and I have one in mine, and we throw bits at each other until they align.</p>
 
-<p>In 1968, JCR Licklider wrote <a href="https://en.wikipedia.org/wiki/The_Computer_as_a_Communication_Device"><i>The Computer as a Communication Device</i></a> and then went to ARPA and built the internet. His key insight was that communication isn't the sending and receiving of bits... it's the <i>alignment of mental models</i>. You have a model of the world in your head and I have one in mine, and we throw bits at each other until they align.</p>
-
-<p>He described "Olivers," agents that hold your mental models so others can align with them while you're away. That's basically what we built. It's not "talking to an AI," it's a neural interface into your mental models that lets you <i>listen at the same scale you can speak</i>. Right now one person can broadcast to millions, but we still mostly listen to one person at a time. An Oliver changes that, and a lot of centralized power in the attention economy starts to unwind when it does.</p>
+<p>He described an Online Interactive Vicarious Expediter and Resonder (OLIVER), agent that holds your mental models so others can align with them while you're away. That's basically what we built in this blogpost. From this perspective, it's not "talking to an AI," it's a neural interface into your mental models that lets you <i>listen at the same scale you can speak</i>. Right now one person can broadcast to millions, but we still mostly listen to one person at a time. An OLIVER changes that, and a lot of centralized power in the attention economy could be relaxed based on this kind of technology.</p>
 
 <p><b>"Doesn't this break with more than a few files? What about context window limits?"</b></p>
 
-<p>Yes, our version is naive and just loads everything in the folder. But all the existing techniques for scaling context windows (chunking, RAG, summarization, etc.) apply here. The key insight is to do it in a partitioned way, keeping context organized by speaker and by who you're communicating with. Take it on as a project if you want... fork the repo, expand it, write your own blog post.</p>
+<p>Yes, our version is naive and just loads everything in the folder, but plenty of existing techniques for scaling context windows (chunking, RAG, summarization, etc.) apply here. The key insight is to do it in a partitioned way, keeping context organized by speaker and by who you're communicating with. Take it on as a project if you want... fork the repo, expand it, write your own blog post.</p>
 
 <p><b>"You said 50 lines but there's also bridge.js and Ollama and npm install..."</b></p>
 
-<p>This is about leaky vs. non-leaky abstractions. bridge.js is just "send and receive WhatsApp messages" and everyone knows what that is. Ollama is just "run an open-source model locally," which is well understood. The 50 lines are the <i>new</i> abstractions, the stuff about responding over highly interoperable channels with partitioned per-person context for governance. That's what the tutorial exists to teach.</p>
+<p>True, but "X lines of python" style blogposts tend to be about leaky vs. non-leaky abstractions. bridge.js is just "send and receive WhatsApp messages" and everyone knows what that is. Ollama is just "run an open-source model locally," which is well understood. The 50 lines are the <i>new</i> abstractions, the stuff about responding over highly interoperable channels with partitioned per-person context for governance, which is's what the tutorial exists to teach.</p>
 
 <p><b>"What stops someone from just reading the files on my computer?"</b></p>
 
-<p>LLMs have a natural containerization property where inputs go in but by default they can't escape (unless the model is attached to tools). As we upgrade this stack into a full decentralized AI system, we'll preserve this VM-like partition. The core philosophy is that governing AI is largely about what happens <i>outside</i> the AI... what context you allow it to see, for which prompts, from which senders. The private data was never in the prompt to begin with.</p>
+<p>LLMs have a natural containerization property where inputs go in but by default they can't escape (unless the model is attached to tools). As we upgrade this stack into a full decentralized AI system, we'll seek to preserve this VM-like partition. The core philosophy is that governing AI is largely about what happens <i>outside</i> the AI... what context you allow it to see, for which prompts, from which senders. In this case, the private data was never in the prompt to begin with, so prompt injection risks become minimal in this context.</p>
 
-<p><i>Header photo: Margaret Bourke-White—The LIFE Picture Collection/Shutterstock. Mahatma Gandhi at the spinning wheel, 1946.</i></p>
+<p><i>Header photo: Margaret Bourke-White—The LIFE Picture Collection/Shutterstock. Mahatma Gandhi at the spinning wheel, 1946. I chose this photo because one of Ghandi's projects involved empowering people with the spinning tools needed to make their own clothes, reducing their dependency on centralized powers. I'm not a Ghandi expert but I found the story inspiring, and the idea of hosting your own LLM to communicate with others at scale is (I think) inspired from a similar set of values.</i></p>
 
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shCore.css">
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shThemeDefault.css">
