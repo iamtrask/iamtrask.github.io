@@ -7,10 +7,15 @@ author:     "iamtrask"
 header-img: "img/gandhi-spinning-wheel.jpg"
 ---
 
-<p><b>Summary:</b> We build a P2P AI in about 50 lines of Python. Your friends text you on WhatsApp, a local AI responds using your local data, and sender-specific context folders protect privacy. If you're interested in more advanced concepts (homomorphic encryption, blockchain, federated learning, etc.), this is the first post in a series called <a href="https://github.com/iamtrask/decentralized-ai-from-scratch">Decentralized AI from Scratch</a>. I'll tweet new posts <a href="https://twitter.com/iamtrask">@iamtrask</a>.</p>
+<p><b>Summary:</b> DECENTRALIZED AI!!!!!!! OK let's do this. We're gonna build a P2P AI in about 50 lines of Python. Your friends text you on WhatsApp, a local AI responds using your local data, and sender-specific context folders protect privacy. If that's boring and you want the fancy stuff (homomorphic encryption, blockchain, federated learning, etc.), you should still start here. This is the first/foundational post in a series called <a href="https://github.com/iamtrask/decentralized-ai-from-scratch">Decentralized AI from Scratch</a>. I'll tweet the next posts <a href="https://twitter.com/iamtrask">@iamtrask</a>.</p>
 
 <h3>Just Give Me The Code:</h3>
-<p><b>WhatsApp Bridge (run first): </b><code>npx @iamtrask/om-bridge</code><br />
+<p><b>Note:</b> This runs locally on your machine, not on Google Colab. You'll need <a href="https://nodejs.org">Node.js</a> and <a href="https://ollama.com/download">Ollama</a> installed. Or just run the <a href="https://github.com/iamtrask/om-bridge/blob/main/setup.sh">setup script</a> which installs everything and starts the bridge:</p>
+<pre>
+curl -fsSL https://iamtrask.github.io/setup.sh | bash
+</pre>
+<p>Or do it manually in separate terminal windows:</p>
+<p><b>WhatsApp Bridge (run first, in its own terminal): </b><code>npx @iamtrask/om-bridge</code><br />
 <b><a href="https://ollama.com/download">Ollama</a> Model (run first): </b><code>ollama pull gemma4</code></p>
 
 <pre class="brush: python">
@@ -98,6 +103,8 @@ def respond(incoming_prompt_from_friend):
 <pre>
 ollama pull gemma4
 </pre>
+
+<p><b>Note:</b> gemma4 is ~9GB. If you run out of memory, swap <code>"gemma4"</code> with a smaller model like <code>"qwen2.5:0.5b"</code> — just change the <code>MODEL</code> variable in the code. Run <code>ollama pull qwen2.5:0.5b</code> instead.</p>
 
 <p>The cool thing about Ollama is it hosts a local server. We can talk to it with a simple HTTP request:</p>
 
@@ -464,6 +471,49 @@ while True:
 <script src="{{ site.baseurl }}/js/shLegacy.js"></script>
 <script src="{{ site.baseurl }}/js/shBrushPython.js"></script>
 <script type="text/javascript">
-	SyntaxHighlighter.config.toolbar = true;
+	SyntaxHighlighter.config.toolbar = false;
     SyntaxHighlighter.all();
+</script>
+
+<style>
+.syntaxhighlighter .toolbar { display: none !important; }
+.code-wrapper { position: relative; }
+.copy-btn {
+    position: absolute; top: 4px; right: 4px; z-index: 10;
+    background: rgba(0,0,0,0.6); color: #fff; border: none; padding: 3px 8px;
+    border-radius: 3px; cursor: pointer; font-size: 12px; opacity: 0.4;
+    transition: opacity 0.2s;
+}
+.code-wrapper:hover .copy-btn { opacity: 0.9; }
+</style>
+<script>
+function addCopyButtons() {
+    var blocks = document.querySelectorAll("div.syntaxhighlighter");
+    if (blocks.length === 0) {
+        setTimeout(addCopyButtons, 200);
+        return;
+    }
+    blocks.forEach(function(el) {
+        if (el.parentNode.classList.contains("code-wrapper")) return;
+        var wrapper = document.createElement("div");
+        wrapper.className = "code-wrapper";
+        el.parentNode.insertBefore(wrapper, el);
+        wrapper.appendChild(el);
+        var btn = document.createElement("button");
+        btn.className = "copy-btn";
+        btn.textContent = "copy";
+        btn.addEventListener("click", function() {
+            var lines = el.querySelectorAll(".line");
+            var code = Array.prototype.map.call(lines, function(l) {
+                return l.textContent;
+            }).join("\n");
+            navigator.clipboard.writeText(code).then(function() {
+                btn.textContent = "copied!";
+                setTimeout(function() { btn.textContent = "copy"; }, 2000);
+            });
+        });
+        wrapper.appendChild(btn);
+    });
+}
+addCopyButtons();
 </script>
