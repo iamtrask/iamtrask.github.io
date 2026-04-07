@@ -11,9 +11,8 @@ header-img: "img/gandhi-spinning-wheel.jpg"
 
 <h3>Just Give Me The Code:</h3>
 <p><b>Note:</b> This runs locally on your machine, not on Google Colab. You'll need <a href="https://nodejs.org">Node.js</a> and <a href="https://ollama.com/download">Ollama</a> installed. Or just run the <a href="https://github.com/iamtrask/om-bridge/blob/main/setup.sh">setup script</a> which installs everything and starts the bridge:</p>
-<pre>
-curl -fsSL https://raw.githubusercontent.com/iamtrask/decentralized-ai-from-scratch/main/lectures/00_p2p_ai/setup.sh | bash
-</pre>
+<pre id="setup-cmd">curl -fsSL https://raw.githubusercontent.com/iamtrask/decentralized-ai-from-scratch/main/lectures/00_p2p_ai/setup.sh | bash</pre>
+<div style="text-align:right;margin-top:-10px;margin-bottom:10px"><button style="background:#333;color:#fff;border:none;padding:3px 8px;border-radius:3px;cursor:pointer;font-size:12px" onclick="navigator.clipboard.writeText(document.getElementById('setup-cmd').textContent.trim()).then(()=>{this.textContent='copied!';setTimeout(()=>this.textContent='copy',2000)})">copy</button></div>
 <p>Or do it manually in separate terminal windows:</p>
 <p><b>WhatsApp Bridge (run first, in its own terminal): </b><code>npx @iamtrask/om-bridge</code><br />
 <b><a href="https://ollama.com/download">Ollama</a> Model (run first): </b><code>ollama pull gemma4</code></p>
