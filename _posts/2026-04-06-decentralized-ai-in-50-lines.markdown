@@ -2,7 +2,7 @@
 layout:     post
 title:      "Decentralized AI in 50 Lines of Python"
 subtitle:   "A peer-to-peer AI that answers your friends' messages using local data and privacy controls."
-date:       2026-04-07 12:00:00
+date:       2026-04-06 12:00:00
 author:     "iamtrask"
 header-img: "img/gandhi-spinning-wheel.jpg"
 ---
