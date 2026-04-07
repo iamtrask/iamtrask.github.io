@@ -12,7 +12,7 @@ header-img: "img/gandhi-spinning-wheel.jpg"
 <h3>Just Give Me The Code:</h3>
 <p><b>Note:</b> This runs locally on your machine, not on Google Colab. You'll need <a href="https://nodejs.org">Node.js</a> and <a href="https://ollama.com/download">Ollama</a> installed. Or just run the <a href="https://github.com/iamtrask/om-bridge/blob/main/setup.sh">setup script</a> which installs everything and starts the bridge:</p>
 <pre>
-curl -fsSL https://iamtrask.github.io/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/iamtrask/decentralized-ai-from-scratch/main/lectures/00_p2p_ai/setup.sh | bash
 </pre>
 <p>Or do it manually in separate terminal windows:</p>
 <p><b>WhatsApp Bridge (run first, in its own terminal): </b><code>npx @iamtrask/om-bridge</code><br />
