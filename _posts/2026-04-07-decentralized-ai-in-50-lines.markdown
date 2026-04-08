@@ -464,8 +464,6 @@ while True:
 
 <h2 class="section-heading">FAQ</h2>
 
-<iframe width="700px" height="440px" src="https://www.youtube.com/embed/gLvOPrWSfCY" frameborder="0" allowfullscreen></iframe>
-
 <p><b>"Why is this decentralized AI? It's just running on one laptop."</b></p>
 
 <p>Decentralization is about who makes decisions, who has power in the system. In a centralized AI system, one party decides what data the model trains on (value alignment) and who gets to use it (access control). In our system, each person running the node decides for themselves what data to share and with whom. We built the node, the thing that can run on many laptops, and the network already exists (WhatsApp, Signal, etc.). Everyone can deploy different versions, use different models, organize their data differently, and it all works because the protocol is just human language.</p>
