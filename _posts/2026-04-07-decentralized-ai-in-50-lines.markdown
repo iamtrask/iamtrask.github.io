@@ -74,7 +74,7 @@ def process_messages():
         os.remove(f)
         print(f"← {sender}: {question}\n→ {reply}")
 
-print("Listening! Ask a friend to text you a message starting with 'om' on WhatsApp.")
+print("""Listening! Ask a friend to text you a message starting with 'om' on WhatsApp.""")
 while True:
     process_messages()
     time.sleep(1)
