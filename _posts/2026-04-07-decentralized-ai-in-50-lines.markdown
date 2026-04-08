@@ -17,7 +17,7 @@ header-img: "img/gandhi-spinning-wheel.jpg"
 <pre id="setup-cmd">curl -fsSL https://raw.githubusercontent.com/iamtrask/decentralized-ai-from-scratch/main/lectures/00_p2p_ai/setup.sh | bash</pre>
 <div style="text-align:right;margin-top:-10px;margin-bottom:10px"><button style="background:#333;color:#fff;border:none;padding:3px 8px;border-radius:3px;cursor:pointer;font-size:12px" onclick="navigator.clipboard.writeText(document.getElementById('setup-cmd').textContent.trim()).then(()=>{this.textContent='copied!';setTimeout(()=>this.textContent='copy',2000)})">copy</button></div>
 <p>Or do it manually in separate terminal windows:</p>
-<p><b>Install <a href="https://ollama.com/download">Ollama</a>: </b><a href="https://ollama.com/download">ollama.com/download</a><br />
+<p><b>Install <a href="https://ollama.com/download">Ollama</a>: </b><code>curl -fsSL https://ollama.com/install.sh | sh</code><br />
 <b>Ollama Model (run first): </b><code>ollama pull gemma4</code><br />
 <b>WhatsApp Bridge (run first, in its own terminal): </b><code>npx @iamtrask/om-bridge</code></p>
 
