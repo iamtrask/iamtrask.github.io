@@ -8,13 +8,13 @@ header-img: "img/gandhi-spinning-wheel.jpg"
 ---
 
 <p><b>Video Walkthrough:</b></p>
-<iframe width="700px" height="440px" src="https://www.youtube.com/embed/zY2dAK-pMPI" frameborder="0" allowfullscreen></iframe>
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%" src="https://www.youtube.com/embed/zY2dAK-pMPI" frameborder="0" allowfullscreen></iframe></div>
 
 <p><b>Summary:</b> DECENTRALIZED AI!!!!!!! OK let's do this. We're gonna build a P2P AI in about 50 lines of Python. Your friends text you on WhatsApp, a local AI responds using your local data, and sender-specific context folders protect privacy. If that's boring and you want the fancy stuff (homomorphic encryption, blockchain, federated learning, etc.), maybe still start here. This is the foundational post in a series called <a href="https://github.com/iamtrask/decentralized-ai-from-scratch">Decentralized AI from Scratch</a>. I'll tweet the next posts <a href="https://twitter.com/iamtrask">@iamtrask</a>.</p>
 
 <h3>Just Give Me The Code:</h3>
 <p><b>Note:</b> This runs locally on your machine, not on Google Colab. You'll need <a href="https://nodejs.org">Node.js</a> and <a href="https://ollama.com/download">Ollama</a> installed. Or just run the <a href="https://github.com/iamtrask/om-bridge/blob/main/setup.sh">setup script</a> which installs everything and starts the bridge:</p>
-<pre id="setup-cmd">curl -fsSL https://raw.githubusercontent.com/iamtrask/decentralized-ai-from-scratch/main/lectures/00_p2p_ai/setup.sh | bash</pre>
+<pre id="setup-cmd" style="overflow-x:auto">curl -fsSL https://raw.githubusercontent.com/iamtrask/decentralized-ai-from-scratch/main/lectures/00_p2p_ai/setup.sh | bash</pre>
 <div style="text-align:right;margin-top:-10px;margin-bottom:10px"><button style="background:#333;color:#fff;border:none;padding:3px 8px;border-radius:3px;cursor:pointer;font-size:12px" onclick="navigator.clipboard.writeText(document.getElementById('setup-cmd').textContent.trim()).then(()=>{this.textContent='copied!';setTimeout(()=>this.textContent='copy',2000)})">copy</button></div>
 <p>Or do it manually in separate terminal windows:</p>
 <p><b>1. Install <a href="https://nodejs.org">Node.js</a> (if <code>npx</code> isn't found): </b><a href="https://nodejs.org">nodejs.org</a> (then open a new terminal. If <code>npx</code> is still missing: <code>npm install -g npx</code>)<br />
@@ -536,6 +536,25 @@ while True:
     transition: opacity 0.2s;
 }
 .code-wrapper:hover .copy-btn { opacity: 0.9; }
+
+pre {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    word-wrap: normal;
+    white-space: pre;
+}
+
+.syntaxhighlighter {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+}
+
+@media (max-width: 767px) {
+    pre { font-size: 13px; padding: 8px; }
+    .syntaxhighlighter { font-size: 13px !important; }
+    .syntaxhighlighter .line { white-space: pre !important; }
+}
 </style>
 <script>
 function addCopyButtons() {
