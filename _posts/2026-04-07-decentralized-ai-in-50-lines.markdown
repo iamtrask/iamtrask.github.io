@@ -48,11 +48,14 @@ def respond(message, sender="public"):
         context += "\n" + read_folder(personal)
     result = requests.post(OLLAMA, json={
         "model": MODEL,
-        "prompt": f"Someone texted me: {message}\n\nReply using ALL of this context about me:\n{context}",
-        "system": "You ARE the person replying to a text message. "
-                  "Output ONLY the reply text. No preamble. Be brief and natural. "
-                  "Use the context to personalize your reply. "
-                  "If the context doesn't cover the question, say you're not sure.",
+        "prompt": f"""Someone texted me: {message}
+
+Reply using ALL of this context about me:
+{context}""",
+        "system": """You ARE the person replying to a text message.
+Output ONLY the reply text. No preamble. Be brief and natural.
+Use the context to personalize your reply.
+If the context doesn't cover the question, say you're not sure.""",
         "stream": False
     })
     return result.json()['response'].strip()
@@ -136,8 +139,8 @@ def respond(incoming_prompt_from_friend):
     r = requests.post(OLLAMA, json={
         "model": MODEL,
         "prompt": f"Someone texted me: {incoming_prompt_from_friend}\n\nReply on my behalf.",
-        "system": "You ARE the person replying to a text message. "
-                  "Output ONLY the reply text. No preamble. Be brief and natural.",
+        "system": """You ARE the person replying to a text message.
+Output ONLY the reply text. No preamble. Be brief and natural.""",
         "stream": False
     })
     return r.json()["response"].strip()
@@ -172,9 +175,9 @@ def respond(incoming_prompt_from_friend):
     r = requests.post(OLLAMA, json={
         "model": MODEL,
         "prompt": f"Someone texted me: {incoming_prompt_from_friend}\n\nReply ONLY using this context:\n{schedule}",
-        "system": "You ARE the person replying to a text message. "
-                  "Output ONLY the reply text. No preamble. Be brief and natural. "
-                  "If the context doesn't cover the question, say you're not sure.",
+        "system": """You ARE the person replying to a text message.
+Output ONLY the reply text. No preamble. Be brief and natural.
+If the context doesn't cover the question, say you're not sure.""",
         "stream": False
     })
     return r.json()["response"].strip()
@@ -207,9 +210,9 @@ def respond(incoming_prompt_from_friend):
     r = requests.post(OLLAMA, json={
         "model": MODEL,
         "prompt": f"Someone texted me: {incoming_prompt_from_friend}\n\nReply ONLY using this context:\n{status}\n{schedule}",
-        "system": "You ARE the person replying to a text message. "
-                  "Output ONLY the reply text. No preamble. Be brief and natural. "
-                  "If the context doesn't cover the question, say you're not sure.",
+        "system": """You ARE the person replying to a text message.
+Output ONLY the reply text. No preamble. Be brief and natural.
+If the context doesn't cover the question, say you're not sure.""",
         "stream": False
     })
     return r.json()["response"].strip()
@@ -254,9 +257,9 @@ def respond(message):
     result = requests.post(OLLAMA, json={
         "model": MODEL,
         "prompt": f"Someone texted me: {message}\n\nReply ONLY using this context:\n{context}",
-        "system": "You ARE the person replying to a text message. "
-                  "Output ONLY the reply text. No preamble. Be brief and natural. "
-                  "If the context doesn't cover the question, say you're not sure.",
+        "system": """You ARE the person replying to a text message.
+Output ONLY the reply text. No preamble. Be brief and natural.
+If the context doesn't cover the question, say you're not sure.""",
         "stream": False
     })
 
@@ -339,11 +342,14 @@ def respond(message, sender="public"):
 
     result = requests.post(OLLAMA, json={
         "model": MODEL,
-        "prompt": f"Someone texted me: {message}\n\nReply using ALL of this context about me:\n{context}",
-        "system": "You ARE the person replying to a text message. "
-                  "Output ONLY the reply text. No preamble. Be brief and natural. "
-                  "Use the context to personalize your reply. "
-                  "If the context doesn't cover the question, say you're not sure.",
+        "prompt": f"""Someone texted me: {message}
+
+Reply using ALL of this context about me:
+{context}""",
+        "system": """You ARE the person replying to a text message.
+Output ONLY the reply text. No preamble. Be brief and natural.
+Use the context to personalize your reply.
+If the context doesn't cover the question, say you're not sure.""",
         "stream": False
     })
 
