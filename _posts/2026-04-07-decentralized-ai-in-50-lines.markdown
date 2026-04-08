@@ -17,7 +17,7 @@ header-img: "img/gandhi-spinning-wheel.jpg"
 <pre id="setup-cmd">curl -fsSL https://raw.githubusercontent.com/iamtrask/decentralized-ai-from-scratch/main/lectures/00_p2p_ai/setup.sh | bash</pre>
 <div style="text-align:right;margin-top:-10px;margin-bottom:10px"><button style="background:#333;color:#fff;border:none;padding:3px 8px;border-radius:3px;cursor:pointer;font-size:12px" onclick="navigator.clipboard.writeText(document.getElementById('setup-cmd').textContent.trim()).then(()=>{this.textContent='copied!';setTimeout(()=>this.textContent='copy',2000)})">copy</button></div>
 <p>Or do it manually in separate terminal windows:</p>
-<p><b>1. Install <a href="https://nodejs.org">Node.js</a> (if <code>npx</code> isn't found): </b><a href="https://nodejs.org">nodejs.org</a><br />
+<p><b>1. Install <a href="https://nodejs.org">Node.js</a> (if <code>npx</code> isn't found): </b><a href="https://nodejs.org">nodejs.org</a> (then open a new terminal. If <code>npx</code> is still missing: <code>npm install -g npx</code>)<br />
 <b>2. Install <a href="https://ollama.com/download">Ollama</a>: </b><code>curl -fsSL https://ollama.com/install.sh | sh</code><br />
 <b>3. Once Ollama is installed, open a new terminal and pull the model: </b><code>ollama pull gemma4</code> (too big? try <code>ollama pull qwen3.5:0.8b</code>, or if you're really cramped <code>ollama pull gemma3:270m</code> but quality will suffer. Just make sure to update MODEL in the Python code below to match.)<br />
 <b>3. Open another new terminal for the WhatsApp bridge: </b><code>npx @iamtrask/om-bridge</code></p>
