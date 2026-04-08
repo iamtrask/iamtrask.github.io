@@ -552,7 +552,7 @@ function addCopyButtons() {
                 var clone = l.cloneNode(true);
                 var nums = clone.querySelectorAll(".number");
                 for (var i = 0; i < nums.length; i++) nums[i].remove();
-                return clone.textContent;
+                return clone.textContent.replace(/\u00a0/g, ' ');
             }).join("\n");
             navigator.clipboard.writeText(code).then(function() {
                 btn.textContent = "copied!";
