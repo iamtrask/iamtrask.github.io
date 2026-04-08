@@ -7,6 +7,9 @@ author:     "iamtrask"
 header-img: "img/gandhi-spinning-wheel.jpg"
 ---
 
+<p><b>Video Walkthrough:</b></p>
+<iframe width="700px" height="440px" src="https://www.youtube.com/embed/zY2dAK-pMPI" frameborder="0" allowfullscreen></iframe>
+
 <p><b>Summary:</b> DECENTRALIZED AI!!!!!!! OK let's do this. We're gonna build a P2P AI in about 50 lines of Python. Your friends text you on WhatsApp, a local AI responds using your local data, and sender-specific context folders protect privacy. If that's boring and you want the fancy stuff (homomorphic encryption, blockchain, federated learning, etc.), maybe still start here. This is the foundational post in a series called <a href="https://github.com/iamtrask/decentralized-ai-from-scratch">Decentralized AI from Scratch</a>. I'll tweet the next posts <a href="https://twitter.com/iamtrask">@iamtrask</a>.</p>
 
 <h3>Just Give Me The Code:</h3>
@@ -14,8 +17,8 @@ header-img: "img/gandhi-spinning-wheel.jpg"
 <pre id="setup-cmd">curl -fsSL https://raw.githubusercontent.com/iamtrask/decentralized-ai-from-scratch/main/lectures/00_p2p_ai/setup.sh | bash</pre>
 <div style="text-align:right;margin-top:-10px;margin-bottom:10px"><button style="background:#333;color:#fff;border:none;padding:3px 8px;border-radius:3px;cursor:pointer;font-size:12px" onclick="navigator.clipboard.writeText(document.getElementById('setup-cmd').textContent.trim()).then(()=>{this.textContent='copied!';setTimeout(()=>this.textContent='copy',2000)})">copy</button></div>
 <p>Or do it manually in separate terminal windows:</p>
-<p><b>WhatsApp Bridge (run first, in its own terminal): </b><code>npx @iamtrask/om-bridge</code><br />
-<b><a href="https://ollama.com/download">Ollama</a> Model (run first): </b><code>ollama pull gemma4</code></p>
+<p><b><a href="https://ollama.com/download">Ollama</a> Model (run first): </b><code>ollama pull gemma4</code><br />
+<b>WhatsApp Bridge (run first, in its own terminal): </b><code>npx @iamtrask/om-bridge</code></p>
 
 <pre class="brush: python">
 import os, requests, json, glob, time, re
@@ -65,16 +68,13 @@ def process_messages():
         os.remove(f)
         print(f"← {sender}: {question}\n→ {reply}")
 
+print("Listening! Ask a friend to text you a message starting with 'om' on WhatsApp.")
 while True:
     process_messages()
     time.sleep(1)
 </pre>
 
 Once this python code is running, have someone text you "Om How are you?"
-
-<h2 class="section-heading">Optional: Video Walkthrough</h2>
-
-<iframe width="700px" height="440px" src="https://www.youtube.com/embed/zY2dAK-pMPI" frameborder="0" allowfullscreen></iframe>
 
 <h2 class="section-heading">Part 1: The Dumbest Possible Agent</h2>
 
@@ -548,7 +548,10 @@ function addCopyButtons() {
         btn.addEventListener("click", function() {
             var lines = el.querySelectorAll(".line");
             var code = Array.prototype.map.call(lines, function(l) {
-                return l.textContent;
+                var clone = l.cloneNode(true);
+                var nums = clone.querySelectorAll(".number");
+                for (var i = 0; i < nums.length; i++) nums[i].remove();
+                return clone.textContent;
             }).join("\n");
             navigator.clipboard.writeText(code).then(function() {
                 btn.textContent = "copied!";
