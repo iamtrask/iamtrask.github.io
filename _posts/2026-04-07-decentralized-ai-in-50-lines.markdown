@@ -514,7 +514,7 @@ while True:
 
 <p>LLMs have a natural containerization property where inputs go in but by default they can't escape (unless the model is attached to tools). As we upgrade this stack into a full decentralized AI system, we'll seek to preserve this VM-like partition. The core philosophy is that governing AI is largely about what happens <i>outside</i> the AI... what context you allow it to see, for which prompts, from which senders. In this case, the private data was never in the prompt to begin with, so prompt injection risks become minimal in this context.</p>
 
-<p><i>Header photo: Margaret Bourke-White—The LIFE Picture Collection/Shutterstock. Mahatma Gandhi at the spinning wheel, 1946. I chose this photo because one of Ghandi's projects involved empowering people with the spinning tools needed to make their own clothes, reducing their dependency on centralized powers. I'm not a Ghandi expert but I found the story inspiring, and the idea of hosting your own LLM to communicate with others at scale is (I think) inspired from a similar set of values.</i></p>
+<p><i>Header photo: Margaret Bourke-White—The LIFE Picture Collection/Shutterstock. Mahatma Gandhi at the spinning wheel, 1946.</i></p>
 
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shCore.css">
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/shThemeDefault.css">
