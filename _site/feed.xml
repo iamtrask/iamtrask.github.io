@@ -152,7 +152,7 @@ Argument: no two things are exactly alike
         <title>Safe Crime Detection</title>
         <description>&lt;p&gt;&lt;b&gt;TLDR:&lt;/b&gt; What if it was possible for surveillance to only invade the privacy of criminals or terrorists, leaving the innocent unsurveilled? This post proposes a way with a prototype in Python.&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;Abstract:&lt;/b&gt; Modern criminals and terrorists hide amongst the patterns of innocent civilians, exactly mirroring daily life until the very last moments before becoming lethal, which can happen as quickly as a car turning onto a sidewalk or a man pulling out a knife on the street. As police intervention of an instantly lethal event is impossible, law enforcement has turned to prediction based on the surveillance of public and private data streams, facilitated by legislation like the &lt;a href=&quot;https://en.wikipedia.org/wiki/Patriot_Act&quot;&gt;Patriot Act&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/USA_Freedom_Act&quot;&gt;USA Freedom Act&lt;/a&gt;, and the UK's &lt;a href=&quot;https://en.wikipedia.org/wiki/Counter-Terrorism_Act_2008&quot;&gt;Counter-Terrorism Act&lt;/a&gt;. This legislation sparks a heated debate (and rightly so) on the tradeoff between privacy and security. In this blogpost, we explore whether much of this tradeoff between privacy and security is &lt;b&gt;merely a technological limitation&lt;/b&gt;, overcommable by a combination of Homomorphic Encryption and Deep Learning. We supplement this discussion with a tutorial for a working prototype implementation and further analysis on where technological investments could be made to mature this technology. I am optimistic that it is possible to re-imagine the tools of crime prediction such that, relative to where we find ourselves today, citizen privacy is increased, surveillance is more effective, and the potential for mis-use is mitigated via modern techniques for &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Encrypted Artificial Intelligence&lt;/a&gt;.
+&lt;p&gt;&lt;b&gt;Abstract:&lt;/b&gt; Modern criminals and terrorists hide amongst the patterns of innocent civilians, exactly mirroring daily life until the very last moments before becoming lethal, which can happen as quickly as a car turning onto a sidewalk or a man pulling out a knife on the street. As police intervention of an instantly lethal event is impossible, law enforcement has turned to prediction based on the surveillance of public and private data streams, facilitated by legislation like the &lt;a href=&quot;https://en.wikipedia.org/wiki/Patriot_Act&quot;&gt;Patriot Act&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/USA_Freedom_Act&quot;&gt;USA Freedom Act&lt;/a&gt;, and the UK's &lt;a href=&quot;https://en.wikipedia.org/wiki/Counter-Terrorism_Act_2008&quot;&gt;Counter-Terrorism Act&lt;/a&gt;. This legislation sparks a heated debate (and rightly so) on the tradeoff between privacy and security. In this blogpost, we explore whether much of this tradeoff between privacy and security is &lt;b&gt;merely a technological limitation&lt;/b&gt;, overcommable by a combination of Homomorphic Encryption and Deep Learning. We supplement this discussion with a tutorial for a working prototype implementation and further analysis on where technological investments could be made to mature this technology. I am optimistic that it is possible to re-imagine the tools of crime prediction such that, relative to where we find ourselves today, citizen privacy is increased, surveillance is more effective, and the potential for mis-use is mitigated via modern techniques for &lt;a href=&quot;https://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Encrypted Artificial Intelligence&lt;/a&gt;.
 
 
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt;The term &quot;Prediction&quot; seemed to trigger the assumption that I was proposing technology to predict &quot;future&quot; crimes. However, it was only intended to describe a system that can detect crime unfolding (including intent / pre-meditation) in accordance with agreed upon defintions of &quot;intent&quot; and &quot;pre-meditation&quot; in our criminal justice system, which do relate to future crimes. However, I am in no way advocating punishment for people who have commited no crime. So, I'm changing the title to &quot;Detection&quot; to better communicate this.&lt;/p&gt;
@@ -249,7 +249,7 @@ Argument: no two things are exactly alike
 &lt;p&gt;&lt;b&gt;The Enron Spam Dataset:&lt;/b&gt; In order to teach an algorithm how to detect SPAM, we need a large set of emails that has been previously labeled as &quot;SPAM&quot; or &quot;NOT SPAM&quot;. That way, our algorithm can study the dataset and learn to tell the difference between the two kinds of emails. Fortunately, a prominent energy company called &lt;a href=&quot;https://en.wikipedia.org/wiki/Enron_scandal&quot;&gt;Enron committed a few crimes&lt;/a&gt; recorded in email, and as a result a rather large subset of the company's emails were made public. As many of these were SPAM, a dataset was curated specifically for building SPAM detectors called the &lt;a href=&quot;http://www2.aueb.gr/users/ion/data/enron-spam/&quot;&gt;Enron Spam Dataset&lt;/a&gt;. I have further pre-processed this dataset for you in the following files: &lt;a href=&quot;/data/ham.txt&quot;&gt;HAM&lt;/a&gt; and
 &lt;a href=&quot;/data/spam.txt&quot;&gt;SPAM&lt;/a&gt;. Each line contains an email. There are 22,032 HAM emails, and 9,000 SPAM emails. We're going to set aside the last 1,000 in each category as our &quot;test&quot; dataset. We'll train on the rest.&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;The Model:&lt;/b&gt; For this model, we're going to optimize for speed and simplicity and use a simple bag-of-words Logistic Classifier. It's a neural network with 2 layers (input and output). We could get more sophisticated with an LSTM, but this blogpost isn't about filtering SPAM, it's about making surveillance less intrusive, more accountable, and more effective. Besides that, bag-of-words LR works really well for SPAM detection anyway (and for a surprisingly large number of other tasks as well). No need to overcomplicate. Below you'll find the code to build this classifier. If you're unsure how this works, feel free to review my previous post on &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;The Model:&lt;/b&gt; For this model, we're going to optimize for speed and simplicity and use a simple bag-of-words Logistic Classifier. It's a neural network with 2 layers (input and output). We could get more sophisticated with an LSTM, but this blogpost isn't about filtering SPAM, it's about making surveillance less intrusive, more accountable, and more effective. Besides that, bag-of-words LR works really well for SPAM detection anyway (and for a surprisingly large number of other tasks as well). No need to overcomplicate. Below you'll find the code to build this classifier. If you're unsure how this works, feel free to review my previous post on &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;.&lt;/p&gt;
 &lt;center&gt;
 (fwiw, this code works identically in Python 2 or 3 on my machine)
 &lt;/center&gt;
@@ -397,13 +397,13 @@ False Negatives: %0.3   &amp;lt;- security risk level out of 100.0%
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 5: Homomorphic Encryption&lt;/h2&gt;
 
-&lt;p&gt;In my previous blogpost &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Building Safe A.I.&lt;/a&gt;, I outlined how one can train Neural Networks in an encrypted state (on data that is not encrypted) using Homomorphic Encryption. Along the way, I discussed how Homomorphic Encryption generally works and provided an implementation of &lt;a href=&quot;https://courses.csail.mit.edu/6.857/2015/files/yu-lai-payor.pdf&quot;&gt;Efficient Integer Vector Homomorphic Encryption&lt;/a&gt; with tooling for neural networks based on &lt;a href=&quot;https://github.com/jamespayor/vector-homomorphic-encryption&quot;&gt;this implementation&lt;/a&gt;. However, as mentioned in the post, there are many homomorphic encryption schemes to choose from. In this post, we're going to use a different one called Paillier Cryptography, which is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Paillier_cryptosystem&quot;&gt;probabilistic, assymetric algorithm for public key cryptography&lt;/a&gt;. While a complete breakdown of this cryptosystem is something best saved for a different blogpost, I did fork and update a python library for paillier to be able to handle larger cyphertexts and plaintexts (longs) as well as a small bugfix in the logging here &lt;a href=&quot;https://github.com/iamtrask/python-paillier&quot;&gt;Paillier Cryptosystem Library&lt;/a&gt;. Pull that repo down, run &quot;python setup.py install&quot; and try out the following code.&lt;/p&gt;
+&lt;p&gt;In my previous blogpost &lt;a href=&quot;https://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;Building Safe A.I.&lt;/a&gt;, I outlined how one can train Neural Networks in an encrypted state (on data that is not encrypted) using Homomorphic Encryption. Along the way, I discussed how Homomorphic Encryption generally works and provided an implementation of &lt;a href=&quot;https://courses.csail.mit.edu/6.857/2015/files/yu-lai-payor.pdf&quot;&gt;Efficient Integer Vector Homomorphic Encryption&lt;/a&gt; with tooling for neural networks based on &lt;a href=&quot;https://github.com/jamespayor/vector-homomorphic-encryption&quot;&gt;this implementation&lt;/a&gt;. However, as mentioned in the post, there are many homomorphic encryption schemes to choose from. In this post, we're going to use a different one called Paillier Cryptography, which is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Paillier_cryptosystem&quot;&gt;probabilistic, assymetric algorithm for public key cryptography&lt;/a&gt;. While a complete breakdown of this cryptosystem is something best saved for a different blogpost, I did fork and update a python library for paillier to be able to handle larger cyphertexts and plaintexts (longs) as well as a small bugfix in the logging here &lt;a href=&quot;https://github.com/iamtrask/python-paillier&quot;&gt;Paillier Cryptosystem Library&lt;/a&gt;. Pull that repo down, run &quot;python setup.py install&quot; and try out the following code.&lt;/p&gt;
 
 &lt;center&gt;
 &lt;img src=&quot;/img/paillier_101.png&quot; /&gt;
 &lt;/center&gt;
 
-&lt;p&gt;As you can see, we can encrypt (positive or negative) numbers using a public key and then add their encrypted values together. We can then decrypt the resulting number which returns the output of whatever math operations we performed. Pretty cool, eh? We can use just these operations to encrypt our Logistic Regression classifier after training. For more on how this works, &lt;a href=&quot;http://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;check out my previous post on the subject&lt;/a&gt;, otherwise let's jump straight into the implementation.
+&lt;p&gt;As you can see, we can encrypt (positive or negative) numbers using a public key and then add their encrypted values together. We can then decrypt the resulting number which returns the output of whatever math operations we performed. Pretty cool, eh? We can use just these operations to encrypt our Logistic Regression classifier after training. For more on how this works, &lt;a href=&quot;https://iamtrask.github.io/2017/03/17/safe-ai/&quot;&gt;check out my previous post on the subject&lt;/a&gt;, otherwise let's jump straight into the implementation.
 
 &lt;pre class=&quot;brush:python&quot;&gt;
 
@@ -689,7 +689,7 @@ False Negatives: %1.57   &amp;lt;- security risk level
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: Using Synthetic Gradients&lt;/h2&gt;
 
-&lt;p&gt;Let's start by ignoring how the Synthetic Gradients are created and instead just look at how the are used. The far left box shows how these can work to update the first layer in a neural network. The first layer forward propagates into the Synthetic Gradient generator (M i+1), which then returns a gradient. This gradient is used &lt;i&gt;instead of&lt;/i&gt; the real gradient (which would take a full forward propagation and backpropagation to compute). The weights are then updated as normal, pretending that this Synthetic Gradient is the real gradient. If you need a refresher on how weights are updated with gradients, check out &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt; and perhaps the followup post on &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;Gradient Descent&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Let's start by ignoring how the Synthetic Gradients are created and instead just look at how the are used. The far left box shows how these can work to update the first layer in a neural network. The first layer forward propagates into the Synthetic Gradient generator (M i+1), which then returns a gradient. This gradient is used &lt;i&gt;instead of&lt;/i&gt; the real gradient (which would take a full forward propagation and backpropagation to compute). The weights are then updated as normal, pretending that this Synthetic Gradient is the real gradient. If you need a refresher on how weights are updated with gradients, check out &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt; and perhaps the followup post on &lt;a href=&quot;https://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;Gradient Descent&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;So, in short, Synthetic Gradients are used just like normal gradients, and for some magical reason they seem to be accurate (without consulting the data)! Seems like magic? Let’s see how they’re made.&lt;/p&gt;
 
@@ -724,7 +724,7 @@ False Negatives: %1.57   &amp;lt;- security risk level
 »»»&amp;gt; e5ddf2e0fe2f72495c00542982a3756ff306b157&lt;/p&gt;
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 4: A Baseline Neural Network&lt;/h2&gt;
 
-&lt;p&gt;Time to start coding! To get things started (so we have an easier frame of reference), I'm going to start with a vanilla neural network trained with backpropagation, styled in the same way as &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;. (So, if it doesn't make sense, just go read that post and come back). However, I'm going to add an additional layer, but that shoudln't be a problem for comprehension. I just figured that since we're all about reducing dependencies, having more layers might make for a better illustration.&lt;/p&gt;
+&lt;p&gt;Time to start coding! To get things started (so we have an easier frame of reference), I'm going to start with a vanilla neural network trained with backpropagation, styled in the same way as &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;. (So, if it doesn't make sense, just go read that post and come back). However, I'm going to add an additional layer, but that shoudln't be a problem for comprehension. I just figured that since we're all about reducing dependencies, having more layers might make for a better illustration.&lt;/p&gt;
 
 &lt;p&gt;As far as the dataset we're training on, I'm going to genereate a synthetic dataset (har! har!) using binary addition. So, the network will take two, random binary numbers and predict their sum (also a binary number). The nice thing is that this gives us the flexibility to increase the dimensionality (~difficulty) of the task as needed. Here's the code for generating the dataset.&lt;/p&gt;
 
@@ -767,7 +767,7 @@ class Layer(object):
 
 &lt;p&gt;Now, let's take a look at the various methods in this class. &lt;b&gt;forward&lt;/b&gt; does what it's name implies. It forward propagates through the layer, first through a linear transformation, and then through the nonlin function. &lt;b&gt;backward&lt;/b&gt; accepts a output_delta paramter, which represents the &lt;i&gt;real gradient&lt;/i&gt; (as opposed to a synthetic one) coming back from the next layer during backpropagation. We then use this to compute self.weight_output_delta, which is the derivative at the output of our weights (just inside the nonlinearity). Finally, it backpropagates the error to send to the previous layer and returns it.&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;update&lt;/b&gt; is perhaps the simplest method of all. It simply takes the derivative at the output of the weights and uses it to perform a weight update. If any of these steps don't make sense to you, again, consult &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt; and come back. If everything makes sense, then let's see our layer objects in the context of training.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;update&lt;/b&gt; is perhaps the simplest method of all. It simply takes the derivative at the output of the weights and uses it to perform a weight update. If any of these steps don't make sense to you, again, consult &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt; and come back. If everything makes sense, then let's see our layer objects in the context of training.&lt;/p&gt;
 
 &lt;pre class=&quot;brush:python&quot;&gt;
 
@@ -929,7 +929,7 @@ class DNI(object):
 
 &lt;p&gt;&lt;b&gt;Question:&lt;/b&gt; How does a neural network learn?&lt;/p&gt;
 
-&lt;p&gt;A neural network makes predictions based on input. It learns to do this effectively by trial and error. It begins by making a prediction (which is largely random at first), and then receives an &quot;error signal&quot; indiciating that it predicted too high or too low (usually probabilities). After this cycle repeats many millions of times, the network starts figuring things out. For more detail on how this works, see &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A neural network makes predictions based on input. It learns to do this effectively by trial and error. It begins by making a prediction (which is largely random at first), and then receives an &quot;error signal&quot; indiciating that it predicted too high or too low (usually probabilities). After this cycle repeats many millions of times, the network starts figuring things out. For more detail on how this works, see &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The big takeaway here is this error signal. Without being told how well it's predictions are, it cannot learn. This will be important to remember.&lt;/p&gt;
 
@@ -1833,7 +1833,7 @@ There are faster and more secure homomorphic encryption algorithms. Taking this 
 &lt;p&gt;&lt;b&gt;Pre-Requisite Knowledge:&lt;/b&gt;&lt;/p&gt;
 &lt;ul&gt;
 	&lt;li&gt;Simple Feedforward Neural Networks (&lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;&lt;u&gt;Tutorial&lt;/u&gt;&lt;/a&gt;)&lt;/li&gt;
-	&lt;li&gt;Basic Gradient Descent (&lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;&lt;u&gt;Tutorial&lt;/u&gt;&lt;/a&gt;)&lt;/li&gt;
+	&lt;li&gt;Basic Gradient Descent (&lt;a href=&quot;https://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;&lt;u&gt;Tutorial&lt;/u&gt;&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://torch.ch/&quot;&gt;Torch&lt;/a&gt; is one of the most popular Deep Learning frameworks in the world, dominating much of the research community for the past few years (only recently being rivaled by major Google sponsored frameworks &lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;Tensorflow&lt;/a&gt; and &lt;a href=&quot;http://keras.io/&quot;&gt;Keras&lt;/a&gt;). Perhaps its only drawback to new users has been the fact that it requires one to know &lt;a href=&quot;https://www.lua.org/&quot;&gt;Lua&lt;/a&gt;, a language that used to be very uncommon in the Machine Learning community. Even today, this barrier to entry can seem a bit much for many new to the field, who are already in the midst of learning a tremendous amount, much less a completely new programming language.&lt;/p&gt;
@@ -1882,7 +1882,7 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 
 &lt;p&gt;Above, I created 4 matrices. Notice that the library doesn't call them matrices though. It calls them &lt;i&gt;tensors&lt;/i&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;Quick Primer on Tensors:&lt;/b&gt; A &lt;i&gt;Tensor&lt;/i&gt; is just a more generic term than &lt;i&gt;matrix&lt;/i&gt; or &lt;i&gt;vector&lt;/i&gt;. 1-dimensional tensors are vectors. 2-dimensional tensors are matrices. 3+ dimensional tensors are just refered to as tensors. If you're unfamiliar with these objects, here's a quick summary. A vector is &quot;a list of numbers&quot;. A matrix is &quot;a list of lists of numbers&quot;. A 3-d tensor is &quot;a list of lists of lists of numbers&quot;. A 4-d tensor is... See the pattern? For more on how vectors and matrices are used to make neural networks, see my first blog post on a &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Neural Network in 11 lines of Python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Quick Primer on Tensors:&lt;/b&gt; A &lt;i&gt;Tensor&lt;/i&gt; is just a more generic term than &lt;i&gt;matrix&lt;/i&gt; or &lt;i&gt;vector&lt;/i&gt;. 1-dimensional tensors are vectors. 2-dimensional tensors are matrices. 3+ dimensional tensors are just refered to as tensors. If you're unfamiliar with these objects, here's a quick summary. A vector is &quot;a list of numbers&quot;. A matrix is &quot;a list of lists of numbers&quot;. A 3-d tensor is &quot;a list of lists of lists of numbers&quot;. A 4-d tensor is... See the pattern? For more on how vectors and matrices are used to make neural networks, see my first blog post on a &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Neural Network in 11 lines of Python&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;PyTorch Tensors&lt;/b&gt; There appear to be 4 major types of tensors in PyTorch: Byte, Float, Double, and Long tensors. Each tensor &lt;i&gt;type&lt;/i&gt; corresponds to the type of number (and more importantly the size/preision of the number) contained in each place of the matrix. So, if a 1-d Tensor is a &quot;list of numbers&quot;, a 1-d &lt;i&gt;Float&lt;/i&gt; Tensor is a list of &lt;u&gt;floats&lt;/u&gt;. As a general rule of thumb, for weight matries we use FloatTensors. For data matrices, we'll likely use either FloatTensors (for real valued inputs) or Long Tensors (for integers). I'm a little bit surprised to not see IntTensor anywhere. Perhaps it has yet to be wrapped or is just non-obvious in the API.&lt;/p&gt;
 
@@ -1892,7 +1892,7 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 
 &lt;p&gt;&lt;b&gt;Basic Linear Algebra Operations:&lt;/b&gt; So, now that we know how to store numbers in PyTorch, lets talk a bit about how PyTorch manipulates them. How does one go about doing linear algebra in PyTorch?&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;The Basic Neural Network Operations: &lt;/b&gt; Neural networks, amidst all their complexity, are actually mostly made up of rather simple operations. If you remember from &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;, we can build a working network with only Matrix-Matrix Multiplication, Vector-Matrix Multiplication, Elementwise Operations (addition, subtraction, multiplication, and division), Matrix Transposition, and a handful of elementwise functions (sigmoid, and a special function to compute sigmoid's derivative at a point which uses only the aforementioned elementwise operations). Let's initialize some matrices and start with the elementwise operations.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;The Basic Neural Network Operations: &lt;/b&gt; Neural networks, amidst all their complexity, are actually mostly made up of rather simple operations. If you remember from &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;A Neural Network in 11 Lines of Python&lt;/a&gt;, we can build a working network with only Matrix-Matrix Multiplication, Vector-Matrix Multiplication, Elementwise Operations (addition, subtraction, multiplication, and division), Matrix Transposition, and a handful of elementwise functions (sigmoid, and a special function to compute sigmoid's derivative at a point which uses only the aforementioned elementwise operations). Let's initialize some matrices and start with the elementwise operations.&lt;/p&gt;
 
 &lt;p&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/pytorch_2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -1914,7 +1914,7 @@ Finished processing dependencies for PyTorch===4.1.1-SNAPSHOT
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 3: Building a Feedforward Network&lt;/h2&gt;
 
-&lt;p&gt;In this section, we really get to start seeing PyTorch shine. While understanding how matrices are handled is an important pre-requisite to learning a framework, the various layers of abstraction are where frameworks really become useful. In this section, we're going to take the bare bones 3 layer neural network from &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;a previous blogpost&lt;/a&gt; and convert it to a network using PyTorch's neural network abstractions. In this way, as we wrap each part of the network with a piece of framework functionality, you'll know exactly what PyTorch is doing under the hood. Your goal in this section should be to relate the PyTorch abstractions (objects, function calls, etc.) in the PyTorch network we will build with the matrix operations in the numpy neural network (pictured below)s. &lt;/p&gt;
+&lt;p&gt;In this section, we really get to start seeing PyTorch shine. While understanding how matrices are handled is an important pre-requisite to learning a framework, the various layers of abstraction are where frameworks really become useful. In this section, we're going to take the bare bones 3 layer neural network from &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;a previous blogpost&lt;/a&gt; and convert it to a network using PyTorch's neural network abstractions. In this way, as we wrap each part of the network with a piece of framework functionality, you'll know exactly what PyTorch is doing under the hood. Your goal in this section should be to relate the PyTorch abstractions (objects, function calls, etc.) in the PyTorch network we will build with the matrix operations in the numpy neural network (pictured below)s. &lt;/p&gt;
 
 &lt;pre class=&quot;brush: python&quot;&gt;
 import PyTorch
@@ -2224,7 +2224,7 @@ A close eye might ask, &quot;We learn things with neural networks. What is there
 
 &lt;center&gt;&lt;p&gt;&lt;b&gt;How will a neural network learn when to push and pop?&lt;/b&gt;&lt;/p&gt;&lt;/center&gt;
 
-&lt;p&gt;A neural network will learn to push and pop using backpropgation. Certainly a pre-requisite to this blogpost is an intuitive understanding of neural networks and backpropagation in general. Everything in &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt; this blogpost &lt;/a&gt;will be enough.&lt;/p&gt;
+&lt;p&gt;A neural network will learn to push and pop using backpropgation. Certainly a pre-requisite to this blogpost is an intuitive understanding of neural networks and backpropagation in general. Everything in &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt; this blogpost &lt;/a&gt;will be enough.&lt;/p&gt;
 
 &lt;p&gt;So, how will a neural network learn when to push and pop? To answer this question, we need to understand what a &quot;correct sequence&quot; of pushing and popping would look like? And that's right... it's a &quot;sequence&quot; of pushing and popping. So, that means that our &lt;b&gt;input data&lt;/b&gt; and our correct &lt;b&gt;output data&lt;/b&gt; will both be sequences. So, what kinds of sequences are stacks good at modeling?&lt;/p&gt;
 
@@ -2556,7 +2556,7 @@ def r_t(t):
 
 &lt;h3&gt;Let's Revisit How The Neural Stack Will Learn&lt;/h3&gt;
 
-&lt;p&gt;In Part 2, we discussed how the neural stack is unique in that we can backpropgate error from the output of the stack back through to the input. The reason we can do this is that the stack is fully differentiable. (For background on determining whether a function is differentiable, please see &lt;a href=&quot;https://www.youtube.com/watch?v=pj1VvscsV0s&quot;&gt; Khan Academy &lt;/a&gt;. For more on derivatives and differentiability, see the rest of that tutorial.) Why do we care that the stack (as a function) is differentiable? Well, we used the &quot;derivative&quot; of the function to move the error around (more specifically... to backpropagate). For more on this, please see the &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Tutorial I Wrote on Basic Neural Networks&lt;/a&gt;, &lt;a href=&quot;https://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt; Gradient Descent&lt;/a&gt;, and &lt;a href=&quot;https://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/&quot;&gt;Recurrent Neural Networks&lt;/a&gt;. I particularly recommend the last one because it demontrates backpropgating through somewhat more arbitrary vector operations... kindof like what we're going to do here. :)&lt;/p&gt;
+&lt;p&gt;In Part 2, we discussed how the neural stack is unique in that we can backpropgate error from the output of the stack back through to the input. The reason we can do this is that the stack is fully differentiable. (For background on determining whether a function is differentiable, please see &lt;a href=&quot;https://www.youtube.com/watch?v=pj1VvscsV0s&quot;&gt; Khan Academy &lt;/a&gt;. For more on derivatives and differentiability, see the rest of that tutorial.) Why do we care that the stack (as a function) is differentiable? Well, we used the &quot;derivative&quot; of the function to move the error around (more specifically... to backpropagate). For more on this, please see the &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Tutorial I Wrote on Basic Neural Networks&lt;/a&gt;, &lt;a href=&quot;https://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt; Gradient Descent&lt;/a&gt;, and &lt;a href=&quot;https://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/&quot;&gt;Recurrent Neural Networks&lt;/a&gt;. I particularly recommend the last one because it demontrates backpropgating through somewhat more arbitrary vector operations... kindof like what we're going to do here. :)&lt;/p&gt;
 
 &lt;p&gt;Perhaps you might say, &quot;Hey Andrew, pre-requisite information is all nice and good... but I'd like a little bit more intuition on why this stack is differentiable&quot;. Let me try to simplify most of it to a few easy to use rules. Backpropagation is really about credit attribution. It's about the neural network saying &quot;ok... I messed up. I was supposed to predict 1.0 but i predicted 0.9. What parts of the function caused me to do this? What parts can I change to better predict 1.0 next time?&quot;. Consider this problem.&lt;/p&gt;
 
@@ -2686,7 +2686,7 @@ u_delta = list() # pop strengths
 &lt;iframe width=&quot;700px&quot; height=&quot;440px&quot; src=&quot;https://www.youtube.com/embed/J6Zaugshvqs&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;We did it! At this point, we have built a neural stack and all of its components. However, there's more to do to get it to learn arbitrary sequences. So, for a little while we're going to return to some of our fundamentals of neural networks. The next phase is to control v_t, u_t, and d_t with an external neural network called a &quot;Controller&quot;. This network will be a Recurrent Neural Network (because we're still modeling sequences). Thus, the knowledge of RNNs contained in the previous blogpost on &lt;a href=&quot;http://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/&quot;&gt;Recurrent Neural Networks&lt;/a&gt; will be considered a pre-requisite.&lt;/p&gt;
+&lt;p&gt;We did it! At this point, we have built a neural stack and all of its components. However, there's more to do to get it to learn arbitrary sequences. So, for a little while we're going to return to some of our fundamentals of neural networks. The next phase is to control v_t, u_t, and d_t with an external neural network called a &quot;Controller&quot;. This network will be a Recurrent Neural Network (because we're still modeling sequences). Thus, the knowledge of RNNs contained in the previous blogpost on &lt;a href=&quot;https://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/&quot;&gt;Recurrent Neural Networks&lt;/a&gt; will be considered a pre-requisite.&lt;/p&gt;
 
 &lt;p&gt;To determine what kind of neural network we will use to control these various operations, let's take a look back at the formulas describing it in the paper.&lt;/p&gt;
 
@@ -4513,7 +4513,7 @@ Why the hidden layer? Well, we could technically do this.
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 2: RNN - Neural Network Memory&lt;/h2&gt;
 
-&lt;p&gt;Now that we have the intuition, let's dive down a layer (ba dum bump...). As described in the &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;&lt;u&gt;backpropagation post&lt;/u&gt;&lt;/a&gt;, our input layer to the neural network is determined by our input dataset. Each row of input data is used to generate the hidden layer (via forward propagation). Each hidden layer is then used to populate the output layer (assuming only 1 hidden layer). As we just saw, memory means that the hidden layer is a combination of the input data and the previous hidden layer. How is this done? Well, much like every other propagation in neural networks, it's done with a matrix. This matrix defines the relationship between the previous hidden layer and the current one.&lt;/p&gt;
+&lt;p&gt;Now that we have the intuition, let's dive down a layer (ba dum bump...). As described in the &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;&lt;u&gt;backpropagation post&lt;/u&gt;&lt;/a&gt;, our input layer to the neural network is determined by our input dataset. Each row of input data is used to generate the hidden layer (via forward propagation). Each hidden layer is then used to populate the output layer (assuming only 1 hidden layer). As we just saw, memory means that the hidden layer is a combination of the input data and the previous hidden layer. How is this done? Well, much like every other propagation in neural networks, it's done with a matrix. This matrix defines the relationship between the previous hidden layer and the current one.&lt;/p&gt;
 
 &lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/basic_recurrence_singleton.png&quot; alt=&quot;&quot; /&gt;
 
@@ -4552,7 +4552,7 @@ Why the hidden layer? Well, we could technically do this.
 
 &lt;p&gt;&lt;b&gt;Lines 0-2:&lt;/b&gt; Importing our dependencies and seeding the random number generator. We will only use numpy and copy. Numpy is for matrix algebra. Copy is to copy things.&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;Lines 4-11:&lt;/b&gt; Our nonlinearity and derivative. For details, please read this &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt; Neural Network Tutorial&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Lines 4-11:&lt;/b&gt; Our nonlinearity and derivative. For details, please read this &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt; Neural Network Tutorial&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Line 15:&lt;/b&gt; We're going to create a lookup table that maps from an integer to its binary representation. The binary representations will be our input and output data for each math problem we try to get the network to solve. This lookup table will be very helpful in converting from integers to bit strings.&lt;/p&gt;
 
@@ -4630,7 +4630,7 @@ Why the hidden layer? Well, we could technically do this.
 &lt;p&gt;&lt;b&gt;Line 94:&lt;/b&gt; Selecting the previous hidden layer from the list&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Line 97:&lt;/b&gt; Selecting the current output error from the list&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Line 99:&lt;/b&gt; this computes the current hidden layer error given the error at the hidden layer from the future and the error at the current output layer.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Line 102-104:&lt;/b&gt; Now that we have the derivatives backpropagated at this current time step, we can construct our weight updates (but not actually update the weights just yet). We don't actually update our weight matrices until after we've fully backpropagated everything. Why? Well, we use the weight matrices for the backpropagation. Thus, we don't want to go changing them yet until the actual backprop is done. See the &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;backprop blog post&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Line 102-104:&lt;/b&gt; Now that we have the derivatives backpropagated at this current time step, we can construct our weight updates (but not actually update the weights just yet). We don't actually update our weight matrices until after we've fully backpropagated everything. Why? Well, we use the weight matrices for the backpropagation. Thus, we don't want to go changing them yet until the actual backprop is done. See the &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;backprop blog post&lt;/a&gt; for more details.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Line 109 - 115&lt;/b&gt; Now that we've backpropped everything and created our weight updates. It's time to update our weights (and empty the update variables).&lt;/p&gt;
 
@@ -4687,7 +4687,7 @@ for j in xrange(60000):
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: What is Dropout?&lt;/h2&gt;
 
-&lt;p&gt;As discovered in the &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;previous post&lt;/a&gt;, a neural network is a glorified search problem. Each node in the neural network is searching for correlation between the input data and the correct output data.&lt;/p&gt;
+&lt;p&gt;As discovered in the &lt;a href=&quot;https://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;previous post&lt;/a&gt;, a neural network is a glorified search problem. Each node in the neural network is searching for correlation between the input data and the correct output data.&lt;/p&gt;
 
 &lt;p&gt;&lt;img class=&quot;img-responsive&quot; width=&quot;100%&quot; src=&quot;/img/sgd_randomness_ensemble.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -4716,7 +4716,7 @@ Consider the graphic above from the previous post. The line represents the error
 &lt;!-- 
 &lt;h3 class=&quot;section-heading&quot;&gt;Part 3: Why does Dropout Work?&lt;/h3&gt;
 
-&lt;i&gt; (This section builds upon concepts laid out in the &lt;a href=&quot;http://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;previous post&lt;/a&gt;.)&lt;/i&gt;
+&lt;i&gt; (This section builds upon concepts laid out in the &lt;a href=&quot;https://iamtrask.github.io/2015/07/27/python-network-part2/&quot;&gt;previous post&lt;/a&gt;.)&lt;/i&gt;
 
 &lt;p&gt;Imagine that you had two identical values in your hidden layer. By &quot;idential&quot;, I mean that their input weights were the same, so they turned on and off at exactly the same time. Given what we learned in Section 1 of this post, we know that this is a very real possibility.&lt;/p&gt;
 
@@ -4760,11 +4760,11 @@ var ind_q = 'Machine Learning';
 var ind_l = '';
 var ind_chnl = 'none';
 var ind_n = 15;
-var ind_d = 'http://www.indeed.com';
+var ind_d = 'https://www.indeed.com';
 var ind_t = 40;
 var ind_c = 30;
 &lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;http://www.indeed.com/ads/jobroll-widget-v3.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.indeed.com/ads/jobroll-widget-v3.js&quot;&gt;&lt;/script&gt;
 
 &lt;div id=&quot;indeed_widget_wrapper&quot; style=&quot;&quot;&gt;
 &lt;div id=&quot;indeed_widget_header&quot;&gt;Machine Learning Jobs&lt;/div&gt;
@@ -4782,7 +4782,7 @@ formInputs[i].value = '';
 }
 }
 &lt;/script&gt;
-&lt;form onsubmit=&quot;clearDefaults();&quot; method=&quot;get&quot; action=&quot;http://www.indeed.com/jobs&quot; id=&quot;indeed_jobform&quot; target=&quot;_new&quot;&gt;
+&lt;form onsubmit=&quot;clearDefaults();&quot; method=&quot;get&quot; action=&quot;https://www.indeed.com/jobs&quot; id=&quot;indeed_jobform&quot; target=&quot;_new&quot;&gt;
 &lt;div id=&quot;qc&quot;&gt;&lt;label&gt;What:&lt;/label&gt;&lt;input type=&quot;text&quot; onfocus=&quot;this.value=&amp;quot;&amp;quot;&quot; value=&quot;title, keywords&quot; name=&quot;q&quot; id=&quot;q&quot; /&gt;&lt;/div&gt;
 &lt;div id=&quot;lc&quot;&gt;&lt;label&gt;Where:&lt;/label&gt;&lt;input type=&quot;text&quot; onfocus=&quot;this.value=&amp;quot;&amp;quot;&quot; value=&quot;city, state, or zip&quot; name=&quot;l&quot; id=&quot;l&quot; /&gt;&lt;/div&gt;
 &lt;div id=&quot;indeed_search_footer&quot;&gt;
@@ -4793,7 +4793,7 @@ formInputs[i].value = '';
 &lt;/div&gt;
 
 &lt;div id=&quot;indeed_link&quot;&gt;
-&lt;a title=&quot;Job Search&quot; href=&quot;http://www.indeed.com/&quot; target=&quot;_new&quot;&gt;jobs by &lt;img alt=&quot;Indeed&quot; src=&quot;http://www.indeed.com/p/jobsearch.gif&quot; style=&quot;border: 0;vertical-align: bottom;&quot; /&gt;
+&lt;a title=&quot;Job Search&quot; href=&quot;https://www.indeed.com/&quot; target=&quot;_new&quot;&gt;jobs by &lt;img alt=&quot;Indeed&quot; src=&quot;https://www.indeed.com/p/jobsearch.gif&quot; style=&quot;border: 0;vertical-align: bottom;&quot; /&gt;
 &lt;/a&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4860,7 +4860,7 @@ for j in xrange(60000):
 
 &lt;h2 class=&quot;section-heading&quot;&gt;Part 1: Optimization&lt;/h2&gt;
 
-&lt;p&gt;In &lt;a href=&quot;http://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Part 1&lt;/a&gt;, I laid out the basis for backpropagation in a simple neural network. Backpropagation allowed us to measure how each weight in the network contributed to the overall error. This ultimately allowed us to change these weights using a different algorithm, &lt;b&gt;Gradient Descent&lt;/b&gt;.
+&lt;p&gt;In &lt;a href=&quot;https://iamtrask.github.io/2015/07/12/basic-python-network/&quot;&gt;Part 1&lt;/a&gt;, I laid out the basis for backpropagation in a simple neural network. Backpropagation allowed us to measure how each weight in the network contributed to the overall error. This ultimately allowed us to change these weights using a different algorithm, &lt;b&gt;Gradient Descent&lt;/b&gt;.
 
 &lt;p&gt;The takeaway here is that &lt;b&gt;backpropagation doesn't optimize&lt;/b&gt;! It moves the error information from the end of the network to all the weights inside the network so that a different algorithm can optimize those weights to fit our data. We actually have a plethora of different &lt;b&gt;nonlinear optimization methods&lt;/b&gt; that we could use with backpropagation:&lt;/p&gt;
 &lt;p style=&quot;margin-left:40px&quot;&gt;
@@ -5724,11 +5724,11 @@ var ind_q = 'Machine Learning';
 var ind_l = '';
 var ind_chnl = 'none';
 var ind_n = 15;
-var ind_d = 'http://www.indeed.com';
+var ind_d = 'https://www.indeed.com';
 var ind_t = 40;
 var ind_c = 30;
 &lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;http://www.indeed.com/ads/jobroll-widget-v3.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.indeed.com/ads/jobroll-widget-v3.js&quot;&gt;&lt;/script&gt;
 
 &lt;div id=&quot;indeed_widget_wrapper&quot; style=&quot;&quot;&gt;
 &lt;div id=&quot;indeed_widget_header&quot;&gt;Machine Learning Jobs&lt;/div&gt;
@@ -5746,7 +5746,7 @@ formInputs[i].value = '';
 }
 }
 &lt;/script&gt;
-&lt;form onsubmit=&quot;clearDefaults();&quot; method=&quot;get&quot; action=&quot;http://www.indeed.com/jobs&quot; id=&quot;indeed_jobform&quot; target=&quot;_new&quot;&gt;
+&lt;form onsubmit=&quot;clearDefaults();&quot; method=&quot;get&quot; action=&quot;https://www.indeed.com/jobs&quot; id=&quot;indeed_jobform&quot; target=&quot;_new&quot;&gt;
 &lt;div id=&quot;qc&quot;&gt;&lt;label&gt;What:&lt;/label&gt;&lt;input type=&quot;text&quot; onfocus=&quot;this.value=&amp;quot;&amp;quot;&quot; value=&quot;title, keywords&quot; name=&quot;q&quot; id=&quot;q&quot; /&gt;&lt;/div&gt;
 &lt;div id=&quot;lc&quot;&gt;&lt;label&gt;Where:&lt;/label&gt;&lt;input type=&quot;text&quot; onfocus=&quot;this.value=&amp;quot;&amp;quot;&quot; value=&quot;city, state, or zip&quot; name=&quot;l&quot; id=&quot;l&quot; /&gt;&lt;/div&gt;
 &lt;div id=&quot;indeed_search_footer&quot;&gt;
@@ -5757,7 +5757,7 @@ formInputs[i].value = '';
 &lt;/div&gt;
 
 &lt;div id=&quot;indeed_link&quot;&gt;
-&lt;a title=&quot;Job Search&quot; href=&quot;http://www.indeed.com/&quot; target=&quot;_new&quot;&gt;jobs by &lt;img alt=&quot;Indeed&quot; src=&quot;http://www.indeed.com/p/jobsearch.gif&quot; style=&quot;border: 0;vertical-align: bottom;&quot; /&gt;
+&lt;a title=&quot;Job Search&quot; href=&quot;https://www.indeed.com/&quot; target=&quot;_new&quot;&gt;jobs by &lt;img alt=&quot;Indeed&quot; src=&quot;https://www.indeed.com/p/jobsearch.gif&quot; style=&quot;border: 0;vertical-align: bottom;&quot; /&gt;
 &lt;/a&gt;
 &lt;/div&gt;
 &lt;/div&gt;

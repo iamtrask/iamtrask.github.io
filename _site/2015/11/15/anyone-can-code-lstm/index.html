@@ -380,7 +380,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <h2 class="section-heading">Part 2: RNN - Neural Network Memory</h2>
 
-<p>Now that we have the intuition, let's dive down a layer (ba dum bump...). As described in the <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/"><u>backpropagation post</u></a>, our input layer to the neural network is determined by our input dataset. Each row of input data is used to generate the hidden layer (via forward propagation). Each hidden layer is then used to populate the output layer (assuming only 1 hidden layer). As we just saw, memory means that the hidden layer is a combination of the input data and the previous hidden layer. How is this done? Well, much like every other propagation in neural networks, it's done with a matrix. This matrix defines the relationship between the previous hidden layer and the current one.</p>
+<p>Now that we have the intuition, let's dive down a layer (ba dum bump...). As described in the <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/"><u>backpropagation post</u></a>, our input layer to the neural network is determined by our input dataset. Each row of input data is used to generate the hidden layer (via forward propagation). Each hidden layer is then used to populate the output layer (assuming only 1 hidden layer). As we just saw, memory means that the hidden layer is a combination of the input data and the previous hidden layer. How is this done? Well, much like every other propagation in neural networks, it's done with a matrix. This matrix defines the relationship between the previous hidden layer and the current one.</p>
 
 <img class="img-responsive" width="100%" src="/img/basic_recurrence_singleton.png" alt="" />
 
@@ -419,7 +419,7 @@ Why the hidden layer? Well, we could technically do this.
 
 <p><b>Lines 0-2:</b> Importing our dependencies and seeding the random number generator. We will only use numpy and copy. Numpy is for matrix algebra. Copy is to copy things.</p>
 
-<p><b>Lines 4-11:</b> Our nonlinearity and derivative. For details, please read this <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/"> Neural Network Tutorial</a></p>
+<p><b>Lines 4-11:</b> Our nonlinearity and derivative. For details, please read this <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/"> Neural Network Tutorial</a></p>
 
 <p><b>Line 15:</b> We're going to create a lookup table that maps from an integer to its binary representation. The binary representations will be our input and output data for each math problem we try to get the network to solve. This lookup table will be very helpful in converting from integers to bit strings.</p>
 
@@ -497,7 +497,7 @@ Why the hidden layer? Well, we could technically do this.
 <p><b>Line 94:</b> Selecting the previous hidden layer from the list</p>
 <p><b>Line 97:</b> Selecting the current output error from the list</p>
 <p><b>Line 99:</b> this computes the current hidden layer error given the error at the hidden layer from the future and the error at the current output layer.</p>
-<p><b>Line 102-104:</b> Now that we have the derivatives backpropagated at this current time step, we can construct our weight updates (but not actually update the weights just yet). We don't actually update our weight matrices until after we've fully backpropagated everything. Why? Well, we use the weight matrices for the backpropagation. Thus, we don't want to go changing them yet until the actual backprop is done. See the <a href="http://iamtrask.github.io/2015/07/12/basic-python-network/">backprop blog post</a> for more details.</p>
+<p><b>Line 102-104:</b> Now that we have the derivatives backpropagated at this current time step, we can construct our weight updates (but not actually update the weights just yet). We don't actually update our weight matrices until after we've fully backpropagated everything. Why? Well, we use the weight matrices for the backpropagation. Thus, we don't want to go changing them yet until the actual backprop is done. See the <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/">backprop blog post</a> for more details.</p>
 
 <p><b>Line 109 - 115</b> Now that we've backpropped everything and created our weight updates. It's time to update our weights (and empty the update variables).</p>
 
