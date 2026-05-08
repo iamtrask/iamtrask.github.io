@@ -155,7 +155,7 @@ Output After Training:
   </tr>
   <tr>
     <td class="tg-4kyx">l1</td>
-    <td class="tg-4kyz">Second Layer of the Network, otherwise known as the hidden layer</td>
+    <td class="tg-4kyz">Second Layer of the Network, which is our hypothesis, and should approximate the correct answer as we train</td>
   </tr>
   <tr>
     <td class="tg-4kyx">syn0</td>
@@ -276,7 +276,7 @@ We are now ready to update our network! Let's take a look at a single training e
 In this training example, we're all setup to update our weights. Let's update the far left weight (9.5).<br /><br />
 <b>weight_update = input_value * l1_delta</b>
 <br /><br />
-For the far left weight, this would multiply 1.0 * the l1_delta. Presumably, this would increment 9.5 ever so slightly. Why only a small ammount? Well, the prediction was already very confident, and the prediction was largely correct. A small error and a small slope means a VERY small update. Consider all the weights. It would ever so slightly increase all three.
+For the far left weight, this would multiply 1.0 * the l1_delta. Presumably, this would increment 9.5 ever so slightly. Why only a small amount? Well, the prediction was already very confident, and the prediction was largely correct. A small error and a small slope means a VERY small update. Consider all the weights. It would ever so slightly increase all three.
 </p>
 <img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/toy_network_batch.png" alt="">
 <p>
@@ -326,7 +326,7 @@ So, now that we've looked at how the network updates, let's look back at our tra
 </table>
 </center>
 <p>
-Thus, in our four training examples below, the weight from the first input to the output would <b>consistently increment or remain unchanged</b>, whereas the other two weights would find themselves <b>both increasing and decreasing across training examples</b> (cancelling out progress). This phenomenon is what causes our network to learn based on correlations between the input and output.
+Thus, in our four training examples above, the weight from the first input to the output would <b>consistently increment or remain unchanged</b>, whereas the other two weights would find themselves <b>both increasing and decreasing across training examples</b> (cancelling out progress). This phenomenon is what causes our network to learn based on correlations between the input and output.
 </p>
 
 <h2 class="section-heading">Part 2: A Slightly Harder Problem</h2>
@@ -372,7 +372,7 @@ Thus, in our four training examples below, the weight from the first input to th
 </center>
 
 
-<p>Consider trying to predict the output column given the two input columns. A key takeway should be that neither columns have any correlation to the output. Each column has a 50% chance of predicting a 1 and a 50% chance of predicting a 0. </p>
+<p>Consider trying to predict the output column given the three input columns. A key takeway should be that neither columns have any correlation to the output. Each column has a 50% chance of predicting a 1 and a 50% chance of predicting a 0. </p>
 
 <p>
 So, what's the pattern? It appears to be completely unrelated to column three, which is always 1. However, columns 1 and 2 give more clarity. If either column 1 or 2 are a 1 (but not both!) then the output is a 1. This is our pattern. 
@@ -386,7 +386,7 @@ This is considered a "nonlinear" pattern because there isn't a direct one-to-one
 <div id="pic1" style="float:left;width:50%"><img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/rcnn.png" alt=""><br /></div>
 <div id="pic2" style="float:right;width:50%;"><img class="img-responsive" width="100%" src="{{ site.baseurl }}/img/margritti-this-is-not-a-pipe.jpg" alt=""><br /></div>
 
-<p>Believe it or not, image recognition is a similar problem. If one had 100 identically sized images of pipes and bicycles, no individual pixel position would directly correlate with the presence of a bicycle or pipe. The pixels might as well be random from a purely statistical point of view. However, certain <b>combinations of pixels</b> are not random, namely the combination that forms the image of a bicycle or a person.</p>
+<p>Believe it or not, image recognition is a similar problem. If one had 100 identically sized images of pipes and bicycles, no individual pixel position would directly correlate with the presence of a bicycle or pipe. The pixels might as well be random from a purely statistical point of view. However, certain <b>combinations of pixels</b> are not random, namely the combination that forms the image of a bicycle or a pipe.</p>
 
 <h3>Our Strategy</h3>
 

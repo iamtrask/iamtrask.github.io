@@ -183,22 +183,6 @@ def encrypt(x,S,m,n,w):
 def decrypt(c,S,w):
     return (S.dot(c) / w).astype('int')
 
-def get_c_star(c,m,l):
-    c_star = np.zeros(l * m,dtype='int')
-    for i in range(m):
-        b = np.array(list(np.binary_repr(np.abs(c[i]))),dtype='int')
-        if(c[i] < 0):
-            b *= -1
-        c_star[(i * l) + (l-len(b)): (i+1) * l] += b
-    return c_star
-
-def get_S_star(S,m,n,l):
-    S_star = list()
-    for i in range(l):
-        S_star.append(S*2**(l-i-1))
-    S_star = np.array(S_star).transpose(1,2,0).reshape(m,n*l)
-    return S_star
-
 
 x = np.array([0,1,2,5])
 
@@ -238,7 +222,7 @@ And when I run this code in an iPython notebook, I can perform the following ope
   <li>Given the two formulas above, if the secret key is the identity matrix, the message isn't encrypted.</li>
   <li>Given the two formulas above, if the secret key is a random matrix, the generated message is encrypted.</li>
   <li>We can make a matrix M that changes the secret key from one secret key to another.</li>
-  <li>When the matrix M converts from the identity to a random secret key, it is, by extension, encrypting the message in a one-way encryption.</li>
+  <li>When the matrix M converts from the identity to a random secret key, it is, by definition, encrypting the message in a one-way encryption.</li>
   <li>Because M performs the role of a "one way encryption", we call it the "public key" and can distribute it like we would a public key since it cannot decrypt the code.</li>
 </ol>
 
@@ -420,7 +404,7 @@ def elementwise_vector_mult(x,y,scaling_factor):
 
 </pre>
 
-Now, there's one bit that I haven't told you about yet. To save time, I'm pre-computing several keys, , vectors, and matrices and storing them. This includes things like "the vector of all 1s" and one-hot encoding vectors of various lengths. This is useful for the masking operations above as well as some simple things we want to be able to do. For example, the derivive of sigmoid is sigmoid(x) * (1 - sigmoid(x)). Thus, precomputing these variables is handy. Here's the pre-computation step.
+Now, there's one bit that I haven't told you about yet. To save time, I'm pre-computing several keys, vectors, and matrices and storing them. This includes things like "the vector of all 1s" and one-hot encoding vectors of various lengths. This is useful for the masking operations above as well as some simple things we want to be able to do. For example, the derivive of sigmoid is sigmoid(x) * (1 - sigmoid(x)). Thus, precomputing these variables is handy. Here's the pre-computation step.
 
 <pre class="brush: python">
 
@@ -487,7 +471,7 @@ for row in H_sigmoid_txt:
 
 </pre>
 
-If you're looking closely, you'll notice that the H_sigmoid matrix is the matrix we need for the polynomial evaluation of sigmoid. :) Finally, we want to train our neural network with the following. If the neural netowrk parts don't make sense, review <a href="iamtrask.github.io/2015/07/12/basic-python-network/">A Neural Network in 11 Lines of Python</a>. I've basically taken the XOR network from there and swapped out its operations with the proper utility functions for our encrypted weights.
+If you're looking closely, you'll notice that the H_sigmoid matrix is the matrix we need for the polynomial evaluation of sigmoid. :) Finally, we want to train our neural network with the following. If the neural netowrk parts don't make sense, review <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/">A Neural Network in 11 Lines of Python</a>. I've basically taken the XOR network from there and swapped out its operations with the proper utility functions for our encrypted weights.
 
 <pre class="brush: python">
 
@@ -652,7 +636,7 @@ When I train this neural network, this is the output that I see. Tuning was a bi
 
 <h2 class="section-heading">Part 9: Sentiment Classification</h2>
 
-<p>To make this a bit more real, here's the same network training on IMDB sentiment reviews based on a <a href="https://github.com/udacity/deep-learning/tree/master/sentiment_network">network from Udacity's Deep Learning Nanodegree</a>. You can find the full code <a href="https://github.com/iamtrask/iamtrask.github.io/blob/master/notebooks/VHE%2B-%2BSentiment%2BClassification.ipynb">here</a>
+<p>To make this a bit more real, here's the same network training on IMDB sentiment reviews based on a <a href="https://github.com/udacity/deep-learning/tree/master/sentiment-network">network from Udacity's Deep Learning Nanodegree</a>. You can find the full code <a href="https://github.com/iamtrask/iamtrask.github.io/blob/master/notebooks/VHE%2B-%2BSentiment%2BClassification.ipynb">here</a>
 
 <pre class="brush: python">
 
